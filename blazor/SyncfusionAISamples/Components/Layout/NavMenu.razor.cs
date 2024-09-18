@@ -53,6 +53,11 @@ namespace SyncfusionAISamples.Components.Layout
         },
         new MenuItem
         {
+            Text = "File Manager",
+            Href = "filemanager/smart-filemanager"
+        },
+        new MenuItem
+        {
             Text = "Diagram",
             SubMenu = new List<MenuItem>
             {
@@ -87,15 +92,6 @@ namespace SyncfusionAISamples.Components.Layout
             {
                 new MenuItem { Text = "Smart Recommendation", Href = "kanban/smart-recommendation" },
                 new MenuItem { Text = "Sentiment Analysis", Href = "kanban/sentiment-analysis" }
-            }
-        },
-        new MenuItem
-        {
-            Text = "File Manager",
-            SubMenu = new List<MenuItem>
-            {
-                new MenuItem { Text = "Smart File Manager", Href = "filemanager/smart-filemanager" },
-                new MenuItem { Text = "Tag Search", Href = "filemanager/tagsearch" }
             }
         },
         new MenuItem

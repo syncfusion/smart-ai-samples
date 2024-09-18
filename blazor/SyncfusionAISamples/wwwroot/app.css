@@ -1,6 +1,10 @@
 @import "styles/diagram/textToFlowchart.css";
 @import "styles/diagram/textToMindmap.css";
 
+body{
+    font-family: 'Inter' !important;
+}
+
 /* Gantt control styles */
 
 #gantt-control-section {
