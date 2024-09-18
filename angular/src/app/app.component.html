@@ -1,18 +1,33 @@
-<ejs-sidebar id="sidebar" #sidebar class="default-sidebar" width="250px"
-        position="Left">
-        <div class="title-header">
-          <button id="toggle" class="e-control e-btn e-flat" >
-              <svg class="hamburger" viewBox="0 0 40 30">
-                  <rect y="0"></rect>
-                  <rect y="13"></rect>
-                  <rect y="26"></rect>
-              </svg>
-          </button>
-          <span style=" padding: 0px 2px" class="e-list-text
-          ">Syncfusion AI Samples  </span>          
-      </div>
-        <ejs-treeview id="defaultTree" [fields]="fields" (nodeSelected)="onNodeSelected($event)"></ejs-treeview>
+<div class="sample-layout">
+    <div class="title-header">
+        <ejs-toolbar height="38px">
+            <e-items>
+                <e-item [template]="menuTemplate" tooltipText="Menu"></e-item>
+                <e-item [template]="nameTemplate" overflow="Show"></e-item>
+            </e-items>
+        </ejs-toolbar>
 
-    </ejs-sidebar>
+        <ng-template #menuTemplate>
+            <button class="e-control e-btn e-icon-btn" id="toggle" (click)="handleButtonClick()">
+                <svg class="hamburger" viewBox="0 0 40 30">
+                    <rect y="0"></rect>
+                    <rect y="13"></rect>
+                    <rect y="26"></rect>
+                </svg>
+            </button>
+        </ng-template>
 
-<div class="router-content" style=""><router-outlet /></div>
+        <ng-template #nameTemplate>
+            <div class="e-tool-name">Syncfusion AI Samples</div>
+        </ng-template>
+    </div>
+    <div id="container">
+        <ejs-sidebar id="sidebar" #sidebarhome class="default-sidebar" width="250px" position="Left">
+
+            <ejs-treeview id="defaultTree" [fields]="fields" (nodeSelected)="onNodeSelected($event)"></ejs-treeview>
+
+        </ejs-sidebar>
+
+        <div class="router-content" style=""><router-outlet /></div>
+    </div>
+</div>

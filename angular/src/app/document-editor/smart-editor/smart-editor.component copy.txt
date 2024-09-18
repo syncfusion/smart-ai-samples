@@ -272,7 +272,6 @@ export class SmartEditorComponent implements OnInit {
     this.grammerList = args.value as string[];
   }
   async onRewriteClick() {
-    debugger;
     showSpinner(document.getElementById('dialog') as HTMLElement);
     let text: string = this.questionDiv.nativeElement.innerText;
     const options: AzureAIRequestOptions = {

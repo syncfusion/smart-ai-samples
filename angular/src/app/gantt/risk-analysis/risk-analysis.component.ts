@@ -73,7 +73,6 @@ export class RiskAnalysisComponent {
   }
 
   public getSummary(value: any): any {
-    debugger;
          if (this.summary !== '') {
            let isupdated = false;
            for (let i = 0; i < this.summary.length; i++) {

@@ -281,7 +281,6 @@ export class SmartEditorComponent  {
   }
 // Rewrite the content
   async onRewriteClick() {
-    debugger;
     showSpinner(document.getElementById('dialog') as HTMLElement);
     let text: string = this.questionDiv.nativeElement.innerText;
     const options: AzureAIRequestOptions = {

@@ -6,9 +6,12 @@
 
 body {
     font-family: Arial, sans-serif;
+    margin-top: 0px!important;
 }
 
-
+.router-content{
+    margin-top: 10px;
+}
 #contentFrame {
     width: 100%;
     height: 100%;
@@ -16,11 +19,16 @@ body {
 }
 #container {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
+
 }
 #sidebar {
     width: 250px;
     border-right: 1px solid #ccc;
+
+        top: 39px;
+
 }
 #content {
     flex: 1;
