@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Essential JS 2</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Essential JS 2" />
+    <meta name="author" content="Syncfusion" />
+    <link href="../../bundle.css" rel="stylesheet">
+    
+    <link href="./style.css" rel="stylesheet">
+   
+</head>
+
+
+<body>
+    <div id="wrapper" style="height: 100vh;">
+    <h2 style="text-align: center;">Smart Scheduling</h2>
+    <div class="description-container e-card">
+        <div class='e-card-content '>
+            <!--!-->
+            <p>The <b>Smart Scheduler</b> integrates with the Syncfusion Smart Paste Button Component, enabling users to transform selected content directly into scheduler events. In the Smart Scheduler, the Smart Paste Component intelligently analyzes the data and automatically creates corresponding events in the scheduler, streamlining the scheduling process and saving time.</p>
+            <p>Click the <b>Smart Appointment</b> button to create events based on the specified <b>Meeting Contents</b>. Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/scheduler/Readme.md">here</a>.</p>
+        </div>
+    </div>
+    <div id='container' class="scheduler-ai-container">
+        <div id="tab"></div>
+    </div>
+    <div id="scheduler" style="display: none"></div>
+    <div id="meeting_contents" style="display: none">
+        <div class="control-section">
+            <div class="row card-item"> 
+                <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px; margin-top: 15px;"> 
+                    <div tabindex="0" class="e-card" id="basic">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">Discussion on Ticket 429519</div>
+                            </div>
+                            <div id="first-card-button"></div>
+                        </div>
+                        <div class="e-card-content">
+                            <div>
+                                <span>Hi John,</span><br /><br />
+                               <span>We have scheduled the meeting for tomorrow (24th Jan) at 12 PM IST at Mathura Towers
+                                   and this meeting is scheduled to discuss the issue related to the ticket 429519 only. </span> 
+                                 <span>For any other issues, please create a new ticket or update the respective tickets and 
+                                     our technical team will follow up with the details in those tickets.</span> <br /><br />
+                                   <p>
+                                       "Note: Screen sharing is to see the issue at your end and debug directly, 
+                                       if needed. We request you to contact your IT team and get prior approval/disable firewall settings to share the controls. 
+                                       This will help to minimize the resolution time."
+                                   </p><br />
+                                   <span>Regards,</span> <br />
+                                   <span>Sabitha</span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-item"> 
+                <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px; margin-top: 15px;"> 
+                    <div tabindex="0" class="e-card" id="basic">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">Exciting Updates and Demo Invitation from Syncfusion</div>
+                            </div>
+                            <div id="second-card-button"></div>
+                        </div>
+                        <div class="e-card-content">
+                            <div>
+                                <br />
+                                <span>
+                                    <strong>You:</strong> Hi Alex, I hope you're doing well! I’m reaching out from Syncfusion Software Pvt Ltd.
+                                    We've recently made some exciting updates to our UI components and I'd love to share them with you.</span><br /><br />
+                                <span><strong>Recipient:</strong> Hi Andrew, I'm doing well, thanks! What kind of updates have you made?</span><br /> <br />
+                                <span>
+                                    <strong>You:</strong> We've enhanced key components such as the Scheduler, Carousel, Tab, Toolbar, Accordion, and Appbar. 
+                                    Additionally, we've improved accessibility to meet WCAG 2.2 standards and enhanced security with XSS prevention. 
+                                    These updates aim to provide a more robust and secure experience for our users.
+                                </span><br /><br />
+                                    <span>
+                                    <strong>Recipient:</strong> That sounds fantastic! I’d be interested in seeing these updates in action.
+                                    </span><br /><br />
+                                    <span>
+                                    <strong>You:</strong> Wonderful! I’d love to schedule a demo to showcase these new features. Are you available for a session on Wednesday,
+                                                    August 7th at 11 AM, or Friday, August 9th at 2 PM? The demo will be held at our Morrisville office.
+                                    </span><br /><br />
+                                    <span>
+                                    <strong>Recipient:</strong> Friday, August 9th at 2 PM works for me.
+                                    </span><br /><br />
+                                    <span>
+                                    <strong>You:</strong> Perfect! I’ll send a calendar invite for Friday, August 9th at 2 PM at our Morrisville office.
+                                    </span><br /><br />
+                                    <span>
+                                    <strong>Recipient:</strong> Great, see you then!
+                                    </span><br /><br />
+                                    <span>
+                                    <strong>You:</strong> See you on Friday! Have a great day.
+                                    </span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row card-item"> 
+                <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px; margin-top: 15px;"> 
+                    <div tabindex="0" class="e-card" id="basic">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">Meeting to discuss on Ticket 603027</div>
+                            </div>
+                            <div id="third-card-button"></div>
+                        </div>
+                        <div class="e-card-content">
+                            <div>
+                                <span>Hi Liji,</span><br /><br />
+                                <span>We have scheduled the meeting for today at 3 PM IST in Chennai 
+                                    and this meeting is scheduled to discuss the issue related to the ticket 603027 only. </span>
+                                <span>For any other issues, please create a new ticket or 
+                                    update the respective tickets and our technical team will follow up with the details in those tickets.</span> <br /><br />
+                                <br />
+                                    <span>Regards,</span> <br />
+                                    <span>Ram</span>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <div id="editor_dialog"></div>
+    <div id="dlgHeader" style="visibility: hidden;" class="dialogHeader"> 
+    <div>Event Scheduler</div>
+    </div>
+    <div id="dlgContent" style="visibility: hidden;" class="dialogContent">
+        <form id="formId" class="form-horizontal schedule-form" novalidate="">
+            <div class="form-group">
+                <div class="e-float-input">
+                    <input class="e-input" type="text" id="subject" name="Subject" data-smartpaste-description="Subject must be the core content of the input"/>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="subject">Subject</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="e-float-input">
+                    <input class="e-input" type="text" id="location" name="Location" data-smartpaste-description="Check if there is any location given in the input, if there is any location then add it, if not ignore it"/>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="location">Location</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="e-float-input">
+                    <input id="startTime" name="StartTime" data-smartpaste-description= 'Get Start Time from the input, Date must follow the format: MM/dd/yyyy HH:mm'/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="e-float-input">
+                    <input id="endTime" name="EndTime" data-smartpaste-description="If there is End Time in the input get the End Time, If the End Time is not present in the input, add 1hr to the StartTime and Provide the date,  Date must follow the format: MM/dd/yyyy HH:mm"/>
+                </div>
+            </div>
+
+            <div class="form-group description">
+                <div class="e-float-input">
+                    <textarea rows="4" id="description" name="Description" data-smartpaste-description="Description must be the summary of the entire input"></textarea>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="description">Description</label>
+                </div>
+            </div>
+            <div class="row button-group">
+                    <div>
+                        <button type="button" id="smart-paste" class="smart-schedule-button form-button" style="visibility: hidden;">Smart Paste</button>
+                    </div>
+
+                    <div style="display: inline-block;">
+                        <button id="saveButton" class="samplebtn e-control e-btn e-primary" disabled="true" type="submit" style="margin-right: 10px; " data-ripple="true">Save</button>
+                    </div>
+                    <div style="float: right;">
+                        <button id="cancelButton" class="samplebtn e-control e-btn" type="reset"  data-ripple="true">cancel</button>
+                    </div>
+            </div>
+
+        </form>
+    </div>
+    <div id="ToastElement"></div>
+</div>
+    <script src="./schedule.js"></script>
+</body>
+
+</html>

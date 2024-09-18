@@ -1,0 +1,139 @@
+﻿@page "/filemanager/smart-filemanager"
+
+@using FileManagerAI.Services
+@using Syncfusion.Blazor.FileManager
+@using Syncfusion.Blazor.Popups
+@using System;
+@using System.IO;
+@using System.Text;
+@using System.Threading.Tasks;
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Notifications
+@using Syncfusion.Pdf;
+@using Syncfusion.Pdf.Graphics;
+@using Syncfusion.Pdf.Grid;
+@using Syncfusion.Drawing;
+@using Syncfusion.Pdf.Parsing;
+@using System.Text.RegularExpressions;
+@using Syncfusion.DocIO;
+@using Syncfusion.DocIO.DLS;
+@using Syncfusion.Blazor.Spinner;
+@using Syncfusion.Blazor.Buttons;
+@inject FileManagerService FileManagerService
+@inject AzureAIService openAIService
+@inject NavigationManager NavigationManager
+
+<title>Syncfusion - AI Opeartions with FileManager</title>
+
+<h4 style="text-align:center;">AI Operations with FileManager</h4>
+
+<div>
+    <Description>
+        <p>
+            The Blazor File Manager is integrated with AI, offering Smart Search, Content Summary, and Intelligent Organization. Smart Search enables quick retrieval of files through advanced sematic search capabilities, while Content Summary provides brief overviews of file content. Intelligent Organization automatically categorizes files for easier management and navigation.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/FileManager/Readme.md">here</a>.
+        </p>
+    </Description>
+    <div class="file-manager">
+        <SfFileManager ShowTooltip="false" TValue="FileManagerDirectoryContent" ID="@FileManagerId" @ref="FileManager" Height="500px" @bind-SelectedItems="SelectedItems">
+            <FileManagerSearchSettings AllowSearchOnTyping=false></FileManagerSearchSettings>
+            <FileManagerToolbarSettings ToolbarItems="@Items"></FileManagerToolbarSettings>
+            <FileManagerContextMenuSettings File="@FileItems" Folder="@FolderItems"></FileManagerContextMenuSettings>
+            <FileManagerEvents TValue="FileManagerDirectoryContent" OnRead="OnReadAsync" ItemsDeleting="ItemsDeletingAsync" FolderCreating="FolderCreatingAsync" Searching="SearchingAsync" ItemRenaming="ItemRenamingAsync" ItemsMoving="ItemsMovingAsync" ItemsUploaded="ItemsUploadedAsync" BeforeDownload="BeforeDownload" BeforeImageLoad="BeforeImageLoadAsync" OnFileOpen="OnFileOpen" MenuOpened="MenuOpened" OnMenuClick="OnMenuClick" FileSelected="FileSelected" ToolbarItemClicked="ToolbarItemClicked"></FileManagerEvents>
+            <div id="FileManagerSpinner">
+                <SfSpinner @bind-Visible="@VisibleProperty" ZIndex="1006">
+                </SfSpinner>
+            </div>
+        </SfFileManager>
+    </div>
+</div>
+<div>
+    <SfDialog ID="Summary" Width="600" Height="90%" ZIndex="1000" EnableResize="true" AllowDragging="true" IsModal=true ShowCloseIcon="true" @bind-Visible="@IsDialogVisible" Target=@("#"+FileManagerId)>
+        <DialogTemplates>
+            <Header>@DialogTitle</Header>
+            <Content>
+                <div class="Summary-Dialog">
+                    @if (!isContentGenerating)
+                    {
+                        @((MarkupString)DialogContent)
+                    }
+                    else
+                    {
+                        <SfSkeleton CssClass="skeletonRectangle" Shape=SkeletonType.Rectangle Width="100%" Height="20px"></SfSkeleton>
+                        <SfSkeleton CssClass="skeletonRectangle" Shape=SkeletonType.Rectangle Width="80%" Height="20px"></SfSkeleton>
+                        <SfSkeleton CssClass="skeletonRectangle" Shape=SkeletonType.Rectangle Width="70%" Height="20px"></SfSkeleton>
+                        <SfSkeleton CssClass="skeletonRectangle" Shape=SkeletonType.Rectangle Width="50%" Height="20px"></SfSkeleton>
+                    }
+                </div>
+            </Content>
+        </DialogTemplates>
+        <DialogEvents OnOverlayModalClick="DialogOverlay" OnClose="OnClose" />
+    </SfDialog>
+</div>
+
+<style>
+
+    .container {
+        display: flex;
+        width: 100%;
+    }
+
+
+    #FileManagerSpinner .e-spinner-inner {
+        margin-top: 160px;
+        margin-left: 216px;
+    }
+
+    .split-container {
+        display: flex;
+        padding-top: 10px
+    }
+
+    .split-left, .split-right {
+        flex: 1;
+        padding: 10px;
+    }
+
+    .flex-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .rich-label {
+        font-size: 1.2em;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .feature-description {
+        border: 1px solid #d1d9e0;
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+        margin: 20px 0;
+    }
+
+        .feature-description h4 {
+            color: #2a3f54;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .feature-description ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .feature-description li {
+            color: #596775;
+            font-size: 1em;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+            .feature-description li:last-of-type {
+                margin-bottom: 0;
+            }
+</style>

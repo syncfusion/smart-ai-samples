@@ -1,0 +1,180 @@
+﻿@page "/document-editor/smart-summarizer"
+
+@using Syncfusion.Blazor.DocumentEditor;
+@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Popups;
+@using Syncfusion.Blazor.Inputs;
+@using Syncfusion.Blazor.Spinner
+@using System.ClientModel
+@using System.Text.Json
+@using System.IO
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.InteractiveChat
+@using Syncfusion.Blazor.SmartComponents
+
+@inject OpenAIConfiguration openAIBackend
+@inject LocalEmbedder embedder
+
+<title>Syncfusion - Smart Summarizer in WordEditor</title>
+
+<h4 style="text-align:center;">Smart Summarizer</h4>
+<div>
+    <Description>
+        <p>
+            This sample demonstrates the Syncfusion Blazor Document Editor's capabilities for document summarization and Q&A. Users can obtain a summary of a Word document by clicking the <mark>AI Assistant</mark> switch in the top-right corner. After generating the summary, users can ask questions about the document using their own queries or AI-generated suggestions.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/DocumentEditor/Readme.md">here</a>.
+        </p>
+    </Description>
+
+    <div id="target">
+    <div id='documenteditor_titlebar' class="e-de-ctn-title">
+        <div class="single-line" id="documenteditor_title_contentEditor" style="border: 1px solid transparent;" title="Document Name." contenteditable="false">
+            <label id="documenteditor_title_name" class="doc-edit-title"> @DocumentName</label>
+        </div>
+        <div style="float: right">
+            <SfButton IconCss="e-de-icon-Print" CssClass="title-bar-btn" @onclick="Print">Print</SfButton>
+        </div>
+        <div style="float: right">
+            <SfButton IconCss="e-de-icon-Download" CssClass="title-bar-btn" @onclick="OnExport">Download</SfButton>
+        </div>
+        <div style="float: right; margin-top: 5px;">
+            <SfSwitch CssClass="e-de-switch" @bind-Checked="isAIAssistantChecked" ValueChange="Change" OnLabel="On" OffLabel="Off" TChecked="bool"></SfSwitch>
+        </div>
+        <div style="float: right; margin-top: 17px;">
+            <p>AI Assistant</p>
+        </div>
+    </div>
+    <div id="documentEditorDiv" style="width:@CurrentWidth;float:left;height:600px">
+        <SfDocumentEditorContainer Height="100%" Width="100%" @ref="container" EnableToolbar=true ShowPropertiesPane="@ShowProperties" DocumentEditorSettings="settings">
+            <DocumentEditorContainerEvents Created="OnCreated" DocumentChanged="OnDocumentChange"></DocumentEditorContainerEvents>
+            <SfSpinner @bind-Visible="@VisibleProperty"></SfSpinner>
+        </SfDocumentEditorContainer>
+    </div>
+
+    <div class="parent-container" style="width:30%;float:right;height:@divHeight;position:relative;display:@AIAssistVisible">
+        <SfAIAssistView @ref="AIAssist" PromptSuggestions="@_promptSuggestions" PromptPlaceholder="Ask a question about this document." CssClass="customClass" Created="AssistOnCreated" ResponseIconCss="e-aiassist-user" PromptIconCss="e-aiassist-user" PromptRequested="@PromptRequest" ShowHeader="true">
+            <ChildContent>
+                <AssistViews>
+                    <AssistView Header="AI Assistant" IconCss="e-icons e-aiassist-chat">
+                        <BannerTemplate>
+                            <div class="ai-assist-banner">
+                                <div class="e-icons e-aiassist-chat"></div>
+                                <h2>Summarization & QnA</h2>
+                            </div>
+                        </BannerTemplate>
+                        <ChildContent>
+                            <PromptToolbar ItemClicked="promptToolbarClick"></PromptToolbar>
+                            <ResponseToolbar ItemClicked="promptToolbarClick">
+                                <ResponseToolbarItem IconCss="e-icons e-copy" Tooltip="copy"></ResponseToolbarItem>
+                                <ResponseToolbarItem IconCss="e-btn-icon e-de-ctnr-new" Tooltip="insert"></ResponseToolbarItem>
+                            </ResponseToolbar>
+                        </ChildContent>
+
+                    </AssistView>
+                </AssistViews>
+                <AssistViewToolbar ItemClicked="promptToolbarClick">
+                    <AssistViewToolbarItem Type="ItemType.Spacer" CssClass="check"></AssistViewToolbarItem>
+                    <AssistViewToolbarItem Type="ItemType.Button" IconCss="e-icons e-close" Tooltip="Close"></AssistViewToolbarItem>
+                </AssistViewToolbar>
+            </ChildContent>
+        </SfAIAssistView>
+    </div>
+</div>
+</div>
+<style>
+
+    .e-switch-wrapper .e-switch-on {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .e-switch-wrapper .e-switch-handle.e-switch-active {
+        background-color: #ced4da;
+    }
+
+    #ai-assist-banner h1 {
+        font-size: 20px
+    }
+
+    #ai-assist-banner h2 {
+        font-size: 19px;
+    }
+
+    #ai-assist-banner h3 {
+        font-size: 18px;
+    }
+
+    #ai-assist-banner h4 {
+        font-size: 17px;
+    }
+
+    #ai-assist-banner h5 {
+        font-size: 16px;
+    }
+
+    #ai-assist-banner h6 {
+        font-size: 15px;
+    }
+
+    .e-de-switch {
+        float: right;
+        margin-left: 6px;
+        margin-top: 3px;
+    }
+
+    .title-bar-btn, .title-bar-btn:hover, .title-bar-btn:focus {
+        background: transparent;
+        box-shadow: none;
+        font-family: inherit;
+        border-color: transparent;
+        border-radius: 2px;
+        color: inherit;
+        font-size: 12px;
+        text-transform: capitalize;
+        height: 28px;
+        font-weight: 400;
+        margin-top: 2px;
+    }
+
+    [class^="e-de-icon-"],
+    [class*=" e-de-icon-"] {
+        font-family: 'Sample brower icons' !important;
+    }
+
+    .e-de-icon-Print:before {
+        content: "\e723";
+        font-family: 'Sample brower icons' !important;
+    }
+
+    .e-de-icon-Download:before {
+        content: "\e728";
+        font-family: 'Sample brower icons' !important;
+    }
+
+    .print-ctnr {
+        cursor: pointer;
+        margin-top: 6px;
+    }
+    
+</style>
+
+<script>
+
+    window.getDivHeight = (elementId) => {
+        var element = document.getElementById(elementId);
+        if (element) {
+            return (element.clientHeight).toString() + 'px';
+        }
+        return '150%';
+    }
+
+    window.copyToClipboard = function (content) {
+        const type = "text/html";
+        const blob = new Blob([content], { type });
+        const data = [new ClipboardItem({ [type]: blob })];
+        navigator.clipboard.write(data);
+    }
+
+</script>

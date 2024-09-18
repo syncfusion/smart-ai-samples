@@ -1,0 +1,278 @@
+﻿@page "/scheduler/smart-scheduling"
+
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Cards
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.DataForm
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.SmartComponents
+@using System.ComponentModel.DataAnnotations
+@using Syncfusion.Blazor.Schedule
+@using Syncfusion.Blazor.Notifications
+@using Syncfusion.Blazor.Spinner
+
+<title>Syncfusion - Smart Scheduler Samples</title>
+
+<h4 style="text-align:center;">Smart Scheduler</h4>
+
+@inject IJSRuntime JSRuntime
+
+<div class="scheduler-ai-container">
+    <Description>
+        <p>The <b>Smart Scheduler</b> integrates with the Syncfusion Smart Paste Button Component, enabling users to transform selected content directly into scheduler events. In the Smart Scheduler, the Smart Paste Component intelligently analyzes the data and automatically creates corresponding events in the scheduler, streamlining the scheduling process and saving time.</p>
+        <p>Click the <b>Smart Appointment</b> button to create events based on the specified <b>Meeting Contents</b>. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/Scheduler/Readme.md">here</a>.</p>
+    </Description>
+    <SfTab @ref="TabObj">
+        <TabEvents Selected="OnTabChange"></TabEvents>
+        <TabAnimationSettings>
+            <TabAnimationPrevious Effect="Syncfusion.Blazor.AnimationEffect.None"></TabAnimationPrevious>
+            <TabAnimationNext Effect="Syncfusion.Blazor.AnimationEffect.None"></TabAnimationNext>
+        </TabAnimationSettings>
+        <TabItems>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="Meeting Contents"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <div class="control-section">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12" style="margin-bottom: 15px; margin-top:15px">
+                                <SfCard>
+                                    <CardHeader>
+                                        <ChildContent>
+                                            <div>Discussion on Ticket 429519 </div>
+                                            <div class="schedule-button" title="Smart Schedule">
+                                                <SfButton IconCss=@copyBtnIcon Content="@copyBtnContent" OnClick="() => CopyToClipboard(cardContent1)"></SfButton>
+                                            </div>
+                                        </ChildContent>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <ChildContent>
+                                            <div>
+                                                <span>Hi John,</span><br /><br />
+                                                <span>
+                                                    We have scheduled the meeting for tomorrow (24th Jan) at 12 PM IST at Mathura Towers
+                                                    and this meeting is scheduled to discuss the issue related to the ticket 429519 only.
+                                                </span>
+                                                <span>
+                                                    For any other issues, please create a new ticket or update the respective tickets and
+                                                    our technical team will follow up with the details in those tickets.
+                                                </span> <br /><br />
+                                                <p>
+                                                    "Note: Screen sharing is to see the issue at your end and debug directly,
+                                                    if needed. We request you to contact your IT team and get prior approval/disable firewall settings to share the controls.
+                                                    This will help to minimize the resolution time."
+                                                </p><br />
+                                                <span>Regards,</span> <br />
+                                                <span>Sabitha</span>
+                                            </div>
+                                        </ChildContent>
+                                    </CardContent>
+                                </SfCard>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12" style="margin-bottom: 15px; margin-top:15px">
+                                <SfCard>
+                                    <CardHeader>
+                                        <ChildContent>
+                                            <div>Exciting Updates and Demo Invitation from Syncfusion</div>
+                                            <div class="schedule-button" title="Smart Schedule">
+                                                <SfButton IconCss=@copyBtnIcon Content="@copyBtnContent" OnClick="() => CopyToClipboard(cardContent3)"></SfButton>
+                                            </div>
+                                        </ChildContent>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <ChildContent>
+                                            <div>
+                                                <br />
+                                                <span>
+                                                    <strong>You:</strong> Hi Alex, I hope you're doing well! I’m reaching out from Syncfusion Software Pvt Ltd.
+                                                    We've recently made some exciting updates to our UI components and I'd love to share them with you.
+                                                </span><br /><br />
+                                                <span><strong>Recipient:</strong> Hi Andrew, I'm doing well, thanks! What kind of updates have you made?</span><br /> <br />
+                                                <span>
+                                                    <strong>You:</strong> We've enhanced key components such as the Scheduler, Carousel, Tab, Toolbar, Accordion, and Appbar.
+                                                    Additionally, we've improved accessibility to meet WCAG 2.2 standards and enhanced security with XSS prevention.
+                                                    These updates aim to provide a more robust and secure experience for our users.
+                                                </span><br /><br />
+                                                <span>
+                                                    <strong>Recipient:</strong> That sounds fantastic! I’d be interested in seeing these updates in action.
+                                                </span><br /><br />
+                                                <span>
+                                                    <strong>You:</strong> Wonderful! I’d love to schedule a demo to showcase these new features. Are you available for a session on Wednesday,
+                                                    August 7th at 11 AM, or Friday, August 9th at 2 PM? The demo will be held at our Morrisville office.
+                                                </span><br /><br />
+                                                <span>
+                                                    <strong>Recipient:</strong> Friday, August 9th at 2 PM works for me.
+                                                </span><br /><br />
+                                                <span>
+                                                    <strong>You:</strong> Perfect! I’ll send a calendar invite for Friday, August 9th at 2 PM at our Morrisville office.
+                                                </span><br /><br />
+                                                <span>
+                                                    <strong>Recipient:</strong> Great, see you then!
+                                                </span><br /><br />
+                                                <span>
+                                                    <strong>You:</strong> See you on Friday! Have a great day.
+                                                </span>
+                                            </div>
+                                        </ChildContent>
+
+                                    </CardContent>
+                                </SfCard>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12" style="margin-bottom: 15px; margin-top:15px">
+                                <SfCard>
+                                    <CardHeader>
+                                        <ChildContent>
+                                            <div>Meeting to discuss on Ticket 603027</div>
+                                            <div class="schedule-button" title="Smart Schedule">
+                                                <SfButton IconCss=@copyBtnIcon Content="@copyBtnContent" OnClick="() => CopyToClipboard(cardContent2)"></SfButton>
+                                            </div>
+                                        </ChildContent>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <ChildContent>
+                                            <div>
+                                                <span>Hi Liji,</span><br /><br />
+                                                <span>
+                                                    We have scheduled the meeting for today at 3 PM IST in Chennai
+                                                    and this meeting is scheduled to discuss the issue related to the ticket 603027 only.
+                                                </span>
+                                                <span>
+                                                    For any other issues, please create a new ticket or
+                                                    update the respective tickets and our technical team will follow up with the details in those tickets.
+                                                </span> <br /><br />
+                                                <br />
+                                                <span>Regards,</span> <br />
+                                                <span>Ram</span>
+                                            </div>
+                                        </ChildContent>
+                                    </CardContent>
+                                </SfCard>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </TabItem>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="Scheduler"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <SfSchedule @ref="ScheduleObj" TValue=AppointmentData Height="750px">
+                        <ScheduleEvents TValue="AppointmentData" EventRendered="OnEventRendered"></ScheduleEvents>
+                        <ScheduleEventSettings DataSource="@DataSource"></ScheduleEventSettings>
+                        <ScheduleViews>
+                            <ScheduleView Option="View.Day"></ScheduleView>
+                            <ScheduleView Option="View.Week"></ScheduleView>
+                            <ScheduleView Option="View.WorkWeek"></ScheduleView>
+                            <ScheduleView Option="View.Month"></ScheduleView>
+                            <ScheduleView Option="View.Agenda"></ScheduleView>
+                        </ScheduleViews>
+                    </SfSchedule>
+                </ContentTemplate>
+            </TabItem>
+        </TabItems>
+    </SfTab>
+</div>
+<div class="event-schedule-dialog">
+    <SfDialog Target="#target" Width="300px" ShowCloseIcon="true" @bind-Visible="Visibility" AllowPrerender="true" IsModal="true">
+        <DialogTemplates>
+            <Header> Event Scheduler </Header>
+            <Content>
+                <SfDataForm ID="bugReport"
+                            Model="@BugRptModel"
+                            ColumnCount="2"
+                            ColumnSpacing="20px"
+                            ButtonsAlignment="FormButtonsAlignment.Right"
+                            @ref="DataFormInstance">
+                    <FormValidator>
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+                    </FormValidator>
+                    <FormItems>
+                        <FormItem Field="@nameof(BugRptModel.Subject)" ColumnSpan="1">
+                            <Template>
+                                <label class="e-form-label">Subject</label>
+                                <SfTextBox HtmlAttributes="subjectAttr" @bind-Value="BugRptModel.Subject"></SfTextBox>
+                            </Template>
+                        </FormItem>
+                        <FormItem Field="@nameof(BugRptModel.Location)" ColumnSpan="1">
+                            <Template>
+                                <label class="e-form-label">Location</label>
+                                <SfTextBox HtmlAttributes="locationAttr" @bind-Value="BugRptModel.Location"></SfTextBox>
+                            </Template>
+                        </FormItem>
+                        <FormItem Field="@nameof(BugRptModel.StartTime)" ColumnSpan="1">
+                            <Template>
+                                <label class="e-form-label">StartTime</label>
+                                <SfDateTimePicker Id="StartTime" Name="StartTime" Format="MM/dd/yyyy HH:mm" HtmlAttributes="startTimeAttr" @bind-Value="BugRptModel.StartTime"></SfDateTimePicker>
+                            </Template>
+                        </FormItem>
+                        <FormItem Field="@nameof(BugRptModel.EndTime)" ColumnSpan="1">
+                            <Template>
+                                <label class="e-form-label">EndTime</label>
+                                <SfDateTimePicker Id="EndTime" Name="EndTime" Format="MM/dd/yyyy HH:mm" HtmlAttributes="endTimeAttr" @bind-Value="BugRptModel.EndTime"></SfDateTimePicker>
+                            </Template>
+                        </FormItem>
+                        <FormItem Field="@nameof(BugRptModel.Description)" ColumnSpan="1">
+                            <Template>
+                                <label class="e-form-label">Description</label>
+                                <SfTextBox Multiline="true" HtmlAttributes="descriptionAttr" @bind-Value="BugRptModel.Description"></SfTextBox>
+                            </Template>
+                        </FormItem>
+                    </FormItems>
+
+                    <FormButtons>
+                        <SfSmartPasteButton @ref="smartButton" Content="Smart Paste" IconCss="e-icons e-paste" CssClass="smart-button">
+                        </SfSmartPasteButton>
+                        <SfButton Disabled="@AreFieldsPopulated" OnClick="SaveToScheduler" IsPrimary="true">Save</SfButton>
+                        <SfButton OnClick="CloseEditorDialog">Cancel</SfButton>
+                    </FormButtons>
+                    <SfSpinner @bind-Visible="@SpinnerVisibility" >
+                    </SfSpinner>
+                </SfDataForm>
+            </Content>
+        </DialogTemplates>
+        <DialogEvents Opened="@OpenedHandler" Closed="@ClosedHandler" OnOpen="@OnOpenHandler"></DialogEvents>
+    </SfDialog>
+</div>
+
+<SfToast ID="toast_default" @ref="ToastObj" Title="Meeting Details" Content="@ToastContent" Timeout="5000" Icon="e-meeting">
+    <ToastPosition X="@ToastPosition"></ToastPosition>
+</SfToast>
+
+<style>
+    .scheduler-ai-container .e-card .e-card-header {
+        justify-content: space-between !important;
+    }
+
+    #target {
+        height: 600px;
+    }
+
+    .e-data-form .e-grid-col-2.e-form-layout:nth-of-type(3) {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .e-dialog.e-popup {
+        width: 500px !important;
+    }
+
+    .smart-button {
+        visibility: hidden;
+    } 
+   .e-toast-container .e-toast {
+        background-color: #6aff67d6;
+        border: 1px solid #04ff00;
+    }
+
+    .e-data-form .e-button-right {
+        margin-bottom: 16px !important;
+    }
+
+</style>

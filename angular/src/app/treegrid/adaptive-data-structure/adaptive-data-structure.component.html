@@ -1,0 +1,51 @@
+<div class="control-pane">
+    <div class="control-section">
+      <div class="description-container e-card">
+        <div class="e-card-header-title" style="font-weight: 600">
+          AI-Driven Hierarchical Data Correction
+        </div>
+        <div class="e-card-content">
+          <p>
+            AI structures and corrects hierarchical data by establishing accurate
+            parent-child relationships, ensuring proper nesting for the Tree Grid
+            display.
+          </p>
+        </div>
+      </div>
+  
+      <div id="container">
+        <ejs-treegrid
+          #treegrid
+          [dataSource]="projectData"
+          idMapping="CategoryId"
+          parentIdMapping="ParentId"
+          treeColumnIndex="1"
+          [toolbar]="toolbarOptions"
+          (toolbarClick)="toolbarClick($event)"
+        >
+          <e-columns>
+            <e-column
+              field="CategoryId"
+              headerText="Category Id"
+              isPrimaryKey="true"
+              textAlign="Right"
+              width="60"
+            ></e-column>
+            <e-column
+              field="CategoryName"
+              headerText="Category Name"
+              width="100"
+            ></e-column>
+            <e-column field="Status" headerText="Status" width="70"></e-column>
+            <e-column
+              field="OrderDate"
+              headerText="Last Order Date"
+              format="yMd"
+              width="90"
+            ></e-column>
+          </e-columns>
+        </ejs-treegrid>
+      </div>
+    </div>
+  </div>
+  

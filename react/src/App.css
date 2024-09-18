@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.main-content {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: hidden
+}
+
+
+#home-sidebar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+#content {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sample-name,
+.demos {
+  font-size: 1.2em;
+}
+
+.description-container {
+  margin-bottom: 25px;
+}
+
+.header-text {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 4px #33384226;
+  font-size: 18px;
+  font-style: normal;
+  color: black;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.right-pane {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 270px);
+}
+
+mark {
+  background-color: #fcf8e3;
+}
+
+#home-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+#home-sidebar::-webkit-scrollbar-track {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+#home-sidebar::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 10px;
+}
+
+.description-container.e-card .e-card-content {
+  padding: 12px 18px 12px 18px;
+}
+
+.main-content .e-sidebar.e-close + .right-pane {
+  width: 100%;
+  transition: width .5s ease;
+}
+
+.e-list-item a {
+  text-decoration: none;
+  margin-left: 20px;
+  display: block;
+  width: 100%;
+  height: 100%;
+}

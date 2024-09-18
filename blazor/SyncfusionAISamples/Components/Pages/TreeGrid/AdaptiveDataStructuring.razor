@@ -1,0 +1,43 @@
+﻿@page "/tree-grid/adaptive-datastructuring"
+
+@namespace SyncfusionAISamples.Pages.TreeGrid
+
+@inject AzureAIService OpenAIService
+@using Syncfusion.Blazor.TreeGrid
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using System.Text.Json;
+
+<title>Syncfusion - Smart Adaptive Data Structuring using Treegrid</title>
+
+<h4 style="text-align:center;">Smart Adaptive Data Structuring</h4>
+
+<div style="padding-bottom: 10px;">
+    <span>@message</span>
+</div>
+<Description>
+    <p>
+        This samples showcases how AI can structure and correct hierarchical data in a <b>Tree Grid</b>. The AI-powered demo organizes data into accurate parent-child relationships, ensuring proper nesting for clear display in the Tree Grid component.
+        Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/TreeGrid/Readme.md">here</a>.
+    </p>
+</Description>
+<div style="width: 100%; position: relative">
+    <SfTreeGrid @ref="TreeGrid" DataSource="@TreeGridData" IdMapping="CategoryId" ParentIdMapping="ParentId" TreeColumnIndex="1">
+        <TreeGridEditSettings AllowEditing="true" />
+        <TreeGridColumns>
+            <TreeGridColumn Field="CategoryId" HeaderText="Category ID" IsPrimaryKey="true" Width="60" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></TreeGridColumn>
+            <TreeGridColumn Field="CategoryName" HeaderText="Category Name" Width="100"></TreeGridColumn>
+            <TreeGridColumn Field="Status" HeaderText="Status" Width="70"></TreeGridColumn>
+            <TreeGridColumn Field="OrderDate" HeaderText="Last Order Date" Format="d" Width="90"></TreeGridColumn>
+        </TreeGridColumns>
+        <SfToolbar ID="TreeGrid_AISample_Toolbar">
+            <ToolbarItems>
+                <ToolbarItem>
+                    <Template>
+                        <SfButton IsPrimary ID="openAI" @onclick="OpenAIHandler">Smart Data Restructure</SfButton>
+                    </Template>
+                </ToolbarItem>
+            </ToolbarItems>
+        </SfToolbar>
+    </SfTreeGrid>
+</div>

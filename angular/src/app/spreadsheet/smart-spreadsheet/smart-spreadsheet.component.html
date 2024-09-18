@@ -1,0 +1,16 @@
+<p>smart-spreadsheet works!</p>
+<h2 style="text-align: center;">Smart SpreadSheet</h2>
+<div class="description-container e-card">
+    <div class='e-card-content '>
+        <!--!-->
+        <p>The Spreadsheet, enhanced with AI, offers feature like automatically analyze & summarize content, generate forumula and validate forumulas.Know more here.. <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/spreadsheet/smart-spreadsheet/Readme.md">here</a>.</p>
+    </div>
+</div>
+<ejs-spreadsheet #spreadsheet [sheets]="sheet" [height]="height" (created)="created()"> </ejs-spreadsheet>
+
+    <ejs-sidebar #sidebar [width]="width" [target]="target" [position]="position"  [closeOnDocumentClick]="false"
+    [showBackdrop]="false" style="visibility: hidden">
+    <div id="defaultAIAssistView" style="border: none;">
+        <button ejs-button #closebutton id="close" cssClass="close-btn" style="float: right;font-size: 24px; border: none; background: none;" (click)="btnClick()">&times;</button>
+    </div>
+</ejs-sidebar>

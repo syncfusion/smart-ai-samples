@@ -1,0 +1,29 @@
+  
+    <h2 style="text-align:center;">Semantic Search</h2>
+    <div class="description-container e-card">
+        <div class='e-card-header-title' style="font-weight: 600;">Semantic Search in ComboBox using Local Embeddings</div>
+        <div class='e-card-content '>
+            <!--!-->
+            <p>
+                This demo showcases the ComboBox's Semantic Search feature, which improves search accuracy by understanding the meaning and context of queries. Instead of relying on exact matches, it delivers relevant results based on user intent, enhancing search efficiency and responsiveness in applications.  
+            </p>
+        </div>
+    </div>
+    <div class="control-container">
+        <!--!-->
+        <p style="font-weight: 600">Select an Expense</p>
+        <ejs-combobox
+        id='combo-box-local'
+        [dataSource]='countries'
+        [fields]='fields'
+        placeholder='Type transport or school or dress'
+        popupHeight='300px'
+        width='250px'
+        [allowFiltering]='true'
+        (created)="onCreated()"
+        (filtering)='onFiltering($event)'>
+      </ejs-combobox>
+       
+        
+    </div>
+         

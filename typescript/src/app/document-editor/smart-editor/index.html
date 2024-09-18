@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Writing Assist</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Writing Assist" />
+    <meta name="author" content="Syncfusion" />
+    <link href="../../bundle.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+   
+</head>
+
+
+<body>
+    <h2 style="text-align: center;">Smart Editor</h2>
+    <div class="description-container e-card">
+        <div class='e-card-header-title' style="font-weight: 600;">AI-Powered Document Editor</div>
+        <div class='e-card-content '>
+            <!--!-->
+            <p>This sample showcases the Smart Editor's capabilities in the Syncfusion JavaScript Document Editor. It enhances document editing by rewriting, checking grammar, and translating text. Users can refine content through selection context, improving writing quality with grammar corrections, paraphrasing for readability, and translating into different languages - all within the editor. Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/document-editor/Readme.md">here</a>.
+            </p>
+        </div>
+    </div>  
+    <div id='container' style="height: 100%;width: 100%;">
+        <div id="documenteditor_titlebar" class="e-de-ctn-title"></div>
+        <div id='DocumentEditor' style="height:99%;width: 100%;">
+            <div id='dialog'>
+                <div id="splitter">
+                    <div id="e-de-qus-parent">
+                        <div id="e-de-qus-div"></div>
+                        <div id="e-de-qus-toolbar"></div>
+                    </div>
+                    <div id="e-de-editable-div" contenteditable="true" style="height: 85px; padding: 5px;"></div>
+                </div>
+                <div id="e-d-toolbar"></div>
+            </div>
+        </div>
+    </div>
+    <script src="./smart-editor.js"></script>
+</body>
+
+</html>

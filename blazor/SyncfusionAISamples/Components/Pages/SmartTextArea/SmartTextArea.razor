@@ -1,0 +1,31 @@
+﻿@page "/smarttextarea"
+
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.SmartComponents
+
+<title>Syncfusion - Smart TextArea</title>
+
+<h4 style="text-align:center;">Smart TextArea</h4>
+
+<div class="col-lg-12" id="default">
+    <Description>
+        <p>The <b>SfSmartTextArea</b> is an AI-powered version of Syncfusion's TextArea that adds smart autocompletion. It helps by suggesting complete sentences based on user input, making typing faster and easier.</p>
+        <p>Select a user role <i>Maintainer of an open-source project replying to GitHub issues</i> and start typing <i>Create an issue</i>. It will automatically complete the text based on the selected user role.. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/SmartTextArea/Readme.md">here</a>.</p>
+    </Description>
+    <div class="content-wrapper">
+        <h6 style="text-align:center;">Role Based Auto Completion</h6>
+        <div class="example-label">Choose a role</div>
+        <SfDropDownList Width="90%" TItem="Role" TValue="string" PopupHeight="230px" @bind-Value="@DropDownValue" DataSource="@Roles">
+            <DropDownListEvents TItem="Role" TValue="string" ValueChange="OnChange" />
+            <DropDownListFieldSettings Text="Text" Value="ID" />
+        </SfDropDownList>
+
+        <SfSmartTextArea UserRole="@currentPreset.userRole" UserPhrases="currentPreset.userPhrases" Width="90%" Placeholder="@currentPreset.placeHolder" RowCount="3" @bind-Value="prompt" FloatLabelType="FloatLabelType.Auto">
+        </SfSmartTextArea>
+    </div>
+</div>
+
+
+

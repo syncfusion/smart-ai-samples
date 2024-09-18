@@ -1,0 +1,303 @@
+#e-pv-right-container-header {
+    height: 40px;
+    padding-right: 5px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.e-bigger #e-pv-right-container-header {
+    height: 48px;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+#e-pv-right-container-footer-content {
+    height: px;
+    border-top: 1px solid lightgray;
+    display: flex;
+    justify-content: center;
+}
+
+#e-pv-right-container-footer-result {
+    height: 40px;
+    border-top: 1px solid lightgray;
+    display: flex;
+    justify-content: right;
+}
+
+.e-bigger #e-pv-right-container-footer-content,
+.e-bigger #e-pv-right-container-footer-result {
+    height: 48px;
+}
+
+#e-pv-right-container-close-btn {
+    border: none !important;
+}
+
+#e-pv-fab-btn {
+    height: 40px;
+    min-height: 56px;
+    width: 40px;
+    position: absolute;
+    z-index: 1001;
+    top: calc(100% - 125px);
+    left: calc(100% - 155px);
+    border-radius: 50%;
+    min-height: 34px;
+    min-width: 34px;
+}
+
+#e-pv-fab-btn .e-btn-icon.e-icons.e-aiassist-chat {
+    margin-right: 2px;
+    font-size: 18px;
+}
+
+#e-pv-smartredact-treeViewSelectedObj-container {
+    width: 100%;
+    overflow: auto;
+}
+
+#e-pv-smartredact-treeViewSelectedObj {
+    width: 100%;
+}
+
+#e-pv-smartredact-treeViewScanObj-container {
+    width: 100%;
+    overflow: auto;
+}
+
+#e-pv-smartredact-treeViewScanObj {
+    width: 100%;
+}
+
+#e-pv-smartredact-scanBtnDiv,
+#e-pv-smartredact-redactAIBtnDiv {
+    width: 100%;
+    height: 5%;
+    display: flex;
+    align-items: Right;
+    justify-content: Right;
+    margin-top: 25px;
+}
+
+#e-pv-smartredact-redactScanBtn {
+    height: 32px;
+    margin-top: 16px;
+    width: 197px;
+}
+
+.e-bigger #e-pv-smartredact-redactScanBtn,
+.e-bigger #e-pv-smartredact-redactApplyBtn,
+.e-bigger #e-pv-smartredact-redactCancelBtn {
+    padding: 0;
+}
+
+#e-pv-smartredact-redactApplyBtn {
+    height: 32px;
+    width: 96px;
+    margin-top: 16px;
+    margin-right: 16px;
+}
+
+#e-pv-smartredact-redactCancelBtn {
+    height: 32px;
+    width: 96px;
+    margin-top: 16px;
+    margin-right: 12px;
+}
+
+#e-pv-smartredact-parent-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+}
+
+#e-pv-smart-redact-container {
+    width: 100%;
+    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: row !important;
+}
+
+.e-bigger #e-pv-smart-redact-container {
+    height: calc(100% - 48px);
+}
+
+#e-pv-smartredact-left-container {
+    width: 100%;
+    height: 100%;
+}
+
+#e-pv-smartredact-pdfviewer-container {
+    width: 100%;
+    height: calc(100% - 40px);
+}
+
+.e-bigger #e-pv-smartredact-pdfviewer-container {
+    height: calc(100% - 48px);
+}
+
+#e-pv-smartredact-appbar-container {
+    width: 100%;
+    height: 40px;
+    position: relative;
+}
+
+.e-bigger #e-pv-smartredact-appbar-container {
+    height: 48px;
+}
+
+#e-pv-smartredact-defaultappbar {
+    height: 40px !important;
+    border-radius: 0px !important;
+}
+
+.e-bigger #e-pv-smartredact-defaultappbar {
+    height: 48px !important;
+}
+
+.e-pv-smartredact-mark-redact {
+    background-color: white;
+    width: 18px !important;
+    height: 18px !important;
+    border: 1px solid red;
+    border-radius: 3px;
+    margin: 4px !important;
+}
+
+#e-pv-smartredact-scantree,
+#e-pv-smartredact-selectedTree {
+    border: none !important;
+    margin-left: 15px;
+}
+
+#e-pv-smartredact-treeviewText-pattern,
+#e-pv-smartredact-treeviewText-redact {
+    height: 40px;
+    margin: 20px;
+}
+
+#e-pv-smartredact-right-container {
+    font-family: "Segoe UI", -apple-system, blinkMacSystemfont, "Roboto", "Helvetica Neue", sans-serif;
+    width: 25% !important;
+    height: 100% !important;
+    grid-template-rows: 40px 70px auto 64px;
+    border-left: 1px solid #e0e0e0;
+}
+
+#e-pv-smartredact-scantree .e-icons.interaction.e-icon-collapsible {
+    display: none !important;
+    cursor: unset !important
+}
+
+#e-pv-smartredact-scantree .e-icons.interaction.e-icon-expandable {
+    display: none !important;
+    cursor: unset !important
+}
+
+.e-bigger #e-pv-smartredact-right-container {
+    grid-template-rows: 48px 70px auto 64px;
+}
+
+#e-pv-smartredact-right-container .e-spinner-pane {
+    left: 75%;
+    width: 25% !important;
+    height: calc(100% - 40px) !important;
+}
+
+.e-bigger #e-pv-smartredact-right-container .e-spinner-pane {
+    height: calc(100% - 48px) !important;
+}
+
+#e-pv-smartredact-right-container-blackout {
+    background-color: black;
+    width: 25% !important;
+    height: calc(100% - 40px) !important;
+    opacity: 0.3;
+    position: absolute;
+    right: 0;
+}
+
+.e-bigger #e-pv-smartredact-right-container-blackout {
+    height: calc(100% - 48px) !important;
+}
+
+@media only screen and (max-width: 767px),
+only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    #e-pv-smartredact-treeviewText {
+        height: 10%;
+    }
+
+    #e-pv-smartredact-selectedTree,
+    #e-pv-smartredact-scantree {
+        max-height: 84%;
+    }
+
+    #e-pv-smartredact-scanBtnDiv,
+    #e-pv-smartredact-redactAIBtnDiv {
+        height: 6%;
+    }
+}
+
+@media (max-width: 450px) {
+    #e-pv-smartredact-parent-container {
+        flex-direction: column;
+        position: absolute;
+    }
+
+    #e-pv-smartredact-treeviewText {
+        height: 4%;
+    }
+
+    #e-pv-smartredact-selectedTree,
+    #e-pv-smartredact-scantree {
+        max-height: 90%;
+    }
+
+    #e-pv-smartredact-scanBtnDiv,
+    #e-pv-smartredact-redactAIBtnDiv {
+        height: 6%;
+    }
+
+    #e-pv-smartredact-left-container .e-toolbar .e-toolbar-item .e-tbar-btn .e-tbar-btn-text {
+        display: none;
+    }
+
+    #e-pv-smartredact-right-container .e-spinner-pane {
+        left: 35%;
+    }
+
+    #e-pv-smartredact-right-container {
+        width: 75% !important;
+        height: calc(100% - 80px) !important;
+        z-index: 101;
+        position: absolute;
+        top: 80px;
+        right: 0 !important;
+        background-color: #fff;
+    }
+
+    #e-pv-smartredact-right-container-blackout {
+        background-color: black;
+        width: 75% !important;
+        top: 80px;
+        height: calc(100% - 80px) !important;
+        opacity: 0.3;
+        position: absolute;
+        right: 0;
+        z-index: 102;
+    }
+
+    #e-pv-smartredact-treeViewSelectedObj {
+        height: calc(100% - 80px) !important;
+    }
+}

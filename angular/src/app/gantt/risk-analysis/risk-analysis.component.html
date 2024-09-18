@@ -1,0 +1,57 @@
+<h2 style="text-align: center;">Smart Risk Assessor</h2>
+<div class="description-container e-card">
+  <div class='e-card-content'>
+    <p>
+      This sample highlights at-risk tasks in the Angular Gantt Chart based on their duration and dependencies by dynamically changing their taskbar colors, making it easy to visualize potential project risks.
+    </p>
+  </div>
+</div>
+
+<div id='container'>
+  <ejs-gantt 
+    #ganttDefault 
+    height="430px" 
+    [dataSource]="data" 
+    [taskFields]="taskSettings"  
+    [editSettings]="editSetting"
+    [allowSorting]="true" 
+    [allowReordering]="true" 
+    [allowSelection]="true" 
+    [treeColumnIndex]="1" 
+    [enableContextMenu]="true"
+    [baselineColor]="baselineColor" 
+    [allowFiltering]="true" 
+    [gridLines]="gridLines" 
+    [highlightWeekends]="true"
+    [timelineSettings]="timelineSettings" 
+    [labelSettings]="labelSettings"
+    [readOnly]="false" 
+    [taskbarHeight]="20" 
+    [rowHeight]="40"
+    [allowUnscheduledTasks]="true" 
+    (queryTaskbarInfo)="queryTaskbarInfo($event)"
+    [splitterSettings]="splitterSettings" 
+    [toolbar]="toolbar" 
+    (toolbarClick)="toolbarClick($event)" 
+    [projectStartDate]="projectStartDate" 
+    [projectEndDate]="projectEndDate">
+
+    <e-columns>
+      <e-column field='TaskID' headerText='Task ID' [visible]="false"></e-column>
+      <e-column field='TaskName' headerText='Event Name' [width]="250"></e-column>
+      <e-column field='Duration'></e-column>
+      <e-column field='StartDate' headerText='Start Date'></e-column>
+      <e-column field='EndDate' headerText='End Date'></e-column>
+    </e-columns> 
+    
+    <!-- Directly render the rightLabel template -->
+    <ng-template #rightLabel let-data>
+      <div id="rightLabel">
+        {{ getSummary(data) }}
+      </div>
+    </ng-template>
+    
+  </ejs-gantt>
+
+  <div id="csfooter" style="width: 100%; height: 66px; background-color: #F0FFFF; min-height: 120px; padding: 15px;"></div>
+</div>

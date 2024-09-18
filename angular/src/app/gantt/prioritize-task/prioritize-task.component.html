@@ -1,0 +1,24 @@
+<h2 style="text-align: center;">Smart Prioritizer</h2>
+<div class="description-container e-card">
+    <div class='e-card-content '>
+        <!--!-->
+        <p>
+            This sample shows how AI prioritizes tasks within a collection by evaluating baseline dates and scheduled taskbar dates. The AI identifies critical tasks essential for meeting project deadlines and reallocates resources to these tasks, ensuring efficient management and timely project completion.   
+        </p>
+    </div>
+</div>
+
+<div id='container'>
+        <ejs-gantt #ganttDefault height="430px" [dataSource]="data" [taskFields]="taskSettings" [resourceFields]="resourceSettings" [resources]="resource"
+        [editSettings]="editSetting" [readOnly]="false" [allowSelection]="true" [highlightWeekends]="true" [treeColumnIndex]="1"  [rowHeight]="40"
+        [labelSettings]="labelSettings" [splitterSettings]="splitterSettings" [toolbar]="toolbar" (toolbarClick)="toolbarClick($event)" (rowDataBound)="rowDataBound($event)" (queryTaskbarInfo)="queryTaskbarInfo($event)">
+        <e-columns>
+            <e-column field='ID' headerText='Task ID' [visible]="false"></e-column>
+            <e-column field='Name' headerText='Task Name' [clipMode]="mode"></e-column>
+            <e-column field='resourceInfo' headerText='Resources'></e-column>
+            <e-column field='StartDate' headerText='Start Date' ></e-column>
+            <e-column field='EndDate' headerText='End Date'></e-column>
+        </e-columns> 
+        </ejs-gantt>
+    <!-- <div id="csfooter" style="width: 100%; height: 66px; background-color: #F0FFFF;min-height: 120px; padding: 15px;"></div> -->
+</div>

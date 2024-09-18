@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Essential JS 2</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Essential JS 2" />
+    <meta name="author" content="Syncfusion" />
+    <link href="../../bundle.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <h2 style="text-align: center;">Natural Language Querying
+    </h2>
+    <div class="description-container e-card">
+        <div class='e-card-content '>
+            <!--!-->
+            <p>The Query Builder, enhanced with AI, offers feature like enter a plain language query and click Run Query. The entered query will automatically be converted into database queries, simplifying data retrieval and insights. Know more here.. <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/query-builder/nlq/Readme.md">here</a>.</p>
+        </div>
+    </div>
+    <div id="container">
+        <div id="tab">
+        </div>
+        <div id="prompt-ui">
+            <div id="customTbarDialog">
+                <span class="e-text">Query</span>
+                <textarea id="text-area" aria-label="ai assistant query box" placeholder="find all users who lives in los angeles and have over 1000 credits"></textarea>
+            </div>
+        </div>
+        <div style="display: none;">
+            <div id="querybuilder-ui">
+                <div id="querybuilder" class="row"></div>
+            </div>
+        </div>
+        <div class="e-custom-elem">
+            <button id="submit" class="e-primary">Run Query</button>
+        </div>
+        <div class="e-custom-elem">
+            <span class="e-text">Results</span>
+            <div style="margin-top: 10px;" id="grid"></div>
+        </div>
+    </div>
+    
+  
+    <script src="./query-builder.js"></script>
+</body>
+</html>

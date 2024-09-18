@@ -1,0 +1,94 @@
+<h2 style="text-align:center;">Smart Paste Button</h2>
+
+<h3 style="text-align:center;">Bug Report</h3>
+<div class="description-container e-card">
+  <div class='e-card-content'>
+    <p>
+      The <b>SmartPasteButton</b> is an AI-powered upgrade of Syncfusion's Button, adding smart pasting
+      features. It uses AI to paste clipboard data in the right context and format automatically.
+  </p>
+  <p>
+      To quickly fill out the bug report form, copy the sample content and click the Smart Paste button. Know
+      more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/smartpaste/Readme.md">here</a>.
+  </p>
+  </div>
+</div>
+
+<form class="form-container container bug-form-container" style="max-width: 900px; line-height: 35px; background-color: #f3f4f6;">
+  <div style="text-align:center;"><span>Bug Report Form</span></div>
+  <div class="single-row-group">
+    <label for="bug-name" class="e-form-label">Bug Name</label>
+    <ejs-textbox id="bug-name" name="bug-name" formControlName="bugName" cssClass="form-input"></ejs-textbox>
+  </div>
+
+  <div class="row-group">
+    <div>
+      <label for="reporter-name" class="e-form-label">Reporter</label>
+      <ejs-textbox id="reporter-name" name="reporter-name" formControlName="reporterName" cssClass="form-input"></ejs-textbox>
+    </div>
+    <div>
+      <label for="submitted-date" class="e-form-label">Submitted Date</label>
+      <ejs-textbox id="submitted-date" name="submit-date" formControlName="submittedDate" cssClass="form-input"></ejs-textbox>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="bug-description" class="e-form-label">Bug Description</label>
+    <ejs-textarea id="bug-description" formControlName="bugDescription" cssClass="form-textarea" multiline="true" placeholder="Describe a little about the bug."></ejs-textarea>
+  </div>
+
+  <div class="row-group">
+    <div style="display: flex; flex-direction: column;">
+      <label for="reproduce-steps" class="e-form-label">Reproduce Steps</label>
+      <ejs-textbox id="reproduce-steps" name="reproduce-steps" formControlName="reproduceSteps" cssClass="form-textarea" multiline="true"></ejs-textbox>
+    </div>
+    <div>
+      <label class="form-label">Bug Priority</label>
+      <div class="row">
+        <ejs-radiobutton id="radio1" label="Low" name="bugPriority" formControlName="bugPriority" value="Low"></ejs-radiobutton>
+      </div>
+      <div class="row">
+        <ejs-radiobutton id="radio2" label="Medium" name="bugPriority" formControlName="bugPriority" value="Medium" [checked]="true"></ejs-radiobutton>
+      </div>
+      <div class="row">
+        <ejs-radiobutton id="radio3" label="High" name="bugPriority" formControlName="bugPriority" value="High"></ejs-radiobutton>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="browser" class="form-label">Select the browser</label>
+    <ejs-combobox id="browser" name="browser" formControlName="browser" [dataSource]="browsers"  placeholder="Choose the browser"></ejs-combobox>
+  </div>
+
+  <div class="form-footer">
+    <button ejs-button type="reset" id="reset" iconCss="e-icons e-reset" cssClass="form-button" (click)="onReset()">Reset</button>
+    <button #smart ejs-smart-paste-button  type="button" id="smart-paste" iconCss="e-icons e-paste" cssClass="form-button" (created)="onCreated()">Smart Paste</button>
+  </div>
+</form>
+
+<div class="col-lg-12 property-section" style="padding-top: 5px;">
+  <h4 style="text-align: center; font-size: 1.2rem;">Sample content</h4>
+  <div class="content-flexed">
+    <div class="content-body" data-index="0">
+      <div class="copy-container" style="float: right;">
+        <button #copyButton1 ejs-button id="copy1" (click)="copyContent('1')" cssClass="e-control e-btn e-lib custom-copy-icon e-primary e-icon-btn">
+          <span class="e-icons e-copy e-btn-icon"></span>
+        </button>
+      </div>
+      <div id="copy-content1">
+        Hi, this is Alice. On July 3rd, I've come across a bug where the dropdown menu in the navigation bar doesn't close after selecting an item. I just navigated to the homepage, opened the dropdown menu in the navigation bar, clicked an item in the dropdown, and then the issue occurred, which happens only on Chrome. Though this doesn't seem like a serious/important bug, kindly look into it and resolve it. Regards, J Alice Abraham
+      </div>
+    </div>
+
+    <div class="content-body" data-index="1">
+      <div class="copy-container" style="float: right;">
+        <button #copyButton2 ejs-button id="copy2" (click)="copyContent('2')" cssClass="e-control e-btn e-lib custom-copy-icon e-primary e-icon-btn">
+          <span class="e-icons e-copy e-btn-icon"></span>
+        </button>
+      </div>
+      <div id="copy-content2">
+        Hi, Whenever I type something in the search bar and hit search, it doesn't return any results, even for items I know exist. This problem was noticed by Jane Smith on July 5th in FireFox browser. You can repro the issue by opening the site in the Firefox browser and navigating to the search bar. Type in any search term, including items that are known to exist, and click the search button. The search functionality fails to return any results, displaying an empty result set even for valid queries. This is quite important, but not urgent. Please look into it. Regards, M William Marker.
+      </div>
+    </div>
+  </div>

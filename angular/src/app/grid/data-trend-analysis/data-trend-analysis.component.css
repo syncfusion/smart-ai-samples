@@ -1,0 +1,125 @@
+#get_trend_data {
+    margin-left: 8px;
+}
+
+.low-values {
+    background-color: #B8595A;
+}
+
+.e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd) {
+    color: #FFFFFF;
+}
+
+.fluent-dark .low-values,
+.fluent2-dark .low-values,
+.tailwind-dark .low-values,
+.material-dark .low-values,
+.material3-dark .low-values,
+.fabric-dark .low-values,
+.bootstrap-dark .low-values,
+.bootstrap4-dark .low-values,
+.bootstrap5-dark .low-values,
+.highcontrast .low-values {
+    background-color: #55241E;
+}
+
+
+.fluent-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.fluent2-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.tailwind-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.material-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.material3-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.fabric-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.bootstrap-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.bootstrap4-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.bootstrap5-dark .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.highcontrast .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd) {
+    color: #FF9CA0;
+}        
+
+.high-values {
+    background-color: #AAF38C;
+}
+
+.fluent-dark .high-values,
+.fluent2-dark .high-values,
+.tailwind-dark .high-values,
+.material-dark .high-values,
+.material3-dark .high-values,
+.fabric-dark .high-values,
+.bootstrap-dark .high-values,
+.bootstrap4-dark .high-values,
+.bootstrap5-dark .high-values,
+.highcontrast .high-values {
+    background-color: #315C35;
+}
+
+.fluent-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.fluent2-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.tailwind-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.material-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.material3-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.fabric-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.bootstrap-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.bootstrap4-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.bootstrap5-dark .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd),
+.highcontrast .e-grid .e-rowcell.high-values:not(.e-editedbatchcell):not(.e-updatedtd) {
+    color: #38FF9C;
+}
+
+.e-row.e-altrow {
+    background-color: #FAFAFA;
+}
+
+.fluent-dark .e-row.e-altrow,
+.fluent2-dark .e-row.e-altrow,
+.tailwind-dark .e-row.e-altrow,
+.material-dark .e-row.e-altrow,
+.material3-dark .e-row.e-altrow,
+.fabric-dark .e-row.e-altrow,
+.bootstrap-dark .e-row.e-altrow,
+.bootstrap4-dark .e-row.e-altrow,
+.bootstrap5-dark .e-row.e-altrow,
+.highcontrast .e-row.e-altrow {
+    background-color: #353839;
+}
+
+.predicted-rows {
+    background-color: #ADD8E6;
+}
+
+.e-row.e-altrow .predicted-rows {
+    background-color: #D3EBF5;
+}
+
+.fluent-dark .predicted-rows,
+.fluent2-dark .predicted-rows,
+.tailwind-dark .predicted-rows,
+.material-dark .predicted-rows,
+.material3-dark .predicted-rows,
+.fabric-dark .predicted-rows,
+.bootstrap-dark .predicted-rows,
+.bootstrap4-dark .predicted-rows,
+.bootstrap5-dark .predicted-rows,
+.highcontrast .predicted-rows {
+    background-color: #003366;
+}
+
+.fluent-dark .e-row.e-altrow .predicted-rows,
+.fluent2-dark .e-row.e-altrow .predicted-rows,
+.tailwind-dark .e-row.e-altrow .predicted-rows,
+.material-dark .e-row.e-altrow .predicted-rows,
+.material3-dark .e-row.e-altrow .predicted-rows,
+.fabric-dark .e-row.e-altrow .predicted-rows,
+.bootstrap-dark .e-row.e-altrow .predicted-rows,
+.bootstrap4-dark .e-row.e-altrow .predicted-rows,
+.bootstrap5-dark .e-row.e-altrow .predicted-rows,
+.highcontrast .e-row.e-altrow .predicted-rows {
+    background-color: #001F3F;
+}
+
+.dddata {
+    padding-bottom: 10px;
+    display: inline-flex;
+
+}

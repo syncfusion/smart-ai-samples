@@ -1,0 +1,51 @@
+<h2 style="text-align: center;">AI Operations with FileManager</h2>
+<div class="description-container e-card">
+    <div class='e-card-content '>
+        <p>
+            <strong>Smart Search:</strong> Matches search terms with relevant files using local embeddings, showing
+            items based on semantic similarity.
+            <strong>Content Summary:</strong> Provides a concise overview of file content with the "Quick Summary"
+            button, using AI to generate summaries.
+            <strong>Intelligent Organization:</strong> Categorizes and sorts files into logical groups based on AI
+            analysis of names and metadata, simplifying file management.
+        </p>
+    </div>
+</div>
+<div class="filemanager_container">
+    <ejs-filemanager #file id='smartfilemanager' [ajaxSettings]='ajaxSettings' [toolbarItems]='toolbarItems'
+        [contextMenuSettings]='{ file: ["Manage Tags", "|", "Cut", "Copy", "|", "Delete", "Rename", "|", "Details"], folder: ["Open", "|", "Cut", "Copy", "Paste", "|", "Delete", "Rename", "|", "Details"], layout: ["SortBy", "View", "Refresh", "|", "Paste", "|", "NewFolder", "|", "Details", "|", "SelectAll"], visible: true }'
+        [searchSettings]='{ allowSearchOnTyping: false }' (fileOpen)='onFileOpen($event)'
+        (fileSelect)='fileSelected($event)' (menuOpen)='menuOpen($event)' (menuClick)='menuClick($event)'
+        (fileSelection)='fileSelection($event)' (beforeSend)='onSend($event)' (toolbarClick)='toolbarClick($event)'>
+        
+    </ejs-filemanager>
+    <ejs-dialog #dialog [header]='dialogHeader' [content]='dialogContent' [target]="targetElement"
+    [visible]='isVisible' [showCloseIcon]='true' [isModal]='true' [height]='"70%"' [width]='"600px"'
+    (overlayClick)='dialogOverlay()' (close)='dialogOverlay()'>
+</ejs-dialog>
+    <!-- Tag container -->
+    <div id="tags" class="tags" style="display: none;">
+        <div id="tagContainer">
+            <div class="title-container">
+                <strong>Existing File Tags:</strong>
+                <button id="closebtn"></button>
+            </div>
+            <br />
+            <p id="emptyTag" style="display: none;">No tags available</p>
+            <div id="fileTags" class="scrollable-container">
+                <div id="fileChips" aria-label="inputChips"></div>
+            </div>
+            <br />
+            <strong style="margin-bottom: 10px;">AI suggested File Tags:</strong>
+            <p id="emptyAiTag">Click <strong>"Generate AI Tags"</strong> button to get
+                suggested tags from AI.</p>
+            <div id="aiTags" class="scrollable-container">
+                <div id="aiChips" aria-label="inputChips"></div>
+            </div>
+            <div class="button-container">
+                <button id="savebtn">Save AI Tags</button>
+                <button id="generatebtn">Generate AI Tags</button>
+            </div>
+        </div>
+    </div>
+</div>

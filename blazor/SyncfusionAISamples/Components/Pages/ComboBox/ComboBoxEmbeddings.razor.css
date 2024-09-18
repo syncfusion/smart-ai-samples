@@ -1,0 +1,10 @@
+﻿.control-wrapper {
+    text-align: center;
+    padding-top: 20px;
+    min-height: 200px;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 30px auto;
+    border: 2px solid rgb(229 231 235 / var(--border-opacity));
+    --border-opacity: 1;
+}

@@ -1,0 +1,124 @@
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    width: 675px;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 20px;
+    border: 2px solid rgb(229 231 235 / var(--border-opacity));
+    --border-opacity: 1;
+
+
+
+}
+
+.content-wrapper div.row {
+    padding: 7px 0px;
+}
+
+
+
+.content-wrapper div.row {
+    padding: 7px 0px;
+}
+
+.example-label {
+    width: 75%;
+    font-weight: 700;
+}
+
+.smart-textarea-suggestion-overlay {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 1.25px 4px 0px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    user-select: none;
+    margin-right: 1rem;
+}
+
+.smart-textarea-suggestion-overlay.smart-textarea-suggestion-overlay-visible {
+    display: block;
+}
+
+[data-suggestion-visible]::selection {
+    color: #999 !important;
+    background: none !important;
+}
+
+.smart-textarea-caret {
+    position: absolute;
+    width: 0.8px;
+    background: red;
+    display: none;
+    animation: caret-blink 1.025s step-end infinite;
+}
+
+@keyframes caret-blink {
+
+    from,
+    to {
+        opacity: 100%;
+    }
+
+    50% {
+        opacity: 0%;
+    }
+}
+
+.e-multi-line-input {
+    min-width: 75%;
+}
+.example-label {
+    text-align: left;
+}
+
+.content-wrapper div.api-row {
+    margin: 30px 150px;
+}
+
+.api-property .left-side {
+    font-size: 14px;
+    padding: 8px;
+}
+
+.api-property.property-panel-table div.api {
+    padding-left: 0px;
+}
+
+.e-input-group.e-multi-line-input {
+    max-width: 100%;
+    margin-top: 0px;
+}
+.control-section {
+   
+    justify-content: center;
+    align-items: center;
+     /* Adjust as needed */
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px;
+    border-radius: 20px;
+    width: 675px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 20px;
+    border: 2px solid rgb(229 231 235 / var(--border-opacity));
+    --border-opacity: 1;
+
+
+
+}

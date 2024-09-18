@@ -1,0 +1,115 @@
+#customTbarDialog_title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    padding: 10px 15px;
+    border-bottom: 2px solid #ccc;
+}
+
+.scrollable-container {
+    max-height: 25%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+#tagContainer {
+    height: 500px;
+    border: 1px solid #d1d9e0;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: fit-content;
+}
+
+#tagContainer .title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#tagContainer .title-container strong {
+    font-size: 15px;
+    color: #0078d4;
+}
+
+.filemanager_container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+#smartfilemanager {
+    flex: 1;
+}
+
+.tags {
+    width: 100%;
+    max-width: 28%;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+#tags p {
+    margin: 10px 0;
+}
+
+.scrollable-container {
+    margin-bottom: 10px;
+}
+
+button {
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.feature-description {
+    border: 1px solid #d1d9e0;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+}
+
+.feature-description h4 {
+    color: #2a3f54;
+    font-size: 1em;
+    /* Reduced font size */
+    margin-bottom: 15px;
+}
+
+.feature-description ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.feature-description li {
+    color: #596775;
+    font-size: 1em;
+    /* Reduced font size */
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.feature-description li:last-of-type {
+    margin-bottom: 0;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Adjust spacing between label and container */
+}

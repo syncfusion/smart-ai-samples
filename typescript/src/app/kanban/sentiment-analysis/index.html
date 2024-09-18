@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Kanban</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Kanban Cards" />
+    <meta name="author" content="Syncfusion" />
+    <link href="../../bundle.css" rel="stylesheet">
+   
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body style=" cursor: pointer;">
+    <h2 style="text-align: center;">Sentiment Analyzis - Based on Customer Feedback</h2>
+    <div class="description-container e-card">
+     
+        <div class='e-card-content '>
+            <!--!-->
+            <p>Click the <strong>Analyze Customer Sentiments</strong> button to have AI generate emoticon expressions based on customer feedback for delivered items and update them in the Syncfusion Kanban Board.
+                Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/kanban/Readme.md">here</a>.
+            </p>
+        </div>
+    </div>
+    <div id="ai-button" style="margin: 10px">
+        <button id="sentiment"></button>
+    </div>
+    <div class="control-section">
+        <div class="control_wrapper">
+            <div id='Kanban'></div>
+        </div>
+    </div>
+    <script id="dialogTemplate" type="text/x-template">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="e-label">ID</td>
+                    <td>
+                        <input id="Id" name="Id" type="text" class="e-field" value="${Id}" disabled required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="e-label">Category</td>
+                    <td>
+                        <input type="text" name="Category" id="Category" class="e-field" value=${Category} required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="e-label">Title</td>
+                    <td>
+                        <input type="text" name="Title" id="Title" class="e-field" value=${Title} />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="e-label">Size</td>
+                    <td>
+                        <input type="text" name="Size" id="Size" class="e-field" value=${Size} />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="e-label">Description</td>
+                    <td>
+                        <textarea type="text" name="Description" id="Description" class="e-field" value=${Description}>${Description}</textarea>
+                        <span class="e-float-line"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="e-label">Deliver</td>
+                    <td>
+                        <input type="text" id="datepicker" value=${Date} />
+                    </td>                    
+                </tr>
+                ${if(Category =="Delivered")}
+                <tr>
+                    <td class="e-label">Feedback</td>
+                    <td>
+                        <input type="text" id="feedback" value=${Feedback} />
+                    </td>                    
+                </tr>
+                ${/if}
+            </tbody>
+        </table>
+      </script>
+    <script id="cardTemplate" type="text/x-jsrender">
+        <div class='card-template'>
+            <div class='card-template-wrap'>
+                <table class='card-template-wrap'>
+                    <colgroup>
+                        <col style="width:55px">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td class='e-image'>
+                                <img src="${ImageURL}" alt="">
+                            </td>
+                            <td class='e-title'>
+                                <div class="e-card-stacked">
+                                    <div class='e-card-header'>
+                                        <div class='e-card-header-caption'>
+                                            <div class='e-card-header-title e-tooltip-text'>${Title}</div>
+                                        </div>
+                                    </div>
+                                    <div class="e-card-content" style="line-height:2.75em">
+                                        <table class='card-template-wrap'>
+                                            <tbody>
+                                                <tr class='e-tooltip-text'>
+                                                    ${if(Category =="Menu" || Category=="Order" || Category=="Ready to Serve")}
+                                                    <td colspan="2">
+                                                        <div class='e-description'>
+                                                            ${if(Category =="Menu")}
+                                                            ${Description}
+                                                            ${else}
+                                                            ${OrderID}
+                                                            ${/if}
+                                                        </div>
+                                                    </td>
+                                                    ${else}
+                                                    <td><div class='e-description'>${OrderID}</div></td>
+                                                    <td><span class='e-icons e-done'></span></td>
+                                                    ${/if}
+                                                </tr>
+                                                <tr>
+                                                    ${if(Category !="Menu")}
+                                                    ${if(Category =="Order")}
+                                                    <td><div class='e-preparingText e-tooltip-text'>Preparing</div></td>
+                                                    <td class='e-prepare'>
+                                                        <div class='e-time e-tooltip-text'>
+                                                            <div class='e-icons e-clock'></div><div class='e-mins'>15 mins</div>
+                                                        </div>
+                                                    </td>
+                                                    ${/if}
+                                                    ${if(Category =="Ready to Serve")}
+                                                    <td><div class='e-readyText e-tooltip-text'>Ready to Serve</div></td>
+                                                    <td class='e-prepare'>
+                                                        <div class='e-time e-tooltip-text'>
+                                                            <div class='e-icons e-clock'></div><div class='e-mins'>5 mins</div>
+                                                        </div>
+                                                    </td>
+                                                    ${/if}
+                                                </tr>
+                                                ${if(Category =="Delivered" || Category=="Served")}
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <label class="e-date">Deliver:</label>
+                                                        <span class="e-kanban-date">${Date}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class='e-deliveredText e-tooltip-text'>Delivered</div></td>
+                                                    ${if(Emoji)}
+                                                        <td class="e-prepare">
+                                                            <div class="e-emoji e-tooltip-text">                                                                
+                                                                <div class="e-emoji">${Emoji}</div>
+                                                            </div>
+                                                        </td>
+                                                    ${/if}
+                                                </tr>
+                                                ${/if}
+                                                ${else}
+                                                <tr>
+                                                    <td><div class='e-size e-tooltip-text'>${Size}</div></td>
+                                                    <td><div class='e-price e-tooltip-text'>${Price}</div></td>
+                                                </tr>
+                                                ${/if}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </script>
+    <div id="toast"></div>
+</body>
+
+<script src="./sentiment-analysis.js"></script>
+</html>

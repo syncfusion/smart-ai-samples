@@ -1,0 +1,49 @@
+[
+    { "id": 1, "name": "Smart Paste", "path": "/SmartPaste" },
+    { "id": 2, "name": "Smart Text Area", "path": "/SmartTextArea" },
+    { "id": 3, "name": "ComboBox", "path": "/ComboBox" },
+    { "id": 4, "name": "Schedule", "path": "/Schedule" },
+    { "id": 5, "name": "Rich Text Editor", "path": "/RTE" },
+    { "id": 6, "name": "Pivot Table", "path": "/Pivot" },
+    { "id": 7, "name": "Spreadsheet", "path": "/Spreadsheet" },
+    { "id": 8, "name": "Treegrid", "path": "/Treegrid" },
+    { "id": 9, "name": "Query Builder", "path": "/Query" },
+    { "id": 10, "name": "Maps", "path": "/Maps" },
+    { "id": 11, "name": "Image Editor", "path": "/ImageEditor" },
+
+    { "id": 12, "name": "Diagram", "expanded": true, 
+    "children": [
+        { "id": 13, "name": "Text to Flowchart", "path": "/DiagramFlowChart" },
+        { "id": 14, "name": "Text to Mindmap", "path": "/DiagramMindmap" }
+    ] 
+    },
+
+    { "id": 15, "name": "Document Editor", "expanded": true,
+    "children": [
+        { "id": 16, "name": "Smart Editor", "path": "/DocumentSmart" },
+        { "id": 17, "name": "Smart Writer", "path": "/DocumentAssist" }
+    ] 
+    },
+
+    { "id": 18, "name": "Kanban", "expanded": true, 
+    "children": [
+        { "id": 19, "name": "Sentiment Analysis", "path": "/Kanban" }
+    ] 
+    },
+
+    { "id": 20, "name": "Data Grid", "expanded": true, 
+    "children": [
+        { "id": 21, "name": "Semantic Search", "path": "/GridSemantic" },
+        { "id": 22, "name": "Anomaly Detection", "path": "/GridAnomaly" },
+        { "id": 23, "name": "Predictive Entry", "path": "/GridPredictive" }
+    ] 
+    },
+    
+    { "id": 24, "name": "Gantt Chart", "expanded": true, 
+    "children": [
+        { "id": 25, "name": "Smart Task Prioritizer", "path": "/GanttTask" },
+        { "id": 26, "name": "Smart Progress Predictor", "path": "/GanttProgress" },
+        { "id": 27, "name": "Smart Resource Allocation", "path": "/GanttResource" }
+    ] 
+}
+]

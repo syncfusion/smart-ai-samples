@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Essential JS 2</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Essential JS 2" />
+    <meta name="author" content="Syncfusion" />
+    <link href="../../bundle.css" rel="stylesheet">
+    
+    <link href="./smart-editor/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h2 style="text-align: center;">Smart Image Editor</h2>
+    <div class="description-container e-card">
+        
+        <div class='e-card-content '>
+            <!--!-->
+            <p> 
+                The Image Editor, enhanced with AI, includes features like <i>Magic Eraser</i>, <i>Background Changer</i> and <i>Background Remover</i>. Click the Sidebar to explore these capabilities. The Image Editor uses the Stable Diffusion API for its AI features. Need to configure the Key in Sample.
+                Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/image-editor/Readme.md">here</a>.
+            </p>
+        </div>
+    </div>  
+  <div ></div>
+  <div id="wrapper-container">
+    <div class="magic-eraser">
+        <div class="upper-div">
+            <label>Magic Eraser</label>
+            <button id="remove-btn" aria-label="button"></button>
+        </div>
+        <div class="lower-div">
+            <img src="images/object-remover.gif" style="width:130px;height:130px;"></video>
+            <br><span>Select the object to be removed</span>
+        </div>
+        <button class="remove-button" id="eraseBtn">Remove</button>
+    </div>
+    <div class="bg-changer">
+        <div class="upper-div">
+            <label>Change Background</label>
+            <button id="bg-change-remove-btn" aria-label="button"></button>
+        </div>
+        <div class="lower-div">
+            <div class="col-lg-12 control-section">
+                <div id="colorpicker-control">
+                    <span style="margin-bottom: 10px;">New Color</span>
+                    <br>
+                    <input id="color-picker" type="color">
+                </div>
+            </div>
+            <br><span>Preset Colors</span>
+            <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6">
+                <input id="circle-palette" type="color">
+            </div>
+            <span>Custom Background</span><br>
+            <input id="outlined" />
+        </div>
+        <button class="bg-change-button" id="bgChangeBtn">Apply</button>
+    </div>
+    <div id="sidebar-wrapper" class="control-section">
+        <div>
+            <div id="defaultToolbar"></div>
+        </div>
+        <div class="maincontent">
+            <div id="controlWrapper">
+                <div id="imageeditor" class="row"></div>
+            </div>
+        </div>
+    </div>
+    <aside id="defaultSidebar" class="default-sidebar">
+        <div id="defaultTree"></div>
+    </aside>
+</div>
+   
+    <script src="./smart-editor/smart-editor.js"></script>
+</body>
+</html>

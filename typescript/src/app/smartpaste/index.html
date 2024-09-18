@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Typescript UI Controls" />
+    <meta name="author" content="Syncfusion" />
+    <link href="../bundle.css" rel="stylesheet">
+   
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body style="font: Roboto;">
+    <h4 style="text-align:center;">Smart Paste Button</h4>
+
+
+    <div class="description-container e-card">
+        <!-- <div class='e-card-header-title' style="font-weight: 600;">Smart Paste Button Control</div> -->
+        <div class='e-card-content '>
+            <!--!-->
+            <p>
+                The <b>SmartPasteButton</b> is an AI-powered upgrade of Syncfusion's Button, adding smart pasting
+                features. It uses AI to paste clipboard data in the right context and format automatically.
+            </p>
+            <p>
+                To quickly fill out the bug report form, copy the sample content and click the Smart Paste button. Know
+                more <a
+                    href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/smartpaste/Readme.md">here</a>.
+            </p>
+        </div>
+    </div>
+    <form class="form-container container bug-form-container">
+        <div style="text-align:center;"><span>Bug Report Form</span></div>
+        <div class="single-row-group">
+            <label for="bug-name" class="e-form-label">Bug Name </label>
+            <input type="text" id="bug-name" name="bug-name" class="form-input" />
+        </div>
+
+        <div class="row-group">
+            <div>
+                <label for="reporter-name" class="e-form-label">Reporter</label>
+                <input type="text" id="reporter-name" name="reporter-name" class="form-input" />
+            </div>
+            <div>
+                <label for="submitted-date" class="e-form-label">Submitted Date</label>
+                <input type="text" id="submitted-date" name="submit-date" class="form-input" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="bug-description" class="e-form-label">Bug Description</label>
+            <textarea id="bug-description" class="form-textarea"></textarea>
+        </div>
+
+        <div class="row-group">
+            <div style="display: flex;flex-direction: column;">
+                <label for="reproduce-steps" class="e-form-label">Reproduce Steps</label>
+                <textarea id="reproduce-steps" name="reproduce-steps" class="form-textarea"></textarea>
+            </div>
+            <div>
+                <label class="form-label">Bug Priority</label>
+                <div class="row">
+                    <input id="radio1" type="radio">
+                </div>
+                <div class="row">
+                    <input id="radio2" type="radio">
+                </div>
+                <div class="row">
+                    <input id="radio3" type="radio">
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            <label for="browser" class="form-label">Select the browser</label>
+            <input type="text" id="browser" name="browser" />
+        </div>
+
+        <div class="form-footer">
+            <button type="reset" id="reset" class="form-button"></button>
+            <button type="button" id="smart-paste" class="form-button"></button>
+        </div>
+    </form>
+
+    <div class="col-lg-12 property-section" style="padding-top: 5px;">
+        <h4 style="text-align:center;font-size: 1rem;"> Sample content </h4>
+        <div class="content-flexed">
+            <div class="content-body" data-index="0">
+                <div class="copy-container" style="float: right">
+                    <button  id="copy1" aria-label="content-copy-button" class="e-control e-btn e-lib custom-copy-icon e-primary e-icon-btn" >
+                        <span class="e-icons e-copy e-btn-icon"></span>
+                    </button>
+                </div>
+                <div id="copy-content1">
+                Hi, this is Alice. On July 3rd, I've come across a bug where the dropdown menu in the navigation bar doesn't close after selecting an item. I just navigated to the homepage, opened the dropdown menu in the navigation bar, clicked an item in the dropdown and then the issue occurred which happens only on Chrome. Though this doesn't seem like a serious/important bug, kindly look into it and resolve it. Regards, J Alice Abraham
+            </div>
+            </div>
+            <div class="content-body" data-index="1">
+                <div class="copy-container" style="float: right">
+                    <button id="copy2" aria-label="content-copy-button" class="e-control e-btn e-lib custom-copy-icon e-primary e-icon-btn" >
+                        <span class="e-icons e-copy e-btn-icon"></span>
+                    </button>
+                </div>
+                <div id="copy-content2">
+                Hi, Whenever I type something in the search bar and hit search, it doesn't return any results, even for items I know exist. This problem was noticed by Jane Smith on July 5th in FireFox browser. You can repro the issue by opening the site in the Firefox browser and navigate to the search bar. Type in any search term, including items that are known to exist, and click the search button. The search functionality fails to return any results, displaying an empty result set even for valid queries. This is quite important, but not urgent. Please look into it. Regards, M William Marker.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./smart-paste.js"></script>
+</body>
+
+</html>

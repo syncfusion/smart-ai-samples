@@ -1,0 +1,356 @@
+﻿@page "/kanban/sentiment-analysis"
+
+@using Syncfusion.Blazor.Kanban
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.SplitButtons
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.DropDowns
+@using System.Text.Json;
+@inject AzureAIService ChatGptService
+
+<title>Syncfusion - Sentiment Analysis</title>
+
+<h4 style="text-align:center;">Sentiment Analysis</h4>
+
+<div>
+    <Description>
+            <p>Click the <strong>Analyze Customer Sentiments</strong> button to have AI generate emoticon expressions based on customer feedback for delivered items and update them in the Syncfusion Kanban Board.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/Kanban/Readme.md">here</a>.
+            </p>
+    </Description>
+    <div id="ai-button" style="margin: 10px">
+        <SfProgressButton Content="@Content" OnClick="@GetScore" EnableProgress="false">
+            <ProgressButtonEvents OnBegin="Begin" OnEnd="End"></ProgressButtonEvents>
+        </SfProgressButton>
+    </div>
+    <div class="col-lg-12 control-section">
+    <div class="kanban">
+        <SfKanban KeyField="Category" DataSource="@Pizza">
+            <KanbanColumns>
+                @foreach (ColumnModel item in columnData)
+                {
+                    <KanbanColumn HeaderText="@item.HeaderText" KeyField="@item.KeyField" />
+                }
+            </KanbanColumns>
+            <KanbanCardSettings HeaderField="Id" ContentField="Description">
+                <Template>
+                    @{
+                        PizzaDataModel card = (PizzaDataModel)context;
+                        <div class="card-template">
+                            <div class="card-template-wrap">
+                                <table class="card-template-wrap table-fixed-layout">
+                                    <colgroup>
+                                        <col style="width:35px">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td class="e-image">
+                                                <img src=@card.ImageURL alt="logo" />
+                                            </td>
+                                            <td class="e-title">
+                                                <div class="e-card-stacked">
+                                                    <div class="e-card-header">
+                                                        <div class="e-card-header-caption">
+                                                            <div class="e-card-header-title e-tooltip-text">@card.Title</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="e-card-content" style="line-height:2.75em">
+                                                        <table class="card-template-wrap">
+                                                            <tbody>
+                                                                <tr class="e-tooltip-text">
+
+                                                                    @if (card.Category == "Menu" || card.Category == "Order" || card.Category == "Ready to Serve")
+                                                                    {
+                                                                        <td colspan="2">
+                                                                            <div class="e-description">@(card.Category == "Menu" ? card.Description : card.OrderID)</div>
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td colspan="2">
+                                                                            <table>
+                                                                                <tr>
+                                                                                    <td colspan="2"><div class="e-description">@card.OrderID</div></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <label class="e-date">Deliver:</label>
+                                                                                        <span class="e-display">@card.Date?.ToString("MM/dd/yyyy")</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    }
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (card.Category != "Menu")
+                                                                    {
+                                                                        if (card.Category == "Order")
+                                                                        {
+                                                                            <td><div class="e-preparingText e-tooltip-text">Preparing</div></td>
+                                                                            <td class="e-prepare">
+                                                                                <div class="e-time e-tooltip-text">
+                                                                                    <div class="e-icons e-clock"></div>
+                                                                                    <div class="e-mins">15 mins</div>
+                                                                                </div>
+                                                                            </td>
+                                                                        }
+                                                                        if (card.Category == "Ready to Serve")
+                                                                        {
+                                                                            <td><div class="e-readyText e-tooltip-text">Ready to Serve</div></td>
+                                                                            <td class="e-prepare">
+                                                                                <div class="e-time e-tooltip-text">
+                                                                                    <div class="e-icons e-clock"></div>
+                                                                                    <div class="e-mins">5 mins</div>
+                                                                                </div>
+                                                                            </td>
+                                                                        }
+                                                                        if (card.Category == "Delivered" || card.Category == "Served")
+                                                                        {
+                                                                            <td><div class="e-deliveredText e-tooltip-text">Delivered</div></td>
+                                                                            if (ShowScore)
+                                                                            {
+                                                                                <td class="e-prepare">
+                                                                                    <div class="e-time e-tooltip-text">
+                                                                                        <div class="e-icons e-clock"></div>
+                                                                                        <div class="e-rating">@card.Emoji</div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td><div class="e-size e-tooltip-text">@card.Size</div></td>
+                                                                        <td><div class="e-price e-tooltip-text">@card.Price</div></td>
+                                                                    }
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </Template>
+            </KanbanCardSettings>
+            <KanbanDialogSettings>
+                <Template>
+                    @{
+                        PizzaDataModel data = (PizzaDataModel)context;
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="e-label">ID</td>
+                                    <td>
+                                        <SfTextBox CssClass="e-field" Value="@data.Id" Enabled="false"></SfTextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="e-label">Category</td>
+                                    <td>
+                                        <SfDropDownList @ref="CategoryRef" TValue="string" TItem="DropDownModel" CssClass="e-field" DataSource="@CategoryData" @bind-Value="@data.Category">
+                                            <DropDownListFieldSettings Text="Value" Value="Value"></DropDownListFieldSettings>
+                                        </SfDropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="e-label">Title</td>
+                                    <td>
+                                        <SfTextBox CssClass="e-field" @bind-Value="@data.Title"></SfTextBox>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="e-label">Size</td>
+                                    <td>
+                                        <SfTextBox CssClass="e-field" @bind-Value="@data.Size"></SfTextBox>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="e-label">Description</td>
+                                    <td>
+                                        <SfTextBox @ref="DescriptionRef" CssClass="e-field" Multiline="true" @bind-Value="@data.Description"></SfTextBox>
+                                    </td>
+                                </tr>
+                                <tr id="DateRow">
+                                    <td class="e-label">Deliver</td>
+                                    <td>
+                                        <SfDatePicker TValue="DateTime?" @bind-Value='@data.Date' Format="MM/dd/yyyy" ID="Date"></SfDatePicker>
+                                    </td>
+                                </tr>
+                                @if (data.Category == "Delivered")
+                                {
+                                    <tr>
+                                        <td class="e-label">Feedback</td>
+                                        <td>
+                                            <SfTextBox CssClass="e-field" @bind-Value="@data.Feedback" Multiline="true"></SfTextBox>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </Template>
+            </KanbanDialogSettings>
+        </SfKanban>
+    </div>
+</div>
+</div>
+<style>
+
+    .spin-row {
+        position: relative;
+        height: 550px;
+    }
+
+    .e-kanban .e-prepare,
+    .e-kanban .e-price {
+        text-align: right;
+    }
+
+    .e-kanban .e-card table.table-fixed-layout {
+        table-layout: fixed;
+    }
+
+    .e-kanban .e-time {
+        display: inline-flex;
+    }
+    .e-kanban .e-display {
+        display: flex;
+    }
+    .e-kanban .e-date {
+        padding-right: 3px;
+        float:left;
+    }
+
+    .e-kanban .e-size {
+        color: #b8860b
+    }
+
+    .e-kanban .e-mins {
+        padding-left: 3px;
+        width: 45px;
+    }
+
+    .e-kanban .e-rating {
+        padding-left: 3px;
+        color: #0000ff;
+        font-size: 1.5em;
+    }
+
+    .e-kanban .e-clock {
+        padding-top: 2px;
+    }
+
+        .e-kanban .e-clock::before {
+            content: '\e20c';
+            color: #ffa500;
+            font-size: 10px;
+        }
+
+    .e-kanban .e-done::before {
+        content: '\ea84';
+        color: #008000;
+        font-size: 16px;
+    }
+
+    .fabric .e-kanban .e-clock::before {
+        content: '\e97f';
+    }
+
+    .bootstrap .e-kanban .e-clock::before {
+        content: '\e93e';
+    }
+
+    .bootstrap4 .e-kanban .e-clock::before {
+        content: '\e7c7';
+    }
+
+    .bootstrap4 .e-kanban .e-done::before {
+        content: '\e7d9';
+    }
+
+    .highcontrast .e-kanban .e-clock::before {
+        content: '\e97f';
+    }
+
+    .e-kanban .card-template-wrap {
+        line-height: normal;
+        font-size: 12px;
+        width: 100%;
+    }
+
+        .e-kanban .card-template-wrap td {
+            background: none !important;
+            border: none !important;
+            height: auto !important;
+            line-height: 1.6;
+            width: 105px;
+        }
+
+    .e-kanban .e-image img {
+        background: #ececec;
+        border: 1px solid #c8c8c8;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+    }
+
+    .e-kanban .e-image {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .e-kanban .card-header {
+        font-size: 15px;
+        font-weight: 500;
+        display: inline-block;
+    }
+
+    .e-kanban .e-card .card-content {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .e-kanban .e-description {
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }
+
+    .e-kanban .e-card .e-done {
+        padding-top: 5px;
+        padding-bottom: 10px;
+        position: absolute;
+        right: 15px;
+    }
+
+    .e-kanban .e-readyText {
+        color: #008000;
+        width: 50px;
+    }
+
+    .e-kanban .e-preparingText {
+        color: #9ACD32;
+        animation: blinker 1.5s linear infinite;
+    }
+
+    .e-kanban .e-deliveredText {
+        color: #ff0000;
+    }
+   .e-kanban-dialog .e-kanban-form-wrapper table .e-label, .e-kanban-dialog .e-kanban-form-container table .e-label {
+    	width: 80px;
+    }
+
+    @@keyframes blinker {
+        50% {
+            opacity: 0.5;
+        }
+    }
+</style>

@@ -1,0 +1,10 @@
+.vscode/
+node_modules/
+package-lock.json
+src/bin/
+src/obj/
+src/deploy/
+.vs/
+src/.vs/
+src/logs/
+src/*.sln

@@ -1,0 +1,90 @@
+﻿@page "/pdfviewer/summarizer"
+
+@using Microsoft.JSInterop
+@using System.Text.RegularExpressions;
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.SfPdfViewer
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Notifications
+@using PdfAnnotation = Syncfusion.Blazor.SfPdfViewer.PdfAnnotation;
+@using Syncfusion.Drawing;
+@using Syncfusion.Pdf;
+@using Syncfusion.Pdf.Parsing;
+@using Syncfusion.Pdf.Redaction;
+@using Syncfusion.Pdf.Interactive;
+@using Syncfusion.Blazor.InteractiveChat;
+
+@inject LocalEmbedder embedder;
+@inject AzureAIService openAIService
+@inject IJSRuntime JsRuntime
+@implements IDisposable
+
+<title>Syncfusion - Smart Summarizer</title>
+
+<h4 style="text-align:center;">Smart Summarizer</h4>
+
+<div>
+    <Description>
+        <p>This sample demonstrates how the Syncfusion Blazor PDF Viewer offers intelligent PDF summarization and Q&A.
+            By clicking the <mark>AI AssistView</mark> button at the bottom-right, users can get a summary of the PDF and then ask
+            questions about the document using their own queries or AI-generated suggestions.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/PDFViewer/Readme.md">here</a>.
+        </p>
+    </Description>
+    <div class="summarize-container">
+        <div id="left" style="width:@(isPopupVisible ?" 70%" : "100%" )">
+            <SfPdfViewer2 @ref="sfPdfViewer2" DocumentPath="https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf"
+                ZoomMode="ZoomMode.FitToPage">
+                <PdfViewerEvents DocumentLoaded="DocumentLoaded" DocumentUnloaded="DocumentUnLoaded"></PdfViewerEvents>
+            </SfPdfViewer2>
+            @if (isDocumentLoaded && !isPopupVisible)
+            {
+                <SfFab IconCss="e-icons e-ai-chat" OnClick="ToggleAssistView"></SfFab>
+            }
+        </div>
+
+        @if (isPopupVisible)
+        {
+        <div id="right" style="width:@(isPopupVisible ?" 30%" : "0%" )">
+            <SfAIAssistView @ref="aIAssistView" Height="100%" Prompts="@_prompts"
+                PromptPlaceholder="@_promptPlaceholder" PromptSuggestionsHeader="Suggested Prompts"
+                PromptSuggestions="@_promptSuggestions" ResponseIconCss="e-icons e-aiassist-chat"
+                PromptRequested="@OnPromptRequested" CssClass="custom-ai-assist">
+
+                <AssistViews>
+                    <AssistView IconCss="e-icons e-aiassist-chat">
+                        <BannerTemplate>
+                            <div class="ai-assist-banner">
+                                <div class="e-icons e-aiassist-chat"></div>
+                                <h2>AI Assistant</h2>
+                            </div>
+                        </BannerTemplate>
+                        <ChildContent>
+                            <PromptToolbar ItemClicked="PromptToolbarItemClicked">
+                            </PromptToolbar>
+
+                            <ResponseToolbar ItemClicked="ResponseToolbarItemClicked">
+                            </ResponseToolbar>
+                        </ChildContent>
+                    </AssistView>
+                </AssistViews>
+
+                <AssistViewToolbar ItemClicked="ToolbarItemClicked">
+                    <AssistViewToolbarItem Type="ItemType.Spacer"></AssistViewToolbarItem>
+                    <AssistViewToolbarItem IconCss="e-icons e-refresh"></AssistViewToolbarItem>
+                    <AssistViewToolbarItem IconCss="e-icons e-close"></AssistViewToolbarItem>
+                </AssistViewToolbar>
+            </SfAIAssistView>
+        </div>
+        }
+    </div>
+</div>
+
+<style>
+    .e-fab.e-btn.e-fab-right {
+        right: 75px !important;
+    }
+</style>

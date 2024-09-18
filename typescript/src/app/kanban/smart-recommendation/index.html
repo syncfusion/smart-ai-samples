@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Kanban</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Kanban Cards" />
+    <meta name="author" content="Syncfusion" />
+    <link href="../../bundle.css" rel="stylesheet">
+    
+
+   
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body style="cursor: pointer;">
+    <h4 style="text-align: center;">AI-Powered Task Management with Kanban</h4>
+    <div class="description-container e-card">
+     
+        <div class='e-card-content '>
+            
+            <!--!-->
+            <p>This sample demonstrates AI integration for automatically generating task segments based on project details and assigning them to team members according to their capacity. It also allows for manual adjustments of assignees within the Syncfusion Kanban Board.
+                Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/kanban/Readme.md">here</a>.
+            </p>
+        </div>
+    </div>
+    <div id='container'>
+        <div class="row row-large" id="homecontainer">
+            <div class="col-12 text-center my-3">
+                <h4>AI Smart Task Suggestion</h4>
+            </div>            
+            <div class="col-12 text-center my-3 d-flex" style="width:100%; max-width: 350px;">
+                <div class="e-rte-label1" style="margin: 10px">
+                    <label>Project Details</label>
+                </div>
+                <div class="e-rte-field" style="margin: 10px">
+                    <input id="project-details-home" name="project-details" />
+                </div>
+                <div class="e-rte-label2" style="margin: 10px; padding-top: 20px;">
+                    <label>Number of tasks</label>
+                </div>
+                <div class="e-rte-field" style="margin: 10px">
+                    <input id="tasks-value-home" name="tasks-value" />
+                </div>
+                <div class="d-flex justify-content-center" style="margin: 10px;">
+                    <div id="generate-tasks-home"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="toast-kanban-observable" style="height:100%; display: none;">
+            <div class="col-12 text-center my-3" id="customcontainer">
+                <h3>Kanban Board</h3>
+            </div>
+            <div class="col-12 col-md-6 mt-6 mt-md-0 d-flex cuscol-2 justify-content-center e-right">
+                <div class="col-12 text-center my-3" id="backlog">
+                    <button id="openProjectDetailsDialog" style="float: right;display: none;"></button>
+                    <button id="goToBacklogBoardView" style="float: right;"></button>
+                </div>
+                <div class="w-100">
+                    <div id="grid-container"></div>
+                    <div id="backlogsBoard" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast"></div>
+    <div id="projectDetailsDialog">
+        <div id="projectDetails">
+            <div class="custom-row-1">
+                <div class="col-12 col-md-6 d-flex cuscol-1 justify-content-start e-left">
+                    <div class="w-100">
+                        <div class="e-rte-label1" style="margin: 10px">
+                            <label>Project Details</label>
+                        </div>
+                        <div class="e-rte-field" style="margin: 10px">
+                            <input id="project-details" name="project-details" />
+                        </div>
+                        <div class="e-rte-label2" style="margin: 10px; padding-top: 20px;">
+                            <label>Number of tasks</label>
+                        </div>
+                        <div class="e-rte-field" style="margin: 10px">
+                            <input id="tasks-value" name="tasks-value" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="projectdialogFooter">
+            <div class="custom-row-2">
+                <div class="col-12 d-flex cuscol-0">
+                    <div class="w-100">
+                        <div id="generate-tasks"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id='dialogtemplate' type="text/x-template">
+        <div class="form-row" style="margin: 10px;">
+            <div class="form-group" style="margin: 10px;">
+                <input id="Id" name="Id" type="text" value="${Id}" ${if(isAdd)} ${else} disabled ${/if}/ />   
+            </div>
+            <div class="form-group" style="margin: 10px;">
+                <input id="Title" name="Title" type="text" value="${Title}" />        
+            </div>
+            <div class="form-group" style="margin: 10px;">                
+                <input id="Description" name="Description" type="text" value="${Description}" />    
+            </div>
+            <div class="form-group" style="margin: 10px;">             
+                <input id="StoryPoints" name="StoryPoints" type="text" value="${StoryPoints}"/>  
+            </div>
+            <div class="form-group" style="margin: 10px;">               
+                <input id="Status" name="Status" type="text" value="${Status}" ${if(isAdd)} ${else} disabled ${/if}//>
+            </div>
+        </div>
+    </script>
+    <script id="cardTemplate-backlog-board" type="text/x-jsrender">
+        <div class="card-template">
+            <div class="e-card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title e-tooltip-text">${Title}</div>
+                </div>
+            </div>
+            <div class="e-card-content">
+                <div class="e-text e-tooltip-text">${Description}</div>
+            </div>
+            <div class="e-card-footer">
+                <div class="e-card-tag e-tooltip-text">${StoryPoints}</div>
+            </div>
+        </div>
+    </script>
+</body>
+
+
+<script src="./kanban.js"></script>
+</html>

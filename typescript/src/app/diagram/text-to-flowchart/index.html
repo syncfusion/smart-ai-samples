@@ -1,0 +1,65 @@
+<html>
+
+<head>
+  <link href="../../bundle.css" rel="stylesheet" />
+ 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      touch-action: none;
+    }
+  </style>
+  <link href="./style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <h4 style="text-align: center;">Text To Flow Chart</h4>
+  <div class="description-container e-card">
+    <div class='e-card-content '>
+      <!--!-->
+      <p>
+        This demo demonstrates how the JavaScript Diagram Component, enhanced with AI, creates flowcharts using nodes and connectors. It visually represents processes, workflows, and decision paths, providing a clear and interactive way to map out procedures.
+        Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/diagram/Readme.md">here</a>.
+    </p>
+    </div>
+  </div>
+  <div class="stackblitz-container fluent2">
+    <div class="control-section">
+      <link href="https://ej2.syncfusion.com/javascript/demos/src/diagram/styles/diagram-common.css" rel="stylesheet" />
+     
+      <div class="main" >
+        <div class="diagram-upload-file">
+          <input type="file" id="fileupload" name="UploadFiles" />
+        </div>
+        <div class="db-toolbar-editor">
+          <div class="db-toolbar-container">
+            <div id="toolbarEditor"></div>
+          </div>
+        </div>
+        <div>
+          <div class="sb-mobile-palette-bar">
+            <div id="palette-icon" role="button" class="e-ddb-icons1 e-toggle-palette"></div>
+          </div>
+          <div style="margin-top: 5px;border-top: 0.5px solid #b0b0b0;" id="palette-space" class="sb-mobile-palette">
+            <div id="symbolpalette"></div>
+          </div>
+          <div style="margin-top: 5px;border: 0.5px solid #b0b0b0;" id="diagram-space" class="sb-mobile-diagram">
+            <div id="diagram"></div>
+          </div>
+        </div>
+      </div>
+      <div id='container'>
+        <div id='dialog'></div>
+      </div>
+      <button id="ai-assist"></button>
+
+      <!-- Loading indicator container -->
+      <div id="loadingContainer">
+
+      </div>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+
+</html>

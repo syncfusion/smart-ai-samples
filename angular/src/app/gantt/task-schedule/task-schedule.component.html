@@ -1,0 +1,24 @@
+<h2 style="text-align: center;">Smart Scheduling</h2>
+<div class="description-container e-card">
+    <div class='e-card-content '>
+        <!--!-->
+        <p>
+            This sample demonstrates how AI forecasts and schedules tasks in the Syncfusion Angular Gantt Chart. The Gantt Chart displays baselines for both predicted and actual timelines using five years of historical data and current tasks, helping users visualize and adjust project schedules.
+        </p>
+    </div>
+</div>
+
+<div id='container'>
+    <ejs-gantt #ganttDefault height="430px" [dataSource]="data" [taskFields]="taskSettings"  [editSettings]="editSetting"
+    [allowFiltering]="true" [treeColumnIndex]="1" [enableContextMenu]="true"
+   [toolbar]="toolbar" (toolbarClick)="toolbarClick($event)" [gridLines]="gridLines" [highlightWeekends]="true" [renderBaseline]="true" [readOnly]="false">
+    <e-columns>
+        <e-column field='ID' headerText='Task ID' [visible]="false"></e-column>
+        <e-column field='Name' headerText='Event Name' [width]="250"></e-column>
+        <e-column field='Duration' ></e-column>
+        <e-column field='StartDate' headerText='Start Date' ></e-column>
+        <e-column field='EndDate' headerText='End Date'></e-column>
+    </e-columns> 
+    </ejs-gantt>
+<div id="csfooter" style="width: 100%; height: 66px; background-color: #F0FFFF;min-height: 120px; padding: 15px;"></div>
+</div>

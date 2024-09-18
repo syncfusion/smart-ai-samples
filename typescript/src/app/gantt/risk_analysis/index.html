@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Essential JS 2</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Essential JS 2" />
+    <meta name="author" content="Syncfusion" />
+    <link href="../../bundle.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <script type="text/x-template" id="rightLabel">
+        <div style="margin-top=-7px;">
+           ${if(ganttProperties)}
+           <div id = "rightLabel">
+             ${getSummary(ganttProperties)}
+           </div>
+           ${/if}
+        </div>
+    </script>
+    <h2 style="text-align: center;">Smart Risk Assessor</h2>
+    <div class="description-container e-card">
+       
+            <!--!-->
+        <p>Using AI, this sample identifies at-risk tasks by analyzing their duration and dependencies, and highlights them with distinctive colors on their taskbars. Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/gantt/Readme.md">here</a>.</p>
+        </div>
+    </div>
+    <div id='GanttContainer'>
+        </div>
+        <script src="./risk_analysis.js"></script>
+</body>
+
+</html>

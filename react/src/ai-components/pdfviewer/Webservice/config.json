@@ -1,0 +1,6 @@
+{
+    "deploy": ["src/deploy/**"],
+    "base": "src/deploy",
+    "appName" : "web-services",
+    "isServices" : true
+}

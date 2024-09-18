@@ -1,0 +1,18 @@
+﻿.e-sf-ai-label-content {
+  font-size: 14px;
+  font-weight: 400;
+  padding-top: 6px;
+  color: #000000;
+}
+
+.e-sf-ai-taskbar-red {
+  background: red !important;
+}
+
+.e-sf-ai-taskbar-orange {
+  background: orange !important;
+}
+
+.control-section {
+  width: 83%;
+}

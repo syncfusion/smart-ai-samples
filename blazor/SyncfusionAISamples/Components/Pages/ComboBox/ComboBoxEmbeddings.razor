@@ -1,0 +1,23 @@
+﻿@page "/combobox/embeddings"
+
+@using Syncfusion.Blazor.DropDowns
+@using SmartComponents.LocalEmbeddings
+
+@inject LocalEmbedder embedder
+
+<title>Syncfusion - Semantic Search Samples</title>
+
+<h4 style="text-align:center;">Semantic Search</h4>
+
+<Description>
+    <p>The <b>Combo Box</b> allows users to type or select from a dropdown with autocomplete. The Smart ComboBox improves this by suggesting options based on semantic relevance, making it easier to find related values even if the exact match isn't remembered.</p>
+    <p>Type <b>transport</b>, <b>school</b> or <b>dress</b> into the combobox to see how smart search works with semantic matching. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/ComboBox/Readme.md">here</a>.</p>
+</Description>
+<div class="control-wrapper" style="">
+    <h6 style="text-align:center;">Select an Expense Category</h6>
+    <br>
+    <SfComboBox @ref="comboboxObj" Width="70%" TValue="string" TItem="ExpenseCategory" PopupHeight="230px" AllowFiltering="true" Placeholder="Type transport or school or dress" @bind-Value="@ComboBoxValue" DataSource="@cbxDataSource">
+        <ComboBoxEvents TValue="string" TItem="ExpenseCategory" Filtering="OnSearchTermChanged"/>
+        <ComboBoxFieldSettings Text="Name" Value="ID" />
+    </SfComboBox>
+</div>

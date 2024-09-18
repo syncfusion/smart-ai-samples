@@ -1,0 +1,290 @@
+﻿@page "/rte/ai-assistant"
+
+@inject AzureAIService ChatGptService
+@inject IJSRuntime JSRuntime
+
+@using Syncfusion.Blazor.RichTextEditor
+@using Syncfusion.Blazor.SplitButtons
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Notifications
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Layouts
+
+<title>Syncfusion - Smart Rich Text Editor</title>
+
+<h4 style="text-align:center;">Smart Rich Text Editor</h4>
+
+<div class="control-section" id="rteSection">
+    <Description>
+        <p>The <b>Rich Text Editor</b>, enhanced with AI, offers features such as <i>content generation</i>, <i>summarization</i>, <i>rephrasing</i>, <i>translation</i>, and <i>grammar correction</i>. Click the <mark><b>AI Assist</b></mark> option to explore these AI-powered capabilities. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/RichTextEditor/Readme.md">here</a>.</p>
+    </Description>
+
+    <SfRichTextEditor Height="500px" Width="100%" @ref="rteObj" @bind-Value="@Value" SaveInterval="0" AutoSaveOnIdle="true">
+        <RichTextEditorToolbarSettings Items="@Tools">
+            <RichTextEditorCustomToolbarItems>
+                <RichTextEditorCustomToolbarItem Name="AIAssistant">
+                    <Template>
+                        <SfDropDownButton CssClass="menubutton e-tbar-btn e-tbar-btn-text" IconCss="e-icons e-aiassist-chat e-btn-icon e-icon-left" Content="AI Assistant" Disabled="@enabelAIAssitantButton">
+                            <DropDownButtonEvents ItemSelected="AIQuerySelectedMenu" />
+                            <DropDownMenuItems>
+                                <DropDownMenuItem Text="Rephrase"></DropDownMenuItem>
+                                <DropDownMenuItem Text="Correct Grammar"></DropDownMenuItem>
+                                <DropDownMenuItem Text="Summarize"></DropDownMenuItem>
+                                <DropDownMenuItem Text="Elaborate"></DropDownMenuItem>
+                                <DropDownMenuItem Text="Translate"></DropDownMenuItem>
+                            </DropDownMenuItems>
+                        </SfDropDownButton>
+                    </Template>
+                </RichTextEditorCustomToolbarItem>
+                <RichTextEditorCustomToolbarItem Name="Rephrase">
+                    <Template>
+                        <SfButton CssClass="e-tbar-btn" @onclick="Rephrase" Disabled="@enabelAIAssitantButton">
+                            <div class="e-tbar-btn-text">Rephrase</div>
+                        </SfButton>
+                    </Template>
+                </RichTextEditorCustomToolbarItem>
+            </RichTextEditorCustomToolbarItems>
+        </RichTextEditorToolbarSettings>
+        <RichTextEditorEvents ValueChange="UpdateStatus" />
+    </SfRichTextEditor>
+</div>
+<div class="scroll-restricted">
+    <SfDialog @bind-Visible="@dialogVisible" AllowPrerender="true" CssClass="e-rte-elements custom-dialog" ZIndex="1000" ShowCloseIcon="true" IsModal="true" Width="80%" Height="100%" Target="#rteSection">
+        <DialogTemplates>
+            <Header> <span class="e-icons e-aiassist-chat e-btn-icon e-icon-left"></span> AI Assistant </Header>
+            <Content>             
+                <div class="custom-row-0">
+                    <div class="col-12 col-md-3 d-flex justify-content-start align-items-center">
+                        <div class="w-100">
+                            <SfDropDownList CssClass="e-round-corner" TItem="SubQuery" TValue="string" DataSource="@QueryList" @bind-Value="@dropVal" Enabled="@(!enabelRegenerateContentButton)">
+                                <DropDownListEvents TItem="SubQuery" TValue="string" />
+                                <DropDownListFieldSettings Text="Text" Value="ID" />
+                                <DropDownListEvents TValue="string" TItem="SubQuery" ValueChange="AIQuerySelectedDropdownList"></DropDownListEvents>
+                            </SfDropDownList>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9 mt-9 mt-md-0 d-flex justify-content-end align-items-center">
+                        @if (this.enableRephraseChips)
+                        {
+                            <SfChip CssClass="e-custom" Selection="SelectionType.Single" @bind-SelectedChips="@chipValue">
+                                <ChipItems>
+                                    <ChipItem Text="Standard" CssClass="e-custom"></ChipItem>
+                                    <ChipItem Text="Fluent" CssClass="e-custom"></ChipItem>
+                                    <ChipItem Text="Professional" CssClass="e-custom"></ChipItem>
+                                </ChipItems>
+                                <ChipEvents SelectionChanged="SelectedChipsChanged"></ChipEvents>
+                            </SfChip>
+                        }
+                        else if (this.enableLanguageList)
+                        {
+                            <div class="col-3 col-md-3 mt-3 mt-md-0 d-flex cuscol justify-content-end align-items-center">
+                                <span>Target Language</span>
+                            </div>
+                            <div class="col-3 col-md-3 mt-3 mt-md-0 d-flex justify-content-end align-items-center">
+                                <SfDropDownList CssClass="e-round-corner" TItem="Languages" TValue="string" DataSource="@LanguageList" @bind-Value="@translatelanguage">
+                                    <DropDownListFieldSettings Text="Text" Value="ID" />
+                                    <DropDownListEvents TValue="string" TItem="Languages" ValueChange="AITranslateDropdownList"></DropDownListEvents>
+                                </SfDropDownList>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="custom-row-1">
+                    <div class="col-12 col-md-6 d-flex cuscol-1 justify-content-start">
+                        <div class="w-100">
+                            <SfRichTextEditor Width="100%" Height="286px" @ref="leftRteChildObj" @bind-Value="promptQuery">
+                                <RichTextEditorToolbarSettings Enable="false"></RichTextEditorToolbarSettings>
+                            </SfRichTextEditor>
+                        </div>
+                    </div>
+                    @if (!isContentGenerating)
+                    {
+                        @if (noResultsFound)
+                        {
+                            <div class="col-12 col-md-6 mt-6 mt-md-0 d-flex cuscol-2 cuscol-noresult justify-content-center">
+                                <div class="w-100">
+                                    <div class="no-results-found">
+                                        <img height="50" width="50" src="https://storage.googleapis.com/cdn-bolddesk/agent-angular-app/images/light/no-records-warning.svg">
+                                        <div>No results found</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else {
+                            <div class="col-12 col-md-6 mt-6 mt-md-0 d-flex cuscol-2 justify-content-start">
+                                <div class="w-100">
+                                    <SfRichTextEditor Width="100%" Height="286px" @ref="rightRteChildObj" @bind-Value="AIResult">
+                                        <RichTextEditorToolbarSettings Enable="false"></RichTextEditorToolbarSettings>
+                                    </SfRichTextEditor>
+                                </div>
+                            </div>
+                        }
+                    } else {
+                        <div class="col-12 col-md-6 mt-6 mt-md-0 d-flex cuscol-2 justify-content-start">
+                            <div class="w-100">
+                                <div class="content-preparing">
+                                    <SfSkeleton CssClass="skeleton-rectangle" Shape=SkeletonType.Rectangle Width="100%" Height="20px"></SfSkeleton><br />
+                                    <SfSkeleton CssClass="skeleton-rectangle" Shape=SkeletonType.Rectangle Width="90%" Height="20px"></SfSkeleton><br />
+                                    <SfSkeleton CssClass="skeleton-rectangle" Shape=SkeletonType.Rectangle Width="70%" Height="20px"></SfSkeleton><br />
+                                    <SfSkeleton CssClass="skeleton-rectangle" Shape=SkeletonType.Rectangle Width="50%" Height="20px"></SfSkeleton><br />
+                                    <SfSkeleton CssClass="skeleton-rectangle" Shape=SkeletonType.Rectangle Width="30%" Height="20px"></SfSkeleton><br />
+                                    <SfSkeleton CssClass="skeleton-rectangle" Shape=SkeletonType.Rectangle Width="10%" Height="20px"></SfSkeleton>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </Content>
+            <FooterTemplate>
+                <div class="custom-row-2">
+                    <div class="col-12 col-md-6 d-flex cuscol-0 justify-content-end align-items-center">
+                        <div class="w-100">
+                            <SfButton Disabled="@enabelRegenerateContentButton" IsPrimary="true" @onclick="RegenerateContent">Regenerate</SfButton>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mt-6 mt-md-0 cuscol-01 d-flex justify-content-end align-items-center">
+                        @if (!string.IsNullOrEmpty(sentiment)) {
+                            <button class="e-btn e-control e-info sentiment" id="info_Toast" disabled>@sentiment</button>
+                        }
+                        <SfButton Disabled="@enabelContentButton" @onclick="CopyContent">Copy</SfButton>
+                        <SfButton Disabled="@enabelContentButton" IsPrimary="true" @onclick="ReplaceContent">Replace</SfButton>
+                    </div>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogEvents Closed="CloseDialog" OnOverlayModalClick="CloseDialog"/>
+    </SfDialog>
+</div>
+<SfToast @ref="ToastObj" ID="toast_type" Target="@ToastTarget" ShowCloseButton="true">
+    <ToastPosition X="Right" Y="Top" />
+</SfToast>
+
+<script>
+    function copyToClipboard(text) {
+        const tempElement = document.createElement('div');
+        tempElement.innerHTML = text;
+        document.body.appendChild(tempElement);
+
+        // Select the content of the temporary element
+        const range = document.createRange();
+        range.selectNodeContents(tempElement);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        // Execute the copy command
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                console.log('HTML copied to clipboard!');
+            } else {
+                console.log('Failed to copy HTML.');
+            }
+        } catch (err) {
+            console.error('Error copying HTML to clipboard: ', err);
+        }
+
+        // Clean up by removing the temporary element
+        document.body.removeChild(tempElement);
+        selection.removeAllRanges();
+    }
+</script>
+<style>
+    .e-custom {
+        margin-right: 0.5rem;
+        border-radius: 25px !important;
+    }
+
+    .skeleton-rectangle {
+        border-radius: 4px;
+    }
+
+    @@media (max-width: 767px) {
+        .cuscol-0, .cuscol-1, .cuscol-2 {
+            justify-content: center;
+        }
+
+        .custom-row-0, .custom-row-1, .custom-row-2 {
+            flex-direction: column;
+        }
+
+        .cuscol-1 {
+            border-right: none !important;
+            border-bottom: 1px solid #ced4da !important;
+        }
+
+        .cuscol-0 {
+            border-right: none !important;
+        }
+
+        .h-100 {
+            height: auto !important;
+        }
+
+        .custom-dialog .e-dialog .e-dlg-content {
+            overflow-y: auto !important;
+        }
+
+            .custom-dialog .e-dialog .e-dlg-content .e-richtexteditor {
+                height: 100px !important;
+            }
+
+        .cuscol-noresult {
+            padding-bottom: 20px !important;
+        }
+
+        .e-chip-list {
+            padding: 5px !important;
+        }
+
+        .cuscol {
+            padding-right: 0.2rem !important;
+            width: auto !important;
+        }
+
+        .custom-row-1 {
+            height: auto !important;
+        }
+    }
+
+    .cuscol-1, .cuscol-2 {
+        padding: 20px;
+    }
+
+    .h-100 {
+        height: 100%;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .custom-dialog .e-dialog .e-dlg-content {
+        padding: 0px !important;
+        overflow-y: hidden;
+    }
+
+    .custom-dialog .e-dialog .e-dlg-header-content + .e-dlg-content {
+        padding-top: 0px !important;
+    }
+
+    .custom-dialog .e-dialog .e-footer-content {
+        padding: 0px !important;
+    }
+
+    .custom-dialog .e-dialog .e-dlg-content .e-richtexteditor.e-rte-tb-expand .e-rte-content, .e-richtexteditor.e-rte-tb-expand .e-source-content {
+        border: 0;
+        border-bottom: 1px solid #dee2e6;
+        border-top: 0px solid #dee2e6 !important;
+    }
+
+    .menubutton.e-tbar-btn.e-tbar-btn-text {
+        font-size: 14px !important;
+    }
+
+    .e-aiassist-chat::before {
+        padding: 6px;
+    }
+</style>

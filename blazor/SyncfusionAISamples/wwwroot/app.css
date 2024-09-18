@@ -1,0 +1,389 @@
+@import "styles/diagram/textToFlowchart.css";
+@import "styles/diagram/textToMindmap.css";
+
+/* Gantt control styles */
+
+#gantt-control-section {
+    width: 100%;
+    margin: auto;
+}
+
+/* PDF Viewer Styles */
+/*Smart Fill*/
+.parent-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.left-content {
+    height: calc(100% - 31px);
+    padding-right: 12px
+}
+
+.right-content {
+    height: 100vh;
+    width: 25%;
+    background-color: #ffff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: auto;
+    border: 1px solid lightgray;
+}
+.e-bigger .right-content {
+    height: 100% !important;
+}
+.smart-fill-container {
+    padding: 12px;
+}
+
+.mobile-smart-fill-container {
+    padding: 1% 3% 3%;
+}
+
+.e-toolbar {
+    border-width: 1px !important
+}
+
+.header {
+    height: 43px;
+    padding: 1.5%;
+    overflow: auto;
+    border-bottom: 1px solid lightgray
+}
+
+.header h6 {
+    margin: 0 !important
+}
+
+.mobile-header {
+    padding: 0 3% 3%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid lightgray
+}
+
+.mobile-header h6 {
+    margin: 0;
+    padding-right: 10px;
+}
+
+.smart-fill-btn {
+    position: absolute; 
+    right: 12px;
+    height: 32px;
+    width: 156px;
+    padding: 0 !important;
+    line-height: unset !important;
+    font-size: 14px !important
+}
+
+.spinner-container {
+    height: 100vh;
+    width: 74.2%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.3;
+    z-index: 999999
+}
+
+.copy-icon {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    border: none !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+    box-shadow: unset !important
+}
+
+.splitter-icon {
+    margin: 0;
+    border: none !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+.box {
+    min-height: 110px !important;
+    margin: 20px 0;
+    padding: 12px 3% 0 0;
+}
+/*for mobiles*/
+@media only screen and (max-width: 430px) {
+    .e-toolbar .e-toolbar-item .e-tbar-btn .e-tbar-btn-text {
+        display: none
+    }
+
+    .smart-fill-btn {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    .spinner-container {
+        right: 0;
+        top: 0;
+        height: 100vh;
+        width: 100%
+    }
+}
+
+/*Smart Redact*/
+.parent {
+    height: 100vh;
+    min-height: 100%;
+}
+.sample-header {
+    width: 100%;
+}
+
+.sample-content {
+    height: calc(100% - 40px);
+    width: 100%;
+}
+
+.e-bigger .sample-left-content {
+    height: 97% !important;
+}
+.sample-left-content {
+    height: 94vh;
+    float: left;
+}
+
+.sample-right-content {
+    height: 98.2%;
+    float: right;
+}
+
+.scan-btn {
+    margin: 0 auto;
+    width: 197px;
+    height: 32px;
+    padding: 0 !important;
+    line-height: unset !important;
+    font-size: 14px !important
+}
+
+.smart-btn {
+    position: absolute;
+    right: 12px;
+    width: 150px;
+    font-size: 14px !important
+}
+
+.btn-container {
+    position: absolute;
+    bottom: 0;
+    padding: 16px 12px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid lightgray;
+}
+.container {
+    width: 100%;
+    height: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.redact-header {
+    height: auto;
+    padding: 7px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: flex-end;
+}
+.closebtn{
+    border: none !important;
+}
+.card-body {
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.spinner-redact {
+    position: absolute;
+    right: 12.5%;
+    top: 50%;
+}
+
+.redact-buttons {
+    display: flex;
+    justify-content: end;
+    padding: 5% !important;
+    position: sticky;
+    bottom: 0;
+    z-index: 1
+}
+
+.sample-container-card-body {
+    position: absolute;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+.redact-btn {
+    width: 96px;
+    height: 32px;
+    margin: 0px 2%;
+    padding: 0 !important;
+    font-size: 14px !important
+}
+.redact-options {
+   height: 77vh
+}
+
+.redact-options, .redact-patterns {
+    overflow: auto;
+    padding: 18px;
+}
+.redact-patterns .e-icons.interaction.e-icon-collapsible {
+    display: none !important;
+    cursor: unset !important
+}
+.redact-patterns .e-icons.interaction.e-icon-expandable {
+    display: none !important;
+    cursor: unset !important
+}
+.redact-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#toast_message .e-toast-icon.e-icons {
+    height: 20px;
+    font-size: 20px;
+}
+
+.toast-icons.e-info::before {
+    content: "\e800";
+}
+
+.mark-redact {
+    background-color: white;
+    width: 18px !important;
+    height: 18px !important;
+    border: 1px solid red;
+    border-radius: 3px;
+    margin: 4px !important;
+}
+/*Summarizer*/
+.summarize-container {
+    display: flex;
+    height: 100vh;
+    width: 100%
+}
+
+#left {
+    transition: width 0.3s;
+    position: relative;
+    height: 100vh
+}
+
+#right {
+    transition: width 0.3s;
+    height: 100% !important;
+}
+
+.assist-view-btn {
+    position: absolute !important;
+    bottom: 40px !important;
+    right: 40px !important;
+}
+.e-bigger .assist-view-btn {
+    bottom: 24px !important;
+}
+
+.e-aiassist-footer,
+.e-aiassist-view-container {
+    width: 100% !important;
+}
+.custom-dialog .e-dlg-content {
+    padding: 0;
+}
+
+.custom-ai-assist {
+    border: none;
+}
+
+.ai-assist-banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 200px;
+    font-size: 18px;
+    align-items: center;
+    text-align: center;
+}
+
+    .ai-assist-banner h2 {
+        margin: 0;
+    }
+
+    .ai-assist-banner .e-icons:before {
+        font-size: 40px;
+    }
+
+.compose-view,
+.output-view {
+    width: max(70%, 400px);
+    border: 1px solid lightgray;
+    padding: 15px;
+    margin: 15px auto 20px;
+    border-radius: 7px;
+}
+
+.custom-btn {
+    width: 100%;
+    border-radius: 50px;
+    margin: 20px 0;
+}
+
+#AnnotationToolbar .e-toolbar-item.e-template .e-dropdown-btn {
+    border: none !important;
+    box-shadow: none;
+}
+
+.db-menu-container .e-dropdown-btn {
+    border: none;
+    box-shadow: none;
+}
+
+.e-aiassist-view .e-aiassist-footer .e-aiassist-send {
+    bottom: 36% !important
+}
+/* PDF Viewer Styles END*/
+
+.description-container {
+  margin-bottom: 25px;
+  background-color: #f3f4f6;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+}

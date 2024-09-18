@@ -1,0 +1,197 @@
+<html>
+
+<head>
+  <link href="../../bundle.css" rel="stylesheet" />
+ 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="./style.css" rel="stylesheet" />
+  <style>
+    body {
+      touch-action: none;
+    }
+    #closeIconDiv:hover {
+      padding: 3px;
+      background-color: #b4ac61;
+    }
+
+  </style>
+</head>
+
+<body>
+  <h2 style="text-align: center;">Text To Mind Map</h2>
+    <div class="description-container e-card">
+
+        <div class='e-card-content '>
+            <!--!-->
+            <p>
+              This demo showcases the JavaScript Diagram Component used to create an AI-assisted mindmap diagrams. It features nodes and connectors for visually organizing ideas and concepts, ideal for brainstorming and mapping complex information.
+              Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/diagram/Readme.md">here</a>.
+          </p>
+        </div>
+    </div>
+  <div class="stackblitz-container fluent2">
+    <div class="control-section">
+      <link href="https://ej2.syncfusion.com/javascript/demos/src/diagram/styles/diagram-common.css" rel="stylesheet" />
+
+     <div class="main" >
+      <div class="db-toolbar-editor">
+        <div class="menu-control">
+          <ul id="menu"></ul>
+        </div>
+        <div class="db-toolbar-container">
+          <div id="toolbarEditor"></div>
+        </div>
+      </div>
+      <div class="diagram-upload-file">
+        <input type="file" id="fileupload" name="UploadFiles" />
+      </div>
+      <div id="shortcutDiv" style="
+        width: 400px;
+        height: 480px;
+        padding: 10px;
+        background-color: #fff7b5;
+        border: 1px solid #fff7b5;
+        position: absolute;
+        margin: 27px;
+        visibility: hidden;
+        z-index: 1000;
+      ">
+        <div id="closeIconDiv" style="
+          float: right;
+          width: 22px;
+          height: 22px;
+          border: 1px solid #fff7b5;
+        ">
+          <span class="sf-icon-close" style="font-size: 14px; cursor: pointer"></span>
+        </div>
+        <div><span class="db-html-font-medium">Quick shortcuts</span></div>
+        <div style="padding-top: 10px">
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Tab : </span><span class="db-html-font-normal">Add a subtopic to the
+                left</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Shift + Tab : </span><span class="db-html-font-normal">Add a subtopic
+                to the right</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Enter : </span><span class="db-html-font-normal">Add a new sibling
+                child</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Delete / Backspace : </span><span class="db-html-font-normal">Delete a
+                topic</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Arrow(Up, Down, Left, Right) : </span><span
+                class="db-html-font-normal">Navigate between topics</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">F2 : </span><span class="db-html-font-normal">Edit a topic</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Esc : </span><span class="db-html-font-normal">End text editing</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Ctrl + B : </span><span class="db-html-font-normal">To make text
+                bold</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Ctrl + I : </span><span class="db-html-font-normal">To make text
+                Italic </span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Ctrl + U : </span><span class="db-html-font-normal">Underline the
+                text</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Space : </span><span class="db-html-font-normal">Expand / Collapse the
+                selected node</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">Ctrl + E :</span><span class="db-html-font-normal">Expand / Collapse
+                the whole diagram</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">F8 : </span><span class="db-html-font-normal">To Fit the diagram into
+                the viewport</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>
+              <span class="db-html-font-medium">F1 : </span><span class="db-html-font-normal">Show/Hide shortcut
+                Key</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div style="border: 1px solid #b0b0b0;">
+        <div id="diagram"></div>
+      </div>
+    </div>
+
+    <div id='container'>
+      <div id='dialog'></div>
+    </div>
+    <button id="ai-assist"></button>
+
+    <!-- Loading indicator container -->
+    <div id="loadingContainer" >
+        
+    </div>
+    </div>
+  </div>
+</body>
+<script src="./app.js"></script>
+</html>

@@ -1,0 +1,88 @@
+﻿@page "/querybuilder/nlq"
+
+@using Syncfusion.Blazor.QueryBuilder
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Spinner
+@inject AzureAIService OpenAIService
+
+<title>Syncfusion - Smart Natural Language Querying</title>
+
+<h4 style="text-align:center;">Natural Language Querying</h4>
+
+<div id="control-section">
+    <Description>
+        <p>
+            The <b>Query Builder</b>, enhanced with AI, offers feature like enter a plain language query and click <mark><b>Run Query</b></mark>. The entered query will automatically be converted into database queries, simplifying data retrieval and insights.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/QueryBuilder/Readme.md">here</a>.
+        </p>
+    </Description>
+    <SfTab LoadOn="ContentLoad.Init">
+        <TabItems>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="Natural Language Query"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <span class="e-text">Query</span>
+                    <textarea id="text-area" @bind="TextAreaValue" placeholder="Find all users who lives in California and have over 500 credits"></textarea>
+                </ContentTemplate>
+            </TabItem>
+            <TabItem>
+                <ChildContent>
+                    <TabHeader Text="QueryBuilder UI"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <SfQueryBuilder Readonly="true" TValue="User" @ref="QueryBuilderObj" DataSource="@DataSource">
+                        <QueryBuilderColumns>
+                            <QueryBuilderColumn Field="id" Label="ID" Type="Syncfusion.Blazor.QueryBuilder.ColumnType.Number"></QueryBuilderColumn>
+                            <QueryBuilderColumn Field="name" Label="Name" Type="Syncfusion.Blazor.QueryBuilder.ColumnType.String"></QueryBuilderColumn>
+                            <QueryBuilderColumn Field="email" Label="Email" Type="Syncfusion.Blazor.QueryBuilder.ColumnType.String"></QueryBuilderColumn>
+                            <QueryBuilderColumn Field="address" Label="Address" Type="Syncfusion.Blazor.QueryBuilder.ColumnType.Boolean"></QueryBuilderColumn>
+                            <QueryBuilderColumn Field="city" Label="City" Type="Syncfusion.Blazor.QueryBuilder.ColumnType.String"></QueryBuilderColumn>
+                            <QueryBuilderColumn Field="state" Label="State" Type="Syncfusion.Blazor.QueryBuilder.ColumnType.String"></QueryBuilderColumn>
+                            <QueryBuilderColumn Field="credits" Label="Credits" Type="Syncfusion.Blazor.QueryBuilder.ColumnType.Number"></QueryBuilderColumn>
+                        </QueryBuilderColumns>
+                    </SfQueryBuilder>
+                </ContentTemplate>
+            </TabItem>
+        </TabItems>
+    </SfTab>
+    <div class="e-custom-elem">
+        <SfButton Content="Run Query" CssClass="e-primary" IconCss="e-icons e-play" @onclick="GenBtnClick"></SfButton>
+    </div>
+    <div class="e-custom-elem">
+        <span class="e-text">Results</span>
+
+        <SfGrid TValue="User" DataSource="@GridData" AllowPaging="true">
+            <SfSpinner @bind-Visible="@VisibleProperty"></SfSpinner>
+            <GridEvents Created="GridCreated" TValue="User"></GridEvents>
+            <GridColumns>
+                <GridColumn Field=@nameof(User.id) HeaderText="ID" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+                <GridColumn Field=@nameof(User.name) HeaderText="Name" Width="150"></GridColumn>
+                <GridColumn Field=@nameof(User.email) HeaderText="Email" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+                <GridColumn Field=@nameof(User.address) HeaderText="Address" Width="150"></GridColumn>
+                <GridColumn Field=@nameof(User.city) HeaderText="City" Width="150"></GridColumn>
+                <GridColumn Field=@nameof(User.state) HeaderText="State" Width="150"></GridColumn>
+                <GridColumn Field=@nameof(User.credits) HeaderText="Credits" ></GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </div>
+</div>
+
+<style>
+    #container {
+        margin: 10px;
+        border: 1px solid lightgray;
+        border-radius: 4px;
+    }
+
+        #container .e-tab {
+            margin-top: 16px;
+        }
+
+    .e-tab .e-content {
+        padding: 16px;
+    }
+</style>

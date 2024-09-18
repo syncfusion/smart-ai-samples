@@ -1,0 +1,18 @@
+@import '../../node_modules/@syncfusion/ej2/tailwind.css';
+
+.description-container {
+    margin-bottom: 25px;
+    
+}
+body {
+font-family: Inter !important;
+}
+h4, h2{
+    font-size: 24px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+.mark,mark{
+    background: #fcf8e3;
+}

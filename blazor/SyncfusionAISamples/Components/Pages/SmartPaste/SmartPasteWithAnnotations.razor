@@ -1,0 +1,124 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.DataForm
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.SmartComponents
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.DropDowns
+@using System.ComponentModel.DataAnnotations
+@using Syncfusion.Blazor.SplitButtons
+
+@inject IJSRuntime JSRuntime
+
+<title>Syncfusion - Smart Paste Button</title>
+
+<h4 style ="text-align:center;">Smart Paste Button</h4>
+
+<Description>
+    <p>
+        The <b>SfSmartPasteButton</b> is an AI-powered upgrade of Syncfusion's Button, adding smart pasting features. It uses AI to paste clipboard data in the right context and format automatically.
+    </p>
+    <p>
+        To quickly fill out the bug report form, copy the sample content and click the Smart Paste button. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/SmartPaste/Readme.md">here</a>.
+    </p>
+</Description>
+
+<div class="bug-form-container">
+    <h6 style="text-align:center;">Bug Report Form</h6>
+    <SfDataForm ID="bugReport"
+                Model="@BugRptModel"
+                ColumnCount="2"
+                ColumnSpacing="20px"
+                ButtonsAlignment="FormButtonsAlignment.Right">
+        <FormValidator>
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+        </FormValidator>
+
+        <FormItems>
+            <FormItem Field="@nameof(BugRptModel.BugName)" ColumnSpan="1">
+                <Template>
+                    <label class="e-form-label">Bug Name</label>
+                    <SfTextBox HtmlAttributes="bugNameAttr"
+                                @bind-Value="@BugRptModel.BugName"
+                                Placeholder="What's the bug ?"
+                                ID="bug-name" />
+                </Template>
+            </FormItem>
+            <FormItem Field="@nameof(BugRptModel.BugPriority)" ColumnSpan="1">
+                <Template>
+                    <label class="e-form-label">Bug Priority</label>
+                    <SfComboBox HtmlAttributes="bugPriorityAttr"
+                                DataSource="@priorityLists"
+                                @bind-Value="@BugRptModel.BugPriority"
+                                ID="bug-priority"
+                                Placeholder="Set priority"
+                                @onchange=HandlePriorityChange />
+                </Template>
+            </FormItem>
+            <FormItem Field="@nameof(BugRptModel.BugDescription)" ColumnSpan="2" >
+                <Template>
+                    <label class="e-form-label">Bug Description</label>
+                    <SfTextArea Placeholder="Describe a little about the bug." />
+                </Template>
+            </FormItem>
+            <FormItem Field="@nameof(BugRptModel.Reporter)" ColumnSpan="1" Placeholder="">
+                <Template>
+                    <label class="e-form-label">Reporter</label>
+                    <SfTextBox HtmlAttributes="reporterNameAttr"
+                                @bind-Value="@BugRptModel.Reporter"
+                                Placeholder="Who is the reporter ?"
+                                ID="reporter-name" />
+                </Template>
+            </FormItem>
+            <FormItem Field="@nameof(BugRptModel.SubmittedDate)" ColumnSpan="1">
+                <Template>
+                    <label class="e-form-label">Submitted Date</label>
+                    <SfTextBox HtmlAttributes="submittedDataAttr"
+                                @bind-Value="@BugRptModel.SubmittedDate"
+                                Placeholder="When it is reported ?"
+                                ID="submitted-date" />
+                </Template>
+            </FormItem>
+            <FormItem Field="@nameof(BugRptModel.ReproSteps)" ColumnSpan="2">
+                <Template>
+                    <label class="e-form-label">Repro Steps</label>
+                    <SfTextArea ID="repro-steps"
+                                HtmlAttributes="reproStepsAttr"
+                                @bind-Value="@BugRptModel.ReproSteps"
+                                Placeholder="Enter the repro steps here.."
+                                RowCount="2" />
+                </Template>
+            </FormItem>
+        </FormItems>
+
+        <FormButtons>
+            <SfButton IconCss="e-icons e-reset" Content="Reset" OnClick="HandleFormReset"></SfButton>
+            <SfSmartPasteButton IsPrimary="true" Content="Smart Paste" IconCss="e-icons e-paste" OnClick="HandleSmartPasteClick">
+            </SfSmartPasteButton>
+        </FormButtons>
+    </SfDataForm>
+    <SfSpinner Visible="@visible"></SfSpinner>
+</div>
+  
+<div class="sample-data-section">
+    <h6 style ="text-align:center;"> Sample content </h6>
+    <div class="content-flexed">
+        @foreach (var (bug, index) in BugReports.Select((bug, index) => (bug, index)))
+        {
+            <div class="content-body" data-index="@index">
+                <div class="copy-container" style="float: right">
+                    <SfButton aria-label="content-copy-button" IconCss="@(copyBtnIconIndex == index ? checkIcon : copyIcon)"
+                                CssClass="custom-copy-icon"
+                                IsPrimary="true"
+                                OnClick="@(() => CopyToClipboard(index))">
+                    </SfButton>
+                </div>
+                @bug
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,68 @@
+﻿@page "/grid/semantic-filtering"
+
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.Grids
+@using System.Collections
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Buttons
+@using SmartComponents.LocalEmbeddings
+
+@inject LocalEmbedder embedder
+
+<title>Syncfusion - Smart Filtering in DataGrid</title>
+
+<h4 style="text-align:center;">Semantic Filtering</h4>
+
+<div class="control-container">
+    <Description>
+        <p>This example shows how the DataGrid presents medical report data. Using Semantic Search, you can find relevant information without needing to use the exact terms. For instance, searching for "stomach" will still bring up reports about "Abdominal pain." The grid updates search results dynamically using local embeddings. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/DataGrid/Readme.md">here</a>.</p>
+    </Description>
+    <div>
+        <SfGrid @ref=gridObj TValue="MedicalRecord" Query="_query" DataSource="@MedicalRecords" EnableAltRow=true AllowTextWrap=true AllowPaging=true>
+            <GridPageSettings PageSize="5"></GridPageSettings>
+            <div>
+                <SfToolbar>
+                    <ToolbarItems>
+                        <ToolbarItem Type="@ItemType.Input">
+                            <Template>
+                                <SfTextBox Placeholder="Search here" @bind-Value="@SearchTerm"></SfTextBox>
+                                <SfButton IsPrimary="true" Content="Smart Search" @onclick="SearchClicked"> </SfButton>
+                            </Template>
+                        </ToolbarItem>
+                    </ToolbarItems>
+                </SfToolbar>
+            </div>
+            <GridColumns>
+                <GridColumn Field=@nameof(MedicalRecord.RecordID) TextAlign="TextAlign.Right" HeaderText="Record ID" Width="90"></GridColumn>
+                <GridColumn Field=@nameof(MedicalRecord.PatientID) TextAlign="TextAlign.Right" HeaderText="Patient ID" Width="90"></GridColumn>
+                <GridColumn Field=@nameof(MedicalRecord.Symptoms) HeaderText="Symptoms" Width="140"></GridColumn>
+                <GridColumn Field=@nameof(MedicalRecord.Diagnosis) HeaderText="Diagnosis" Width="100"></GridColumn>
+                <GridColumn Field=@nameof(MedicalRecord.DoctorDetails) HeaderText="Doctor Information" Width="140"></GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </div>
+</div>
+
+<style>
+    .search-textbox {
+        width: 30%;
+        display: flex;
+        align-items: center;
+    }
+
+    .e-row.e-altrow {
+        background-color: #FAFAFA;
+    }
+
+    .e-control-wrapper {
+        margin-right: 7px;
+    }
+
+    .e-toolbar-items {
+        margin-top: 4px;
+    }
+
+</style>
+

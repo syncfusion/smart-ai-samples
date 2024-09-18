@@ -1,0 +1,37 @@
+<h4 style="text-align: center;">Smart TextArea</h4>
+<div class="description-container e-card">
+    <div class='e-card-content '>
+        <!--!-->
+        <p>
+            Smart TextArea enhances the traditional textarea with AI capabilities. It offers real-time sentence
+            completions based on its configurations and the user's current input.
+        </p>
+    </div>
+</div>
+
+<div class="control-section" id="default">
+
+    <div class="content-wrapper">
+        <div class="example-label">Select a role</div>
+
+        <div style="width: 80%;">
+        <ejs-dropdownlist id="smart-dropdown"  placeholder="Select a role" id='dropdownlist' [dataSource]='rolesData'
+            value="Maintainer of an open-source project replying to GitHub issues" popupHeight="200px"
+            (change)="dropDownChange($event)"></ejs-dropdownlist>
+        </div>
+        <br />
+        <div style="width:80%;">
+        <ejs-smarttextarea  id="smart-textarea" #textareaObj  placeholder="Enter your queries here" floatLabelType="Auto" rows="5"
+     
+            userRole="Employee communicating with internal team" [UserPhrases]="defaulPreset" (created)="created()"
+            [aiSuggestionHandler]="serverAIRequest"
+            ></ejs-smarttextarea>
+            </div>  
+    </div>
+
+</div>
+<style>
+    .e-control-wrapper.e-multi-line-input {
+    min-width: 75% !important;
+}
+</style>

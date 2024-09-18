@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Essential JS 2" />
+    <meta name="author" content="Syncfusion" />
+    <link href="./bundle.css" rel="stylesheet">
+   
+    <style>
+        /* Reset default margin and padding for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+            overflow: hidden;
+            /* Hide overflowing content */
+        }
+
+        .link-list {
+            list-style: none;
+            max-height: 100%;
+            /* Adjust the maximum height as needed */
+            overflow-y: auto;
+            /* Add vertical scrollbar when content exceeds max height */
+        }
+
+        .link-list li {
+            margin: 0 10px;
+        }
+
+        .link-list a {
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: block;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .link-list a:hover {
+            background-color: white;
+            color: #333;
+        }
+        #contentFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #container {
+            display: flex;
+            height: calc(100vh - 50px);;
+        }
+        #sidebar {
+            width: 250px;
+            border-right: 1px solid #ccc;
+        }
+        #content {
+            flex: 1;
+            padding: 20px;
+        }
+        .hamburger,.hamburger1 {
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+        }
+        .hamburger rect,.hamburger1 rect {
+            fill: #000;
+            width: 100%;
+            height: 4px;
+            rx: 2; /* Rounded corners */
+        }
+        .hamburger1 rect{
+            fill:  #cbc2c2;
+        }
+        
+        #sidebar{
+            top: 39px;
+        }
+        #title-header{
+            border-bottom: 1px solid #dee2e6;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            position: fixed;
+            z-index: 1000001;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sample-layout">
+    <div class="title-header" id="toolbar-header">
+        <!-- <button id="toggle" class="e-control e-btn e-flat" >
+            
+        </button>
+        <span style=" padding: 0px 2px" class="e-list-text
+        ">Syncfusion AI Samples  </span>           -->
+    </div>
+    <div id="container">
+        <div id="sidebar" >
+            
+            <div id="tree"></div></div>
+        <div id="content">
+            <iframe id="contentFrame" src="./smartpaste/index.html"></iframe>
+        </div>
+     <!-- <div> <button id="toggle1" class="e-control e-btn e-lib e-small e-round e-primary e-icon-btn" style="position: fixed;top:2px;left: 4px;">
+        <svg class="hamburger1" viewBox="0 0 40 30">
+            <rect y="0"></rect>
+            <rect y="13"></rect>
+            <rect y="26"></rect>
+        </svg>
+    </button></div> -->
+    </div>
+</div>
+    <script src="./index.js"></script>
+</body>
+
+</html>

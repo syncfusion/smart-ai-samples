@@ -1,0 +1,193 @@
+#e-pv-smartfill-pdfviewer {
+    width: 100%;
+    height: calc(100% - 80px);
+}
+
+.e-bigger #e-pv-smartfill-pdfviewer {
+    height: calc(100% - 96px);
+}
+
+#e-pv-copy-card1,
+#e-pv-copy-card2,
+#e-pv-copy-card3 {
+    padding: 3px 3px;
+    box-shadow: none;
+}
+
+.e-bigger #e-pv-copy-card1,
+.e-bigger #e-pv-copy-card2,
+.e-bigger #e-pv-copy-card3 {
+    padding: 5px 5px;
+    box-shadow: none;
+}
+
+#e-pv-smartfill-parent-container .e-copy-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    border: none !important;
+    background-color: transparent !important
+}
+
+#e-pv-smartfill-parent-container .e-card {
+    position: relative;
+}
+
+#e-pv-smartfill-header-text {
+    padding-left: 5px;
+    padding-top: 2px;
+}
+
+#e-pv-smartfill-right-container .e-input-group.e-control-wrapper.e-ddl.e-lib.e-keyboard.e-valid-input,
+#e-pv-smartfill-textarea .e-float-input.e-control-wrapper.e-input-group.e-no-float-label.e-multi-line-input.e-auto-width {
+    width: 90% !important;
+}
+
+#e-pv-smartfill-body-container {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#e-pv-smartfill-parent-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+}
+
+#e-pv-smart-fill-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row !important;
+}
+
+#e-pv-smartfill-left-container {
+    width: 80%;
+    height: 100%;
+    margin-right: 12px;
+}
+
+.e-pv-smartfill-regular {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.e-pv-smartfill-btn-container #smartfill_btn {
+    font-size: 14px;
+}
+
+#e-pv-smartfill-appbar-container {
+    width: 100%;
+    position: relative;
+}
+
+#e-pv-smartfill-defaultappbar {
+    height: 40px !important;
+    border-radius: 0px !important;
+}
+
+.e-bigger #e-pv-smartfill-defaultappbar {
+    height: 48px !important;
+}
+
+.e-bigger #e-pv-smartfill-text {
+    height: 48px;
+}
+
+#e-pv-smartfill-text {
+    height: 40px;
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+    border-bottom: 1px solid lightgray;
+    font-family: "Segoe UI", -apple-system, blinkMacSystemfont, "Roboto", "Helvetica Neue", sans-serif;
+    font-weight: 500;
+}
+
+#e-pv-smartfill-right-container {
+    width: 20% !important;
+    height: 100% !important;
+    border-left: 1px solid #e0e0e0;
+    padding: 0px 12px;
+    overflow: auto;
+}
+
+#e-pv-smartfill-right-container .e-card-content {
+    padding: 12px 20px;
+}
+
+#e-pv-smartfill-right-container .e-card {
+    margin: 20px 0px;
+    font-family: "Segoe UI", -apple-system, blinkMacSystemfont, "Roboto", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+}
+
+#e-pv-smartfill-right-container-blackout .e-spinner-pane {
+    left: 35% !important;
+    width: 30% !important;
+    height: calc(100% - 40px) !important;
+}
+
+#e-pv-smartfill-right-container-blackout {
+    background-color: black;
+    width: calc(80% - 30px) !important;
+    top: 40px;
+    height: calc(100% - 40px) !important;
+    opacity: 0.3;
+    position: absolute;
+    left: 0;
+    z-index: 99999;
+}
+
+@media only screen and (max-width: 768px) {
+    #e-pv-smartfill-text {
+        height: 3%;
+    }
+
+    #e-pv-smartfill-left-container .e-toolbar .e-toolbar-item .e-tbar-btn .e-tbar-btn-text {
+        display: none;
+    }
+}
+
+@media (max-width: 450px) {
+    #e-pv-smartfill-right-container {
+        display: none;
+        width: 75% !important;
+        background-color: #fff;
+        height: calc(100% - 80px) !important;
+        z-index: 101;
+        position: absolute;
+        top: 80px;
+        right: 0 !important;
+        background-color: #fff;
+    }
+
+    #e-pv-smartfill-left-container {
+        overflow: hidden;
+        width: 100%;
+        margin: 0px;
+    }
+
+    #e-pv-smartfill-text {
+        height: 3%;
+    }
+
+    #e-pv-smartfill-left-container .e-toolbar .e-toolbar-item .e-tbar-btn .e-tbar-btn-text {
+        display: none;
+    }
+
+    #e-pv-smartfill-right-container .e-spinner-pane {
+        left: 35%;
+    }
+
+    #e-pv-smartfill-right-container-blackout {
+        background-color: black;
+        width: 100% !important;
+        top: 80px;
+        height: calc(100% - 80px) !important;
+        opacity: 0.3;
+        position: absolute;
+        right: 0;
+    }
+}

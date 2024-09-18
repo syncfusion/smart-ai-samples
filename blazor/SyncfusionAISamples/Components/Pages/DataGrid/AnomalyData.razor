@@ -1,0 +1,71 @@
+﻿@page "/grid/anomaly-detection"
+
+@inject AzureAIService OpenAIService
+
+@using Newtonsoft.Json
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Spinner
+
+<title>Syncfusion - Anomaly Detection using AI in DataGrid</title>
+
+<h4 style="text-align:center;">Anomaly Detection using AI</h4>
+
+<div id="container">
+    <Description>
+        <p>This sample demonstrates how the AI-enhanced Syncfusion DataGrid detects anomalies in its data. The AI analyzes data patterns to identify outliers or irregularities, helping users spot potential issues quickly and efficiently. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/DataGrid/Readme.md">here</a>.</p>
+    </Description>
+
+<SfGrid @ref=Grid TValue="MachineData" DataSource="@machineDataList" EnableHover=false EnableStickyHeader=true AllowTextWrap=true Height="450">
+    <GridTemplates>
+        <ToolbarTemplate>
+            <SfToolbar>
+                <ToolbarEvents Clicked="ToolbarClickHandler"></ToolbarEvents>
+                <ToolbarItems>
+                        <ToolbarItem Id="Anomaly">
+                        <Template>
+                            <div>
+                                <SfButton Content="Detect Anomaly Data" IsPrimary="true"></SfButton>
+                            </div>
+                        </Template>
+                    </ToolbarItem>
+                </ToolbarItems>
+            </SfToolbar>
+        </ToolbarTemplate>
+    </GridTemplates>
+    <GridEvents QueryCellInfo="CustomizeCell" TValue="MachineData"></GridEvents>
+    <GridColumns>
+        <GridColumn Field=@nameof(MachineData.MachineID) IsPrimaryKey=true HeaderText="Machine ID" Width="40"></GridColumn>
+        <GridColumn Field=@nameof(MachineData.Temperature) HeaderText="Temperature (C)" TextAlign="TextAlign.Right" Width="40"></GridColumn>
+        <GridColumn Field=@nameof(MachineData.Pressure) HeaderText="Pressure (psi)" TextAlign="TextAlign.Right" Width="60"></GridColumn>
+        <GridColumn Field=@nameof(MachineData.Voltage) HeaderText="Voltage (V)" TextAlign="TextAlign.Right" Width="60"></GridColumn>
+        <GridColumn Field=@nameof(MachineData.MotorSpeed) HeaderText="Motor Speed (rpm)" TextAlign="TextAlign.Right" Width="60"></GridColumn>
+        <GridColumn Field=@nameof(MachineData.ProductionRate) HeaderText="Production Rate (units/hr)" TextAlign="TextAlign.Right" Width="60"></GridColumn>
+        <GridColumn Field=@nameof(MachineData.AnomalyDescription) HeaderText="Anomaly Description" Visible=@anomalyColumnVisibility Width="170"></GridColumn>
+    </GridColumns>
+    <SfSpinner Visible="@spinnerVisibility"></SfSpinner>
+</SfGrid>
+</div>
+
+<style>
+    .anomaly-cell {
+        background-color: #c2410c;
+        color: white !important;
+    }
+
+    .e-grid .e-rowcell.anomaly-cell:not(.e-editedbatchcell):not(.e-updatedtd) {
+        color: #c2410c;
+    }
+
+    .e-tbar-btn {
+        border: 1px double !important;
+        border-color: gray !important;
+    }
+
+    .normal-cell {
+        background-color: #15803d;
+        color: white !important;
+    }
+
+</style>

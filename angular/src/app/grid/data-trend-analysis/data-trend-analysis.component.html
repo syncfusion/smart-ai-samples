@@ -1,0 +1,28 @@
+
+<h2 style="text-align: center;">Data Trend Analysis</h2>
+<div class="description-container e-card">
+    <div class='e-card-header-title' style="font-weight: 600;">AI Driven Data Trend Analysis in DataGrid</div>
+    <div class='e-card-content '>
+        <!--!-->
+        <p>
+           In this sample demonstrates how the syncfusion JavaScript DataGrid, powered by AI, can perform trend analysis on its data.
+        </p>
+    </div>
+</div>
+<div id='container'>
+    <div class='dddata'>
+        <ejs-dropdownlist #yearDdl [dataSource]="years" [fields]=" { text: 'Year', value: 'ID' }" value="Year2023" (select)="ValueSelectHandler($event)"
+                    placeholder="Select a year" [width]="150"></ejs-dropdownlist>
+        <button (click)="getTrendData()" class="e-btn e-primary" style="margin-left: 15px;">Get Trend Data</button>
+    </div>
+<ejs-grid #grid [dataSource]="data" [editSettings]="editSettings" [query]="query" (queryCellInfo)="customizeCell($event)"
+          enableAltRow="true" allowSorting="true" [enableHover]="false" [allowSelection]="false">
+          <e-columns>
+            <e-column field="Month" isPrimaryKey="true" headerText="Time Stamp" width="100"></e-column>
+            <e-column field="Sales" headerText="Sales" textAlign="Right" format="C2" width="80"></e-column>
+            <e-column field="MarketingSpend" headerText="Marketing Spend" textAlign="Right" format="C2" width="80"></e-column>
+            <e-column field="NewCustomers" headerText="New Customers" textAlign="Right" width="80"></e-column>
+            <e-column field="ReturningCustomers" headerText="Returning Customers" textAlign="Right" width="100"></e-column>
+          </e-columns>
+</ejs-grid>
+</div>
