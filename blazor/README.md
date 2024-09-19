@@ -21,6 +21,8 @@ All other component samples rely on OpenAI/Azure OpenAI services. Ensure you hav
 ### Configuring AI Service Credentials
 To run AI samples, navigate to the `Program.cs` file and replace the following placeholders with your actual credentials:
 
+#### Azure OpenAI
+
 ```
 string apiKey = "your-api-key";
 string deploymentName = "your-deployment-name";
@@ -29,6 +31,10 @@ string endpoint = "your-azure-endpoint-url";
 
 Your azure Endpoint would look something like this
 `https://{resource_name}.openai.azure.com/`
+
+#### OpenAI
+
+If you are using **OpenAI**, [create an API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key) and place it at `apiKey`, leave the `endpoint` as `""`. The value for `deploymentName` is the [model](https://platform.openai.com/docs/models/) you wish to use (e.g., `gpt-3.5-turbo`, `gpt-4`, etc.).
 
 ## Configuring Image Editor AI
 The Image Editor AI depends on a third-party AI service called Stability AI for AI Image processing. To use it, follow these steps:
