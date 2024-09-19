@@ -55,7 +55,7 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
             var gridJsonData = GetSerializedGridReport(!string.IsNullOrEmpty(SelectedYear) ? OverallData.Where(e => e.Month.Contains(SelectedYear)).ToList() : OverallData);
             string prompt = GeneratePrompt(gridJsonData);
             trendCalculatedYear.TryAdd(SelectedYear, true);
-            var result = await OpenAIService.GetCompletionAsync(prompt);
+            var result = await AIChatService.GetCompletionAsync(prompt);
             if (result != null)
             {
                 result = result.Replace("```json", "").Replace("```", "").Trim();
@@ -101,7 +101,7 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
             spinnerVisibility = true;
             var gridReportJson = GetSerializedGridReport(OverallData);
             string prompt = GeneratePredictivePrompt(gridReportJson);
-            var result = await OpenAIService.GetCompletionAsync(prompt);
+            var result = await AIChatService.GetCompletionAsync(prompt);
             if (result != null)
             {
                 result = result.Replace("```json", "").Replace("```", "").Trim();

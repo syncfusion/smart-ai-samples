@@ -138,7 +138,7 @@ namespace SyncfusionAISamples.Components.Pages.PivotTable
             {
                 Text = "AI Assistant",
                 TooltipText = "AI Assistant",
-                PrefixIcon= "e-icons e-ai-chat e-btn-icon e-icon-left",
+                PrefixIcon= "e-icons e-aiassist-chat e-btn-icon e-icon-left",
                 Click = EventCallback.Factory.Create<ClickEventArgs>(this, OpenDialog),
             });
         }
@@ -185,7 +185,7 @@ namespace SyncfusionAISamples.Components.Pages.PivotTable
                 var pivotReportJson = GetSerializedPivotReport(pivot);
                 string prompt = ValidateAndGeneratePrompt(pivotReportJson, Description, isFilterQuery);
                 var result = string.Empty;
-                result = await ChatGptService.GetCompletionAsync(prompt);
+                result = await AIChatService.GetCompletionAsync(prompt);
                 if (result != null)
                 {
                     try

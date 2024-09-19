@@ -41,11 +41,11 @@ namespace SyncfusionAISamples.Components.Pages.GanttChart
             List<GanttDataModel.TaskInfoModel> generatedCollection = new();
             var currentView = Gantt.GetCurrentViewRecords();
             var AIPrompt = GeneratePrompt(currentView);
-            string result = await OpenAIService.GetCompletionAsync(AIPrompt, true, true);
+            string result = await AIChatService.GetCompletionAsync(AIPrompt, true, true);
 
             var contentAIPrompt = "Ensure the result 'TaskIds' key - its contain modified record task ids(list of int) in json object format. Note: Return response must be in json string and with no other explanation.";
 
-            string contentResult = await OpenAIService.GetCompletionAsync(contentAIPrompt, true, true);
+            string contentResult = await AIChatService.GetCompletionAsync(contentAIPrompt, true, true);
 
             try
             {

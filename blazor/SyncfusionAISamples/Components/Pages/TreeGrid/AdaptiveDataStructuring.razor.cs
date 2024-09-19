@@ -19,7 +19,7 @@ namespace SyncfusionAISamples.Pages.TreeGrid
             await TreeGrid.ShowSpinnerAsync();
             List<TreeData.BusinessObject> sortedCollection = new List<TreeData.BusinessObject>();
             var AIPrompt = GeneratePrompt(TreeGridData);
-            string result = await OpenAIService.GetCompletionAsync(AIPrompt);
+            string result = await AIChatService.GetCompletionAsync(AIPrompt);
             result = result.Replace("```json", "").Replace("```", "").Trim();
 
             string response = JsonDocument.Parse(result).RootElement.GetProperty("TreeGridData").ToString();

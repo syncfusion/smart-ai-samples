@@ -27,7 +27,7 @@ namespace SyncfusionAISamples.Components.Pages.Maps
             if (MarkerCollection.Count == 0)
             {
                 Day = "Today";
-                string result = await ChatGptService.GetCompletionAsync("Generate today's temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
+                string result = await AIChatService.GetCompletionAsync("Generate today's temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
                 if (!string.IsNullOrEmpty(result))
                 {
                     MarkerCollection = JsonConvert.DeserializeObject<ObservableCollection<Markers>>(result);
@@ -41,7 +41,7 @@ namespace SyncfusionAISamples.Components.Pages.Maps
             SpinnerVisibility = true;
             DateTime dateTime = (DateTime.Now.Date).AddDays(1);
             string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await ChatGptService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
+            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
             if (!string.IsNullOrEmpty(result))
             {
                 Day = "Tomorrow";
@@ -55,7 +55,7 @@ namespace SyncfusionAISamples.Components.Pages.Maps
             SpinnerVisibility = true;
             DateTime dateTime = (DateTime.Now.Date).AddDays(2);
             string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await ChatGptService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
+            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
             if (!string.IsNullOrEmpty(result))
             {
                 Day = dateTime.DayOfWeek.ToString();
@@ -69,7 +69,7 @@ namespace SyncfusionAISamples.Components.Pages.Maps
             SpinnerVisibility = true;
             DateTime dateTime = (DateTime.Now.Date).AddDays(3);
             string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await ChatGptService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
+            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
             if (!string.IsNullOrEmpty(result))
             {
                 Day = dateTime.DayOfWeek.ToString();
@@ -83,7 +83,7 @@ namespace SyncfusionAISamples.Components.Pages.Maps
             SpinnerVisibility = true;
             DateTime dateTime = (DateTime.Now.Date).AddDays(4);
             string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await ChatGptService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
+            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
             if (!string.IsNullOrEmpty(result))
             {
                 Day = dateTime.DayOfWeek.ToString();
@@ -97,7 +97,7 @@ namespace SyncfusionAISamples.Components.Pages.Maps
             SpinnerVisibility = true;
             DateTime dateTime = (DateTime.Now.Date).AddDays(5);
             string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await ChatGptService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
+            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
             if (!string.IsNullOrEmpty(result))
             {
                 Day = dateTime.DayOfWeek.ToString();

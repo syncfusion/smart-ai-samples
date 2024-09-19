@@ -185,15 +185,6 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
                     this.DialogContent = args.FileDetails[0].Name + " is not accessible. You do not have permission to read this file.";
                 }
             }
-            else if (args.Item.Text == "Organize")
-            {
-                VisibleProperty = true;
-                string path = FileManager?.Path + FileManager?.SelectedItems[0] + "/";
-                bool showHiddenItems = args.FileDetails[0].ShowHiddenItems;
-                await FileManagerService.OrganizeFiles(path, showHiddenItems, args.FileDetails.ToArray());
-                VisibleProperty = false;
-                await FileManager.OpenFileAsync(args.FileDetails[0].Name);
-            }
         }
 
         private async Task OnMenuClick(MenuClickEventArgs<FileManagerDirectoryContent> args)
@@ -301,7 +292,7 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
             string promptQuery = "You are a helpful assistant. Your task is to analyze the provided text and generate a short summary. Provide the summary with highlighted topics in ordered list HTML format and it should be ready for execution :\n\n Do not provide codeblock prefixes or introductory texts such as ``` or html, etc.";
             string query = promptQuery + fileContent;
 
-            string finalSummary = await openAIService.GetCompletionAsync(query, false);
+            string finalSummary = await AIChatService.GetCompletionAsync(query, false);
 
             this.DialogContent = !string.IsNullOrEmpty(finalSummary) ? finalSummary : "Please provide a proper file content to summarize.";
             this.isContentGenerating = false;

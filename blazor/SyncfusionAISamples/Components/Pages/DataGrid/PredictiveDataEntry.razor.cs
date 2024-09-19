@@ -74,7 +74,7 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
                 string userInput = ValidateAndGeneratePrompt(gridReportJson, prompt);
                 if (userInput != null)
                 {
-                    var result = await OpenAIService.GetCompletionAsync(userInput);
+                    var result = await AIChatService.GetCompletionAsync(userInput);
                     this.Visible = false;
                     this.VisibleProperty = true;
                     await Task.Delay(1000);

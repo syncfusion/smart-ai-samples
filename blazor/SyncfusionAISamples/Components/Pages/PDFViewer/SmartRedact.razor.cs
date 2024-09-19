@@ -730,7 +730,7 @@ namespace SyncfusionAISamples.Components.Pages.PDFViewer
         private void DocumentLoaded(LoadEventArgs args)
         {
             isDocumentLoaded = true;
-            smartRedaction = new PDFViewerModel(embedder, openAIService);
+            smartRedaction = new PDFViewerModel(embedder, AIChatService);
         }
         #endregion
 

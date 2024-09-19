@@ -71,7 +71,7 @@ namespace SyncfusionAISamples.Components.Pages.QueryBuilder
             VisibleProperty = true;
             string prompt = "Create an SQL query to achieve the following task: " + TextAreaValue + " from a single table. Focus on constructing a valid SQL query that directly addresses the specified task, ensuring it adheres to standard SQL syntax for querying a single table. NOTE: Return only the SQL query without any additional explanation or commentary. The response should contain the query itself, formatted correctly and ready for execution.";
 
-            string result = await OpenAIService.GetCompletionAsync(prompt, false);
+            string result = await AIChatService.GetCompletionAsync(prompt, false);
 
             string value = result.Split("WHERE ")[1].Split(";\n")[0];
             value = value.Replace("\n", " ");

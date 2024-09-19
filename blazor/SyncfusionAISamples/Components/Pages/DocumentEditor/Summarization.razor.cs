@@ -12,15 +12,11 @@ namespace SyncfusionAISamples.Components.Pages.DocumentEditor
     {
         [Inject]
         IJSRuntime JS {  get; set; }
+
+        [Inject]
+        DocumentSummarizerService summarizer { get; set; }
         private SfAIAssistView AIAssist;
         private bool isDocumentChanged = false;
-        private DocumentSummarizer summarizer;
-
-        protected override Task OnInitializedAsync()
-        {
-            summarizer = new DocumentSummarizer(embedder, openAIBackend);
-            return base.OnInitializedAsync();
-        }
 
         private async Task promptToolbarClick(AssistViewToolbarItemClickedEventArgs args)
         {
@@ -164,7 +160,7 @@ namespace SyncfusionAISamples.Components.Pages.DocumentEditor
             if (text != null)
             {
                 string SystemPrompt = "You are a helpful assistant. Your task is to analyze the provided text and generate short summary. Always respond in proper HTML format, but do not include <html>, <head>, or <body> tags.";
-                await summarizer.GetAnswerFromGPT(SystemPrompt, text);
+                await summarizer.GetAnswerAsync(SystemPrompt, text);
             }
             else
             {

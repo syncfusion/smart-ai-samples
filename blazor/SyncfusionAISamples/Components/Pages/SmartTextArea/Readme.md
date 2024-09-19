@@ -1,20 +1,20 @@
-# Syncfusion Blazor Smart TextArea Component
+# Syncfusion Blazor SmartTextArea Component
 
-`Smart TextArea` is an AI-powered enhancement to the traditional textarea, offering sentence-level autocompletion based on its configuration and user input, improving typing speed and efficiency.
+`SfSmartTextArea` is an AI-powered enhancement to the traditional textarea, offering sentence-level autocompletion based on its configuration and user input, improving typing speed and efficiency.
 
-![Gif image of Smart TextArea component](../../../wwwroot/gif-images/smart-textarea/smart-textarea.gif)
+![Gif image of SmartTextArea component](../../../wwwroot/gif-images/smart-textarea/smart-textarea.gif)
 
 ## Example Use Cases
 
 1. **GitHub Issue Responses**
 
-   In an open-source project, maintainers often respond to a variety of issues raised by users. Using `Smart TextArea`, maintainers can quickly draft responses with predefined phrases. For instance, when a maintainer types "To investigate, ", the system might suggest completions like "We will need a reproducible example as a public Git repository." This reduces response time and ensures consistent, professional communication across issues.
+   In an open-source project, maintainers often respond to a variety of issues raised by users. Using `SfSmartTextArea`, maintainers can quickly draft responses with predefined phrases. For instance, when a maintainer types "To investigate, ", the system might suggest completions like "we'll need a repro as a public Git repo." This reduces response time and ensures consistent, professional communication across issues.
 
-2. **Live Chat Customer Support Responses**
-   
-   In a live chat system, the `Smart TextArea` can significantly enhance customer service by offering predefined phrases for common tasks. For example, when an agent types “Hello!”, the system might suggest completions like “How can I assist you today?”. This feature ensures that customer service communication remains efficient and professional, minimizing the time and effort required for repetitive responses.
+2. **Employee Communicating with Internal Team**
 
-## Adding Syncfusion Smart TextArea in Blazor
+   In internal team communication, `SfSmartTextArea` can assist employees by providing predefined phrases for common tasks. For instance, when an employee types "Let's collaborate ", the system might suggest completions like "on this project to ensure timely delivery." This ensures that team communication remains clear and efficient, reducing the effort required for repetitive messages.
+
+## Adding Syncfusion SmartTextArea in Blazor
 
 ### Prerequisites
 
@@ -32,11 +32,11 @@
        .InjectOpenAIInference();
    ```
 
-   This configures the `Smart TextArea` with AI-powered autocompletion capabilities.
+   This configures the `SfSmartTextArea` with AI-powered autocompletion capabilities.
 
-### Adding the Smart TextArea Component
+### Adding the SmartTextArea Component
 
-In your `.razor` file, include the `Smart TextArea` component as shown below:
+In your `.razor` file, include the `SfSmartTextArea` component as shown below:
 
 ```razor
 @page "/"
@@ -51,15 +51,15 @@ In your `.razor` file, include the `Smart TextArea` component as shown below:
 
 The `UserRole` attribute is mandatory which defines the context for autocompletion suggestions. Using this, you can further customize the suggestions based on your application's needs.
 
-## Customizing the Syncfusion Smart TextArea
+## Customizing the Syncfusion SmartTextArea
 
-The `Smart TextArea` inherits all functionalities and properties from the `Syncfusion TextArea` component. This means you can use all the properties and customization options available for the TextArea in the `Smart TextArea` as well.
+The `SfSmartTextArea` inherits all functionalities and properties from the `Syncfusion TextArea` component. This means you can use all the properties and customization options available for the TextArea in the `SfSmartTextArea` as well.
 
 For more information and a detailed guide on using these properties, refer to the official [TextArea Documentation](https://blazor.syncfusion.com/documentation/textarea/getting-started).
 
 ## Customizing the Suggestions
 
-By default, the `Smart TextArea` provides autocompletion suggestions based on:
+By default, the `SfSmartTextArea` provides autocompletion suggestions based on:
 
 - The text around the cursor
 - The value of the `UserRole` property
@@ -92,7 +92,6 @@ Language models can be unpredictable, so you may need to experiment to find the 
 ### Example
 
 ```razor
-@using Syncfusion.Blazor.SmartComponents
 <SfSmartTextArea @bind-Value="@text" UserRole="@userRole" UserPhrases="@userPhrases" />
 
 @code {
@@ -101,10 +100,10 @@ Language models can be unpredictable, so you may need to experiment to find the 
     string userRole = "Maintainer of an open-source project replying to GitHub issues";
     string[] userPhrases = [
         "Thank you for contacting us.",
-        "To investigate, We will need a reproducible example as a public Git repository.",
+        "To investigate, we'll need a repro as a public Git repo.",
         "Could you please post a screenshot of NEED_INFO?",
         "This sounds like a usage question. This issue tracker is intended for bugs and feature proposals. Unfortunately, we don't have the capacity to answer general usage questions and would recommend StackOverflow for a faster response.",
-        "We do not accept ZIP files as reproducible examples.",
+        "We don't accept ZIP files as repros.",
         "Bug report: File not found error occurred in NEED_INFO"
     ];
 }
@@ -112,7 +111,7 @@ Language models can be unpredictable, so you may need to experiment to find the 
 
 ## Controlling the Suggestion UX
 
-Suggestions in the `Smart TextArea` are shown differently based on the type of device:
+Suggestions in the `SfSmartTextArea` are shown differently based on the type of device:
 
 - **On non-touch devices (desktop)**: Suggestion appears inline within the textarea, displayed in grey text ahead of the cursor. Users can accept suggestions by pressing the "Tab" key.
 - **On touch devices (mobile)**: Suggestion appears in a floating overlay below the cursor. Users can tap on the suggestion in the overlay to accept it. On mobile devices with keyboards, the "Tab" key can also be used, but most mobile devices lack this key.

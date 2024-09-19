@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using SmartComponents.LocalEmbeddings;
 using Syncfusion.Blazor.FileManager;
@@ -24,12 +25,13 @@ namespace FileManagerAI.Services
         public static string DemoDirectoryName = "DemoBaseDirectory";
         public string DemoBaseDirectory = "wwwroot\\" + DemoDirectoryName;
         public TagService TagService = new TagService();
-        private AzureAIService openAIService;
+
+        private AIService AIChatService;
         public Dictionary<string, EmbeddingF32> FileEmbeddings { get; set; } = new Dictionary<string, EmbeddingF32>();
 
-        public FileManagerService(IWebHostEnvironment hostingEnvironment, AzureAIService azureAIService)
+        public FileManagerService(IWebHostEnvironment hostingEnvironment, AIService _aiService)
         {
-            openAIService = azureAIService;
+            AIChatService = _aiService;
             this.basePath = hostingEnvironment.ContentRootPath;
             this.DemoBaseDirectory = Path.Combine(this.basePath, this.DemoBaseDirectory);
             this.DefaultDirectory = Path.Combine(this.basePath, this.DefaultDirectory);
@@ -210,7 +212,7 @@ namespace FileManagerAI.Services
             {
                 message += $"File: {file.Name}, Type: {file.Type}\n";
             }
-            var result = await openAIService.GetCompletionAsync((prompt + message), false);
+            var result = await AIChatService.GetCompletionAsync((prompt + message), false);
             return result;
         }
 

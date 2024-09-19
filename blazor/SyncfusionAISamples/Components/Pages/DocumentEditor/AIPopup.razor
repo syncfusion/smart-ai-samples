@@ -10,7 +10,7 @@
 @using PopupsOpenEventArgs = Syncfusion.Blazor.Popups.OpenEventArgs
 @using Syncfusion.Blazor.Layouts
 
-@inject AzureAIService OpenAIService
+@inject AIService AIChatService
 @inject LocalEmbedder embedder
 
 <div id="ai-assist">
@@ -680,7 +680,7 @@
         {
             systemPrompt = $"You are a helpful assistant. Your task is to analyze the provided text, check for and correct any grammatical errors, and rephrase it. Always respond in proper HTML format, but do not include <html>, <head>, or <body> tags.";
         }
-        string Out = await OpenAIService.GetCompletionAsync(userPrompt, false, false, systemPrompt);
+        string Out = await AIChatService.GetCompletionAsync(userPrompt, false, false, systemPrompt);
         this.CROutText = Out;
         if (Out == "")
         {
@@ -709,7 +709,7 @@
     }
     public async Task<string> GetResponseFromOpenAI(string systemPrompt, string message)
     {
-        return await OpenAIService.GetCompletionAsync(message, false, false, systemPrompt);
+        return await AIChatService.GetCompletionAsync(message, false, false, systemPrompt);
     }
 
     public async Task LoadDocument(string document)
@@ -723,12 +723,12 @@
     {
         var userPrompt = extractedText.Take(1);
         string systemPrompt = "You are a helpful assistant. Your task is to analyze the provided text and generate short summary. Always respond in proper HTML format, but do not include <html>, <head>, or <body> tags.";
-        return await OpenAIService.GetCompletionAsync(String.Join(" ", userPrompt), false, false, systemPrompt);
+        return await AIChatService.GetCompletionAsync(String.Join(" ", userPrompt), false, false, systemPrompt);
     }
 
     public async Task<string> RephraseText(string systemPrompt, string userPrompt)
     {
-        return await OpenAIService.GetCompletionAsync(userPrompt, false, false, systemPrompt);
+        return await AIChatService.GetCompletionAsync(userPrompt, false, false, systemPrompt);
     }
 
 
@@ -736,7 +736,7 @@
     {
         var questionEmbedding = embedder.Embed(question);
         var results = LocalEmbedder.FindClosest(questionEmbedding, PageEmbeddings.Select(x => (x.Key, x.Value)), 2);
-        var answer = await OpenAIService.GetCompletionAsync(question, false, false, systemPrompt + string.Join(" --- ", results));
+        var answer = await AIChatService.GetCompletionAsync(question, false, false, systemPrompt + string.Join(" --- ", results));
         return answer;
     }
 

@@ -22,7 +22,7 @@ namespace SyncfusionAISamples.Components.Pages.Kanban
             string result = "";
             string json = JsonSerializer.Serialize(Pizza, new JsonSerializerOptions { WriteIndented = true });
             var prompt = "Provide a SentimentScore out of 5 (whole numbers only) based on the Feedback. If the feedback is null, do not give a SentimentScore. Use the dataset provided below to make recommendations. NOTE: Return the data in JSON format with all fields included, and return only JSON data, no explanatory text." + json;
-            result = await ChatGptService.GetCompletionAsync(prompt);
+            result = await AIChatService.GetCompletionAsync(prompt);
             string data = result.Replace("```json", "").Replace("```", "").Replace("\r", "").Replace("\n", "").Replace("\t", "").Trim();
             this.Pizza = JsonSerializer.Deserialize<List<PizzaDataModel>>(data);
             this.IsSpinner = false;
@@ -77,7 +77,7 @@ namespace SyncfusionAISamples.Components.Pages.Kanban
             {
                 await Task.Delay(1000);
             }
-            Content = "Analyze Customer Sentiments";
+            Content = "Check Customer Sentiments";
         }
     }
 }

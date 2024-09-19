@@ -1,10 +1,10 @@
-﻿using OpenAI.Chat;
-using SmartComponents.LocalEmbeddings;
+﻿using SmartComponents.LocalEmbeddings;
+using OpenAI.Chat;
 using Syncfusion.Blazor.SmartComponents;
 
 namespace SyncfusionAISamples.Models
 {
-    public class DocumentSummarizer
+    public class DocumentSummarizerService
     {
         public Dictionary<string, EmbeddingF32> PageEmbeddings { get; set; }
         private List<string> extractedText = new List<string>();
@@ -12,12 +12,18 @@ namespace SyncfusionAISamples.Models
 
         private LocalEmbedder? Embedder;
 
-        private OpenAIConfiguration? OpenAIService;
+        private readonly GeminiService _geminiService;
+        private readonly OpenAIService _openAIService;
+        private readonly GroqService _groqService;
+        private AIServiceCredentials _credentials;
 
-        public DocumentSummarizer(LocalEmbedder embedder, OpenAIConfiguration azureAIService)
+        public DocumentSummarizerService(IServiceProvider service)
         {
-            Embedder = embedder;
-            OpenAIService = azureAIService;
+            _openAIService = service.GetService<OpenAIService>();
+            _geminiService = service.GetService<GeminiService>();
+            _groqService = service.GetService<GroqService>();
+            _credentials = service.GetService<AIServiceCredentials>();
+            Embedder = service.GetService<LocalEmbedder>();
         }
         private void CreateEmbeddingChunks(string[] chunks)
         {
@@ -30,33 +36,110 @@ namespace SyncfusionAISamples.Models
         /// <param name="systemPrompt"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public async Task<string> GetAnswerFromGPT(string systemPrompt, string message, bool isSummary = false)
+        public async Task<string> GetAnswerAsync(string systemPrompt, string message, bool isSummary = false)
         {
-            ChatParameters chatParameters = new ChatParameters();
-            chatParameters.Messages = new()
+            List<string> summaryResults = new();
+
+            // Prepare the list of embeddings if summary mode is enabled
+            List<string> embed = isSummary ? PageEmbeddings.Keys.Take(PageEmbeddings.Keys.Count).ToList() : null;
+
+            switch (_credentials.AIService)
             {
-                new SystemChatMessage(systemPrompt)
-            };
-            if (isSummary)
-            {
-                var summaryResults = new List<string>();
-                List<string> embed = PageEmbeddings.Keys.Take(PageEmbeddings.Keys.Count).ToList();
-                foreach (var chunk in embed)
+                case AIServiceProvider.OpenAI:
+                    var openAIRequest = new OpenAIRequestObject
+                    {
+                        Messages = new List<ChatMessage> { new SystemChatMessage(systemPrompt) }
+                    };
+
+                    if (isSummary && embed != null)
+                    {
+                        foreach (var chunk in embed)
+                        {
+                            openAIRequest.Messages.Add(new UserChatMessage(chunk));
+                            var result = await _openAIService.GetChatResponseAsync(openAIRequest);
+                            summaryResults.Add(result.ToString());
+                            openAIRequest.Messages.RemoveAt(openAIRequest.Messages.Count - 1);  // Remove last chunk
+                        }
+                        return String.Join(" ", summaryResults);
+                    }
+                    else
+                    {
+                        openAIRequest.Messages.Add(new UserChatMessage(message));
+                        var result = await _openAIService.GetChatResponseAsync(openAIRequest);
+                        return result.ToString();
+                    }
+
+                case AIServiceProvider.Gemini:
+                    var geminiRequest = new GeminiRequestObject
+                    {
+                        Contents = new List<ResponseContent>
                 {
-                    chatParameters.Messages.Add(new UserChatMessage(chunk));
-                    var result = await OpenAIService.GetChatResponseAsync(chatParameters);
-                    summaryResults.Add(result.ToString());
-                    chatParameters.Messages.RemoveAt(chatParameters.Messages.Count - 1);
+                    new ResponseContent
+                    {
+                        Role = "model",
+                        Parts = new List<Part> { new Part { Text = systemPrompt } }
+                    }
                 }
-                return String.Join(" ", summaryResults);
-            }
-            else
-            {
-                chatParameters.Messages.Add(new UserChatMessage(message));
-                var result = await OpenAIService.GetChatResponseAsync(chatParameters);
-                return result.ToString();
+                    };
+
+                    if (isSummary && embed != null)
+                    {
+                        foreach (var chunk in embed)
+                        {
+                            geminiRequest.Contents.Add(new ResponseContent
+                            {
+                                Role = "user",
+                                Parts = new List<Part> { new Part { Text = chunk } }
+                            });
+                            var result = await _geminiService.GetChatResponseAsync(geminiRequest);
+                            summaryResults.Add(result.ToString());
+                            geminiRequest.Contents.RemoveAt(geminiRequest.Contents.Count - 1);
+                        }
+                        return String.Join(" ", summaryResults);
+                    }
+                    else
+                    {
+                        geminiRequest.Contents.Add(new ResponseContent
+                        {
+                            Role = "user",
+                            Parts = new List<Part> { new Part { Text = message } }
+                        });
+                        var result = await _geminiService.GetChatResponseAsync(geminiRequest);
+                        return result.ToString();
+                    }
+
+                case AIServiceProvider.Groq:
+                    var groqRequest = new GroqRequestObject
+                    {
+                        Messages = new List<Message>
+                {
+                    new Message { Role = "assistant", Content = systemPrompt }
+                }
+                    };
+
+                    if (isSummary && embed != null)
+                    {
+                        foreach (var chunk in embed)
+                        {
+                            groqRequest.Messages.Add(new Message { Role = "user", Content = chunk });
+                            var result = await _groqService.GetChatResponseAsync(groqRequest);
+                            summaryResults.Add(result.ToString());
+                            groqRequest.Messages.RemoveAt(groqRequest.Messages.Count - 1);
+                        }
+                        return String.Join(" ", summaryResults);
+                    }
+                    else
+                    {
+                        groqRequest.Messages.Add(new Message { Role = "user", Content = message });
+                        var result = await _groqService.GetChatResponseAsync(groqRequest);
+                        return result.ToString();
+                    }
+
+                default:
+                    throw new InvalidOperationException("Unsupported AI service");
             }
         }
+
 
         public async Task LoadDocument(string document)
         {
@@ -87,7 +170,7 @@ namespace SyncfusionAISamples.Models
 
         public async Task<string> GetDocumentSummary()
         {
-            return await GetAnswerFromGPT("You are a helpful assistant. Your task is to analyze the provided text and generate short summary. Always respond in proper HTML format, but do not include <html>, <head>, or <body> tags.", "", true);
+            return await GetAnswerAsync("You are a helpful assistant. Your task is to analyze the provided text and generate short summary. Always respond in proper HTML format, but do not include <html>, <head>, or <body> tags.", "", true);
         }
 
         /// <summary>
@@ -99,7 +182,7 @@ namespace SyncfusionAISamples.Models
         {
             var questionEmbedding = Embedder.Embed(question);
             var results = LocalEmbedder.FindClosest(questionEmbedding, PageEmbeddings.Select(x => (x.Key, x.Value)), 2);
-            var answer = await GetAnswerFromGPT(systemPrompt + string.Join(" --- ", results), question);
+            var answer = await GetAnswerAsync(systemPrompt + string.Join(" --- ", results), question);
             return answer;
         }
 
@@ -110,7 +193,7 @@ namespace SyncfusionAISamples.Models
         public async Task<string> GetSuggestions()
         {
             string text = this.DocumentContent;
-            return await GetAnswerFromGPT("You are a helpful assistant. Your task is to analyze the provided text and generate 3 short diverse questions and each question should not exceed 10 words", text);
+            return await GetAnswerAsync("You are a helpful assistant. Your task is to analyze the provided text and generate 3 short diverse questions and each question should not exceed 10 words", text);
         }
     }
 

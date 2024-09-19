@@ -48,7 +48,7 @@ Ensure milestones are defined correctly based on tasks with a duration of 0, and
             showMessage = false;
             milestoneDates = new();
             string AIPrompt = GeneratePrompt();
-            string result = await OpenAIService.GetCompletionAsync(AIPrompt);
+            string result = await AIChatService.GetCompletionAsync(AIPrompt);
 
             try
             {

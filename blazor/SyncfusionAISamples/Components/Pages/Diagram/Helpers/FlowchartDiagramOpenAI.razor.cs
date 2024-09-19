@@ -75,7 +75,7 @@ Use the format provided in the example below, adapting the steps, conditions, an
 
 **Instructions:** Ensure the generated flowchart code is specific to the title '{OpenAIPrompt}' and adheres to the provided format. Do not include any additional text, explanations, or comments—only the Mermaid flowchart code.";
 
-                result = await ChatGptService.GetCompletionAsync(userRole, false, false, systemRole);
+                result = await AIChatService.GetCompletionAsync(userRole, false, false, systemRole);
                 List<string> lines = result.Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
                 lines = lines.Where(line => !line.Contains("```")).ToList();
                 int startIndex = lines.FindIndex(line => line.Trim().StartsWith("graph TD"));

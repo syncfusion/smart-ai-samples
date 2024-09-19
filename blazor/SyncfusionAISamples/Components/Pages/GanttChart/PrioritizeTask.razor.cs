@@ -49,7 +49,7 @@ namespace SyncfusionAISamples.Components.Pages.GanttChart
             List<GanttDataModel.TaskInfoModel> generatedCollection = new();
             List<GanttDataModel.AssignmentModel> sortedCollection = new List<GanttDataModel.AssignmentModel>();
             string AIPrompt = GeneratePrompt(GanttDataModel.HistoricalTaskData);
-            string result = await OpenAIService.GetCompletionAsync(AIPrompt, true, true);
+            string result = await AIChatService.GetCompletionAsync(AIPrompt, true, true);
             try
             {
                 if (result.StartsWith("```json"))
@@ -60,22 +60,22 @@ namespace SyncfusionAISamples.Components.Pages.GanttChart
                 {
                     result = result.Replace("```", "").Replace("```", "").Trim();
                 }
-                var contentAIPrompt = @"Using the previously identified critical tasks, update the 'AssignmentCollection' by assigning additional resources to unassigned tasks. If there are tasks in 'TaskCollection' without any assigned resources, allocate available resources (ensuring no task has the same resource assigned more than once). Update the values of below fields and return the 'AssignmentCollection' as a property in below format.
-             {
-              AssignmentCollection: [
+                var contentAIPrompt = @"Using the previously identified critical tasks, update the 'AssignmentCollection' by assigning additional resources to unassigned tasks. If there are tasks in 'TaskCollection' without any assigned resources, allocate available resources (ensuring no task has the same resource assigned more than once). Ensure the response is strictly in the format:
                 {
-                   PrimaryId: value,
-                   TaskId: value,
-                   ResourceId: value,
-                   Unit: value
-                },
-              ]
-            }
-              Do not provide any other format or values.";
+                    AssignmentCollection: [
+                    {
+                        PrimaryId: [int],
+                        TaskId: [int],
+                        ResourceId: [int],
+                        Unit: [double]
+                    }
+                    ]
+                }
+                Do not omit the ""AssignmentCollection"" key or any other fields. Only provide this JSON structure without additional text or explanation.";
 
-                string contentResult = await OpenAIService.GetCompletionAsync(contentAIPrompt, true, true);
+                string contentResult = await AIChatService.GetCompletionAsync(contentAIPrompt, true, true);
                 var taskPrompt = @"Compare the existing collection " + JsonSerializer.Serialize(AssignmentCollection) + " with the updated assignment collection " + contentResult + ". Provide a JSON response containing 'TaskIds', which lists the IDs of tasks with modified resource assignments, and 'Summary', which contains a brief report summarizing the critical tasks identified and the changes made to resource assignments. Output should follow below JSON schema \n { 'TaskIds': [], 'Summary': ''}'";
-                string taskResult = await OpenAIService.GetCompletionAsync(taskPrompt, true, true);
+                string taskResult = await AIChatService.GetCompletionAsync(taskPrompt, true, true);
 
                 string response = JsonDocument.Parse(contentResult).RootElement.GetProperty("AssignmentCollection").ToString();
                 if (response is not null)

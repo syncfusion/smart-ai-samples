@@ -22,7 +22,7 @@ namespace SyncfusionAISamples.Components.Pages.PDFViewer
 
         protected override Task OnInitializedAsync()
         {
-            summarizer = new PDFViewerModel(embedder, openAIService);
+            summarizer = new PDFViewerModel(embedder, AIChatService);
             return base.OnInitializedAsync();
         }
 

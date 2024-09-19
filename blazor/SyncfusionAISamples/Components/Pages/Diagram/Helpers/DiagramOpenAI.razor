@@ -1,12 +1,12 @@
 ﻿@using Syncfusion.Blazor.Popups
 @using Syncfusion.Blazor.Buttons
 @using Syncfusion.Blazor.Inputs
-@inject AzureAIService ChatGptService
+@inject AIService AIChatService
 @namespace TextToMindMapDiagram
-<SfFab IconCss="e-icons e-ai-chat" Content="AI Assist" OnClick="OnFabClicked"></SfFab>
+<SfFab IconCss="e-icons e-aiassist-chat" Content="AI Assist" OnClick="OnFabClicked"></SfFab>
 <SfDialog Width="570px" IsModal="true" ShowCloseIcon="true" CssClass="custom-dialog" Visible="@ShowAIAssistDialog">
     <DialogTemplates>
-        <Header> <span class="e-icons e-ai-chat" style="color: black; font-size: 16px;"></span> AI Assist</Header>
+        <Header> <span class="e-icons e-aiassist-chat" style="color: black; font-size: 16px;"></span> AI Assist</Header>
         <Content>
             <p style="margin-bottom: 10px;">Suggested Prompts</p>
                 <SfButton style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;" @onclick="()=>GenerateMindMap(MobileBankingPrompt)">Mindmap diagram for Mobile banking registration</SfButton>

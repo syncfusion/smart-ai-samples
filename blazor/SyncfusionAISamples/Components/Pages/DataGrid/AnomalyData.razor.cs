@@ -52,7 +52,7 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
             };
             var gridReportJson = GetSerializedGridReport(gridReport);
             string userInput = ValidateAndGeneratePrompt(gridReportJson);
-            var result = await OpenAIService.GetCompletionAsync(userInput);
+            var result = await AIChatService.GetCompletionAsync(userInput);
             if (result != null)
             {
                 GridReport deserializeResult = new GridReport();
