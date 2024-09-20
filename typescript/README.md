@@ -76,6 +76,10 @@ Your Azure endpoint should resemble: `https://{resource_name}.openai.azure.com/`
 
 For more information on Azure OpenAI configuration, consult the [Vercel AI SDK documentation](https://sdk.vercel.ai/providers/ai-sdk-providers/azure).
 
+##### OpenAI
+
+If you are using **OpenAI**, [create an API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key) and place it at `apiKey`, leave the `endpoint` as `""`. The value for `deploymentName` is the [model](https://platform.openai.com/docs/models/) you wish to use (e.g., `gpt-3.5-turbo`, `gpt-4`, etc.).
+
 #### Configuring Image Editor AI
 
 The Image Editor AI depends on a third-party AI service called Stability AI for AI Image processing. To use it, follow these steps:
