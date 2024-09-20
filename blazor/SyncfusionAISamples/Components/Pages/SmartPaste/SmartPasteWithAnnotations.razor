@@ -61,7 +61,7 @@
             <FormItem Field="@nameof(BugRptModel.BugDescription)" ColumnSpan="2" >
                 <Template>
                     <label class="e-form-label">Bug Description</label>
-                    <SfTextArea Placeholder="Describe a little about the bug." />
+                    <SfTextArea ID="bug-description" Placeholder="Describe a little about the bug." HtmlAttributes="bugDescAttr" />
                 </Template>
             </FormItem>
             <FormItem Field="@nameof(BugRptModel.Reporter)" ColumnSpan="1" Placeholder="">
@@ -82,12 +82,12 @@
                                 ID="submitted-date" />
                 </Template>
             </FormItem>
-            <FormItem Field="@nameof(BugRptModel.ReproSteps)" ColumnSpan="2">
+            <FormItem Field="@nameof(BugRptModel.StepsToReproduce)" ColumnSpan="2">
                 <Template>
                     <label class="e-form-label">Repro Steps</label>
-                    <SfTextArea ID="repro-steps"
+                    <SfTextArea ID="steps-to-reproduce"
                                 HtmlAttributes="reproStepsAttr"
-                                @bind-Value="@BugRptModel.ReproSteps"
+                                @bind-Value="@BugRptModel.StepsToReproduce"
                                 Placeholder="Enter the repro steps here.."
                                 RowCount="2" />
                 </Template>

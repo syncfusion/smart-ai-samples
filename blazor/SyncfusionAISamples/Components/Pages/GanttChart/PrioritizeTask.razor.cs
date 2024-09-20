@@ -27,7 +27,7 @@ namespace SyncfusionAISamples.Components.Pages.GanttChart
         private string GeneratePrompt(List<GanttDataModel.TaskInfoModel> TaskCollection)
         {
             return @"
-    1. Analyze the 'TaskCollection' below to identify critical tasks. Focus on tasks where the 'EndDate' is later than the 'BaselineEndDate'. Only consider tasks where both dates are not null and compare only the dates, not the times. Return the collection of critical tasks in the 'TaskDetails' format. Provide no additional explanation or content.
+    1. Analyze the 'TaskCollection' given below to identify critical tasks. Focus on tasks where the 'EndDate' is later than the 'BaselineEndDate'. Only consider tasks where both dates are not null and compare only the dates, not the times. Return the collection of critical tasks in the 'TaskCollection' schema. Provide no additional explanation or content.
     Here is the 'TaskCollection': " + JsonSerializer.Serialize(Gantt.GetCurrentViewRecords()) +
         ", ResourceCollection: " + JsonSerializer.Serialize(ResourceCollection) +
         ", ResourceAssignmentCollection: " + JsonSerializer.Serialize(AssignmentCollection) + "/n Note: The response must be a JSON string with no additional explanation.";
@@ -52,14 +52,6 @@ namespace SyncfusionAISamples.Components.Pages.GanttChart
             string result = await AIChatService.GetCompletionAsync(AIPrompt, true, true);
             try
             {
-                if (result.StartsWith("```json"))
-                {
-                    result = result.Replace("```json", "").Replace("```", "").Trim();
-                }
-                else if (result.StartsWith("```"))
-                {
-                    result = result.Replace("```", "").Replace("```", "").Trim();
-                }
                 var contentAIPrompt = @"Using the previously identified critical tasks, update the 'AssignmentCollection' by assigning additional resources to unassigned tasks. If there are tasks in 'TaskCollection' without any assigned resources, allocate available resources (ensuring no task has the same resource assigned more than once). Ensure the response is strictly in the format:
                 {
                     AssignmentCollection: [

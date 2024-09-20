@@ -18,27 +18,31 @@ namespace SyncfusionAISamples.Components.Pages.SmartPaste
         private List<string> BugReports => CommonData.BugReports;
 
 
-        Dictionary<string, object> bugNameAttr = new Dictionary<string, object>()
-    {
-        { "data-smartpaste-description", "Extract the core purpose of the bug data and use it as the value for Bug name field" }
-    };
-        Dictionary<string, object> reporterNameAttr = new Dictionary<string, object>()
-    {
-        { "data-smartpaste-description", "Name must follow the format: Initial Firstname Lastname" }
-    };
-        Dictionary<string, object> submittedDataAttr = new Dictionary<string, object>()
-    {
-        { "data-smartpaste-description", "Date must follow the format: Month Day. For ex: May 01" }
-    };
-        Dictionary<string, object> reproStepsAttr = new Dictionary<string, object>()
-    {
-        { "data-smartpaste-description", "Structure each steps in a Numbered format." },
-        { "name", "repro-steps" }
-    };
-        Dictionary<string, object> bugPriorityAttr = new Dictionary<string, object>()
-    {
-        { "data-smartpaste-description", "Only allowed values are Low, Medium and High" }
-    };
+        readonly Dictionary<string, object> bugNameAttr = new Dictionary<string, object>()
+        {
+            { "data-smartpaste-description", "Value should represent the name of the bug in short." }
+        };
+        readonly Dictionary<string, object> bugDescAttr = new Dictionary<string, object>()
+        {
+            { "data-smartpaste-description", "Value should describe a little about the bug." }
+        };
+        readonly Dictionary<string, object> reporterNameAttr = new Dictionary<string, object>()
+        {
+            { "data-smartpaste-description", "Name must follow the format: Initial Firstname Lastname" }
+        };
+        readonly Dictionary<string, object> submittedDataAttr = new Dictionary<string, object>()
+        {
+            { "data-smartpaste-description", "Date must follow the format: Month Day. For ex: May 01" }
+        };
+        readonly Dictionary<string, object> reproStepsAttr = new Dictionary<string, object>()
+        {
+            { "data-smartpaste-description", "Identify the steps to reproduce the bug and structure each in a numbered format." },
+            { "name", "reproduce-steps" }
+        };
+        readonly Dictionary<string, object> bugPriorityAttr = new Dictionary<string, object>()
+        {
+            { "data-smartpaste-description", "Only allowed values are Low, Medium and High" }
+        };
 
         private async Task CopyToClipboard(int index)
         {

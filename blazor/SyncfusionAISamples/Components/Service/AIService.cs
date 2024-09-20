@@ -53,13 +53,23 @@ namespace SyncfusionAISamples.Service
                     default:
                         throw new InvalidOperationException("Unsupported AI service");
                 }
-
+                if(returnAsJson)
+                {
+                    if (response.StartsWith("```json"))
+                    {
+                        response = response.Replace("```json", "").Replace("```", "").Trim();
+                    }
+                    else if (response.StartsWith("```"))
+                    {
+                        response = response.Replace("```", "").Replace("```", "").Trim();
+                    }
+                }
                 return response.ToString();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An exception has occurred: {ex.Message}");
-                return "Something went wrong, Please try again!";
+                return "";
             }
         }
 

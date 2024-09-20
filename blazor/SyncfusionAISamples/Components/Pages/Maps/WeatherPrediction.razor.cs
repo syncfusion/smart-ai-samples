@@ -12,99 +12,39 @@ namespace SyncfusionAISamples.Components.Pages.Maps
         public string FifthButtonContent { get; set; }
         public string Day { get; set; }
         ObservableCollection<Markers> MarkerCollection = new ObservableCollection<Markers>();
-    
+
+        public string[] ButtonContents { get; set; } = new string[5];
+
         protected override async Task OnInitializedAsync()
         {
             DateTime dateTime = DateTime.Now;
-            SecondButtonContent = dateTime.AddDays(2).DayOfWeek.ToString();
-            ThirdButtonContent = dateTime.AddDays(3).DayOfWeek.ToString();
-            FourthButtonContent = dateTime.AddDays(4).DayOfWeek.ToString();
-            FifthButtonContent = dateTime.AddDays(5).DayOfWeek.ToString();
-        }
-    
-        private async Task Loaded()
-        {
-            if (MarkerCollection.Count == 0)
+            for (int i = 1; i <= 5; i++)
             {
-                Day = "Today";
-                string result = await AIChatService.GetCompletionAsync("Generate today's temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
-                if (!string.IsNullOrEmpty(result))
-                {
-                    MarkerCollection = JsonConvert.DeserializeObject<ObservableCollection<Markers>>(result);
-                }
-                SpinnerVisibility = false;
+                ButtonContents[i - 1] = i == 1 ? "Tomorrow" : dateTime.AddDays(i).DayOfWeek.ToString();
             }
         }
-    
-        private async Task GetTomorrowWeather()
+
+        private string GetButtonContent(int dayOffset)
+        {
+            return ButtonContents[dayOffset - 1];
+        }
+
+        private async Task GetWeatherForDay(int dayOffset)
         {
             SpinnerVisibility = true;
-            DateTime dateTime = (DateTime.Now.Date).AddDays(1);
-            string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
+            DateTime dateTime = DateTime.Now.Date.AddDays(dayOffset);
+            string date = $"{dateTime.Day}/{dateTime.Month}/{dateTime.Year}";
+            string result = await AIChatService.GetCompletionAsync($"Generate {date}'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects. Do not provide introductory words or blockquotes in the beginning of the response.");
+
             if (!string.IsNullOrEmpty(result))
             {
-                Day = "Tomorrow";
+                Day = dayOffset == 1 ? "Tomorrow" : dateTime.DayOfWeek.ToString();
                 MarkerCollection = JsonConvert.DeserializeObject<ObservableCollection<Markers>>(result);
             }
+
             SpinnerVisibility = false;
         }
-    
-        private async Task GetSecondDayWeather()
-        {
-            SpinnerVisibility = true;
-            DateTime dateTime = (DateTime.Now.Date).AddDays(2);
-            string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
-            if (!string.IsNullOrEmpty(result))
-            {
-                Day = dateTime.DayOfWeek.ToString();
-                MarkerCollection = JsonConvert.DeserializeObject<ObservableCollection<Markers>>(result);
-            }
-            SpinnerVisibility = false;
-        }
-    
-        private async Task GetThirdDayWeather()
-        {
-            SpinnerVisibility = true;
-            DateTime dateTime = (DateTime.Now.Date).AddDays(3);
-            string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
-            if (!string.IsNullOrEmpty(result))
-            {
-                Day = dateTime.DayOfWeek.ToString();
-                MarkerCollection = JsonConvert.DeserializeObject<ObservableCollection<Markers>>(result);
-            }
-            SpinnerVisibility = false;
-        }
-    
-        private async Task GetFourthDayWeather()
-        {
-            SpinnerVisibility = true;
-            DateTime dateTime = (DateTime.Now.Date).AddDays(4);
-            string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
-            if (!string.IsNullOrEmpty(result))
-            {
-                Day = dateTime.DayOfWeek.ToString();
-                MarkerCollection = JsonConvert.DeserializeObject<ObservableCollection<Markers>>(result);
-            }
-            SpinnerVisibility = false;
-        }
-    
-        private async Task GetFifthDayWeather()
-        {
-            SpinnerVisibility = true;
-            DateTime dateTime = (DateTime.Now.Date).AddDays(5);
-            string date = dateTime.Day.ToString() + "/" + dateTime.Month.ToString() + "/" + dateTime.Year.ToString();
-            string result = await AIChatService.GetCompletionAsync("Generate " + date + "'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as 'cityName', 'temperature', 'latitude', 'longitude' and 'weatherCondition'. The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON list without nested objects.");
-            if (!string.IsNullOrEmpty(result))
-            {
-                Day = dateTime.DayOfWeek.ToString();
-                MarkerCollection = JsonConvert.DeserializeObject<ObservableCollection<Markers>>(result);
-            }
-            SpinnerVisibility = false;
-        }
+
         public class Markers
         {
             public double Latitude { get; set; }

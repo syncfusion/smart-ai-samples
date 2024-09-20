@@ -24,7 +24,7 @@
 
 <SfMaps Height="630px">
     <SfSpinner @bind-Visible="@SpinnerVisibility"></SfSpinner>
-    <MapsEvents Loaded="Loaded"></MapsEvents>
+    <MapsEvents Loaded="() => GetWeatherForDay(0)"></MapsEvents>
     <MapsCenterPosition Latitude="35.07653392014242" Longitude="-95.40586193773237"></MapsCenterPosition>
     <MapsMargin Top="0" Bottom="0" Left="0" Right="0"></MapsMargin>
     <MapsZoomSettings Enable=false MaxZoom="19" ZoomFactor="5">
@@ -41,27 +41,16 @@
                         <MarkerTemplate>
                             @{
                                 var Data = context as Markers;
-                                string currentImage = string.Empty;
-                                if (Data.WeatherCondition == "sunny day")
+                                var weatherImages = new Dictionary<string, string>
                                 {
-                                    currentImage = "weather-clear";
-                                }
-                                else if (Data.WeatherCondition == "snowy day")
-                                {
-                                    currentImage = "weather-snow";
-                                }
-                                else if (Data.WeatherCondition == "foggy day")
-                                {
-                                    currentImage = "weather-foggy";
-                                }
-                                else if (Data.WeatherCondition == "cloudy day")
-                                {
-                                    currentImage = "weather-clouds";
-                                }
-                                else if (Data.WeatherCondition == "rainy day")
-                                {
-                                    currentImage = "weather-rain";
-                                }
+                                    { "sunny day", "weather-clear" },
+                                    { "snowy day", "weather-snow" },
+                                    { "foggy day", "weather-foggy" },
+                                    { "cloudy day", "weather-clouds" },
+                                    { "rainy day", "weather-rain" }
+                                };
+
+                                string currentImage = weatherImages.ContainsKey(Data.WeatherCondition) ? weatherImages[Data.WeatherCondition] : string.Empty;
 
                                 <div style="display:flex;transform:translate(-50%, -50%)">
                                     <div style="background-color:black; opacity:0.8; align-content:center; padding-left:5px;padding-right:5px">
@@ -92,9 +81,11 @@
 </SfMaps>
 
 <div style="display:flex; justify-content: center; align-items: center;">
-    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetTomorrowWeather">Tomorrow</SfButton>
-    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetSecondDayWeather">@SecondButtonContent</SfButton>
-    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetThirdDayWeather">@ThirdButtonContent</SfButton>
-    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetFourthDayWeather">@FourthButtonContent</SfButton>
-    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetFifthDayWeather">@FifthButtonContent</SfButton>
+    @for (int i = 1; i <= 5; i++)
+    {
+        int currentIndex = i;
+        <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="@(() => GetWeatherForDay(currentIndex))">
+            @GetButtonContent(currentIndex)
+        </SfButton>
+    }
 </div>

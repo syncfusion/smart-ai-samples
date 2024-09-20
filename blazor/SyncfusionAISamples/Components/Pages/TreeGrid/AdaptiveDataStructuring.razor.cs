@@ -20,7 +20,6 @@ namespace SyncfusionAISamples.Pages.TreeGrid
             List<TreeData.BusinessObject> sortedCollection = new List<TreeData.BusinessObject>();
             var AIPrompt = GeneratePrompt(TreeGridData);
             string result = await AIChatService.GetCompletionAsync(AIPrompt);
-            result = result.Replace("```json", "").Replace("```", "").Trim();
 
             string response = JsonDocument.Parse(result).RootElement.GetProperty("TreeGridData").ToString();
             if (response is not null)
@@ -41,16 +40,27 @@ namespace SyncfusionAISamples.Pages.TreeGrid
 
         private string GeneratePrompt(List<TreeData.BusinessObject> TreeGridData)
         {
+            
             Dictionary<string, IEnumerable<object>> treeData = new Dictionary<string, IEnumerable<object>>();
             treeData.Add("TreeGridData", TreeGridData);
             var jsonData = JsonSerializer.Serialize(treeData);
-            return @"I want you to act as a TreeGrid Data Organizer.
+            return $@"I want you to act as a TreeGrid Data Organizer.
             Your task is to organize a dataset based on a hierarchical structure using 'CategoryId' and 'ParentId'.
             Each item in the dataset has a 'CategoryName' representing categories, and some categories have a null 'ParentId', indicating they are top-level categories. 
             Your role will be to meticulously scan the entire dataset to identify related items based on their 'CategoryName' values and nest them under the appropriate top-level categories by updating their 'ParentId' to match the 'CategoryId' of the corresponding top-level category.
-            For example, if a category like 'Furniture' exists, you should scan the dataset for items such as 'Chair' and 'Table' and update their 'ParentId' to the 'CategoryId' of 'Furniture'.
-            The output should be the newly prepared TreeGridData with correctly assigned 'ParentId' values. Please ensure that all subcategories are correctly nested under their respective top-level categories .
-            Return the newly prepared TreeGridData alone and don't share any other information with the response: Here is the dataset " + jsonData + "/n Note: Return response must be in json string and with no other explanation. ";
+            For example, if a category like 'Furniture' exists, you should scan the dataset for items such as 'Chair' and 'Table' and update their 'ParentId' to the 'CategoryId' of 'Furniture'. Similarly, items such as 'Computer' or 'Cellphone' cannot come under 'Furniture' category.
+            The output should be the newly prepared TreeGridData with correctly assigned 'ParentId' values. Please ensure that all subcategories are correctly nested under their respective top-level categories. Here is the dataset  {jsonData}. Return the newly prepared TreeGridData alone in below format and don't share any other information with the response:  Note: The response must be a valid JSON string with no additional explanations or comments. Here is the required format:
+            {{
+                ""TreeGridData"": [
+                    {{
+                    ""CategoryId"": [int],
+                    ""CategoryName"": [string],
+                    ""Status"": [string],
+                    ""OrderDate"": [string],
+                    ""ParentId"": [int]
+                    }}
+                ]
+            }}";
         }
         public class TreeData
         {
