@@ -113,7 +113,7 @@ function ImageEditor() {
     function removeBG(file: File) {
         let aiOutput = StabilityAiModelBGRemover(file);
         aiOutput.then((result: any) => {
-            imageEditorObj.open(result, false, { backgroundColor: '' });
+            imageEditorObj.open(result, false, { backgroundColor: null });
             setTimeout(() => {
                 hideSpinner(imageEditorObj.element);
                 wrapperDiv.style.opacity = '1';
@@ -144,7 +144,7 @@ function ImageEditor() {
         const maskFile = base64ToFile(maskUrl, 'mask.png');
         const aiOutput = StabilityAiModelMagicEraser(file, maskFile);
         aiOutput.then((result: any) => {
-            imageEditorObj.open(result, false, { backgroundColor: '' });
+            imageEditorObj.open(result, false, { backgroundColor: null });
             setTimeout(() => {
                 hideSpinner(imageEditorObj.element);
                 wrapperDiv.style.opacity = '1';
@@ -164,7 +164,7 @@ function ImageEditor() {
             let searchPrompt = 'Background of the image';
             let aiOutput = StabilityAiModel(file, prompt, searchPrompt);
             aiOutput.then((result: any) => {
-                imageEditorObj.open(result, false, { backgroundColor: '' });
+                imageEditorObj.open(result, false, { backgroundColor: null });
                 setTimeout(() => {
                     bgRemoveBtnClick();
                 }, 100);
