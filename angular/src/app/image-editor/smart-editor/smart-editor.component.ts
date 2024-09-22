@@ -139,7 +139,7 @@ export class SmartEditorComponent implements OnInit{
       let searchPrompt = 'Background of the image';
       let aiOutput = StabilityAiModel(file, prompt, searchPrompt);
       aiOutput.then((result) => {
-        this.imageEditorObj.open(result, false, {backgroundColor: '' });
+        this.imageEditorObj.open(result, false, {backgroundColor: null });
         setTimeout(() => {
           this.bghideSpinner();
         }, 100);
@@ -160,7 +160,7 @@ export class SmartEditorComponent implements OnInit{
       let searchPrompt = 'Background of the image';
       let aiOutput = StabilityAiModel(file, prompt, searchPrompt);
       aiOutput.then((result) => {
-        this.imageEditorObj.open(result, false, {backgroundColor: '' });
+        this.imageEditorObj.open(result, false, {backgroundColor: null });
         setTimeout(() => {
           this.bghideSpinner();
         }, 100);
@@ -181,7 +181,7 @@ export class SmartEditorComponent implements OnInit{
     const maskFile = this.base64ToFile(maskUrl, 'mask.png');
     const aiOutput = StabilityAiModelMagicEraser(file, maskFile);
     aiOutput.then((result:any) => {
-      this.imageEditorObj.open(result, false, {backgroundColor: '' });
+      this.imageEditorObj.open(result, false, {backgroundColor: null });
       setTimeout(() => {
           hideSpinner(this.imageEditorObj.element);
           this.wrapperDiv.style.opacity = '1';
@@ -205,7 +205,7 @@ export class SmartEditorComponent implements OnInit{
   removeBG(file: File) {
     let aiOutput = StabilityAiModelBGRemover(file);
     aiOutput.then((result: any) => {
-      this.imageEditorObj.open(result, false, {backgroundColor: '' });
+      this.imageEditorObj.open(result, false, {backgroundColor: null });
       setTimeout(() => {
         hideSpinner(this.imageEditorObj.element);
         this.wrapperDiv.style.opacity = '1';
