@@ -144,7 +144,7 @@ function ImageEditor() {
         const maskFile = base64ToFile(maskUrl, 'mask.png');
         const aiOutput = StabilityAiModelMagicEraser(file, maskFile);
         aiOutput.then((result: any) => {
-            imageEditorObj.open(result, false, { backgroundColor: '' });
+            imageEditorObj.open(result, false, { backgroundColor: null });
             setTimeout(() => {
                 hideSpinner(imageEditorObj.element);
                 wrapperDiv.style.opacity = '1';
