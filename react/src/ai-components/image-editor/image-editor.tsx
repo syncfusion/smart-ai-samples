@@ -113,7 +113,7 @@ function ImageEditor() {
     function removeBG(file: File) {
         let aiOutput = StabilityAiModelBGRemover(file);
         aiOutput.then((result: any) => {
-            imageEditorObj.open(result, false, { backgroundColor: null });
+            imageEditorObj.open(result, false, { backgroundColor: '' });
             setTimeout(() => {
                 hideSpinner(imageEditorObj.element);
                 wrapperDiv.style.opacity = '1';
@@ -164,7 +164,7 @@ function ImageEditor() {
             let searchPrompt = 'Background of the image';
             let aiOutput = StabilityAiModel(file, prompt, searchPrompt);
             aiOutput.then((result: any) => {
-                imageEditorObj.open(result, false, { backgroundColor: null });
+                imageEditorObj.open(result, false, { backgroundColor: '' });
                 setTimeout(() => {
                     bgRemoveBtnClick();
                 }, 100);
