@@ -224,7 +224,7 @@ export default {
             const wrapperDiv = this.$refs.wrapperDiv;
             let aiOutput = StabilityAiModelBGRemover(file);
             aiOutput.then((result) => {
-                imageEditorObj.open(result, false, { backgroundColor: null });
+                imageEditorObj.open(result, false, { backgroundColor: '' });
                 setTimeout(() => {
                     hideSpinner(imageEditorObj.element);
                     wrapperDiv.style.opacity = '1';
@@ -281,7 +281,7 @@ export default {
                 let searchPrompt = 'Background of the image';
                 let aiOutput = StabilityAiModel(file, prompt, searchPrompt);
                 aiOutput.then((result) => {
-                    imageEditorObj.open(result, false, { backgroundColor: null });
+                    imageEditorObj.open(result, false, { backgroundColor: '' });
                     setTimeout(() => {
                         bgRemoveBtnClick();
                     }, 100);
