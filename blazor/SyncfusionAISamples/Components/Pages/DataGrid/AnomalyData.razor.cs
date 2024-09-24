@@ -58,7 +58,6 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
                 GridReport deserializeResult = new GridReport();
                 try
                 {
-                    result = result.Replace("```json", "").Replace("```", "").Trim();
                     deserializeResult = DeserializeResult(result);
                     AIgeneratedData = deserializeResult.DataSource;
                     spinnerVisibility = false;

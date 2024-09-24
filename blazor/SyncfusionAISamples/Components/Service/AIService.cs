@@ -1,5 +1,6 @@
 ﻿using OpenAI.Chat;
 using Syncfusion.Blazor.SmartComponents;
+using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace SyncfusionAISamples.Service
 {
@@ -8,17 +9,21 @@ namespace SyncfusionAISamples.Service
         private readonly GeminiService _geminiService;
         private readonly OpenAIService _openAIService;
         private readonly GroqService _groqService;
+        private readonly CohereService _cohereService;
         private AIServiceCredentials _credentials;
 
         private OpenAIRequestObject _openAIChatHistory = new OpenAIRequestObject();
         private GeminiRequestObject _geminiChatHistory = new GeminiRequestObject();
         private GroqRequestObject _groqChatHistory = new GroqRequestObject();
 
+        private CohereRequestObject cohereRequestObj = new CohereRequestObject();
+
         public AIService(IServiceProvider service)
         {
             _openAIService = service.GetService<OpenAIService>();
             _geminiService = service.GetService<GeminiService>();
             _groqService = service.GetService<GroqService>();
+            _cohereService = service.GetService<CohereService>();
             _credentials = service.GetService<AIServiceCredentials>();
         }
 
@@ -49,7 +54,9 @@ namespace SyncfusionAISamples.Service
                     case AIServiceProvider.Groq:
                         response = await GetGroqCompletionAsync(prompt, systemMessage, appendPreviousResponse);
                         break;
-
+                    case AIServiceProvider.Cohere:
+                        response = await GetCohereCompletionAsync(prompt, systemMessage, appendPreviousResponse);
+                        break;
                     default:
                         throw new InvalidOperationException("Unsupported AI service");
                 }
@@ -97,6 +104,7 @@ namespace SyncfusionAISamples.Service
             var completion = await _openAIService.GetChatResponseAsync(openAIRequestObj);
             if (appendPreviousResponse)
             {
+                _openAIChatHistory?.Messages?.RemoveAt(_openAIChatHistory.Messages.Count - 1);
                 _openAIChatHistory?.Messages?.Add(new AssistantChatMessage(completion.ToString()));
             }
             return completion;
@@ -108,25 +116,21 @@ namespace SyncfusionAISamples.Service
             GeminiRequestObject geminiRequestObj = appendPreviousResponse ? _geminiChatHistory : new GeminiRequestObject();
             if (appendPreviousResponse)
             {
-                geminiRequestObj.Contents = new List<ResponseContent>
+                if (geminiRequestObj.Contents == null)
                 {
-                    new ResponseContent
+                    geminiRequestObj.Contents = new List<ResponseContent>
                     {
-                        Role = "model",
-                        Parts = new List<Part>
+                        new ResponseContent
                         {
-                            new Part{ Text = systemMessage }
+                            Role = "model",
+                            Parts = new List<Part>
+                            {
+                                new Part{ Text = systemMessage }
+                            }
                         }
-                    },
-                    new ResponseContent
-                    {
-                        Role = "user",
-                        Parts = new List<Part>
-                        {
-                            new Part{ Text = prompt }
-                        }
-                    }
-                };
+                    };
+                }
+                geminiRequestObj.Contents.Add(new ResponseContent(prompt, "user"));
             }
             else
             {
@@ -153,6 +157,7 @@ namespace SyncfusionAISamples.Service
             var completion = await _geminiService.GetChatResponseAsync(geminiRequestObj);
             if (appendPreviousResponse)
             {
+                _geminiChatHistory?.Contents?.RemoveAt(_geminiChatHistory.Contents.Count - 1);
                 _geminiChatHistory?.Contents.Add(new ResponseContent
                 {
                     Role = "model",
@@ -212,6 +217,39 @@ namespace SyncfusionAISamples.Service
                 {
                     Role = "assistant",
                     Content = completion.ToString()
+                });
+            }
+            return completion;
+        }
+
+        private async Task<string> GetCohereCompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
+        {
+            if (appendPreviousResponse)
+            {
+                if (cohereRequestObj.SystemMessage == null)
+                {
+                    cohereRequestObj.SystemMessage = systemMessage;
+                }
+                cohereRequestObj.UserMessage = prompt;
+            }
+            else
+            {
+                cohereRequestObj.SystemMessage = systemMessage;
+                cohereRequestObj.UserMessage = prompt;
+                cohereRequestObj.ChatHistory = null;
+            }
+            var completion = await _cohereService.GetChatResponseAsync(cohereRequestObj);
+            if (appendPreviousResponse)
+            {
+                if (cohereRequestObj.ChatHistory == null)
+                {
+                    cohereRequestObj.ChatHistory = new List<CohereChatHistory>();
+                }
+
+                cohereRequestObj.ChatHistory.Add(new CohereChatHistory
+                {
+                    Role = CohereRoleEnum.CHATBOT,
+                    Message = completion.ToString()
                 });
             }
             return completion;

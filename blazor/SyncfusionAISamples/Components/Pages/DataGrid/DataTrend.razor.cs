@@ -58,7 +58,6 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
             var result = await AIChatService.GetCompletionAsync(prompt);
             if (result != null)
             {
-                result = result.Replace("```json", "").Replace("```", "").Trim();
                 GeneratedTrendData = DeserializeResult(result);
                 spinnerVisibility = false;
                 if (GeneratedTrendData.Count > 0)
@@ -104,7 +103,6 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
             var result = await AIChatService.GetCompletionAsync(prompt);
             if (result != null)
             {
-                result = result.Replace("```json", "").Replace("```", "").Trim();
                 GeneratePredictiveData = DeserializeResult(result);
                 predictiveDescription = string.Empty;
                 spinnerVisibility = false;

@@ -52,14 +52,6 @@ Ensure milestones are defined correctly based on tasks with a duration of 0, and
 
             try
             {
-                if (result.StartsWith("```json"))
-                {
-                    result = result.Replace("```json", "").Replace("```", "").Trim();
-                }
-                else if (result.StartsWith("```"))
-                {
-                    result = result.Replace("```", "").Replace("```", "").Trim();
-                }
                 var content = JsonDocument.Parse(result).RootElement.GetProperty("TaskDetails").ToString();
                 using (JsonDocument document = JsonDocument.Parse(content))
                 {
