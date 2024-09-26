@@ -46,7 +46,7 @@ namespace SyncfusionAISamples.Models
             switch (_credentials.AIService)
             {
                 case AIServiceProvider.OpenAI:
-                    var openAIRequest = new OpenAIRequestObject
+                    var openAIRequest = new OpenAIChatParameters
                     {
                         Messages = new List<ChatMessage> { new SystemChatMessage(systemPrompt) }
                     };
@@ -70,7 +70,7 @@ namespace SyncfusionAISamples.Models
                     }
 
                 case AIServiceProvider.Gemini:
-                    var geminiRequest = new GeminiRequestObject
+                    var geminiRequest = new GeminiChatParameters
                     {
                         Contents = new List<ResponseContent>
                 {
@@ -109,7 +109,7 @@ namespace SyncfusionAISamples.Models
                     }
 
                 case AIServiceProvider.Groq:
-                    var groqRequest = new GroqRequestObject
+                    var groqRequest = new GroqChatParameters
                     {
                         Messages = new List<Message>
                 {

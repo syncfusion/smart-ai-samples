@@ -1,29 +1,23 @@
 ﻿using OpenAI.Chat;
 using Syncfusion.Blazor.SmartComponents;
-using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace SyncfusionAISamples.Service
 {
     public class AIService
     {
-        private readonly GeminiService _geminiService;
-        private readonly OpenAIService _openAIService;
-        private readonly GroqService _groqService;
-        private readonly CohereService _cohereService;
+        private IAIService _activeServiceProvider;
         private AIServiceCredentials _credentials;
 
-        private OpenAIRequestObject _openAIChatHistory = new OpenAIRequestObject();
-        private GeminiRequestObject _geminiChatHistory = new GeminiRequestObject();
-        private GroqRequestObject _groqChatHistory = new GroqRequestObject();
+        private OpenAIChatParameters _openAIChatHistory = new OpenAIChatParameters();
+        private GeminiChatParameters _geminiChatHistory = new GeminiChatParameters();
+        private GroqChatParameters _groqChatHistory = new GroqChatParameters();
+        private FireworksChatParameters _fireworksChatHistory = new FireworksChatParameters();
 
-        private CohereRequestObject cohereRequestObj = new CohereRequestObject();
+        private CohereChatParameters cohereChatParameters = new CohereChatParameters();
 
         public AIService(IServiceProvider service)
         {
-            _openAIService = service.GetService<OpenAIService>();
-            _geminiService = service.GetService<GeminiService>();
-            _groqService = service.GetService<GroqService>();
-            _cohereService = service.GetService<CohereService>();
+            _activeServiceProvider = service.GetService<IAIService>();
             _credentials = service.GetService<AIServiceCredentials>();
         }
 
@@ -57,6 +51,9 @@ namespace SyncfusionAISamples.Service
                     case AIServiceProvider.Cohere:
                         response = await GetCohereCompletionAsync(prompt, systemMessage, appendPreviousResponse);
                         break;
+                    case AIServiceProvider.Fireworks:
+                        response = await GetFireworksCompletionAsync(prompt, systemMessage, appendPreviousResponse);
+                        break;
                     default:
                         throw new InvalidOperationException("Unsupported AI service");
                 }
@@ -82,26 +79,25 @@ namespace SyncfusionAISamples.Service
 
         private async Task<string> GetOpenAICompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
         {
-
-            OpenAIRequestObject openAIRequestObj = appendPreviousResponse ? _openAIChatHistory : new OpenAIRequestObject();
+            OpenAIChatParameters openAIChatParameters = appendPreviousResponse ? _openAIChatHistory : new OpenAIChatParameters();
             if (appendPreviousResponse)
             {
-                if (openAIRequestObj.Messages == null)
+                if (openAIChatParameters.Messages == null)
                 {
-                    openAIRequestObj.Messages = new List<ChatMessage>() {
+                    openAIChatParameters.Messages = new List<ChatMessage>() {
                         new SystemChatMessage(systemMessage),
                         };
                 }
-                openAIRequestObj.Messages.Add(new UserChatMessage(prompt));
+                openAIChatParameters.Messages.Add(new UserChatMessage(prompt));
             }
             else
             {
-                openAIRequestObj.Messages = new List<ChatMessage>(2) {
+                openAIChatParameters.Messages = new List<ChatMessage>(2) {
                     new SystemChatMessage(systemMessage),
                     new UserChatMessage(prompt)
                     };
             }
-            var completion = await _openAIService.GetChatResponseAsync(openAIRequestObj);
+            var completion = await _activeServiceProvider.GetChatResponseAsync(openAIChatParameters);
             if (appendPreviousResponse)
             {
                 _openAIChatHistory?.Messages?.RemoveAt(_openAIChatHistory.Messages.Count - 1);
@@ -113,12 +109,12 @@ namespace SyncfusionAISamples.Service
         private async Task<string> GetGeminiCompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
         {
 
-            GeminiRequestObject geminiRequestObj = appendPreviousResponse ? _geminiChatHistory : new GeminiRequestObject();
+            GeminiChatParameters geminiChatParameters = appendPreviousResponse ? _geminiChatHistory : new GeminiChatParameters();
             if (appendPreviousResponse)
             {
-                if (geminiRequestObj.Contents == null)
+                if (geminiChatParameters.Contents == null)
                 {
-                    geminiRequestObj.Contents = new List<ResponseContent>
+                    geminiChatParameters.Contents = new List<ResponseContent>
                     {
                         new ResponseContent
                         {
@@ -130,11 +126,11 @@ namespace SyncfusionAISamples.Service
                         }
                     };
                 }
-                geminiRequestObj.Contents.Add(new ResponseContent(prompt, "user"));
+                geminiChatParameters.Contents.Add(new ResponseContent(prompt, "user"));
             }
             else
             {
-                geminiRequestObj.Contents = new List<ResponseContent>
+                geminiChatParameters.Contents = new List<ResponseContent>
                 {
                     new ResponseContent
                     {
@@ -154,7 +150,7 @@ namespace SyncfusionAISamples.Service
                     }
                 };
             }
-            var completion = await _geminiService.GetChatResponseAsync(geminiRequestObj);
+            var completion = await _activeServiceProvider.GetChatResponseAsync(geminiChatParameters);
             if (appendPreviousResponse)
             {
                 _geminiChatHistory?.Contents?.RemoveAt(_geminiChatHistory.Contents.Count - 1);
@@ -173,12 +169,12 @@ namespace SyncfusionAISamples.Service
         private async Task<string> GetGroqCompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
         {
 
-            GroqRequestObject groqRequestObj = appendPreviousResponse ? _groqChatHistory : new GroqRequestObject();
+            GroqChatParameters groqChatParameters = appendPreviousResponse ? _groqChatHistory : new GroqChatParameters();
             if (appendPreviousResponse)
             {
-                if (groqRequestObj.Messages == null)
+                if (groqChatParameters.Messages == null)
                 {
-                    groqRequestObj.Messages = new List<Message>
+                    groqChatParameters.Messages = new List<Message>
                     {
                         new Message
                         {
@@ -187,7 +183,7 @@ namespace SyncfusionAISamples.Service
                         }
                     };
                 }
-                groqRequestObj.Messages.Add(new Message
+                groqChatParameters.Messages.Add(new Message
                 {
                     Role = "user",
                     Content = prompt
@@ -195,7 +191,7 @@ namespace SyncfusionAISamples.Service
             }
             else
             {
-                groqRequestObj.Messages = new List<Message>
+                groqChatParameters.Messages = new List<Message>
                 {
                     new Message
                     {
@@ -209,7 +205,7 @@ namespace SyncfusionAISamples.Service
                     }
                 };
             }
-            var completion = await _groqService.GetChatResponseAsync(groqRequestObj);
+            var completion = await _activeServiceProvider.GetChatResponseAsync(groqChatParameters);
             if (appendPreviousResponse)
             {
                 _groqChatHistory?.Messages?.RemoveAt(_groqChatHistory.Messages.Count - 1);
@@ -226,27 +222,27 @@ namespace SyncfusionAISamples.Service
         {
             if (appendPreviousResponse)
             {
-                if (cohereRequestObj.SystemMessage == null)
+                if (cohereChatParameters.SystemMessage == null)
                 {
-                    cohereRequestObj.SystemMessage = systemMessage;
+                    cohereChatParameters.SystemMessage = systemMessage;
                 }
-                cohereRequestObj.UserMessage = prompt;
+                cohereChatParameters.UserMessage = prompt;
             }
             else
             {
-                cohereRequestObj.SystemMessage = systemMessage;
-                cohereRequestObj.UserMessage = prompt;
-                cohereRequestObj.ChatHistory = null;
+                cohereChatParameters.SystemMessage = systemMessage;
+                cohereChatParameters.UserMessage = prompt;
+                cohereChatParameters.ChatHistory = null;
             }
-            var completion = await _cohereService.GetChatResponseAsync(cohereRequestObj);
+            var completion = await _activeServiceProvider.GetChatResponseAsync(cohereChatParameters);
             if (appendPreviousResponse)
             {
-                if (cohereRequestObj.ChatHistory == null)
+                if (cohereChatParameters.ChatHistory == null)
                 {
-                    cohereRequestObj.ChatHistory = new List<CohereChatHistory>();
+                    cohereChatParameters.ChatHistory = new List<CohereChatHistory>();
                 }
 
-                cohereRequestObj.ChatHistory.Add(new CohereChatHistory
+                cohereChatParameters.ChatHistory.Add(new CohereChatHistory
                 {
                     Role = CohereRoleEnum.CHATBOT,
                     Message = completion.ToString()
@@ -255,6 +251,57 @@ namespace SyncfusionAISamples.Service
             return completion;
         }
 
+        private async Task<string> GetFireworksCompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
+        {
+
+            FireworksChatParameters fireworksChatParameters = appendPreviousResponse ? _fireworksChatHistory : new FireworksChatParameters();
+            if (appendPreviousResponse)
+            {
+                if (fireworksChatParameters.Messages == null)
+                {
+                    fireworksChatParameters.Messages = new List<Message>
+                    {
+                        new Message
+                        {
+                            Role = "system",
+                            Content = systemMessage
+                        }
+                    };
+                }
+                fireworksChatParameters.Messages.Add(new Message
+                {
+                    Role = "user",
+                    Content = prompt
+                });
+            }
+            else
+            {
+                fireworksChatParameters.Messages = new List<Message>
+                {
+                    new Message
+                    {
+                        Role = "system",
+                        Content = systemMessage
+                    },
+                    new Message
+                    {
+                        Role = "user",
+                        Content = prompt
+                    }
+                };
+            }
+            var completion = await _activeServiceProvider.GetChatResponseAsync(fireworksChatParameters);
+            if (appendPreviousResponse)
+            {
+                _fireworksChatHistory?.Messages?.RemoveAt(_fireworksChatHistory.Messages.Count - 1);
+                _fireworksChatHistory?.Messages?.Add(new Message
+                {
+                    Role = "assistant",
+                    Content = completion.ToString()
+                });
+            }
+            return completion;
+        }
         private string GetSystemMessage(bool returnAsJson, string systemRole)
         {
             if (returnAsJson)
