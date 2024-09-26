@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div id='container' class='e-rte-custom-tbar-section'>
+    <div id='container' class='e-rte-custom-tbar-section' style="width: 97%;">
         <ejs-richtexteditor ref="defaultRTE" id='defaultRTE' height='550' :saveInterval='0' :autoSaveOnIdle='true'
             :value="value" :toolbarSettings="toolbarSettings" :toolbarClick="onToolbarClick">
             <template #aiAssist>
@@ -462,7 +462,7 @@ export default {
     width: 98%;
 }
 #container {
-    padding: 30px;
+    padding: 20px;
 }
 
 .custom-row-0,

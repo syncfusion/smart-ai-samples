@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div id="container">
+    <div id="root-container">
         <ejs-spreadsheet ref="spreadsheet" height="708px" :created="onCreated">
             <e-sheets>
                 <e-sheet :name="'Gross Pay'" :ranges="ranges" :rows="rows" :columns="columns">
@@ -19,7 +19,7 @@
                 </e-sheet>
             </e-sheets>
         </ejs-spreadsheet>
-        <ejs-sidebar ref="sidebar" :width="'500px'" :target="'.maincontent'" :position="'Right'"
+        <ejs-sidebar id="side-bar" ref="sidebar" :width="'500px'" :target="'.maincontent'" :position="'Right'"
             :closeOnDocumentClick="false" :showBackdrop="false">
             <ejs-aiassistview id="defaultAIAssistView" ref="aiAssistView"
                 promptPlaceholder="Type your prompt for assistance..." :prompts="prompts"
@@ -372,11 +372,23 @@ export default defineComponent({
 });
 </script>
 <style>
-.e-assistview-icon {
-    margin-top: 10px;
+#side-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
 }
-#container {
+.e-assistview-icon {
+    margin-top: 2px;
+}
+#root-container {
     width: 100%;
+    position: relative;
+    width: 100%;
+    height: 708px;
 }
 
 .title-header #close:before {

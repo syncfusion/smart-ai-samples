@@ -1495,7 +1495,7 @@ export default {
 }
 
 </script>
-<style scoped>
+<style>
 /* These styles are used for toolbar icons*/
 @font-face {
     font-family: 'e-ddb-icons';
@@ -1698,6 +1698,10 @@ export default {
 
 .menu-control {
     background: #0078D4;
+}
+
+.menu-control .e-menu-wrapper.e-lib.e-keyboard {
+    background: none !important;
 }
 
 /* .e-icons.e-caret{

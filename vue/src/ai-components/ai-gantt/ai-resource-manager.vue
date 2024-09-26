@@ -182,9 +182,6 @@ export default {
 </script>
 
 <style scoped>
-.control-pane {
-  padding: 10px;
-}
 
 .control-section {
   margin: 0 auto;

@@ -1,4 +1,3 @@
-
 .form-container {
     display: flex;
     flex-direction: column;
@@ -8,14 +7,14 @@
     border-radius: 5px;
     width: 700px;
     margin: 0 auto;
-    max-width: 900px;
-    line-height: 35px;
-    background-color: #fff;
-    border-radius: 20px;
-    margin-top: 25px;
+    max-width: "900px";
+    line-height: "35px";
+    background-color: "#f3f4f6"
 }
-#root-container {
-    padding: 20px;
+
+.description-container {
+    margin-left: 20px;
+    width: 97%;
 }
 
 .form-label {
@@ -68,6 +67,10 @@
     line-height: 1.5;
 }
 
+#bug-data-form {
+    padding-top: 25px
+}
+
 #reset,
 #smart-paste {
     border-radius: 20px;
@@ -75,11 +78,12 @@
 
 .content-body {
     line-height: 28px;
+    font-size: 14px;
     max-width: 49%;
     border-radius: 10px;
     padding: 20px;
     border: 2px solid rgb(229 231 235 / var(--border-opacity));
-    --border-opacity: 1;      
+    --border-opacity: 1;
 }
 
 .e-btn.e-icon-btn.custom-copy-icon {
@@ -88,7 +92,7 @@
 }
 
 .e-btn.custom-copy-icon:focus {
-  box-shadow: none;
+    box-shadow: none;
 }
 
 .bug-form-container {
@@ -101,17 +105,18 @@
 }
 
 .bug-report {
-  padding: 10px;
-  margin: 15px 0px;
-  background-color: #f3f3f3;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  line-height: 1.5;
+    padding: 10px;
+    margin: 15px 0px;
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    line-height: 1.5;
 }
 
 
 .content-flexed {
     display: flex;
-   margin-top: 20px;
-    gap: 15px;
+    margin-top: 20px;
+    padding: 20px;
+    gap: 14px;
 }
