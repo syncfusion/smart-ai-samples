@@ -114,7 +114,7 @@ This table provides an overview of all the AI Samples in this project, along wit
             <td><strong>Smart Paste Button</strong></td>
             <td>Smart Paste Functionality</td>
             <td>Automatically fills out forms using clipboard data, improving data entry efficiency.</td>
-            <td><a href="src/ai-components/ai-smartpaste/Readme.md">Read More</a></td>
+            <td><a href="src/ai-components/ai-smart-paste/Readme.md">Read More</a></td>
         </tr>
         <tr>
             <td><strong>Smart TextArea</strong></td>
