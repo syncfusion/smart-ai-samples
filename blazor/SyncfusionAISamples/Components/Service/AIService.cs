@@ -12,6 +12,9 @@ namespace SyncfusionAISamples.Service
         private GeminiChatParameters _geminiChatHistory = new GeminiChatParameters();
         private GroqChatParameters _groqChatHistory = new GroqChatParameters();
         private FireworksChatParameters _fireworksChatHistory = new FireworksChatParameters();
+        private TogetherChatParameters _togetherChatHistory = new TogetherChatParameters();
+        private FriendliChatParameters _friendliChatHistory = new FriendliChatParameters();
+        private HuggingFaceChatParameters _huggingFaceChatHistory = new HuggingFaceChatParameters();
 
         private CohereChatParameters cohereChatParameters = new CohereChatParameters();
 
@@ -51,8 +54,17 @@ namespace SyncfusionAISamples.Service
                     case AIServiceProvider.Cohere:
                         response = await GetCohereCompletionAsync(prompt, systemMessage, appendPreviousResponse);
                         break;
+                    case AIServiceProvider.Together:
+                        response = await GetTogetherCompletionAsync(prompt, systemMessage, appendPreviousResponse);
+                        break;
                     case AIServiceProvider.Fireworks:
                         response = await GetFireworksCompletionAsync(prompt, systemMessage, appendPreviousResponse);
+                        break;
+                    case AIServiceProvider.Friendli:
+                        response = await GetFriendliCompletionAsync(prompt, systemMessage, appendPreviousResponse);
+                        break;
+                    case AIServiceProvider.HuggingFace:
+                        response = await GetHuggingFaceCompletionAsync(prompt, systemMessage, appendPreviousResponse);
                         break;
                     default:
                         throw new InvalidOperationException("Unsupported AI service");
@@ -251,6 +263,58 @@ namespace SyncfusionAISamples.Service
             return completion;
         }
 
+        private async Task<string> GetTogetherCompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
+        {
+
+            TogetherChatParameters togetherChatParameters = appendPreviousResponse ? _togetherChatHistory : new TogetherChatParameters();
+            if (appendPreviousResponse)
+            {
+                if (togetherChatParameters.Messages == null)
+                {
+                    togetherChatParameters.Messages = new List<Message>
+                    {
+                        new Message
+                        {
+                            Role = "system",
+                            Content = systemMessage
+                        }
+                    };
+                }
+                togetherChatParameters.Messages.Add(new Message
+                {
+                    Role = "user",
+                    Content = prompt
+                });
+            }
+            else
+            {
+                togetherChatParameters.Messages = new List<Message>
+                {
+                    new Message
+                    {
+                        Role = "system",
+                        Content = systemMessage
+                    },
+                    new Message
+                    {
+                        Role = "user",
+                        Content = prompt
+                    }
+                };
+            }
+            var completion = await _activeServiceProvider.GetChatResponseAsync(togetherChatParameters);
+            if (appendPreviousResponse)
+            {
+                _togetherChatHistory?.Messages?.RemoveAt(_togetherChatHistory.Messages.Count - 1);
+                _togetherChatHistory?.Messages?.Add(new Message
+                {
+                    Role = "assistant",
+                    Content = completion.ToString()
+                });
+            }
+            return completion;
+        }
+
         private async Task<string> GetFireworksCompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
         {
 
@@ -295,6 +359,109 @@ namespace SyncfusionAISamples.Service
             {
                 _fireworksChatHistory?.Messages?.RemoveAt(_fireworksChatHistory.Messages.Count - 1);
                 _fireworksChatHistory?.Messages?.Add(new Message
+                {
+                    Role = "assistant",
+                    Content = completion.ToString()
+                });
+            }
+            return completion;
+        }
+        private async Task<string> GetFriendliCompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
+        {
+
+            FriendliChatParameters friendliChatParameters = appendPreviousResponse ? _friendliChatHistory : new FriendliChatParameters();
+            if (appendPreviousResponse)
+            {
+                if (friendliChatParameters.Messages == null)
+                {
+                    friendliChatParameters.Messages = new List<Message>
+                    {
+                        new Message
+                        {
+                            Role = "system",
+                            Content = systemMessage
+                        }
+                    };
+                }
+                friendliChatParameters.Messages.Add(new Message
+                {
+                    Role = "user",
+                    Content = prompt
+                });
+            }
+            else
+            {
+                friendliChatParameters.Messages = new List<Message>
+                {
+                    new Message
+                    {
+                        Role = "system",
+                        Content = systemMessage
+                    },
+                    new Message
+                    {
+                        Role = "user",
+                        Content = prompt
+                    }
+                };
+            }
+            var completion = await _activeServiceProvider.GetChatResponseAsync(friendliChatParameters);
+            if (appendPreviousResponse)
+            {
+                _friendliChatHistory?.Messages?.RemoveAt(_friendliChatHistory.Messages.Count - 1);
+                _friendliChatHistory?.Messages?.Add(new Message
+                {
+                    Role = "assistant",
+                    Content = completion.ToString()
+                });
+            }
+            return completion;
+        }
+
+        private async Task<string> GetHuggingFaceCompletionAsync(string prompt, string systemMessage, bool appendPreviousResponse = false)
+        {
+
+            HuggingFaceChatParameters huggingFaceChatParameters = appendPreviousResponse ? _huggingFaceChatHistory : new HuggingFaceChatParameters();
+            if (appendPreviousResponse)
+            {
+                if (huggingFaceChatParameters.Messages == null)
+                {
+                    huggingFaceChatParameters.Messages = new List<Message>
+                    {
+                        new Message
+                        {
+                            Role = "system",
+                            Content = systemMessage
+                        }
+                    };
+                }
+                huggingFaceChatParameters.Messages.Add(new Message
+                {
+                    Role = "user",
+                    Content = prompt
+                });
+            }
+            else
+            {
+                huggingFaceChatParameters.Messages = new List<Message>
+                {
+                    new Message
+                    {
+                        Role = "system",
+                        Content = systemMessage
+                    },
+                    new Message
+                    {
+                        Role = "user",
+                        Content = prompt
+                    }
+                };
+            }
+            var completion = await _activeServiceProvider.GetChatResponseAsync(huggingFaceChatParameters);
+            if (appendPreviousResponse)
+            {
+                _huggingFaceChatHistory?.Messages?.RemoveAt(_huggingFaceChatHistory.Messages.Count - 1);
+                _huggingFaceChatHistory?.Messages?.Add(new Message
                 {
                     Role = "assistant",
                     Content = completion.ToString()
