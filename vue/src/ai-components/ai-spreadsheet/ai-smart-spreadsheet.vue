@@ -15,7 +15,6 @@
         <ejs-spreadsheet ref="spreadsheet" height="708px" :created="onCreated">
             <e-sheets>
                 <e-sheet :name="'Gross Pay'" :ranges="ranges" :rows="rows" :columns="columns">
-                    
                 </e-sheet>
             </e-sheets>
         </ejs-spreadsheet>
@@ -26,14 +25,11 @@
                 :promptRequest="promptHandler">
                 <div>
                     <ejs-button id="close" class="e-btn close-btn"
-                    :style="{ float: 'right', fontSize: '24px', border: 'none', background: 'none' }"
-                    @click="() => this.$refs.sidebar.hide()">×</ejs-button>
+                        :style="{ float: 'right', fontSize: '24px', border: 'none', background: 'none' }"
+                        @click="() => this.$refs.sidebar.hide()">×</ejs-button>
                 </div>
-                
             </ejs-aiassistview>
-
         </ejs-sidebar>
-        
     </div>
 </template>
 
@@ -175,7 +171,7 @@ export default defineComponent({
             spreadsheet.numberFormat('$#,##0.00', 'H4:I13');
             spreadsheet.wrap('H3:I3');
             spreadsheet.addRibbonTabs([{
-                header: { text: 'AI Assist', iconCss:"e-icons e-assistview-icon" }, content: [
+                header: { text: 'AI Assist', iconCss: "e-icons e-assistview-icon" }, content: [
                     {
                         text: 'Full Sheet Analysis', tooltipText: 'Full Sheet Analysis',
                         click: (): void => {
@@ -374,21 +370,22 @@ export default defineComponent({
 <style>
 #side-bar {
     position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
+    margin-top: 10px;
+    margin-right: 10px;
+    height: 70%;
     z-index: 1000;
     background-color: white;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
+
 .e-assistview-icon {
     margin-top: 2px;
 }
+
 #root-container {
-    width: 100%;
     position: relative;
-    width: 100%;
     height: 708px;
+    padding: 10px;
 }
 
 .title-header #close:before {

@@ -14,14 +14,14 @@
     </div>
     <div ref="doc_titlebar" class="e-de-ctn-title"></div>
     <ejs-documenteditorcontainer ref="container" id="documentEditor" :enableToolbar='true' height='99%'
-        serviceUrl='serviceUrl' :toolbarItems="docToolbarItems" :customContextMenuSelect='customContextMenuSelect'
-        :toolbarClick='toolbarClick'>
+        serviceUrl='https://services.syncfusion.com/js/production/api/documenteditor/' :toolbarItems="docToolbarItems"
+        :customContextMenuSelect='customContextMenuSelect' :toolbarClick='toolbarClick'>
 
     </ejs-documenteditorcontainer>
     <ejs-dialog ref="dialog" header='Generate Content' :showCloseIcon='true' :buttons="dialogButtons" :visible='false'
         width='50%' height='auto' :isModal='true' :close='onclose' target="#documentEditor" :beforeOpen='onOpen'>
         <div>
-            <div ref="editableDiv" id="e-de-editable-div" contenteditable="true" style="height: 100px;"></div>
+            <div ref="editableDiv" id="e-de-editable-div" contentEditable="true" style="height: 100px;"></div>
             <ejs-toolbar ref='toolbar' :items="toolbarItems" :created='onToolbarCreated'></ejs-toolbar>
         </div>
     </ejs-dialog>
@@ -36,6 +36,7 @@ import { CustomContentMenuEventArgs, CustomToolbarItemModel } from '@syncfusion/
 import { ChangeEventArgs } from '@syncfusion/ej2-vue-dropdowns';
 import { createSpinner, showSpinner, hideSpinner } from '@syncfusion/ej2-vue-popups';
 import { TitleBar } from './title-bar';
+import { getAzureChatAIRequest } from '../common/ai-models';
 
 //azure part
 
@@ -92,7 +93,6 @@ export default {
                     }
                 }
             ] as ButtonPropsModel[],
-            toolbarItems: [],
         }
 
 
@@ -119,9 +119,9 @@ export default {
             }
         },
         onInsertContent: function (): void {
-            const editableDiv = this.$refs.editableDiv;
-            const container = this.$refs.container;
-            const dialog = this.$refs.dialog;
+            let container = this.$refs.container.ej2Instances;
+            let dialog = this.$refs.dialog.ej2Instances;
+            const editableDiv = document.getElementById("e-de-editable-div");
             let response: string = editableDiv!.innerHTML;
             let http = new XMLHttpRequest();
             let url: string = container.serviceUrl + 'SystemClipboard';
@@ -132,6 +132,7 @@ export default {
                     if (http.status === 200 || http.status === 304) {
                         container.documentEditor.editor.paste(http.responseText);
                         container.documentEditor.editor.onEnter();
+                        this.clearContent();
                         dialog.hide();
                     }
                 }
@@ -150,7 +151,7 @@ export default {
             this.onChangeToolbarVisibility(true);
         },
         onChangeToolbarVisibility: async function (showPryItem: boolean) {
-            const toolbar = this.$refs.toolbar;
+            const toolbar = this.$refs.toolbar.ej2Instances;
             let isPrimary: boolean = true;
             if (!showPryItem) {
                 isPrimary = false;
@@ -181,14 +182,14 @@ export default {
         onSettingsClick: function () {
             this.onChangeToolbarVisibility(false);
         },
-        onCloseSecndaryToolbar: function () {
+        onCloseSecondaryToolbar: function () {
             this.onChangeToolbarVisibility(true);
         },
         onGenerate: async function (options: AzureAIRequestOptions): Promise<void> {
             const editableDiv = this.$refs.editableDiv;
             this.outList = [];
             for (let i = 0; i < 3; i++) {
-                const response = await (this as any).getAzureChatAIRequest(options);
+                const response = await getAzureChatAIRequest(options);
                 if (response && this.outList.indexOf(response) === -1) {
                     this.outList.push(response);
                 } else {
@@ -284,15 +285,15 @@ export default {
                 type: 'Input', align: 'Left', cssClass: 'page-count', template: "<div><input type='text' id='numeric' style='width: 20px;padding-left: 10px;'> <span id=total-page> of 3 </span> </input></div>"
             },
             { prefixIcon: 'e-icons e-chevron-right', click: this.moveToNext },
-            { text: 'Generate', align: 'Right', click: this.onGenerateClick, disabled: true },
-            { prefixIcon: 'e-icons e-settings', click: this.onSettingsClick },
+            { text: 'Generate', align: 'Right', click: this.onGenerateClick},
+            { prefixIcon: 'e-icons e-settings', align: 'Right', click: this.onSettingsClick },
 
-            { prefixIcon: 'e-icons e-close', click: this.onCloseSecndaryToolbar },
+            { prefixIcon: 'e-icons e-close', align: 'Left', click: this.onCloseSecondaryToolbar},
             {
                 type: 'Input', align: 'Left', template: new ComboBox({ width: '125px', change: this.onToneChange, value: this.toneValue, dataSource: this.toneList, popupWidth: '125px', showClearButton: false, readonly: false })
             },
             {
-                type: 'Input', align: 'Left', template: new ComboBox({ width: '200px', change: this.onFormatChange, value: this.formatValue, dataSource: this.formatValueList, popupWidth: '200px', showClearButton: false, readonly: false })
+                type: 'Input', align: 'Left', template: new ComboBox({ width: '100px', change: this.onFormatChange, value: this.formatValue, dataSource: this.formatValueList, popupWidth: '200px', showClearButton: false, readonly: false })
             },
             {
                 type: 'Input', align: 'Left', template: new ComboBox({ width: '100px', change: this.onLengthChange, value: this.lengthValue, dataSource: this.lengthList, popupWidth: '100px', showClearButton: false, readonly: false })

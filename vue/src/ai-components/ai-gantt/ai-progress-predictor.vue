@@ -95,13 +95,13 @@ export default {
         aioutput.then((result) => {
           let cleanedJsonData = result.replace(/^```json\n|```\n?$/g, '').replace('```json', '').replace('```', '');
           let dataset = JSON.parse(cleanedJsonData);
-          const eventMarkers = dataset.TaskDetails.MilestoneTaskDate
+          const eventMarkers = dataset.MilestoneTaskDate
             .map((milestone) => ({
               day: new Date(milestone["MilestoneDate"]),
               label: milestone["TaskName"]
             }));
           let projectDetailes = {
-            day: new Date(dataset.TaskDetails.ProjectCompletionDate),
+            day: new Date(dataset.ProjectCompletionDate),
             label: "Project completion date"
           }
           eventMarkers.push(projectDetailes)
