@@ -2,7 +2,6 @@
   <div id="desc-container">
     <h2 style="text-align: center;">Smart Editor</h2>
     <div class="description-container e-card">
-      <div class='e-card-header-title' style="font-weight: 600;">AI-Powered Document Editor</div>
       <div class='e-card-content '>
         <p>This sample showcases the Smart Editor's capabilities in the Syncfusion Vue Document Editor. It enhances
           document editing by rewriting, checking grammar, and translating text. Users can refine content through

@@ -1,8 +1,8 @@
 <template>
   <div class="control-pane">
     <div class="control-section">
+      <div class="e-card-header-title" style="font-weight: 600; text-align: center; padding: 20px;">Smart Resource Allocation</div>
       <div class="description-container e-card">
-        <div class="e-card-header-title" style="font-weight: 600; text-align: center;">Smart Resource Allocation</div>
         <div class="e-card-content">
           <p>This sample uses AI to prevent resource overallocation by reallocating tasks. It interacts with the
             TaskCollection, ResourceCollection, and AssignmentCollection to create a new assignment collection,

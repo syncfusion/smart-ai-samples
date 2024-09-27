@@ -1,10 +1,10 @@
 <template>
   <div class="control-pane">
     <div class="control-section">
-      <div class="description-container e-card">
-        <div class="e-card-header-title" style="font-weight: 600; text-align: center;">
+      <div class="e-card-header-title" style="font-weight: 600; text-align: center; padding: 10px;">
           Predictive Analysis
         </div>
+      <div class="description-container e-card">
         <div class="e-card-content">
           <p>
             In this his sample demonstrates how the syncfusion Vue DataGrid, integrated with AI, can predict data

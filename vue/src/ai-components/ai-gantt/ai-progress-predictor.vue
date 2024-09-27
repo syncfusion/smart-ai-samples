@@ -1,8 +1,8 @@
 <template>
   <div class="control-pane">
     <div class="control-section">
+      <div class="e-card-header-title" style="font-weight: 600; text-align: center;">Smart Progress Prediction</div>
       <div class="description-container e-card">
-        <div class="e-card-header-title" style="font-weight: 600; text-align: center;">Smart Progress Prediction</div>
         <div class="e-card-content">
           <p>This sample uses AI to predict milestone dates and the overall project completion date. The predictions are based on the current year's TaskCollection data, along with an analysis of historical data from the past five years. Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/vue/src/ai-components/ai-gantt/Readme.md">here</a>.</p>
         </div>
@@ -136,7 +136,8 @@ export default {
   margin: 20px;
 }
 .description-container {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 #container {
   width: 100%;

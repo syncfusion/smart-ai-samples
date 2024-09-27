@@ -1,7 +1,7 @@
 <template>
   <div class="control-pane">
     <div class="control-section">
-      <div style="font-weight: 600; text-align: center; padding: 20px;">Smart Weather Prediction</div>
+      <h2 style="font-weight: 600; text-align: center;">Smart Weather Prediction</h2>
       <div class="description-container e-card">
         <div class="e-card-content">
           <p>Syncfusion Vue Maps integrated with AI to automatically forecast weather conditions in the United States

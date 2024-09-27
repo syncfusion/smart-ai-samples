@@ -1,8 +1,8 @@
 <template>
     <div class="control-pane">
       <div class="control-section">
+        <div class="e-card-header-title" style="font-weight: 600; text-align: center; padding: 10px;">AI Driven Data Trend Analysis in DataGrid</div>
         <div class="description-container e-card">
-          <div class="e-card-header-title" style="font-weight: 600">AI Driven Data Trend Analysis in DataGrid</div>
           <div class="e-card-content">
             <p>
               This sample demonstrates how the Syncfusion Vue DataGrid, powered by AI, can perform trend analysis on its

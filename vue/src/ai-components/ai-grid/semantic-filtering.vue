@@ -1,10 +1,10 @@
 <template>
     <div class="control-pane">
         <div class="control-section">
+            <div class="e-card-header-title" style="font-weight: 600; text-align: center; padding: 10px;">
+                Semantic Filtering
+            </div>
             <div class="description-container e-card">
-                <div class="e-card-header-title" style="font-weight: 600; text-align: center;">
-                    Semantic Filtering
-                </div>
                 <div class="e-card-content">
                     <p>This example shows how the DataGrid presents medical report data. Using Semantic Search, you can
                         find relevant information without needing to use the exact terms. For instance, searching for
