@@ -50,18 +50,18 @@ export async function getAzureTextAIRequest(query: any) {
     }
 }
 
-export async function OpenAiModel(subQuery: any) {
-    const chatCompletion = await getOpenAiModel(subQuery);
+export async function OpenAiModel(prompt: any, subQuery: any) {
+    const chatCompletion = await getOpenAiModel(prompt, subQuery);
     return chatCompletion.text;
 }
 
-export async function getOpenAiModel(subQuery: any) {
+export async function getOpenAiModel(prompt: any,subQuery: any) {
     try {
         const { text } = await generateText({
             model:aiModel,
             prompt: `${subQuery.includes("emoji followed by the sentiment in the format") 
                 ? "You are a helpful assistant. Please respond in string format." 
-                : "NOTE: Return same html format just do changes content only. don't change html formats."} ${subQuery}`
+                : "NOTE: Return same html format just do changes content only. don't change html formats."} ${subQuery}, ${prompt}`
         });
         return { text };
     } catch (err) {

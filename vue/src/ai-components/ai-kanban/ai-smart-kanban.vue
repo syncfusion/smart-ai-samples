@@ -11,7 +11,7 @@
     </div>
     <div id="ai-button" style="margin: 10px">
         <ejs-progressbutton ref="sentiment" id="sentiment" content='Check Customer Sentiments' :enableProgress='false'
-            :begin="begin"></ejs-progressbutton>
+            :begin="begin" @click="progressBtnClick"></ejs-progressbutton>
     </div>
     <div class="control-section">
         <div class="control_wrapper">

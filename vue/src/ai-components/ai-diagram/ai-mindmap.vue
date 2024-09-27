@@ -236,7 +236,7 @@
                     </template>
                 </ejs-dialog>
             </div>
-            <ejs-fab id="ai-assist" :isPrimary='true' iconCss='e-icons e-aiassist-chat' @click='aiOnClick'>AI
+            <ejs-fab id="ai-assist" :isPrimary='true' iconCss='e-icons e-assistview-icon' @click='aiOnClick'>AI
                 Assist</ejs-fab>
 
             <!-- Loading indicator container -->
@@ -1495,7 +1495,7 @@ export default {
 }
 
 </script>
-<style scoped>
+<style>
 /* These styles are used for toolbar icons*/
 @font-face {
     font-family: 'e-ddb-icons';
@@ -1700,15 +1700,15 @@ export default {
     background: #0078D4;
 }
 
+.menu-control .e-menu-wrapper.e-lib.e-keyboard {
+    background: none !important;
+}
+
 /* .e-icons.e-caret{
                 display: none !important;
               } */
 .e-menu-caret-icon .e-caret {
     display: none !important;
-}
-
-.e-lib.e-menu.e-control.e-menu-parent {
-    color: white !important;
 }
 
 .e-menu-item:hover {

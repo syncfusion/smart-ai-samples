@@ -1,8 +1,8 @@
 <template>
     <div class='control-pane'>
         <div class='control-section'>
+            <div class='e-card-header-title' style="font-weight: 600; text-align: center; padding: 10px;">Anomaly Detection using AI</div>
             <div class="description-container e-card">
-                <div class='e-card-header-title' style="font-weight: 600; text-align: center;">Anomaly Detection using AI</div>
                 <div class='e-card-content'>
                     <p>This sample demonstrates how the AI-enhanced Syncfusion DataGrid detects anomalies in its data. The AI analyzes data patterns to identify outliers or irregularities, helping users spot potential issues quickly and efficiently. Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/vue/src/ai-components/ai-grid/Readme.md">here</a>.</p>
                 </div>

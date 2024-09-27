@@ -62,7 +62,7 @@
                 <ejs-dialog ref="dialog" header='headerTemplate' :showCloseIcon='true' :isModal='true'
                     content='contentTemplate' target='.control-section' width='540px' :visible='false' height='310px'>
                     <template #headerTemplate>
-                        <span class="e-icons e-aiassist-chat" style="color: black;width:20px; font-size: 16px;">
+                        <span class="e-icons e-assistview-icon" style="color: black;width:20px; font-size: 16px;">
                         </span>
                         AI Assist
                     </template>
@@ -93,7 +93,7 @@
                     </template>
                 </ejs-dialog>
             </div>
-            <ejs-fab :isPrimary='true' iconCss='e-icons e-aiassist-chat' @click="fabDialog">AI Assist</ejs-fab>
+            <ejs-fab :isPrimary='true' iconCss='e-icons e-assistview-icon' @click="fabDialog">AI Assist</ejs-fab>
 
             <!-- Loading indicator container -->
             <div ref="loadingContainer" id="loadingContainer" class="loading-container">

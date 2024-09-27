@@ -2,7 +2,7 @@
     <ejs-appbar id="e-header">
         <ejs-button id='regularButtonMenu' cssClass="e-inherit menu" iconCss="e-icons e-menu"
             @click="hamburgerClick"></ejs-button>
-        <span class="regular">Syncfusion Vue AI Samples</span>
+        <span class="regular" style="font-weight: bold;">Syncfusion Vue AI Samples</span>
         <div class="e-appbar-spacer"></div>
     </ejs-appbar>
     <div id="control-panel">

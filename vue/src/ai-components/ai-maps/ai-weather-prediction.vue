@@ -1,10 +1,13 @@
 <template>
   <div class="control-pane">
     <div class="control-section">
+      <h2 style="font-weight: 600; text-align: center;">Smart Weather Prediction</h2>
       <div class="description-container e-card">
-        <div class="e-card-header-title" style="font-weight: 600; text-align: center;">Smart Weather Prediction</div>
         <div class="e-card-content">
-            <p>Syncfusion Vue Maps integrated with AI to automatically forecast weather conditions in the United States for the next five days. Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/vue/src/ai-components/ai-maps/Readme.md">here</a>.</p>
+          <p>Syncfusion Vue Maps integrated with AI to automatically forecast weather conditions in the United States
+            for the next five days. Know more <a
+              href="https://github.com/syncfusion/smart-ai-samples/blob/master/vue/src/ai-components/ai-maps/Readme.md">here</a>.
+          </p>
         </div>
       </div>
       <div id="container">
@@ -64,6 +67,7 @@ export default {
     fifthDayDate.setDate(todayDate.getDate() + 5);
 
     return {
+      buttonContent: null,
       markerDataSource: [],
       centerPosition: {
         latitude: 35.07653392014242,
@@ -123,7 +127,7 @@ export default {
     };
   },
   methods: {
-    onMapsLoaded() {
+    onMapsLoaded: function () {
       if (this.markerDataSource.length === 0) {
         this.getWeatherData('Today');
       }
@@ -131,11 +135,11 @@ export default {
     getWeatherData: async function (day) {
       let weatherDataRequest;
       let offset = 0;
-      let buttonContent = day;
+      this.buttonContent = day;
 
       if (['Tomorrow', 'Second Day', 'Third Day', 'Fourth Day', 'Fifth Day'].includes(day)) {
         offset = ['Tomorrow', 'Second Day', 'Third Day', 'Fourth Day', 'Fifth Day'].indexOf(day) + 1;
-        buttonContent = day === 'Tomorrow' ? 'Tomorrow' : this[`${day.replace(' ', '')[0].toLowerCase() + day.replace(' ', '').slice(1)}Text`];
+        this.buttonContent = day === 'Tomorrow' ? 'Tomorrow' : this[`${day.replace(' ', '')[0].toLowerCase() + day.replace(' ', '').slice(1)}Text`];
         const dateTime = new Date();
         dateTime.setDate(dateTime.getDate() + offset);
         const date = `${dateTime.getDate()}/${dateTime.getMonth() + 1}/${dateTime.getFullYear()}`;
@@ -144,37 +148,39 @@ export default {
         weatherDataRequest = this.generateWeatherRequest('today');
       }
 
-      const data = await weatherDataRequest;
-      if (data) {
-        let cleanedData = data;
-        if (data.indexOf('```json') > -1) {
-          cleanedData = data.split('```json')[1].trim().split("```")[0].trim();
+      weatherDataRequest.then((data) => {
+        if (data) {
+          if (data.indexOf('```json') > -1) {
+            let cleanedResponseText = data.split('```json')[1].trim();
+            data = cleanedResponseText.split("```")[0].trim();
+          }
+          data = JSON.parse(data);
+          data = data.cities ? data.cities : data;
+          this.markerDataSource = data.map((marker) => ({
+            ...marker,
+            weatherImage: this.getWeatherImage(marker.weather_condition)
+          }));
+          this.$refs.mapRef.ej2Instances.layers[0].markerSettings[0].dataSource = this.markerDataSource;
+          this.$refs.mapRef.ej2Instances.annotations[0].content = '<div style="display: flex">' +
+              '<div style="background-color: dodgerblue; color:white; font-size: 16px; padding:5px 10px 5px; width: max-content;">Weather Forecast</div>' +
+              '<div style="background-color: white; color:black; font-size: 16px; padding:5px 10px 5px">' + this.buttonContent + '</div>' +
+              '</div>';
         }
-        const parsedData = JSON.parse(cleanedData);
-        this.markerDataSource = parsedData.map(marker => ({
-          ...marker,
-          weatherImage: this.getWeatherImage(marker.weather_condition)
-        }));
-        this.$refs.mapRef.ej2Instances.layers[0].markerSettings[0].dataSource = this.markerDataSource;
-        this.annotationContent = `<div style="display: flex">
-          <div style="background-color: dodgerblue; color:white; font-size: 16px; padding:5px 10px 5px; width: max-content;">Weather Forecast</div>
-          <div style="background-color: white; color:black; font-size: 16px; padding:5px 10px 5px">${buttonContent}</div>
-        </div>`;
-      }
+      });
     },
     generateWeatherRequest(date) {
       const prompt = `Generate ${date}'s temperature in Celsius for 15 important cities in USA as a JSON object, with fields such as "city_name", "temperature", "latitude", "longitude" and "weather_condition". The weather conditions must be sunny day, rainy day, cloudy day, snowy day and foggy day based on the temperature of the state. Strictly provide flat JSON object list alone without nested objects.`;
       return getAzureChatAIRequest({ messages: [{ role: 'user', content: prompt }] });
     },
     getWeatherImage(condition) {
-      const conditions = {
-        'sunny day': 'https://ej2.syncfusion.com/demos/src/maps/images/weather-clear.png',
-        'snowy day': 'https://ej2.syncfusion.com/demos/src/maps/images/weather-clouds.png',
-        'foggy day': 'https://ej2.syncfusion.com/demos/src/maps/images/weather-clouds.png',
-        'cloudy day': 'https://ej2.syncfusion.com/demos/src/maps/images/weather-clouds.png',
-        'rainy day': 'https://ej2.syncfusion.com/demos/src/maps/images/weather-rain.png'
-      };
-      return conditions[condition.toLowerCase()] || 'weather-unknown';
+      switch (condition.toLowerCase()) {
+        case 'sunny day': return 'https://ej2.syncfusion.com/demos/src/maps/images/weather-clear.png';
+        case 'snowy day': return 'https://ej2.syncfusion.com/demos/src/maps/images/weather-clouds.png';
+        case 'foggy day': return 'https://ej2.syncfusion.com/demos/src/maps/images/weather-clouds.png';
+        case 'cloudy day': return 'https://ej2.syncfusion.com/demos/src/maps/images/weather-clouds.png';
+        case 'rainy day': return 'https://ej2.syncfusion.com/demos/src/maps/images/weather-rain.png';
+        default: return 'weather-unknown';
+      }
     }
   },
   provide: {
@@ -182,3 +188,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.description-container {
+    margin-left: 20px;
+    width: 97%;
+}
+</style>

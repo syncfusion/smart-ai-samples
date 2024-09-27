@@ -1,8 +1,8 @@
 <template>
   <div class='control-pane'>
     <div class='control-section'>
+      <div class='e-card-header-title' style="font-weight: 600; text-align: center; padding: 20px;">Smart Prioritizer</div>
       <div class="description-container e-card">
-        <div class='e-card-header-title' style="font-weight: 600; text-align: center;">Smart Prioritizer</div>
         <div class='e-card-content'>
           <p>This sample uses AI to identify critical tasks based on the project schedule. The AI then prompts for
             resource reassignment and generates a summary outlining the reallocation process and details of the critical

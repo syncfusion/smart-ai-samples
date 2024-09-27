@@ -59,7 +59,7 @@ import { enableRipple, isNullOrUndefined } from '@syncfusion/ej2-base';
 import { QueryBuilderComponent } from '@syncfusion/ej2-vue-querybuilder';
 import { ButtonComponent } from '@syncfusion/ej2-vue-buttons';
 import { TabComponent, TabItemDirective, TabItemsDirective } from '@syncfusion/ej2-vue-navigations';
-import { ColumnDirective, ColumnsDirective, GridComponent } from '@syncfusion/ej2-vue-grids';
+import { ColumnDirective, ColumnsDirective, GridComponent, Page } from '@syncfusion/ej2-vue-grids';
 import { Query, Predicate } from '@syncfusion/ej2-data';
 import { createSpinner, showSpinner, hideSpinner } from '@syncfusion/ej2-popups';
 import { getAzureTextAIRequest } from '../common/ai-models';
@@ -143,6 +143,9 @@ export default {
         hideSpinner(document.getElementById('grid'));
       });
     }
+  },
+  provide: {
+    grid: [Page]
   }
 };
 </script>
