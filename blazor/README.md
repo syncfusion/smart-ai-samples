@@ -287,7 +287,7 @@ This table provides an overview of all the AI Samples in this project, along wit
         </tr>
         <tr>
             <td><strong>Scheduler</strong></td>
-            <td>Smart Paste Integration</td>
+            <td>Smart Scheduler</td>
             <td>Converts natural language text into scheduler events, adding them as structured appointments.</td>
             <td><a href="SyncfusionAISamples/Components/Pages/Scheduler/Readme.md">Read More</a></td>
         </tr>
