@@ -78,15 +78,55 @@ The **Syncfusion Blazor ComboBox** now includes an advanced Semantic Search feat
 
 For more insights, refer to the [documentation](SyncfusionAISamples/Components/Pages/ComboBox/Readme.md).
 
-### Data Grid
+### Scheduler
 
-The **Syncfusion Blazor DataGrid** now includes advanced AI Samples like **Semantic Filtering** and **Anomaly Detection**. These features empower users to search more effectively and detect irregularities within data, making the DataGrid a powerful tool for applications that handle large datasets or require insights into complex data patterns.
+The **Syncfusion Blazor Scheduler** now features advanced AI capabilities that transform natural language text into structured scheduler events. This integration enhances user experience by allowing casual text input to be seamlessly converted into meeting appointments, making scheduling more efficient and intuitive.
 
-#### Anomaly Detection
+![Gif image of Scheduler component](SyncfusionAISamples/wwwroot/gif-images/scheduler/smart-scheduler.gif)
 
-![Gif image of Gantt-Task Prioritization sample](SyncfusionAISamples/wwwroot/gif-images/grid/anomaly-detection.gif)
+For a deeper dive into these capabilities, refer to the [documentation](SyncfusionAISamples/Components/Pages/Scheduler/Readme.md).
 
-For more insights, refer to the [documentation](SyncfusionAISamples/Components/Pages/DataGrid/Readme.md).
+### Rich Text Editor
+
+The **Syncfusion Blazor Rich Text Editor** now features advanced AI-powered samples that enhance content creation and editing. This integration provides users with powerful tools for rephrasing, grammar correction, summarization, elaboration, translation, and sentiment analysis, making the writing process more efficient and intuitive.
+
+![Gif image of RichTextArea component](SyncfusionAISamples/wwwroot/gif-images/richtexteditor/ai-assistant.gif)
+
+For more details, refer to the [documentation](SyncfusionAISamples/Components/Pages/RichTextEditor/Readme.md).
+
+### Pivot Table
+
+The **Syncfusion Blazor Pivot Table** now features advanced AI capabilities that transform the way users visualize and analyze data. This integration empowers users to dynamically explore and extract insights from complex datasets with ease. Key functionalities include **Smart Data Aggregation** for automatic data consolidation, **Predictive Modeling** to identify trends and patterns, and **Adaptive Filtering** to ensure only relevant data is displayed.
+
+![Gif image of Pivot Table component](SyncfusionAISamples/wwwroot/gif-images/pivottable/smart-pivot.gif)
+
+For a deeper dive into these capabilities, refer to the [documentation](SyncfusionAISamples/Components/Pages/PivotTable/Readme.md).
+
+### TreeGrid
+
+The **Syncfusion Blazor Tree Grid** leverages AI to enhance the structuring and correction of hierarchical data, ensuring accurate parent-child relationships. This demo highlights AI's ability to automatically organize and display complex datasets, making it easier to visualize structured data in the Tree Grid component.
+
+![Gif image of TreeGrid component](SyncfusionAISamples/wwwroot/gif-images/treegrid/adaptive-datastructuring.gif)
+
+For further details on this feature, refer to the [documentation](SyncfusionAISamples/Components/Pages/TreeGrid/Readme.md).
+
+### QueryBuilder
+
+The **Syncfusion Blazor Query Builder** now features **Natural Language Querying**, allowing users to construct complex queries effortlessly using plain, everyday language. Instead of navigating technical query syntax, users can type their questions as they naturally would, making data retrieval accessible to everyone, regardless of technical expertise.
+
+![Gif image of Query Builder component](SyncfusionAISamples/wwwroot/gif-images/querybuilder/natural-languagequery.gif)
+
+For more details, refer to the [documentation](SyncfusionAISamples/Components/Pages/QueryBuilder/Readme.md).
+
+### Maps
+
+The **Syncfusion Blazor Maps** component features a robust **Weather Forecast** integration, leveraging AI to provide accurate weather predictions. These forecasts are visualized using marker templates within the map, allowing users to easily access real-time weather information.
+
+#### Weather Forecast
+
+![Gif image of Maps component](SyncfusionAISamples/wwwroot/gif-images/maps/weather-prediction.gif)
+
+For more detailed insights into how these features function, refer to the [documentation](SyncfusionAISamples/Components/Pages/Maps/Readme.md).
 
 ### Diagram
 
@@ -101,6 +141,24 @@ The **Syncfusion Blazor Diagram Component** introduces AI-powered samples like *
 ![Gif image of Diagram-FlowChart sample](SyncfusionAISamples/wwwroot/gif-images/diagram/text-to-flowchart.gif)
 
 For a deeper understanding, refer to the [documentation](SyncfusionAISamples/Components/Pages/Diagram/Readme.md).
+
+### PDF Viewer
+
+The **Syncfusion Blazor PDF Viewer** now incorporates advanced AI features, enhancing the document handling experience. This includes functionalities such as **Smart Fill** for automatic form filling, **Document Summarization** for efficient content understanding, and **Smart Redaction** for protecting sensitive information.
+
+#### Smart Fill
+
+![Gif image of PDF Viewer-Smart Fill sample](SyncfusionAISamples/wwwroot/gif-images/pdf-viewer/smart-fill.gif)
+
+#### Smart Redaction
+
+![Gif image of PDF Viewer-Smart Redact sample](SyncfusionAISamples/wwwroot/gif-images/pdf-viewer/smart-redact.gif)
+
+#### Document Summarization
+
+![Gif image of PDF Viewer-Summarizer sample](SyncfusionAISamples/wwwroot/gif-images/pdf-viewer/summarize.gif)
+
+For a deeper dive into these capabilities, refer to the [documentation](SyncfusionAISamples/Components/Pages/PDFViewer/Readme.md).
 
 ### Document Editor
 
@@ -120,6 +178,19 @@ The **Syncfusion Blazor Document Editor** features advanced AI capabilities, inc
 
 For more detailed insights into each feature and how they function, refer to the [documentation](SyncfusionAISamples/Components/Pages/DocumentEditor/Readme.md).
 
+### Kanban
+
+The **Syncfusion Blazor Kanban** component features advanced AI integrations that enhance project management capabilities. With **AI Task Recommendation**, users can input project details to automatically generate task segments, facilitating smoother project planning and organization. Additionally, the **Sentiment Analysis** feature analyzes customer feedback to generate emoticon expressions, visually representing customer sentiments on the Kanban board.
+
+#### AI Task Recommendation
+
+![Gif image of kanban-AI Task Recommendation sample](SyncfusionAISamples/wwwroot/gif-images/kanban/task-recommendation.gif)
+
+#### Sentiment Analysis
+![Gif image of kanban-Sentiment Analysis sample](SyncfusionAISamples/wwwroot/gif-images/kanban/sentiment-analysis.gif)
+
+For more detailed insights into how these features function, refer to the [documentation](SyncfusionAISamples/Components/Pages/Kanban/Readme.md).
+
 ### File Manager
 
 The **Syncfusion Blazor File Manager** introduces AI-powered samples like **Smart File Management** and **Tag Search** to streamline file organization and retrieval. With capabilities such as Smart Search, Content Summarization, and AI-assisted tagging, managing files becomes more intuitive and efficient.
@@ -129,6 +200,16 @@ The **Syncfusion Blazor File Manager** introduces AI-powered samples like **Smar
 ![Gif image of File Manager component](SyncfusionAISamples/wwwroot/gif-images/filemanager/smart-filemanager.gif)
 
 For detailed insights into these features and their functionalities, refer to the [documentation](SyncfusionAISamples/Components/Pages/FileManager/Readme.md).
+
+### DataGrid
+
+The **Syncfusion Blazor DataGrid** now includes advanced AI Samples like **Semantic Filtering** and **Anomaly Detection**. These features empower users to search more effectively and detect irregularities within data, making the DataGrid a powerful tool for applications that handle large datasets or require insights into complex data patterns.
+
+#### Anomaly Detection
+
+![Gif image of Gantt-Task Prioritization sample](SyncfusionAISamples/wwwroot/gif-images/grid/anomaly-detection.gif)
+
+For more insights, refer to the [documentation](SyncfusionAISamples/Components/Pages/DataGrid/Readme.md).
 
 ### Gantt Chart
 
@@ -165,87 +246,6 @@ The **Syncfusion Blazor Image Editor** offers an sample **Smart Image Editor** w
 ![Gif image of Image Editor component](SyncfusionAISamples/wwwroot/gif-images/imageeditor/smart-imageeditor.gif)
 
 For detailed insights into each feature and how they function, refer to the [documentation](SyncfusionAISamples/Components/Pages/ImageEditor/Readme.md).
-
-### Kanban
-
-The **Syncfusion Blazor Kanban** component features advanced AI integrations that enhance project management capabilities. With **AI Task Recommendation**, users can input project details to automatically generate task segments, facilitating smoother project planning and organization. Additionally, the **Sentiment Analysis** feature analyzes customer feedback to generate emoticon expressions, visually representing customer sentiments on the Kanban board.
-
-#### AI Task Recommendation
-
-![Gif image of kanban-AI Task Recommendation sample](SyncfusionAISamples/wwwroot/gif-images/kanban/task-recommendation.gif)
-
-#### Sentiment Analysis
-![Gif image of kanban-Sentiment Analysis sample](SyncfusionAISamples/wwwroot/gif-images/kanban/sentiment-analysis.gif)
-
-For more detailed insights into how these features function, refer to the [documentation](SyncfusionAISamples/Components/Pages/Kanban/Readme.md).
-
-### Maps
-
-The **Syncfusion Blazor Maps** component features a robust **Weather Forecast** integration, leveraging AI to provide accurate weather predictions. These forecasts are visualized using marker templates within the map, allowing users to easily access real-time weather information.
-
-#### Weather Forecast
-
-![Gif image of Maps component](SyncfusionAISamples/wwwroot/gif-images/maps/weather-prediction.gif)
-
-For more detailed insights into how these features function, refer to the [documentation](SyncfusionAISamples/Components/Pages/Maps/Readme.md).
-
-### PDFViewer
-
-The **Syncfusion Blazor PDF Viewer** now incorporates advanced AI features, enhancing the document handling experience. This includes functionalities such as **Smart Fill** for automatic form filling, **Document Summarization** for efficient content understanding, and **Smart Redaction** for protecting sensitive information.
-
-#### Smart Fill
-
-![Gif image of PDF Viewer-Smart Fill sample](SyncfusionAISamples/wwwroot/gif-images/pdf-viewer/smart-fill.gif)
-
-#### Smart Redaction
-
-![Gif image of PDF Viewer-Smart Redact sample](SyncfusionAISamples/wwwroot/gif-images/pdf-viewer/smart-redact.gif)
-
-#### Document Summarization
-
-![Gif image of PDF Viewer-Summarizer sample](SyncfusionAISamples/wwwroot/gif-images/pdf-viewer/summarize.gif)
-
-For a deeper dive into these capabilities, refer to the [documentation](SyncfusionAISamples/Components/Pages/PDFViewer/Readme.md).
-
-### Pivot Table
-
-The **Syncfusion Blazor Pivot Table** now features advanced AI capabilities that transform the way users visualize and analyze data. This integration empowers users to dynamically explore and extract insights from complex datasets with ease. Key functionalities include **Smart Data Aggregation** for automatic data consolidation, **Predictive Modeling** to identify trends and patterns, and **Adaptive Filtering** to ensure only relevant data is displayed.
-
-![Gif image of Pivot Table component](SyncfusionAISamples/wwwroot/gif-images/pivottable/smart-pivot.gif)
-
-For a deeper dive into these capabilities, refer to the [documentation](SyncfusionAISamples/Components/Pages/PivotTable/Readme.md).
-
-### Query Builder
-
-The **Syncfusion Blazor Query Builder** now features **Natural Language Querying**, allowing users to construct complex queries effortlessly using plain, everyday language. Instead of navigating technical query syntax, users can type their questions as they naturally would, making data retrieval accessible to everyone, regardless of technical expertise.
-
-![Gif image of Query Builder component](SyncfusionAISamples/wwwroot/gif-images/querybuilder/natural-languagequery.gif)
-
-For more details, refer to the [documentation](SyncfusionAISamples/Components/Pages/QueryBuilder/Readme.md).
-
-### Rich Text Editor
-
-The **Syncfusion Blazor Rich Text Editor** now features advanced AI-powered samples that enhance content creation and editing. This integration provides users with powerful tools for rephrasing, grammar correction, summarization, elaboration, translation, and sentiment analysis, making the writing process more efficient and intuitive.
-
-![Gif image of RichTextArea component](SyncfusionAISamples/wwwroot/gif-images/richtexteditor/ai-assistant.gif)
-
-For more details, refer to the [documentation](SyncfusionAISamples/Components/Pages/RichTextEditor/Readme.md).
-
-### Scheduler
-
-The **Syncfusion Blazor Scheduler** now features advanced AI capabilities that transform natural language text into structured scheduler events. This integration enhances user experience by allowing casual text input to be seamlessly converted into meeting appointments, making scheduling more efficient and intuitive.
-
-![Gif image of Scheduler component](SyncfusionAISamples/wwwroot/gif-images/scheduler/smart-scheduler.gif)
-
-For a deeper dive into these capabilities, refer to the [documentation](SyncfusionAISamples/Components/Pages/Scheduler/Readme.md).
-
-### TreeGrid
-
-The **Syncfusion Blazor Tree Grid** leverages AI to enhance the structuring and correction of hierarchical data, ensuring accurate parent-child relationships. This demo highlights AI's ability to automatically organize and display complex datasets, making it easier to visualize structured data in the Tree Grid component.
-
-![Gif image of TreeGrid component](SyncfusionAISamples/wwwroot/gif-images/treegrid/adaptive-datastructuring.gif)
-
-For further details on this feature, refer to the [documentation](SyncfusionAISamples/Components/Pages/TreeGrid/Readme.md).
 
 ## Project Documentation
 
