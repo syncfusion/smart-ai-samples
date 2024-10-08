@@ -237,6 +237,14 @@ The **Syncfusion Blazor Scheduler** now features advanced AI capabilities that t
 
 For a deeper dive into these capabilities, refer to the [documentation](SyncfusionAISamples/Components/Pages/Scheduler/Readme.md).
 
+### TreeGrid
+
+The **Syncfusion Blazor Tree Grid** leverages AI to enhance the structuring and correction of hierarchical data, ensuring accurate parent-child relationships. This demo highlights AI's ability to automatically organize and display complex datasets, making it easier to visualize structured data in the Tree Grid component.
+
+![Gif image of TreeGrid component](SyncfusionAISamples/wwwroot/gif-images/treegrid/adaptive-datastructuring.gif)
+
+For further details on this feature, refer to the [documentation](SyncfusionAISamples/Components/Pages/TreeGrid/Readme.md).
+
 ## Project Documentation
 
 This table provides an overview of all the AI Samples in this project, along with links to their respective README files for detailed documentation.
