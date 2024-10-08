@@ -4,7 +4,7 @@ The `SmartPasteButton` is an advanced AI component built on top of Syncfusion's 
 
 By integrating the capabilities of AI, the `SmartPasteButton` goes beyond simple data insertion. It ensures that pasted content is contextually relevant and is ideal for applications where users frequently copy and paste data.
 
-![Gif image of SmartPasteButton](./gif-images/smartpaste-withannotations.gif)
+![Gif image of SmartPasteButton](../gif-images/smartpaste.gif)
 
 ### Example Use Cases
 
