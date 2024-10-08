@@ -50,9 +50,9 @@ public string ApiKey = "your-api-key";
 
 Once configured everything, hit `Run` and you're good to go!
 
-## AI-Samples
+## Smart Components
 
-### SmartPaste
+### Smart Paste Button
 
 The **SfSmartPasteButton** is an advanced AI component built on top of Syncfusion's Button component. It inherits all the robust features and functionalities of the standard Syncfusion Button component while introducing an innovative intelligent pasting capability. This component leverages AI to intelligently paste clipboard data, ensuring that the pasted content is contextually relevant and formatted correctly.
 
@@ -62,13 +62,15 @@ By integrating the capabilities of AI, the `SfSmartPasteButton` goes beyond simp
 
 For more insights, refer to the [documentation](SyncfusionAISamples/Components/Pages/SmartPaste/Readme.md).
 
-### SmartTextArea
+### Smart TextArea
 
 The **SfSmartTextArea** is an AI-powered enhancement to the traditional textarea, offering sentence-level autocompletion based on its configuration and user input, improving typing speed and efficiency.
 
 ![Gif image of SmartTextArea component](SyncfusionAISamples/wwwroot/gif-images/smart-textarea/smart-textarea.gif)
 
 For more insights, refer to the [documentation](SyncfusionAISamples/Components/Pages/SmartTextArea/Readme.md).
+
+## Smart AI Solutions
 
 ### Combo Box
 
