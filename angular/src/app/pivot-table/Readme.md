@@ -4,6 +4,8 @@
 
 This demo showcases the integration of AI with the Syncfusion component Pivot Table, designed to dynamically visualize and analyze data based on user queries. By leveraging advanced AI capabilities, this integration simplifies the process of extracting valuable insights from various data categories, making complex data analysis more accessible.
 
+![Pivot Table AI Features](../gif-images/pivot/smart-pivot.gif)
+
 ## Action Description
 
 This showcase highlights the advanced capabilities of the Syncfusion component Pivot Table integrated with AI, designed to streamline data exploration and visualization:

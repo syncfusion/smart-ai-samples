@@ -2,7 +2,7 @@
 
 The `SmartTextArea` is an AI-powered enhancement to the traditional textarea, offering sentence-level autocompletion based on its configuration and user input, improving typing speed and efficiency.
 
-![Gif image of SmartTextArea control](./gif-images/smart-textarea.gif)
+![Gif image of SmartTextArea control](../gif-images/smarttextarea.gif)
 
 ## Example Use Cases
 
