@@ -185,7 +185,7 @@ The **Syncfusion Blazor Maps** component features a robust **Weather Forecast** 
 
 ![Gif image of Maps component](SyncfusionAISamples/wwwroot/gif-images/maps/weather-prediction.gif)
 
-For detailed insights into how this feature operates and how to utilize it, refer to the [documentation](SyncfusionAISamples/Components/Pages/Maps/Readme.md).
+For more detailed insights into how these features function, refer to the [documentation](SyncfusionAISamples/Components/Pages/Maps/Readme.md).
 
 ### PDFViewer
 
