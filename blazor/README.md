@@ -54,7 +54,7 @@ Once configured everything, hit `Run` and you're good to go!
 
 ### SmartPaste
 
-The `SfSmartPasteButton` is an advanced AI component built on top of Syncfusion's Button component. It inherits all the robust features and functionalities of the standard Syncfusion Button component while introducing an innovative intelligent pasting capability. This component leverages AI to intelligently paste clipboard data, ensuring that the pasted content is contextually relevant and formatted correctly.
+The **SfSmartPasteButton** is an advanced AI component built on top of Syncfusion's Button component. It inherits all the robust features and functionalities of the standard Syncfusion Button component while introducing an innovative intelligent pasting capability. This component leverages AI to intelligently paste clipboard data, ensuring that the pasted content is contextually relevant and formatted correctly.
 
 ![Gif image of SmartPasteButton](SyncfusionAISamples/wwwroot/gif-images/smart-paste/smartpaste-withannotations.gif)
 
@@ -64,7 +64,7 @@ For more insights, refer to the [documentation](SyncfusionAISamples/Components/P
 
 ### SmartTextArea
 
-`SfSmartTextArea` is an AI-powered enhancement to the traditional textarea, offering sentence-level autocompletion based on its configuration and user input, improving typing speed and efficiency.
+The **SfSmartTextArea** is an AI-powered enhancement to the traditional textarea, offering sentence-level autocompletion based on its configuration and user input, improving typing speed and efficiency.
 
 ![Gif image of SmartTextArea component](SyncfusionAISamples/wwwroot/gif-images/smart-textarea/smart-textarea.gif)
 
@@ -72,13 +72,13 @@ For more insights, refer to the [documentation](SyncfusionAISamples/Components/P
 
 ### Combo Box
 
-The Syncfusion Blazor ComboBox now includes an advanced Semantic Search feature, designed to enhance search functionality by understanding the meaning behind user queries, not just keywords. This results in more accurate and intuitive search outcomes, especially in applications with large or complex datasets.
+The **Syncfusion Blazor ComboBox** now includes an advanced Semantic Search feature, designed to enhance search functionality by understanding the meaning behind user queries, not just keywords. This results in more accurate and intuitive search outcomes, especially in applications with large or complex datasets.
 
 For more insights, refer to the [documentation](SyncfusionAISamples/Components/Pages/ComboBox/Readme.md).
 
 ### Data Grid
 
-The **Syncfusion Blazor DataGrid** now includes advanced features like **Semantic Filtering** and **Anomaly Detection**, both enhanced by AI. These features empower users to search more effectively and detect irregularities within data, making the DataGrid a powerful tool for applications that handle large datasets or require insights into complex data patterns.
+The **Syncfusion Blazor DataGrid** now includes advanced AI Samples like **Semantic Filtering** and **Anomaly Detection**. These features empower users to search more effectively and detect irregularities within data, making the DataGrid a powerful tool for applications that handle large datasets or require insights into complex data patterns.
 
 #### Anomaly Detection
 
@@ -120,7 +120,7 @@ For more detailed insights into each feature and how they function, refer to the
 
 ### File Manager
 
-The **Syncfusion Blazor File Manager** introduces AI-enhanced samples like **Smart File Management** and **Tag Search** to streamline file organization and retrieval. With capabilities such as Smart Search, Content Summarization, and AI-assisted tagging, managing files becomes more intuitive and efficient.
+The **Syncfusion Blazor File Manager** introduces AI-powered samples like **Smart File Management** and **Tag Search** to streamline file organization and retrieval. With capabilities such as Smart Search, Content Summarization, and AI-assisted tagging, managing files becomes more intuitive and efficient.
 
 #### Smart File Management
 
@@ -130,7 +130,7 @@ For detailed insights into these features and their functionalities, refer to th
 
 ### Gantt Chart
 
-The **Syncfusion Blazor GanttChart** incorporates powerful AI-driven samples designed to enhance task management and project planning. Key functionalities include **Task Prioritization** to identify and allocate resources to critical tasks, **Progress Prediction** for forecasting milestone completions, **Resource Allocation** to prevent overallocation, **Risk Assessment** to identify potential risks in project timelines, and **Predictive Scheduling** for creating task schedules based on historical data. These features work together to streamline project execution, ensuring efficient resource management and timely completion.
+The **Syncfusion Blazor GanttChart** introduces powerful AI-driven samples designed to enhance task management and project planning. Key functionalities include **Task Prioritization** to identify and allocate resources to critical tasks, **Progress Prediction** for forecasting milestone completions, **Resource Allocation** to prevent overallocation, **Risk Assessment** to identify potential risks in project timelines, and **Predictive Scheduling** for creating task schedules based on historical data. These features work together to streamline project execution, ensuring efficient resource management and timely completion.
 
 #### Task Prioritization
 
@@ -179,7 +179,7 @@ For more detailed insights into how these features function, refer to the [docum
 
 ### Maps
 
-The **Syncfusion Blazor Maps** component features a robust **Weather Forecast** integration, leveraging AI to provide accurate weather predictions for the next five days across the United States. These forecasts are visualized using marker templates within the map, allowing users to easily access real-time weather information.
+The **Syncfusion Blazor Maps** component features a robust **Weather Forecast** integration, leveraging AI to provide accurate weather predictions. These forecasts are visualized using marker templates within the map, allowing users to easily access real-time weather information.
 
 #### Weather Forecast
 
@@ -223,7 +223,7 @@ For more details, refer to the [documentation](SyncfusionAISamples/Components/Pa
 
 ### Rich Text Editor
 
-The **Syncfusion Blazor Rich Text Editor** now incorporates advanced AI features, enhancing content creation and editing. This integration offers users powerful tools for rephrasing, grammar correction, summarization, elaboration, translation, and sentiment analysis, making the writing process more intuitive and efficient.
+The **Syncfusion Blazor Rich Text Editor** now features advanced AI-powered samples that enhance content creation and editing. This integration provides users with powerful tools for rephrasing, grammar correction, summarization, elaboration, translation, and sentiment analysis, making the writing process more efficient and intuitive.
 
 ![Gif image of RichTextArea component](SyncfusionAISamples/wwwroot/gif-images/richtexteditor/ai-assistant.gif)
 
