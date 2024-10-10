@@ -1,6 +1,6 @@
 ﻿@page "/rte/ai-assistant"
 
-@inject AzureAIService ChatGptService
+@inject AIService AIChatService
 @inject IJSRuntime JSRuntime
 
 @using Syncfusion.Blazor.RichTextEditor
@@ -18,7 +18,7 @@
 
 <div class="control-section" id="rteSection">
     <Description>
-        <p>The <b>Rich Text Editor</b>, enhanced with AI, offers features such as <b>content generation</b>, <b>summarization</b>, <b>rephrasing</b>, <b>translation</b>, and <b>grammar correction</b>. Click the <mark><b>AI Assist</b></mark> option to explore these AI-powered capabilities. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/RichTextEditor/Readme.md">here</a>.</p>
+        <p>The <b>Rich Text Editor</b>, enhanced with AI, offers features such as <i>content generation</i>, <i>summarization</i>, <i>rephrasing</i>, <i>translation</i>, and <i>grammar correction</i>. Click the <mark><b>AI Assist</b></mark> option to explore these AI-powered capabilities. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/RichTextEditor/Readme.md">here</a>.</p>
     </Description>
 
     <SfRichTextEditor Height="500px" Width="100%" @ref="rteObj" @bind-Value="@Value" SaveInterval="0" AutoSaveOnIdle="true">
@@ -26,7 +26,7 @@
             <RichTextEditorCustomToolbarItems>
                 <RichTextEditorCustomToolbarItem Name="AIAssistant">
                     <Template>
-                        <SfDropDownButton CssClass="menubutton e-tbar-btn e-tbar-btn-text" IconCss="e-icons e-ai-chat e-btn-icon e-icon-left" Content="AI Assistant" Disabled="@enabelAIAssitantButton">
+                        <SfDropDownButton CssClass="menubutton e-tbar-btn e-tbar-btn-text" IconCss="e-icons e-aiassist-chat e-btn-icon e-icon-left" Content="AI Assistant" Disabled="@enabelAIAssitantButton">
                             <DropDownButtonEvents ItemSelected="AIQuerySelectedMenu" />
                             <DropDownMenuItems>
                                 <DropDownMenuItem Text="Rephrase"></DropDownMenuItem>
@@ -53,7 +53,7 @@
 <div class="scroll-restricted">
     <SfDialog @bind-Visible="@dialogVisible" AllowPrerender="true" CssClass="e-rte-elements custom-dialog" ZIndex="1000" ShowCloseIcon="true" IsModal="true" Width="80%" Height="100%" Target="#rteSection">
         <DialogTemplates>
-            <Header> <span class="e-icons e-ai-chat e-btn-icon e-icon-left"></span> AI Assistant </Header>
+            <Header> <span class="e-icons e-aiassist-chat e-btn-icon e-icon-left"></span> AI Assistant </Header>
             <Content>             
                 <div class="custom-row-0">
                     <div class="col-12 col-md-3 d-flex justify-content-start align-items-center">
@@ -284,7 +284,7 @@
         font-size: 14px !important;
     }
 
-    .e-ai-chat::before {
+    .e-aiassist-chat::before {
         padding: 6px;
     }
 </style>

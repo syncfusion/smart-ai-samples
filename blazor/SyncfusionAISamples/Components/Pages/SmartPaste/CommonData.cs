@@ -23,8 +23,8 @@ namespace SyncfusionAISamples
         [Display(Name = "Bug Description")]
         public string BugDescription { get; set; }
 
-        [Display(Name = "Repro Steps")]
-        public string ReproSteps { get; set; }
+        [Display(Name = "Reproduce Steps")]
+        public string StepsToReproduce { get; set; }
 
         [Display(Name = "Browser")]
         public SfDropDownList<string, string> Browser { get; set; }

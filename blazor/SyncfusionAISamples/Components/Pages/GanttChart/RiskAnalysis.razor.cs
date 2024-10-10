@@ -49,7 +49,7 @@ namespace SyncfusionAISamples.Components.Pages.GanttChart
             riskAnalyzeContent = new();
             riskAnalyzePriority = new();
             string AIPrompt = GeneratePrompt(GanttDataModel.HistoricalTaskData);
-            string result = await OpenAIService.GetCompletionAsync(AIPrompt);
+            string result = await AIChatService.GetCompletionAsync(AIPrompt);
 
             try
             {

@@ -53,7 +53,7 @@ namespace SyncfusionAISamples.Components.Pages.PDFViewer
                                  $"4. If the input data has the value of a checkbox field, change the value of the checkbox field to ON and other fields should be OFF.";
 
             // Reuest to AI
-            string resultantXfdfFile = await openAIService.GetCompletionAsync(mergePrompt, false);
+            string resultantXfdfFile = await AIChatService.GetCompletionAsync(mergePrompt, false);
             // Convert the string directly to a MemoryStream
             using (MemoryStream inputFileStream = new MemoryStream(Encoding.UTF8.GetBytes(resultantXfdfFile)))
             {

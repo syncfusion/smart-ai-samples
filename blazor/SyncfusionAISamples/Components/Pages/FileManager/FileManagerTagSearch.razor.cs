@@ -136,7 +136,7 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
         private async Task<string> GetTagsFromAI(string fileContent)
         {
             string promptQuery = $"Generate tags for the following content and provide them in ordered list format without any additional text:\n\n";
-            string tags = await openAIService.GetCompletionAsync((promptQuery + fileContent), false);
+            string tags = await AIChatService.GetCompletionAsync((promptQuery + fileContent), false);
             return tags;
         }
 

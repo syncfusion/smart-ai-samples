@@ -48,18 +48,10 @@ Ensure milestones are defined correctly based on tasks with a duration of 0, and
             showMessage = false;
             milestoneDates = new();
             string AIPrompt = GeneratePrompt();
-            string result = await OpenAIService.GetCompletionAsync(AIPrompt);
+            string result = await AIChatService.GetCompletionAsync(AIPrompt);
 
             try
             {
-                if (result.StartsWith("```json"))
-                {
-                    result = result.Replace("```json", "").Replace("```", "").Trim();
-                }
-                else if (result.StartsWith("```"))
-                {
-                    result = result.Replace("```", "").Replace("```", "").Trim();
-                }
                 var content = JsonDocument.Parse(result).RootElement.GetProperty("TaskDetails").ToString();
                 using (JsonDocument document = JsonDocument.Parse(content))
                 {
