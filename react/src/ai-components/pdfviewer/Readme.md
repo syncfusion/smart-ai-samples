@@ -39,6 +39,8 @@ This sample illustrates how the Syncfusion React PDF Viewer, with AI assistance,
 - **Automatic Form Filling**: AI processes copied content and automatically populates the relevant fields in the PDF form.
 - **Manual Review**: Users can review and adjust the filled fields as necessary to ensure accuracy.
 
+![Smart fill](../gif-images/pdfviewer/smart-fill.gif)
+
 ### Action Description
 
 When users copy content, the AI intelligently matches the content to the relevant form fields in the PDF. The fields are automatically populated, reducing manual entry and improving efficiency. Users can review the filled fields and make adjustments as needed.
@@ -51,6 +53,8 @@ This sample demonstrates how the Syncfusion React PDF Viewer can intelligently r
 
 - **Smart Redaction**: AI detects and redacts sensitive information based on patterns like emails or names.
 - **Review and Adjustment**: Users can review and deselect any non-sensitive information identified by the AI before proceeding with redaction.
+
+![Smart redaction](../gif-images/pdfviewer/smart-redact.gif)
 
 ### Action Description
 
@@ -65,6 +69,8 @@ This sample showcases how the Syncfusion React PDF Viewer can intelligently perf
 - **PDF Summarization**: Generates a detailed summary of the PDF document, highlighting key points.
 - **Q&A Functionality**: Allows users to ask questions about the document’s content, with options for both custom queries and AI-generated suggestions.
 - **Reference Page Navigation**: Automatically directs users to relevant pages in the document based on their queries.
+
+![Document summarization](../gif-images/pdfviewer/summarize.gif)
 
 ### Action Description
 

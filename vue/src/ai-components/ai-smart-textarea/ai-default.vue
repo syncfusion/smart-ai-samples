@@ -19,9 +19,9 @@
         <ejs-dropdownlist id="user-role" :dataSource="rolesData" :placeholder="'Select a role'" :popupHeight="'200px'"
           :width="'75%'" :value="selectedRole" @change="onChange"></ejs-dropdownlist>
         <br />
-        <ejs-textarea id="smart-textarea" :width="'500px'" ref="textareaObj" placeholder="Enter your queries here"
+        <ejs-smarttextarea id="smart-textarea" :width="'500px'" ref="textareaObj" placeholder="Enter your queries here"
           :floatLabelType="'Auto'" :rows="5" :userRole="userRole" :userPhrases="phrasesData"
-          :aiSuggestionHandler="serverAIRequest"></ejs-textarea>
+          :aiSuggestionHandler="serverAIRequest"></ejs-smarttextarea>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@ import { getAzureChatAIRequest } from '../common/ai-models';
 export default {
   components: {
     'ejs-dropdownlist': DropDownListComponent,
-    'ejs-textarea': SmartTextAreaComponent,
+    'ejs-smarttextarea': SmartTextAreaComponent,
   },
   data() {
     return {

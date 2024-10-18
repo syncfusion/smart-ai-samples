@@ -8,6 +8,8 @@ This README provides an overview of the AI-driven features integrated into the S
 
 This sample showcases the integration of AI to automatically generate task segments based on the provided project details and includes them within the Syncfusion JavaScript Kanban component.
 
+![AI Task Recommendation Example](../gif-images/kanban/task-recommendation.gif)
+
 ### Action Description
 
 In this sample, the following AI-powered features are accessible:
@@ -20,6 +22,8 @@ In this sample, the following AI-powered features are accessible:
 ### Sample Description
 
 This sample demonstrates the integration of AI to automatically generate emoticon expressions based on customer feedback, which are then updated in the Syncfusion Kanban Board.
+
+![Sentiment Analysis Example](../gif-images/kanban/sentiment-analysis.gif)
 
 ### Action Description
 

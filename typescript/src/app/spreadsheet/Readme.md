@@ -1,10 +1,10 @@
-# Semantic Search
+# Smart Spreadsheet
 
 ## Sample Description
 
 This sample demonstrates the integration of AI into a spreadsheet application to enhance user productivity and streamline complex tasks. The AI capabilities are utilized to automatically analyze the content of the spreadsheet, generate appropriate formulas based on the data, and validate these formulas for accuracy. The solution helps users save time and reduce human error by automating the process of creating and validating formulas, providing a seamless and intelligent way to handle large amounts of data.
 
-
+![Smart Spreadsheet](../gif-images/spreadsheet/spreadsheet.gif)
 
 ## Action Description
 

@@ -4,6 +4,8 @@
 
 This demo highlights the use of AI to structure and correct erroneous hierarchical data within the **Tree Grid** component, ensuring proper organization and display.
 
+![Tree Grid AI Adaptive Structuring](../gif-images/treegrid/adaptive-datastructuring.gif)
+
 ### AI-Powered Adaptive Structuring
 
 The AI-powered prompt identifies and organizes data items into a hierarchical format by accurately establishing parent-child relationships. This ensures that data is correctly nested and ready for display in the Tree Grid component, making it an essential tool for visualizing structured datasets.

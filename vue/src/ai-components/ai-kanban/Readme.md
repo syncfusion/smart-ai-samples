@@ -8,6 +8,8 @@ This README provides an overview of the AI-driven features integrated into the S
 
 This sample demonstrates the integration of AI to automatically generate emoticon expressions based on customer feedback, which are then updated in the Syncfusion Vue Kanban Board.
 
+![Sentiment Analysis Example](../gif-images/kanban/sentiment-analysis.gif)
+
 ### Action Description
 
 - **Analyze Customer Sentiments**: By clicking the "Analyze Customer Sentiments" button, AI analyzes the customer feedback for delivered items and generates emoticon expressions. These emoticons are then updated in the Syncfusion Vue Kanban Board to visually represent the sentiment of the feedback.

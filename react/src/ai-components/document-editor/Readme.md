@@ -8,6 +8,8 @@ This README provides an overview of the AI-driven features integrated into the S
 
 This sample demonstrates the capabilities of the Smart Editor in enhancing document editing by rewriting, grammar checking, and translating text within the Syncfusion React Document Editor. Users can easily refine their content through selection context, improving the quality of their writing with grammar corrections, paraphrasing sentences for better readability, and translating content into different languages without leaving the editor.
 
+![Document Editor AI Features](../gif-images/document%20editor/smart-editor.gif)
+
 ### Action Description
 
 - **Rewriting**: Enables users to rephrase sentences or paragraphs, making content more concise or altering the tone to fit different contexts. This tool helps in improving the overall clarity and effectiveness of the document.
@@ -19,6 +21,8 @@ This sample demonstrates the capabilities of the Smart Editor in enhancing docum
 ### Sample Description
 
 The Writing Assist feature is designed to generate new content based on user-provided ideas or prompts, seamlessly integrating the content into the document editor. This tool, available in the Syncfusion React Document Editor, assists users in expanding their ideas by generating relevant text, ensuring a smooth writing process. Simply provide an idea or topic, and the Writing Assist will suggest content that can be directly inserted into your document.
+
+![Writing Assist Feature](../gif-images/document%20editor/writing-assist.gif)
 
 ### Action Description
 

@@ -4,6 +4,8 @@
 
 This sample demonstrates the AI integration with the Rich Text Editor, enabling various AI-powered features such as content generation, summarization, rephrasing, translation, and grammar correction. These features enhance the text editing experience by providing intelligent tools that assist in content creation and refinement.
 
+![Rich Text Editor AI Features](../gif-images/RTE/ai-assistant.gif)
+
 ## Action Description
 
 In this sample, the Rich Text Editor allows users to select content and access the AI Assistant dropdown menu to utilize the following AI features:

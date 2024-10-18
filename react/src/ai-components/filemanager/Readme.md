@@ -6,6 +6,8 @@
 
 This demo showcases the Syncfusion React File Manager's advanced features, including AI-assisted content summarization and tagging, for smarter and faster file management.
 
+![File Manager AI Features](../gif-images/filemanager/smart-filemanager.gif)
+
 ## Features
 
 - **Smart Search**: Matches search terms with relevant files using local embeddings, showing items based on semantic similarity.
