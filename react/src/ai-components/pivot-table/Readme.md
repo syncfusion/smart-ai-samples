@@ -4,6 +4,8 @@
 
 This demo showcases the integration of AI with the **Syncfusion React Pivot Table** component, designed to dynamically visualize and analyze data based on user queries. By leveraging advanced AI capabilities, this integration simplifies the process of extracting valuable insights from various data categories, making complex data analysis more accessible.
 
+![Pivot Table AI Features](../gif-images/pivot/smart-pivot.gif)
+
 ## Features
 
 This showcase highlights the advanced capabilities of the Syncfusion React Pivot Table component integrated with AI, designed to streamline data exploration and visualization:

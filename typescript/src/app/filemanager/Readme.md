@@ -14,6 +14,8 @@ This demo showcases the advanced capabilities of the Syncfusion TypeScript File 
 
 These features enhance file management by making search more intuitive, document overview faster, and organization smarter.
 
+![File Manager AI Features](../gif-images/filemanager/smart-filemanager.gif)
+
 ### Action Description
 
 - **Smart Search**: This feature uses local embeddings to match search terms with relevant files. The search term is compared with stored data to show only relevant items based on semantic similarity, improving the accuracy and relevance of search results.

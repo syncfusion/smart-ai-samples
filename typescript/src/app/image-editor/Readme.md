@@ -10,6 +10,8 @@ This demo highlights the advanced features of the Syncfusion TypeScript Image Ed
 
 These features make the Image Editor more intuitive and sophisticated, enhancing the overall image editing experience.
 
+![Image Editor AI Features](../gif-images/ImageEditor/smart-imageeditor.gif)
+
 ## Action Description
 
 - **Magic Eraser**: The Magic Eraser allows users to select and remove unwanted elements from an image with high precision. Once an area is erased, the tool automatically blends the surrounding background to create a smooth, natural look. This makes it ideal for cleaning up images and eliminating distractions.

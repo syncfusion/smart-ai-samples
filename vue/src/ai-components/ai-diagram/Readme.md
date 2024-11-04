@@ -8,6 +8,8 @@ This README provides an overview of the AI-driven features integrated into the S
 
 This demo showcases the creation of a dynamic mindmap diagram using the Vue Diagram component with the assistance of AI. The AI-powered diagram features nodes and connectors arranged in a mindmap layout, designed to visually organize and represent ideas and concepts. This sample is ideal for brainstorming, organizing thoughts, and visually mapping out complex information. The context menu allows for quick actions such as adding, editing, or deleting nodes, making it a powerful tool for interactively managing and expanding mindmaps.
 
+![Diagram AI MindMap](../gif-images/diagram/text-to-mindmap.gif)
+
 ### Action Description
 
 This sample leverages a specialized AI prompt, allowing users to generate the content of the diagram by submitting a prompt to OpenAI. The AI's response is parsed and transformed into nodes and connectors, visually representing the generated ideas or concepts in a mindmap format. Users can also manually add child nodes using user handles to further expand and customize the mindmap, creating an interactive and personalized experience.
@@ -17,6 +19,8 @@ This sample leverages a specialized AI prompt, allowing users to generate the co
 ### Sample Description
 
 This demo illustrates the creation of a flowchart diagram using the Vue Diagram component with the assistance of AI. The AI-powered flowchart is structured with nodes and connectors arranged in a flowchart layout, designed to visually represent processes and workflows. This sample is particularly effective for visualizing step-by-step procedures, workflows, and decision-making paths in a clear and interactive manner.
+
+![Diagram AI FlowChart](../gif-images/diagram/text-to-flowchart.gif)
 
 ### Action Description
 

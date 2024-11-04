@@ -266,7 +266,7 @@ This table provides an overview of all the AI Samples in this project, along wit
             <td><a href="src/app/maps/Readme.md">Read More</a></td>
         </tr>
         <tr>
-            <td rowspan="2"><strong>File Manager</strong></td>
+            <td><strong>File Manager</strong></td>
             <td>Smart File Manager</td>
             <td>AI-driven features like Smart Search, Content Summary, and Intelligent Organization.</td>
             <td><a href="src/app/filemanager/Readme.md">Read More</a></td>
