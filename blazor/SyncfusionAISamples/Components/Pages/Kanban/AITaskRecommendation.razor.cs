@@ -74,7 +74,7 @@ namespace SyncfusionAISamples.Components.Pages.Kanban
                 {
                     string result = "";
                     var description = $"Generate {TasksValue} task recommendations for {TextBoxValue}. Each task should include the following fields: Id (like example: ID should be in project name simple 4char word - 1), Title, Status, Description, Assignee, StoryPoints, Color and Due Date, formatted according to the dataset. Assign each task to the Assignee: empty string, set the Status to 'Open', and use black for the Color. Use the dataset provided below to create your recommendations. IMPORTANT: Return the data strictly in JSON format with all the required fields. Only the JSON data is needed, no additional text.Return only the JSON array format without any explanations.";
-                    result = await ChatGptService.GetCompletionAsync(description);
+                    result = await AIChatService.GetCompletionAsync(description);
                     string data = result.Replace("```json", "").Replace("```", "").Replace("\r", "").Replace("\n", "").Replace("\t", "").Trim();
                     List<SmartSuggestionDataModel> modifiedData;
                     modifiedData = JsonSerializer.Deserialize<List<SmartSuggestionDataModel>>(data);

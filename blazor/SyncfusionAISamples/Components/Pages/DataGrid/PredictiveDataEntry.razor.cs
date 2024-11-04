@@ -74,7 +74,7 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
                 string userInput = ValidateAndGeneratePrompt(gridReportJson, prompt);
                 if (userInput != null)
                 {
-                    var result = await OpenAIService.GetCompletionAsync(userInput);
+                    var result = await AIChatService.GetCompletionAsync(userInput);
                     this.Visible = false;
                     this.VisibleProperty = true;
                     await Task.Delay(1000);
@@ -83,7 +83,6 @@ namespace SyncfusionAISamples.Components.Pages.DataGrid
                         GridReport deserializeResult = new GridReport();
                         try
                         {
-                            result = result.Replace("```json", "").Replace("```", "").Trim();
                             deserializeResult = DeserializeResult(result);
                             generatedData = deserializeResult.DataSource;
                             for (var i = 0; i < generatedData.Count; i++)

@@ -172,8 +172,8 @@ namespace SyncfusionAISamples.Components.Pages.RichTextEditor
                 if (!string.IsNullOrEmpty(promptQuery))
                 {
                     enabelRegenerateContentButton = isContentGenerating = enabelContentButton = true;
-                    string systemPrompt = subQuery.Contains("emoji followed by the sentiment in the format") ? "You are a helpful assistant. Please respond in string format." : "NOTE:Please retain the existing HTML structure and modify the content only. Ensure that the response adheres to the specified formatting.";
-                    apiResultData = await ChatGptService.GetCompletionAsync(promptQuery, false, false, (subQuery + systemPrompt));
+                    string systemPrompt = subQuery.Contains("emoji followed by the sentiment in the format") ? "You are a helpful assistant. Please respond in string format." : "NOTE: Please retain the existing HTML structure and modify the content only. For example, if the input is `<p>This is a sample paragraph.</p>`, the output should be `<p>A revised version of the sample paragraph.</p>`. Ensure that the response adheres to the specified formatting. **Output the response in HTML format.**";
+                    apiResultData = await AIChatService.GetCompletionAsync(promptQuery, false, false, (subQuery + systemPrompt));
                     isContentGenerating = false;
                     sentiment = isSentimentCheck ? apiResultData.Replace("\"", "").Replace("'", "") : "";
                     AIResult = isSentimentCheck ? promptQuery : apiResultData;

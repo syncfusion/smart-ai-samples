@@ -1,10 +1,10 @@
-# Syncfusion Blazor Smart Paste Button Component
+# Syncfusion Blazor SmartPasteButton Component
 
-The `Smart Paste Button` is an advanced AI component built on top of Syncfusion's Button component. It inherits all the robust features and functionalities of the standard Syncfusion Button component while introducing an innovative intelligent pasting capability. This component leverages AI to intelligently paste clipboard data, ensuring that the pasted content is contextually relevant and formatted correctly.
+The `SfSmartPasteButton` is an advanced AI component built on top of Syncfusion's Button component. It inherits all the robust features and functionalities of the standard Syncfusion Button component while introducing an innovative intelligent pasting capability. This component leverages AI to intelligently paste clipboard data, ensuring that the pasted content is contextually relevant and formatted correctly.
 
-By integrating the capabilities of AI, the `Smart Paste Button` goes beyond simple data insertion. It ensures that pasted content is contextually relevant and is ideal for applications where users frequently copy and paste data.
+By integrating the capabilities of AI, the `SfSmartPasteButton` goes beyond simple data insertion. It ensures that pasted content is contextually relevant and is ideal for applications where users frequently copy and paste data.
 
-![Gif image of Smart Paste Button](../../../wwwroot/gif-images/smart-paste/smartpaste-withannotations.gif)
+![Gif image of SmartPasteButton](../../../wwwroot/gif-images/smart-paste/smartpaste-withannotations.gif)
 
 ### Example Use Cases
 
@@ -14,9 +14,9 @@ By integrating the capabilities of AI, the `Smart Paste Button` goes beyond simp
 
 * **Bug Tracking Form**
 
-   A user could copy a brief description of a bug from an Instant Messaging or chat message and then click "Smart Paste" on the "Create New Issue" page. The system would automatically populate fields like "Title", "Priority", "Description" and "Reproduce Steps" based on the clipboard content. The language model would also rephrase and structure the input as needed, converting phrases like "I clicked X on Y screen" into steps like "1. Navigate to screen Y, 2. Click X."
+   A user could copy a brief description of a bug from an IM or chat message and then click "Smart Paste" on the "Create New Issue" page. The system would automatically populate fields like "Title", "Priority", "Description" and "Repro Steps" based on the clipboard content. The language model would also rephrase and structure the input as needed, converting phrases like "I clicked X on Y screen" into steps like "1. Navigate to screen Y, 2. Click X."
 
-## Adding Syncfusion Smart Paste Button in Blazor
+## Adding Syncfusion SmartPasteButton in Blazor
 
 ### Prerequisites
 
@@ -34,9 +34,9 @@ By integrating the capabilities of AI, the `Smart Paste Button` goes beyond simp
        .InjectOpenAIInference();
    ```
 
-   This configures the `Smart Paste Button` with AI-powered intelligent pasting capabilities.
+   This configures the `SfSmartPasteButton` with AI-powered intelligent pasting capabilities.
 
-### Adding the Smart Paste Button Component
+### Adding the SmartPasteButton Component
 
 Then, in a `.razor file`, inside any `<form>`, `<EditForm>` or `<SfDataForm>`, add the <SfSmartPasteButton> component. 
 
@@ -44,38 +44,30 @@ Then, in a `.razor file`, inside any `<form>`, `<EditForm>` or `<SfDataForm>`, a
 @page "/"
 @using Syncfusion.Blazor.SmartComponents
 
-<EditForm Model="@formModel">
-    <p>Name: <InputText @bind-Value="@formModel.Name" /></p>
-    <p>Address line 1: <InputText @bind-Value="@formModel.AddressLine1" /></p>
-    <p>City: <InputText @bind-Value="@formModel.City" /></p>
-    <p>Zip/postal code: <InputText @bind-Value="@formModel.Zip" /></p>
+<form>
+    <p>Name: <InputText @bind-Value="@name" /></p>
+    <p>Address line 1: <InputText @bind-Value="@addr1" /></p>
+    <p>City: <InputText @bind-Value="@city" /></p>
+    <p>Zip/postal code: <InputText @bind-Value="@zip" /></p>
 
     <button type="submit">Submit</button>
     <SfSmartPasteButton>Smart Paste</SfSmartPasteButton>
-</EditForm>
+</form>
 
 @code {
-    private FormModel formModel = new FormModel();
-
-    public class FormModel
-    {
-        public string? Name { get; set; }
-        public string? AddressLine1 { get; set; }
-        public string? City { get; set; }
-        public string? Zip { get; set; }
-    }
+    string? name, addr1, city, zip;
 }
 ```
 
-## Customizing the Syncfusion Smart Paste Button
+## Customizing the Syncfusion SmartPasteButton
 
-`Smart Paste Button` inherits all functionalities and properties from the `Syncfusion Button component`. This means you can use all the properties and customization options available for the Button in the `Smart Paste Button` as well.
+`SfSmartPasteButton` inherits all functionalities and properties from the `Syncfusion Button component`. This means you can use all the properties and customization options available for the Button in the SmartPasteButton as well.
 
 For more information and a detailed guide on using these properties, refer to the official [Button Documentation](https://blazor.syncfusion.com/documentation/button/getting-started).
 
 ## Annotating Your Form Fields
 
-`Smart Paste Button` automatically identifies form fields in your `<form>` elements (i.e., `<input>`, `<select>`, and `<textarea>` elements) and generates descriptions based on their associated `<label>`, `name` attributes, or nearby text content. This description is then used to build a prompt for the language model.
+`SfSmartPasteButton` automatically identifies form fields in your `<form>` elements (i.e., `<input>`, `<select>`, and `<textarea>` elements) and generates descriptions based on their associated `<label>`, `name` attributes, or nearby text content. This description is then used to build a prompt for the language model.
 
 You can override these default descriptions for specific form fields by adding a `data-smartpaste-description` attribute. Here are some examples:
 

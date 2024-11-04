@@ -19,7 +19,7 @@
 
 <Description>
     <p>
-        The <b>Syncfusion Smart Paste Button</b> is an AI-powered upgrade of Syncfusion's Button, adding smart pasting features. It uses AI to paste clipboard data in the right context and format automatically.
+        The <b>SfSmartPasteButton</b> is an AI-powered upgrade of Syncfusion's Button, adding smart pasting features. It uses AI to paste clipboard data in the right context and format automatically.
     </p>
     <p>
         To quickly fill out the bug report form, copy the sample content and click the Smart Paste button. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/SmartPaste/Readme.md">here</a>.
@@ -61,7 +61,7 @@
             <FormItem Field="@nameof(BugRptModel.BugDescription)" ColumnSpan="2" >
                 <Template>
                     <label class="e-form-label">Bug Description</label>
-                    <SfTextArea Placeholder="Describe a little about the bug." />
+                    <SfTextArea ID="bug-description" Placeholder="Describe a little about the bug." HtmlAttributes="bugDescAttr" />
                 </Template>
             </FormItem>
             <FormItem Field="@nameof(BugRptModel.Reporter)" ColumnSpan="1" Placeholder="">
@@ -82,12 +82,12 @@
                                 ID="submitted-date" />
                 </Template>
             </FormItem>
-            <FormItem Field="@nameof(BugRptModel.ReproSteps)" ColumnSpan="2">
+            <FormItem Field="@nameof(BugRptModel.StepsToReproduce)" ColumnSpan="2">
                 <Template>
                     <label class="e-form-label">Repro Steps</label>
-                    <SfTextArea ID="repro-steps"
+                    <SfTextArea ID="steps-to-reproduce"
                                 HtmlAttributes="reproStepsAttr"
-                                @bind-Value="@BugRptModel.ReproSteps"
+                                @bind-Value="@BugRptModel.StepsToReproduce"
                                 Placeholder="Enter the repro steps here.."
                                 RowCount="2" />
                 </Template>

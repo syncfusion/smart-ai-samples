@@ -1,7 +1,8 @@
-﻿using SmartComponents.LocalEmbeddings;
+﻿using SyncfusionAISamples.Service;
+using Microsoft.AspNetCore.Components;
+using SmartComponents.LocalEmbeddings;
 using Syncfusion.Drawing;
 using Syncfusion.Pdf.Parsing;
-using SyncfusionAISamples.Service;
 using System.Text;
 
 namespace SyncfusionAISamples.Models
@@ -27,12 +28,12 @@ namespace SyncfusionAISamples.Models
 
         private LocalEmbedder? Embedder;
 
-        private AzureAIService? OpenAIService;
+        private AIService AIChatService { get; set; }
 
-        public PDFViewerModel(LocalEmbedder embedder, AzureAIService azureAIService)
+        public PDFViewerModel(LocalEmbedder embedder, AIService _aiService)
         {
             Embedder = embedder;
-            OpenAIService = azureAIService;
+            AIChatService = _aiService;
         }
 
         private void CreateEmbeddingChunks(string[] chunks)
@@ -43,7 +44,7 @@ namespace SyncfusionAISamples.Models
         public async Task<string> FetchResponseFromAIService(string systemPrompt)
         {
             List<string> message = PageEmbeddings.Keys.Take(10).ToList();
-            var result = await OpenAIService.GetCompletionAsync(String.Join(" ", message), false, false, systemPrompt);
+            var result = await AIChatService.GetCompletionAsync(String.Join(" ", message), false, false, systemPrompt);
             return result.ToString();
         }
 
@@ -236,7 +237,7 @@ namespace SyncfusionAISamples.Models
 
             string prompt = stringBuilder.ToString();
 
-            if (OpenAIService != null)
+            if (AIChatService != null)
             {
                 var answer = await FetchResponseFromAIService(prompt);
 
@@ -268,7 +269,7 @@ namespace SyncfusionAISamples.Models
             }
             string message = builder.ToString();
             string systemPrompt = "You are a helpful assistant. Use the provided PDF document pages and pick a precise page to answer the user question, proivde a reference at the bottom of the content with page numbers like ex: Reference: [20,21,23]. Pages: " + message;
-            var answer = await OpenAIService.GetCompletionAsync(userPrompt, false, false, systemPrompt);
+            var answer = await AIChatService.GetCompletionAsync(userPrompt, false, false, systemPrompt);
 
             return answer;
         }

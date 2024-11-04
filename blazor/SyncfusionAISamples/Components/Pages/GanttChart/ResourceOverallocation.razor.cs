@@ -57,7 +57,7 @@ namespace SyncfusionAISamples.Components.Pages.GanttChart
             showMessage = false;
             List<GanttDataModel.AssignmentModel> sortedCollection = new List<GanttDataModel.AssignmentModel>();
             var AIPrompt = GeneratePrompt(TaskCollection, ResourceCollection, AssignmentCollection);
-            string result = await OpenAIService.GetCompletionAsync(AIPrompt);
+            string result = await AIChatService.GetCompletionAsync(AIPrompt);
             try
             {
                 if (result.StartsWith("```json"))
