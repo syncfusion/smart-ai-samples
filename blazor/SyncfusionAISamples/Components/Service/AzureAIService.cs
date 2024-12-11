@@ -1,4 +1,4 @@
-﻿using OpenAI.Chat;
+﻿using Microsoft.Extensions.AI;
 using Syncfusion.Blazor.SmartComponents;
 
 namespace SyncfusionAISamples.Service
@@ -32,22 +32,22 @@ namespace SyncfusionAISamples.Service
                     if (chatParameters.Messages == null)
                     {
                         chatParameters.Messages = new List<ChatMessage>() {
-                            new SystemChatMessage(systemMessage),
+                            new ChatMessage(ChatRole.System,systemMessage),
                         };
                     }
-                    chatParameters.Messages.Add(new UserChatMessage(prompt));
+                    chatParameters.Messages.Add(new ChatMessage(ChatRole.User, prompt));
                 }
                 else
                 {
                     chatParameters.Messages = new List<ChatMessage>(2) {
-                        new SystemChatMessage(systemMessage),
-                        new UserChatMessage(prompt)
+                        new ChatMessage (ChatRole.System, systemMessage),
+                        new ChatMessage(ChatRole.User,prompt)
                     };
                 }
                 var completion = await _openAIConfiguration.GetChatResponseAsync(chatParameters);
                 if (appendPreviousResponse)
                 {
-                    chatParameters_history?.Messages?.Add(new AssistantChatMessage(completion.ToString()));
+                    chatParameters_history?.Messages?.Add(new ChatMessage(ChatRole.Assistant, completion.ToString()));
                 }
                 return completion.ToString();
             }
