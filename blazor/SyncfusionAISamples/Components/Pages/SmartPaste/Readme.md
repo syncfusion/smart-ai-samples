@@ -33,9 +33,7 @@ By integrating the capabilities of AI, the `Smart Paste Button` goes beyond simp
        .ConfigureCredentials(new AIServiceCredentials("your-apiKey", "your-deploymentName", "your-endpoint")) 
        .InjectOpenAIInference();
    ```
-
-   This configures the `Smart Paste Button` with AI-powered intelligent pasting capabilities.
-
+   
    **Using Ollama** 
 
    If you are using [Ollama](https://ollama.com/), set SelfHosted to true and provide the Endpoint URL where the model is hosted (e.g., http://localhost:11434). The value for DeploymentName should be the specific [model](https://ollama.com/library) you wish to use (e.g., `llama2:13b`, `mistral:7b`, etc.).
@@ -45,6 +43,8 @@ By integrating the capabilities of AI, the `Smart Paste Button` goes beyond simp
    .ConfigureCredentials(new AIServiceCredentials { SelfHosted=true, Endpoint= new Uri("Your self-hosted end point url") ,DeploymentName = "Your model name" })
    .InjectOpenAIInference();
    ```
+
+   This configures the `Smart Paste Button` with AI-powered intelligent pasting capabilities.
 
 ### Adding the Smart Paste Button Component
 
