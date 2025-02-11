@@ -52,9 +52,11 @@ namespace SyncfusionAISamples.Components.Pages.ComboBox
 
         private void OnSearchTermChanged(FilteringEventArgs args)
         {
+            args.PreventDefaultAction = true;
             SearchTerm = args.Text;
             if (String.IsNullOrEmpty(SearchTerm))
             {
+                comboboxObj.FilterAsync(cbxDataSource);comboboxObj.FilterAsync(cbxDataSource);
                 return;
             }
             var queryVector = embedder.Embed(SearchTerm);
