@@ -56,7 +56,7 @@ namespace SyncfusionAISamples.Components.Pages.ComboBox
             SearchTerm = args.Text;
             if (String.IsNullOrEmpty(SearchTerm))
             {
-                comboboxObj.FilterAsync(cbxDataSource);comboboxObj.FilterAsync(cbxDataSource);
+                comboboxObj.FilterAsync(cbxDataSource);
                 return;
             }
             var queryVector = embedder.Embed(SearchTerm);
