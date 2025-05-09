@@ -1,8 +1,10 @@
 using FileManagerAI.Services;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using SmartComponents.LocalEmbeddings;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.SmartComponents;
 using SyncfusionAISamples.Components;
+using SyncfusionAISamples.Components.Service;
 using SyncfusionAISamples.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,19 +25,13 @@ builder.Services.AddSignalR(o => { o.MaximumReceiveMessageSize = 1024000000000; 
 // Local Embeddings
 builder.Services.AddSingleton<LocalEmbedder>();
 
-// OpenAI Service
-string apiKey = "your-api-key";
-string deploymentName = "your-deployment-name";
-// your-azure-endpoint-url
-string endpoint = "";
 
-//Injecting smart components
-builder.Services.AddSyncfusionSmartComponents()
-    .ConfigureCredentials(new AIServiceCredentials(apiKey, deploymentName, endpoint)) //Configuring credentials for AI functionality to work
-    .InjectOpenAIInference(); // Injecting OpenAI Services
 
-builder.Services.AddSingleton<OpenAIConfiguration>();
-builder.Services.AddSingleton<AzureAIService>();
+//builder.Services.AddSingleton<OpenAIConfiguration>();
+builder.Services.AddScoped<UserTokenService>();
+builder.Services.AddScoped<AzureAIService>();
+builder.Services.AddScoped<IInferenceBackend, CustomInferenceBackend>();
+builder.Services.AddSyncfusionSmartComponents();
 #endregion
 
 var app = builder.Build();
