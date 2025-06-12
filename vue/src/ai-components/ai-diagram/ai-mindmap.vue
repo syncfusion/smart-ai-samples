@@ -17,7 +17,7 @@
         <div class='control-wrapper'>
             <div class="main">
                 <div class="db-toolbar-editor">
-                    <div class="menu-control">
+                    <div id="aiMindMap" class="menu-control">
                         <ejs-menu ref="menu" :items="menuItems" :select="menuSelect"></ejs-menu>
                     </div>
                     <div class="db-toolbar-container">
@@ -1707,7 +1707,7 @@ export default {
 /* .e-icons.e-caret{
                 display: none !important;
               } */
-.e-menu-caret-icon .e-caret {
+#aiMindMap .e-menu-caret-icon .e-caret {
     display: none !important;
 }
 

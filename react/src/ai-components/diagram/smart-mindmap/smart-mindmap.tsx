@@ -189,7 +189,7 @@ function smartMindMap() {
             <div className="container">
                 <div className="main">
                     <div className="db-toolbar-editor">
-                        <div className="menu-control">
+                        <div id="aiMindMap" className="menu-control">
                             <MenuComponent id="menu"
                                 ref={menuObj => menu = menuObj as MenuComponent}
                                 items={menuItems} select={menuClick}

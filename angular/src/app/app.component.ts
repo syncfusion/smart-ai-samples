@@ -44,7 +44,8 @@ export class AppComponent {
     {
       id: '5', name: 'Diagram', url: '', subItems: [
         { id: '17', route: '/diagram/smart-flowchart', name: 'Text to Flowchart' },
-        { id: '18', route: '/diagram/smart-mindmap', name: 'Text to Mindmap' },
+        { id: '18', route: '/diagram/smart-mindmap', name: 'Text to Mind Map' },
+        { id: '19', route: '/diagram/smart-umlSequenceDiagram', name: 'Text to UML Sequence' },
       ]
     },
 

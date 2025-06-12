@@ -38,6 +38,7 @@ import WritingAssist from './ai-components/document-editor/writing-assist/writin
 // Diagram
 import SmartMindMap from './ai-components/diagram/smart-mindmap/smart-mindmap.tsx'
 import SmartFlowchart from './ai-components/diagram/smart-flowchart/smart-flowchart.tsx'
+import SmartUmlSequenceDiagram from './ai-components/diagram/smart-umlSequenceDiagram/smart-umlSequenceDiagram.tsx'
 // ImageEditor
 import ImageEditor from './ai-components/image-editor/image-editor.tsx'
 // RichTextEditor
@@ -91,6 +92,7 @@ const routerEle = createHashRouter(
       {/* Diagram */}
       <Route path="smart-mindmap" element={<SmartMindMap />} />
       <Route path="smart-flowchart" element={<SmartFlowchart />} />
+       <Route path="smart-umlSequenceDiagram" element={<SmartUmlSequenceDiagram />} />
       {/* Image Editor */}
       <Route path="image-editor" element={<ImageEditor />} />
       {/* RichTextEditor */}

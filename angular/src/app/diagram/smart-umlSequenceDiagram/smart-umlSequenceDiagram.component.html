@@ -1,0 +1,96 @@
+<h4 style="text-align: center;">Text To UML Sequence Diagram</h4>
+<div class="description-container e-card">
+    <div class='e-card-content'>
+        <p>
+            This demo illustrates how the Angular Diagram Component, enhanced with AI, generates UML Sequence Diagrams to depict object interactions in a timeline. It offers a dynamic representation of system behaviors showing the sequence of message exchanges.
+        </p>
+    </div>
+</div>
+<div class="container">
+    <link href="https://ej2.syncfusion.com/javascript/demos/src/diagram/styles/diagram-common.css" rel="stylesheet" />
+
+    <div class="main">
+        <div class="diagram-upload-file">
+            <ejs-uploader id="fileupload" name="UploadFiles" [asyncSettings]="asyncSettings"
+                (success)="onUploadSuccess($event)" [showFileList]="false">
+            </ejs-uploader>
+        </div>
+        <div class="db-toolbar-editor">
+            <div class="db-toolbar-container">
+                <ejs-toolbar id="toolbarEditor" [width]="'100%'" [height]="49" (clicked)="toolbarClick($event)">
+                    <e-items>
+                        <e-item prefixIcon="e-icons e-circle-add" tooltipText="New Diagram"></e-item>
+                        <e-item prefixIcon="e-icons e-folder-open" tooltipText="Open Diagram"></e-item>
+                        <e-item prefixIcon="e-icons e-save" tooltipText="Save Diagram"></e-item>
+                        <e-item prefixIcon="e-icons e-print" tooltipText="Print Diagram"></e-item>
+                        <e-item type="Input" tooltipText="Export Diagram">
+                            <ng-template #template>
+                                <button ejs-dropdownbutton id="exportBtn" [items]="exportItems"
+                                    [iconCss]="'e-ddb-icons e-export'" (select)="onselectExport($event)">
+                                </button>
+                            </ng-template>
+                        </e-item>
+                        <e-item type="Separator"></e-item>
+                        <e-item prefixIcon="e-icons e-pan" tooltipText="Pan Tool"
+                            cssClass="tb-item-start pan-item"></e-item>
+                        <e-item prefixIcon="e-icons e-mouse-pointer" tooltipText="Select Tool"
+                            cssClass="tb-item-middle tb-item-selected"></e-item>
+                        <e-item type="Separator"></e-item>
+                        <e-item cssClass="tb-item-end tb-zoom-dropdown-btn" align="Right">
+                            <ng-template #template>
+                                <button ejs-dropdownbutton id="btnZoomIncrement" [items]="zoomMenuItems"
+                                    [content]="zoomContent" (select)="zoomChange($event)">
+                                </button>
+                            </ng-template>
+                        </e-item>
+                    </e-items>
+                </ejs-toolbar>
+            </div>
+        </div>
+        <div style="margin-top: 5px;border: 0.5px solid #b0b0b0;">
+            <ejs-diagram #diagram id="diagram" width="100%" height="900px"
+                [tool]="diagramTools" [snapSettings]="snapSettings" (created)="diagramCreated()"
+                [getNodeDefaults]="getNodeDefaults" (scrollChange)="onScrollChange($event)">
+            </ejs-diagram>
+        </div>
+    </div>
+    <div id='container'>
+        <ejs-dialog #dialog id='dialog' target='#container'
+            header='<span class="e-icons e-assistview-icon" style="color: black;width:20px; font-size: 16px;"></span> AI Assist'
+            showCloseIcon='true' isModal='true' [visible]='false' [width]="'540px'" [height]="'310px'">
+            <p style="margin-bottom: 10px; font-weight: bold;">Suggested Prompts</p>
+
+            <button ejs-button id="btn1" cssClass="e-primary" (click)="onBtnClick('Sequence Diagram for ATM Transaction Process')"
+                style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
+                Sequence Diagram for ATM Transaction Process
+            </button>
+
+            <button ejs-button id="btn2" cssClass="e-primary"
+                (click)="onBtnClick('Sequence Diagram for User Authentication and Authorization')"
+                style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
+                Sequence Diagram for User Authentication and Authorization
+            </button>
+
+            <button ejs-button id="btn3" cssClass="e-primary" (click)="onBtnClick('Sequence Diagram for Medical Appointment Scheduling')"
+                style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
+                Sequence Diagram for Medical Appointment Scheduling
+            </button>
+
+            <div style="display: flex; align-items: center; margin-top: 20px;">
+                <ejs-textbox #textBox id="textBox" placeholder="Please enter your prompt here..." style="flex: 1;"
+                    (input)="onTextBoxChange($event)"></ejs-textbox>
+
+                <button ejs-button id="db-send" (click)="onSendClick()" iconCss='e-icons e-send' cssClass="e-primary"
+                    style="margin-left: 5px; height: 32px; width: 32px;"></button>
+            </div>
+        </ejs-dialog>
+    </div>
+    <button ejs-fab id="ai-assist" [isPrimary]="true" content="AI Assist" iconCss="e-btn-icon e-icons e-assistview-icon e-icon-left"
+        (click)="showDialog()"></button>
+
+    <!-- Loading indicator container -->
+    <div id="loadingContainer" class="loading-container">
+        <div class="loading-indicator"></div>
+        <div class="loading-text">Generating UML Sequence Diagram...</div>
+    </div>
+</div>

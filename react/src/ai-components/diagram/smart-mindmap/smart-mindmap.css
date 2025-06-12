@@ -116,7 +116,7 @@
     color: #000;
 }
 
-.e-menu-caret-icon .e-caret {
+#aiMindMap .e-menu-caret-icon .e-caret {
     display: none !important;
 }
 

@@ -34,11 +34,11 @@ export function pushWorkingData(diagram: DiagramComponent) {
             id: node.id,
             Label: node.annotations ? node.annotations[0].content : 'Node',
             fill: node!.style.fill,
-            branch: node.addInfo.orientation,
+            branch: node.addInfo ? node.addInfo.orientation: '',
             strokeColor: node.style.strokeColor,
-            parentId: node.data.parentId,
-            level: node.addInfo.level,
-            orientation: node.addInfo!.orientation,
+            parentId: node.data ? node.data.parentId:'',
+            level: node.addInfo?.level,
+            orientation: node.addInfo?.orientation,
             hasChild: false,
         };
         workingData.push(nodeData);
