@@ -371,18 +371,16 @@ export function toolbarClick(args: ClickEventArgs) {
 
 export function onClickDisable(args: boolean, node?: Node) {
     if (args === false) {
-        toolbarObj.items[6].disabled = false;
-        toolbarObj.items[8].disabled = false;
+        toolbarObj.items[4].disabled = false;
         if (((node as NodeModel).addInfo as any).level !== 0) {
-            toolbarObj.items[7].disabled = false;
+            toolbarObj.items[5].disabled = false;
         } else {
-            toolbarObj.items[7].disabled = true;
+            toolbarObj.items[5].disabled = true;
         }
     }
     else if (args === true) {
-        toolbarObj.items[6].disabled = true;
-        toolbarObj.items[7].disabled = true;
-        toolbarObj.items[8].disabled = true;
+        toolbarObj.items[4].disabled = true;
+        toolbarObj.items[5].disabled = true;
     }
 }
 

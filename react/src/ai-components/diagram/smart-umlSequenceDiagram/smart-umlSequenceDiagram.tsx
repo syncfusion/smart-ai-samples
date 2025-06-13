@@ -157,7 +157,7 @@ function SmartUmlSequenceDiagram() {
                 <ButtonComponent ref={(btn1: ButtonComponent) => msgBtn1 = btn1 as ButtonComponent}
                     onClick={() => {
                         dialog.hide();
-                        convertTextToUmlSequenceDiagram((msgBtn1 as any).value, diagram);
+                        convertTextToUmlSequenceDiagram('Sequence Diagram for ATM Transaction Process', diagram);
                     }}
                     id="btn1" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}
                 >Sequence Diagram for ATM Transaction Process</ButtonComponent>
@@ -167,7 +167,7 @@ function SmartUmlSequenceDiagram() {
                     id="btn2" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}
                     onClick={() => {
                         dialog.hide();
-                        convertTextToUmlSequenceDiagram((msgBtn2 as any).value, diagram);
+                        convertTextToUmlSequenceDiagram('Sequence Diagram for User Authentication and Authorization', diagram);
                     }}
                 >Sequence Diagram for User Authentication and Authorization</ButtonComponent>
                 
@@ -175,7 +175,7 @@ function SmartUmlSequenceDiagram() {
                     ref={(btn3: ButtonComponent) => msgBtn3 = btn3 as ButtonComponent}
                     onClick={() => {
                         dialog.hide();
-                        convertTextToUmlSequenceDiagram((msgBtn3 as any).value, diagram);
+                        convertTextToUmlSequenceDiagram('Sequence Diagram for Medical Appointment Scheduling', diagram);
                     }}
                     id="btn3" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}
                 >Sequence Diagram for Medical Appointment Scheduling</ButtonComponent>
@@ -240,10 +240,8 @@ function SmartUmlSequenceDiagram() {
                                             items={exportItems} iconCss='e-ddb-icons e-export' select={function (args: any) { onselectExport(args); }}
                                         ></DropDownButtonComponent>}
                                     />
-                                    <ItemDirective type='Separator' />
                                     <ItemDirective prefixIcon='e-pan e-icons' tooltipText='Pan Tool' cssClass='tb-item-start pan-item' />
                                     <ItemDirective prefixIcon='e-mouse-pointer e-icons' tooltipText='Select Tool' cssClass='tb-item-middle tb-item-selected' />
-                                    <ItemDirective type='Separator' />
                                     <ItemDirective cssClass='tb-item-end tb-zoom-dropdown-btn' align='Right'
                                         template={() => <DropDownButtonComponent id="btnZoomIncrement"
                                             items={zoomMenuItems} content={Math.round(diagram.scrollSettings.currentZoom! * 100) + ' %'} select={zoomChange}

@@ -60,18 +60,18 @@
             showCloseIcon='true' isModal='true' [visible]='false' [width]="'540px'" [height]="'310px'">
             <p style="margin-bottom: 10px; font-weight: bold;">Suggested Prompts</p>
 
-            <button ejs-button id="btn1" cssClass="e-primary" (click)="onBtnClick('Sequence Diagram for ATM Transaction Process')"
+            <button ejs-button id="btn1" (click)="onBtnClick('Sequence Diagram for ATM Transaction Process')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Sequence Diagram for ATM Transaction Process
             </button>
 
-            <button ejs-button id="btn2" cssClass="e-primary"
+            <button ejs-button id="btn2" 
                 (click)="onBtnClick('Sequence Diagram for User Authentication and Authorization')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Sequence Diagram for User Authentication and Authorization
             </button>
 
-            <button ejs-button id="btn3" cssClass="e-primary" (click)="onBtnClick('Sequence Diagram for Medical Appointment Scheduling')"
+            <button ejs-button id="btn3" (click)="onBtnClick('Sequence Diagram for Medical Appointment Scheduling')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Sequence Diagram for Medical Appointment Scheduling
             </button>
@@ -80,8 +80,8 @@
                 <ejs-textbox #textBox id="textBox" placeholder="Please enter your prompt here..." style="flex: 1;"
                     (input)="onTextBoxChange($event)"></ejs-textbox>
 
-                <button ejs-button id="db-send" (click)="onSendClick()" iconCss='e-icons e-send' cssClass="e-primary"
-                    style="margin-left: 5px; height: 32px; width: 32px;"></button>
+                <button #dbSend ejs-button id="dbSend" (click)="onSendClick()" disabled="true" iconCss='e-icons e-send' cssClass="e-primary"
+                    style="margin-left: 2px; height: 32px;width:32px;padding-top: 4px;padding-left: 6px;"></button>
             </div>
         </ejs-dialog>
     </div>

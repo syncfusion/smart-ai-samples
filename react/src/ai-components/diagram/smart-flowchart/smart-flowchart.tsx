@@ -207,20 +207,20 @@ function SmartFlowchart() {
                     id="btn2" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}
                     onClick={() => {
                         dialog.hide();
-                        convertTextToFlowchart((msgBtn2 as any).value, diagram);
+                        convertTextToFlowchart('Flowchart for online shopping', diagram);
                     }}
                 >Flowchart for online shopping</ButtonComponent>
                 <ButtonComponent ref={btn1 => msgBtn1 = btn1 as ButtonComponent}
                     onClick={() => {
                         dialog.hide();
-                        convertTextToFlowchart((msgBtn1 as any).value, diagram);
+                        convertTextToFlowchart('Flowchart for Mobile banking registration', diagram);
                     }}
                     id="btn1" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}>Flowchart for Mobile banking registration</ButtonComponent>
                 <ButtonComponent
                     ref={btn3 => msgBtn3 = btn3 as ButtonComponent}
                     onClick={() => {
                         dialog.hide();
-                        convertTextToFlowchart((msgBtn3 as any).value, diagram);
+                        convertTextToFlowchart('Flowchart for Bus ticket booking', diagram);
                     }}
                     id="btn3" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}>Flowchart for Bus ticket booking</ButtonComponent>
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
@@ -231,10 +231,12 @@ function SmartFlowchart() {
                     <ButtonComponent id="db-send"
                         ref={btn => sendButton = btn as ButtonComponent}
                         onClick={() => {
-                            dialog.hide();
-                            convertTextToFlowchart(textBox.value, diagram)
+                            if (textBox.value) {
+                                dialog.hide();
+                                convertTextToFlowchart(textBox.value, diagram)
+                            }
                         }}
-                        iconCss='e-icons e-send' isPrimary={true} disabled={true}
+                        iconCss='e-icons e-send' isPrimary={true} disabled={false}
                         style={{ marginLeft: '5px', height: '32px', width: '32px' }}></ButtonComponent>
                 </div>
             </>
@@ -283,10 +285,8 @@ function SmartFlowchart() {
                                             items={exportItems} iconCss='e-ddb-icons e-export' select={function (args: any) { onselectExport(args); }}
                                         ></DropDownButtonComponent>}
                                     />
-                                    <ItemDirective type='Separator' />
                                     <ItemDirective prefixIcon='e-pan e-icons' tooltipText='Pan Tool' cssClass='tb-item-start pan-item' />
                                     <ItemDirective prefixIcon='e-mouse-pointer e-icons' tooltipText='Select Tool' cssClass='tb-item-middle tb-item-selected' />
-                                    <ItemDirective type='Separator' />
                                     <ItemDirective cssClass='tb-item-end tb-zoom-dropdown-btn' align='Right'
                                         template={() => <DropDownButtonComponent id="btnZoomIncrement"
                                             items={zoomMenuItems} content={Math.round(diagram.scrollSettings.currentZoom! * 100) + ' %'} select={zoomChange}

@@ -22,7 +22,7 @@
                         <e-item type="Separator"></e-item>
                         <e-item prefixIcon="sf-icon-pointer tb-icons" tooltipText="Select Tool"
                             cssClass="tb-item-selected"></e-item>
-                        <e-item prefixIcon="sf-icon-Pan tb-icons" tooltipText="Pan Tool"></e-item>
+                        <e-item prefixIcon="sf-icon-pan tb-icons" tooltipText="Pan Tool"></e-item>
                         <e-item type="Separator"></e-item>
                         <e-item prefixIcon="sf-icon-add-child" tooltipText="Add Child" [disabled]="true"></e-item>
                         <e-item prefixIcon="sf-icon-add-sibling" tooltipText="Add Sibling" [disabled]="true"></e-item>
@@ -125,12 +125,7 @@
                 (selectionChange)="selectionChange($event)" (historyChange)="historyChange()"
                 (scrollChange)="onScrollChange($event)" (onUserHandleMouseDown)="onUserHandleMouseDown($event)"
                 [snapSettings]="{ horizontalGridlines: gridlines, verticalGridlines: gridlines }"
-                [scrollSettings]="{ scrollLimit: 'Infinity' }" [layout]="{
-        type: 'MindMap',
-        horizontalSpacing: 80,
-        verticalSpacing: 50,
-        getBranch: 'getBranch'
-      }" [selectedItems]="selectedItems" [dataSourceSettings]="{
+                [scrollSettings]="{ scrollLimit: 'Infinity' }" [layout]="layout" [selectedItems]="selectedItems" [dataSourceSettings]="{
         id: 'id',
         parentId: 'parentId',
         dataSource: items,
@@ -148,19 +143,19 @@
             [visible]="false">
             <p style="margin-bottom: 10px; font-weight: bold;">Suggested Prompts</p>
 
-            <button ejs-button id="btn2" cssClass="e-primary"
+            <button ejs-button id="btn2"
                 (click)="onBtnClick('Mindmap for top tourist places in the world')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Mindmap for top tourist places in the world
             </button>
 
-            <button ejs-button id="btn1" cssClass="e-primary"
+            <button ejs-button id="btn1"
                 (click)="onBtnClick('Mindmap for categories of topics in science')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Mindmap for categories of topics in science
             </button>
 
-            <button ejs-button id="btn3" cssClass="e-primary"
+            <button ejs-button id="btn3"
                 (click)="onBtnClick('Mindmap for different components in syncfusion')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Mindmap for different components in syncfusion
@@ -170,8 +165,8 @@
                 <ejs-textbox #textBox id="textBox" placeholder="Please enter your prompt here..." style="flex: 1;"
                     (input)="onTextBoxChange($event)"></ejs-textbox>
 
-                <button ejs-button id="db-send" (click)="onSendClick()" iconCss='e-icons e-send' cssClass="e-primary"
-                    style="margin-left: 5px; height: 32px; width: 32px;"></button>
+                <button #dbSend ejs-button id="dbSend" (click)="onSendClick()" disabled="true" iconCss='e-icons e-send' cssClass="e-primary"
+                    style="margin-left: 2px; height: 32px;width:32px;padding-top: 4px;padding-left: 6px;"></button>
             </div>
         </ejs-dialog>
 

@@ -21,7 +21,7 @@
                         <ejs-menu ref="menu" :items="menuItems" :select="menuSelect"></ejs-menu>
                     </div>
                     <div class="db-toolbar-container">
-                        <ejs-toolbar ref="toolbar" :clicked='function (args: any) { toolbarClick(args); }'
+                        <ejs-toolbar id="toolbar" ref="toolbar" :clicked='function (args: any) { toolbarClick(args); }'
                             :created='toolbarCreated' :items='toolbarItems()' overflowMode='Scrollable' width='100%'
                             :height='40'>
                             <template #btnZoomIncrement>
@@ -193,7 +193,7 @@
                 <div style="margin-top: 5px;margin-left: 5px;margin-right: 5px; border: 1px solid #b0b0b0;">
                     <ejs-diagram ref="diagram" width='100%' height='900px' :selectionChange='selectionChange'
                         :historyChange='historyChange' :onUserHandleMouseDown='onUserHandleMouseDown'
-                        :tool='diagramTool'
+        
                         :snapSettings='{ horizontalGridlines: gridlines, verticalGridlines: gridlines }'
                         :scrollSettings="{ scrollLimit: 'Infinity' }" :layout="diagramLayout"
                         :selectedItems='selectedItems' :dataSourceSettings="{
@@ -211,7 +211,7 @@
                 <ejs-dialog ref='dialog' header='header' :showCloseIcon='true' :isModal='true' content='content'
                     target='.control-section' width='540px' :visible='false' height='310px'>
                     <template #header>
-                        <span class="e-icons e-aiassist-chat" style="color: black;width:20px; font-size: 16px;"></span>
+                        <span class="e-icons e-assistview-icon" style="color: black;width:20px; font-size: 16px;"></span>
                         AI
                         Assist
                     </template>
@@ -230,7 +230,7 @@
                             <ejs-textbox type="text" ref="textBox" id="textBox" class="db-openai-textbox"
                                 style="flex: 1;" :input='onTextBoxChange' />
                             <ejs-button ref="sendButton" iconCss='e-icons e-send' :isPrimary='true' :disabled='true'
-                                id="db-send" style="margin-left: 5px; height: 32px; width: 32px;"
+                                id="db-send" style="margin-left: 5px; height: 32px; width:32px;padding-top: 7px;padding-left: 6px;"
                                 @click='dbSend'></ejs-button>
                         </div>
                     </template>
@@ -247,7 +247,6 @@
         </div>
     </div>
 </template>
-
 <script lang="ts">
 /**
  * Default MindMap sample
@@ -261,6 +260,7 @@ import { ClickEventArgs, ItemModel, MenuComponent, ToolbarComponent } from '@syn
 import { DialogComponent } from '@syncfusion/ej2-vue-popups';
 import { DropDownButton, DropDownButtonComponent, MenuEventArgs } from '@syncfusion/ej2-vue-splitbuttons';
 import { getAzureChatAIRequest } from '../common/ai-models';
+
 
 interface MindMapData {
     id: string;
@@ -348,7 +348,7 @@ export default {
                 left: 240
             },
             diagramTool: DiagramTools.Default,
-            selectedItems: { constraints: SelectorConstraints.UserHandle, userHandles: this.handle } as any,
+            selectedItems: { constraints: SelectorConstraints.UserHandle, userHandles: this.getUserHandle() } as any,
             diagramLayout: {
                 type: 'MindMap', horizontalSpacing: 80,
                 verticalSpacing: 50,
@@ -365,74 +365,14 @@ export default {
                 1, 9, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75
             ],
             gridlines: {},
-            rotateItems: [
-                { iconCss: 'e-icons e-transform-right', text: 'Rotate Clockwise' },
-                { iconCss: 'e-icons e-transform-left', text: 'Rotate Counter-Clockwise' }
-            ],
-            flipItems: [
-                { iconCss: 'e-icons e-flip-horizontal', text: 'Flip Horizontal' },
-                { iconCss: 'e-icons e-flip-vertical', text: 'Flip Vertical' }
-            ],
-            alignItems: [
-                {
-                    iconCss: 'sf-icon-align-left-1', text: 'Align Left',
-                },
-                {
-                    iconCss: 'sf-icon-align-center-1', text: 'Align Center',
-                },
-                {
-                    iconCss: 'sf-icon-align-right-1', text: 'Align Right',
-                },
-                {
-                    iconCss: 'sf-icon-align-top-1', text: 'Align Top',
-                },
-                {
-                    iconCss: 'sf-icon-align-middle-1', text: 'Align Middle',
-                },
-                {
-                    iconCss: 'sf-icon-align-bottom-1', text: 'Align Bottom',
-                },
-            ],
-            distributeItems: [
-                { iconCss: 'sf-icon-distribute-vertical', text: 'Distribute Objects Vertically', },
-                { iconCss: 'sf-icon-distribute-horizontal', text: 'Distribute Objects Horizontally', },
-            ],
-            orderItems: [
-                { iconCss: 'e-icons e-bring-forward', text: 'Bring Forward' },
-                { iconCss: 'e-icons e-bring-to-front', text: 'Bring To Front' },
-                { iconCss: 'e-icons e-send-backward', text: 'Send Backward' },
-                { iconCss: 'e-icons e-send-to-back', text: 'Send To Back' }
-            ],
             zoomMenuItems: [
                 { text: 'Zoom In' }, { text: 'Zoom Out' }, { text: 'Zoom to Fit' }, { text: 'Zoom to 50%' },
                 { text: 'Zoom to 100%' }, { text: 'Zoom to 200%' },
             ],
-            conTypeItems: [
-                { text: 'Straight', iconCss: 'e-icons e-line' },
-                { text: 'Orthogonal', iconCss: 'sf-icon-orthogonal' },
-                { text: 'Bezier', iconCss: 'sf-icon-bezier' }
-            ],
-            shapesItems: [
-                { text: 'Rectangle', iconCss: 'e-rectangle e-icons' },
-                { text: 'Ellipse', iconCss: ' e-circle e-icons' },
-                { text: 'Polygon', iconCss: 'e-line e-icons' }
-            ],
             exportItems: [
                 { text: 'JPG' }, { text: 'PNG' }, { text: 'SVG' }
             ],
-            groupItems: [
-                { text: 'Group', iconCss: 'e-icons e-group-1' }, { text: 'Ungroup', iconCss: 'e-icons e-ungroup-1' }
-            ],
             items: undefined as any,
-            leftarrow: 'M11.924,6.202 L4.633,6.202 L4.633,9.266 L0,4.633 L4.632,0 L4.632,3.551 L11.923,3.551 L11.923,6.202Z',
-            rightarrow: 'M0,3.063 L7.292,3.063 L7.292,0 L11.924,4.633 L7.292,9.266 L7.292,5.714 L0.001,5.714 L0.001,3.063Z',
-            devareicon: 'M 7.04 22.13 L 92.95 22.13 L 92.95 88.8 C 92.95 91.92 91.55 94.58 88.76' +
-                '96.74 C 85.97 98.91 82.55 100 78.52 100 L 21.48 100 C 17.45 100 14.03 98.91 11.24 96.74 C 8.45 94.58 7.04' +
-                '91.92 7.04 88.8 z M 32.22 0 L 67.78 0 L 75.17 5.47 L 100 5.47 L 100 16.67 L 0 16.67 L 0 5.47 L 24.83 5.47 z',
-            leftuserhandle: {},
-            rightuserhandle: {},
-            devareuserhandle: {},
-            handle: [],
             ddbContent: '',
             index: 1,
             menuItems: [
@@ -478,6 +418,18 @@ export default {
         }
     },
     methods: {
+        getUserHandle() {
+            let leftarrow = 'M11.924,6.202 L4.633,6.202 L4.633,9.266 L0,4.633 L4.632,0 L4.632,3.551 L11.923,3.551 L11.923,6.202Z';
+            let rightarrow = 'M0,3.063 L7.292,3.063 L7.292,0 L11.924,4.633 L7.292,9.266 L7.292,5.714 L0.001,5.714 L0.001,3.063Z';
+            let devareicon = 'M 7.04 22.13 L 92.95 22.13 L 92.95 88.8 C 92.95 91.92 91.55 94.58 88.76' +
+                '96.74 C 85.97 98.91 82.55 100 78.52 100 L 21.48 100 C 17.45 100 14.03 98.91 11.24 96.74 C 8.45 94.58 7.04' +
+                '91.92 7.04 88.8 z M 32.22 0 L 67.78 0 L 75.17 5.47 L 100 5.47 L 100 16.67 L 0 16.67 L 0 5.47 L 24.83 5.47 z';
+            let leftuserhandle = this.setUserHandle('leftHandle', leftarrow, 'Left', 0.5, { top: 10, bottom: 0, left: 0, right: 10 }, 'Left', 'Top');
+            let rightuserhandle = this.setUserHandle('rightHandle', rightarrow, 'Right', 0.5, { top: 10, bottom: 0, left: 10, right: 0 }, 'Right', 'Top');
+            let devareuserhandle = this.setUserHandle('devare', devareicon, 'Top', 0.5, { top: 0, bottom: 0, left: 0, right: 0 }, 'Center', 'Center');
+            let handle =  [leftuserhandle, rightuserhandle, devareuserhandle];
+            return handle;
+        },
         getConnectorDefaults: function (connector: Connector): ConnectorModel {
             const diagram = this.$refs.diagram.ej2Instances;
             connector.type = 'Bezier';
@@ -535,6 +487,20 @@ export default {
             }
             connector.constraints &= ~ConnectorConstraints.Select;
             return connector;
+        },
+        setUserHandle: function (name: string, pathData: string, side: Side, offset: number, margin: MarginModel, halignment: HorizontalAlignment, valignment: VerticalAlignment) {
+            var userhandle: UserHandleModel = {
+                name: name,
+                pathData: pathData,
+                backgroundColor: 'black',
+                pathColor: 'white',
+                side: side,
+                offset: offset,
+                margin: margin,
+                horizontalAlignment: halignment,
+                verticalAlignment: valignment,
+            };
+            return userhandle;
         },
         getMindMapShape: function (parentNode: NodeModel) {
             var sss = {};
@@ -849,13 +815,13 @@ export default {
         },
         toolbarItems: function () {
             let items: ItemModel[] = [
-                { prefixIcon: 'sf-icon-undo', tooltipText: 'Undo', disabled: true },
-                { prefixIcon: 'sf-icon-redo', tooltipText: 'Redo', disabled: true },
+                { prefixIcon: 'e-icons e-undo', tooltipText: 'Undo', disabled: true },
+                { prefixIcon: 'e-icons e-redo', tooltipText: 'Redo', disabled: true },
                 {
                     type: 'Separator'
                 },
-                { prefixIcon: 'sf-icon-pointer tb-icons', tooltipText: 'Select Tool', cssClass: 'tb-item-selected' },
-                { prefixIcon: 'sf-icon-Pan tb-icons', tooltipText: 'Pan Tool', cssClass: '' },
+                { prefixIcon: 'e-icons e-mouse-pointer', tooltipText: 'Select Tool', cssClass: '' },
+                { prefixIcon: 'e-icons e-pan', tooltipText: 'Pan Tool', cssClass: '' },
                 {
                     type: 'Separator'
                 },
@@ -1064,12 +1030,10 @@ export default {
                 case 'Select Tool':
                     diagram.clearSelection();
                     diagram.tool = DiagramTools.Default;
-                    this.changeToolbarSelection('Select Tool');
                     break;
                 case 'Pan Tool':
                     diagram.clearSelection();
                     diagram.tool = DiagramTools.ZoomPan;
-                    this.changeToolbarSelection('Pan Tool');
                     break;
                 case 'Add Child':
                     var orientation = this.getOrientation();
@@ -1102,22 +1066,6 @@ export default {
                 orientation = selectedNodeOrientation;
             }
             return orientation;
-
-        },
-        changeToolbarSelection: function (tool: string) {
-            const diagram = this.$refs.diagram.ej2Instances;
-            const toolbarObj = this.$refs.toolbar.ej2Instances;
-            let items = toolbarObj.items;
-            for (let i = 0; i < items.length; i++) {
-                if (items[i].tooltipText === tool) {
-                    items[i].cssClass = 'tb-item-selected';
-                } else {
-                    items[i].cssClass = '';
-                }
-            }
-            setTimeout(() => {
-                this.ddbContent = Math.round(diagram.scrollSettings.currentZoom * 100) + ' %';
-            }, 10);
 
         },
         zoomChange: function (args: MenuEventArgs) {
@@ -1411,7 +1359,7 @@ export default {
                     break;
                 case 'showrulers':
                     diagram.rulerSettings.showRulers = !diagram.rulerSettings.showRulers;
-                    args.item.iconCss = args.item.iconCss ? '' : 'sf-icon-check-tick';
+                    args.item.iconCss = args.item.iconCss ? '' : 'e-icons e-check';
                     break;
                 case 'zoomin':
                     diagram.zoomTo({ type: 'ZoomIn', zoomFactor: 0.2 });
@@ -1422,21 +1370,21 @@ export default {
                     this.ddbContent = Math.round(diagram.scrollSettings.currentZoom * 100) + ' %';
                     break;
                 case 'showtoolbar':
-                    let toolbar = document.getElementById('toolbarEditor') as HTMLElement;
+                    let toolbar = document.getElementById('toolbar') as HTMLElement;
                     toolbar.style.display = toolbar.style.display === 'none' ? 'block' : 'none';
-                    args.item.iconCss = args.item.iconCss ? '' : 'sf-icon-check-tick';
+                    args.item.iconCss = args.item.iconCss ? '' : 'e-icons e-check';
                     break;
                 case 'showlines':
                     diagram.snapSettings.constraints = diagram.snapSettings.constraints ^ SnapConstraints.ShowLines;
-                    args.item.iconCss = args.item.iconCss ? '' : 'sf-icon-check-tick';
+                    args.item.iconCss = args.item.iconCss ? '' : 'e-icons e-check';
                     break;
                 case 'showshortcuts':
                     var node1 = document.getElementById('shortcutDiv') as HTMLElement;
                     node1.style.visibility = node1.style.visibility === "hidden" ? node1.style.visibility = "visible" : node1.style.visibility = "hidden";
-                    args.item.iconCss = args.item.iconCss ? '' : 'sf-icon-check-tick';
+                    args.item.iconCss = args.item.iconCss ? '' : 'e-icons e-check';
                     break;
                 case 'showpagebreaks':
-                    args.item.iconCss = args.item.iconCss ? '' : 'sf-icon-check-tick';
+                    args.item.iconCss = args.item.iconCss ? '' : 'e-icons e-check';
                     diagram.pageSettings.showPageBreaks = !diagram.pageSettings.showPageBreaks;
                     break;
             }
@@ -1449,6 +1397,7 @@ export default {
             this.convertTextToFlowChart(this.$refs.textBox.ej2Instances.value);
         },
         keyPressHandler: function (event) {
+            if (this.$refs.textBox) {
             const textBoxObj = this.$refs.textBox.ej2Instances;
             if (event.key === 'Enter' && document.activeElement === textBoxObj.element) {
                 if (textBoxObj.value) {
@@ -1456,6 +1405,7 @@ export default {
                     this.convertTextToFlowChart(textBoxObj.value);
                 }
             }
+        }
         },
         onHideNodeClick: function () {
             var node1 = document.getElementById('shortcutDiv') as HTMLElement;
@@ -1478,10 +1428,6 @@ export default {
     },
     created() {
         this.items = new DataManager(this.data, new Query().take(7));
-        this.leftuserhandle = this.setUserHandle('leftHandle', this.leftarrow, 'Left', 0.5, { top: 10, bottom: 0, left: 0, right: 10 }, 'Left', 'Top');
-        this.rightuserhandle = this.setUserHandle('rightHandle', this.rightarrow, 'Right', 0.5, { top: 10, bottom: 0, left: 10, right: 0 }, 'Right', 'Top');
-        this.devareuserhandle = this.setUserHandle('devare', this.devareicon, 'Top', 0.5, { top: 0, bottom: 0, left: 0, right: 0 }, 'Center', 'Center');
-        this.handle = [this.leftuserhandle, this.rightuserhandle, this.devareuserhandle];
         this.centerX = this.bounds.width / 2;
         this.gridlines = { lineColor: '#e0e0e0', lineIntervals: this.interval }
     },
@@ -1496,6 +1442,7 @@ export default {
 
 </script>
 <style>
+
 /* These styles are used for toolbar icons*/
 @font-face {
     font-family: 'e-ddb-icons';
@@ -1674,7 +1621,7 @@ export default {
 /* Hover style for the send button */
 .send-button:hover {
     fill: #0345fc;
-    /* Change this to your desired hover color */
+
 }
 
 /* Spin animation */
@@ -1694,14 +1641,6 @@ export default {
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #000;
-}
-
-.menu-control {
-    background: #0078D4;
-}
-
-.menu-control .e-menu-wrapper.e-lib.e-keyboard {
-    background: none !important;
 }
 
 /* .e-icons.e-caret{
@@ -2020,95 +1959,11 @@ export default {
 }
 
 .sf-icon-add-child:before {
-    content: "\e746";
+    content: "\e746" !important;
 }
 
 .sf-icon-add-sibling:before {
     content: "\e747";
-}
-
-.sf-icon-font-color:before {
-    content: "\e748";
-}
-
-.sf-icon-multiple-child:before {
-    content: "\e749";
-}
-
-.sf-icon-landscape:before {
-    content: "\e74a";
-}
-
-.sf-icon-portrait:before {
-    content: "\e74b";
-}
-
-.sf-icon-light:before {
-    content: "\e74c";
-}
-
-.sf-icon-dark:before {
-    content: "\e74d";
-}
-
-.sf-icon-properties:before {
-    content: "\e74e";
-}
-
-.sf-icon-hide:before {
-    content: "\e74f";
-}
-
-.sf-icon-left-right:before {
-    content: "\e750";
-}
-
-.sf-icon-right-left:before {
-    content: "\e751";
-}
-
-.sf-icon-bottom-top:before {
-    content: "\e752";
-}
-
-.sf-icon-top-bottom:before {
-    content: "\e753";
-}
-
-.sf-icon-graphic_view:before {
-    content: "\e754";
-}
-
-.sf-icon-text-view:before {
-    content: "\e755";
-}
-
-.sf-icon-page-break:before {
-    content: "\e756";
-}
-
-.sf-icon-align-text-left:before {
-    content: "\e757";
-}
-
-.sf-icon-align-text-rignt:before {
-    content: "\e758";
-}
-
-.sf-icon-align-text-top:before {
-    content: "\e759";
-}
-
-.sf-icon-align-text-bottom:before {
-    content: "\e75a";
-}
-
-.sf-icon-align-text-horizontal-center:before {
-    content: "\e75b";
-}
-
-.sf-icon-align-text-vertical-center:before {
-    content: "\e75c";
 }
 
 .sf-icon-close:before {

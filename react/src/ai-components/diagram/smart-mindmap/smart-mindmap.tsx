@@ -58,11 +58,13 @@ function smartMindMap() {
     useEffect(() => {
         // Add keypress event listener to the document
         document.addEventListener('keypress', function (event) {
+            if (textBox) {
             if (event.key === 'Enter' && document.activeElement === textBox.element) {
                 if (textBox.value) {
                     dialog.hide();
                     convertTextToMindMap(textBox.value, diagram);
                 }
+            }
             }
         });
     }, []);
@@ -164,12 +166,15 @@ function smartMindMap() {
                         placeholder='Please enter your prompt here...' width={450} input={onTextBoxChange}
                     />
                     <ButtonComponent id="db-send"
-                        ref={sendButtonObj => sendButton = sendButtonObj as ButtonComponent}
                         onClick={() => {
-                            dialog.hide();
-                            convertTextToMindMap(textBox.value, diagram)
+                            if (textBox.value) {
+                                dialog.hide();
+                                convertTextToMindMap(textBox.value, diagram)
+                            }
                         }}
-                        iconCss='e-icons e-send' isPrimary={true} disabled={true}
+                        ref={sendButtonObj => sendButton = sendButtonObj as ButtonComponent}
+
+                        iconCss='e-icons e-send' isPrimary={true} disabled={false}
                         style={{ marginLeft: '5px', height: '32px', width: '32px' }}></ButtonComponent>
                 </div>
             </>
@@ -205,13 +210,10 @@ function smartMindMap() {
                                 <ItemsDirective>
                                     <ItemDirective prefixIcon='sf-icon-undo' tooltipText='Undo' disabled={true} />
                                     <ItemDirective prefixIcon='sf-icon-redo' tooltipText='Redo' disabled={true} />
-                                    <ItemDirective type='Separator' />
                                     <ItemDirective prefixIcon='sf-icon-pointer tb-icons' tooltipText='Select Tool' cssClass='tb-item-selected' />
-                                    <ItemDirective prefixIcon='sf-icon-Pan tb-icons' tooltipText='Pan Tool' />
-                                    <ItemDirective type='Separator' />
+                                    <ItemDirective prefixIcon='sf-icon-pan tb-icons' tooltipText='Pan Tool' />
                                     <ItemDirective prefixIcon='sf-icon-add-child' tooltipText='Add Child' disabled={true} />
                                     <ItemDirective prefixIcon='sf-icon-add-sibling' tooltipText='Add Sibling' disabled={true} />
-                                    <ItemDirective type='Separator' />
                                     <ItemDirective cssClass='tb-item-end tb-zoom-dropdown-btn' align='Right'
                                         template={() => <DropDownButtonComponent id="btnZoomIncrement"
                                             items={zoomMenuItems} content={Math.round(diagram.scrollSettings.currentZoom! * 100) + ' %'} select={zoomChange}

@@ -27,7 +27,7 @@ export class SmartFlowchartComponent {
   @ViewChild('msgBtn2', { static: true }) public msgBtn2!: ButtonComponent;
   @ViewChild('msgBtn3', { static: true }) public msgBtn3!: ButtonComponent;
   @ViewChild('textBox', { static: true }) public textBox!: TextBoxComponent;
-  @ViewChild('sendButton', { static: true }) public sendButton!: ButtonComponent;
+  @ViewChild('dbSend', { static: true }) public sendButton!: ButtonComponent;
   public dataManager = new DataManager(flowchartData);
   public asyncSettings: Object = {
     saveUrl: 'https://services.syncfusion.com/js/production/api/FileUploader/Save',

@@ -88,18 +88,18 @@
             showCloseIcon='true' isModal='true' [visible]='false' [width]="'540px'" [height]="'310px'">
             <p style="margin-bottom: 10px; font-weight: bold;">Suggested Prompts</p>
 
-            <button ejs-button id="btn2" cssClass="e-primary" (click)="onBtnClick('Flowchart for online shopping')"
+            <button ejs-button id="btn2" (click)="onBtnClick('Flowchart for online shopping')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Flowchart for online shopping
             </button>
 
-            <button ejs-button id="btn1" cssClass="e-primary"
+            <button ejs-button id="btn1" 
                 (click)="onBtnClick('Flowchart for Mobile banking registration')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Flowchart for Mobile banking registration
             </button>
 
-            <button ejs-button id="btn3" cssClass="e-primary" (click)="onBtnClick('Flowchart for Bus ticket booking')"
+            <button ejs-button id="btn3" (click)="onBtnClick('Flowchart for Bus ticket booking')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
                 Flowchart for Bus ticket booking
             </button>
@@ -108,8 +108,8 @@
                 <ejs-textbox #textBox id="textBox" placeholder="Please enter your prompt here..." style="flex: 1;"
                     (input)="onTextBoxChange($event)"></ejs-textbox>
 
-                <button ejs-button id="db-send" (click)="onSendClick()" iconCss='e-icons e-send' cssClass="e-primary"
-                    style="margin-left: 5px; height: 32px; width: 32px;"></button>
+                <button #dbSend ejs-button id="#dbSend" (click)="onSendClick()" disabled="true" iconCss='e-icons e-send' cssClass="e-primary"
+                    style="margin-left: 2px; height: 32px; width:32px;padding-top: 4px;padding-left: 6px;"></button>
             </div>
         </ejs-dialog>
     </div>
