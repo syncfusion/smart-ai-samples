@@ -188,11 +188,13 @@ function SmartUmlSequenceDiagram() {
                     <ButtonComponent id="db-send"
                         ref={(btn: ButtonComponent) => sendButton = btn as ButtonComponent}
                         onClick={() => {
+                            if (textBox.value) {
                             dialog.hide();
                             convertTextToUmlSequenceDiagram(textBox.value, diagram)
+                            }
                         }}
-                        iconCss='e-icons e-send' isPrimary={true} disabled={true}
-                        style={{ marginLeft: '5px', height: '32px', width: '32px' }}></ButtonComponent>
+                        iconCss='e-icons e-send' isPrimary={true} disabled={false}
+                        style={{ marginLeft: '5px', height: '32px', width: '32px',paddingTop: '4px', paddingLeft: '6px' }}></ButtonComponent>
                 </div>
             </>
         );

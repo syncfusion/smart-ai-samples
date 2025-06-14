@@ -45,10 +45,6 @@
     content: '\e71e';
   }
   
-  .e-file-select-wrap {
-    display: none;
-  }
-  
   /* Toolbar width */
   .db-toolbar-editor {
     width: 100%;
@@ -78,9 +74,4 @@
   .send-button:hover {
     fill: #0345fc;
     /* Change this to your desired hover color */
-  }
-  
-  .e-toolbar-left,
-  .e-toolbar-right {
-    padding-top: 3px !important;
   }

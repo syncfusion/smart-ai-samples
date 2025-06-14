@@ -45,10 +45,6 @@
   content: '\e71e';
 }
 
-.e-file-select-wrap {
-  display: none;
-}
-
 /* Toolbar width */
 .db-toolbar-editor {
   width: 100%;
@@ -186,11 +182,6 @@
   content: "\e75d";
 }
 
-.e-toolbar-left,
-.e-toolbar-right {
-  padding-top: 3px !important;
-}
-
-.e-menu-wrapper ul .e-menu-item.e-menu-caret-icon {
+#aiMindMap .e-menu-wrapper ul .e-menu-item.e-menu-caret-icon {
   padding-right: 10px !important;
 }

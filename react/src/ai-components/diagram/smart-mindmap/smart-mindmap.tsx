@@ -175,7 +175,7 @@ function smartMindMap() {
                         ref={sendButtonObj => sendButton = sendButtonObj as ButtonComponent}
 
                         iconCss='e-icons e-send' isPrimary={true} disabled={false}
-                        style={{ marginLeft: '5px', height: '32px', width: '32px' }}></ButtonComponent>
+                        style={{ marginLeft: '5px', height: '32px', width: '32px',paddingTop: '4px', paddingLeft: '6px' }}></ButtonComponent>
                 </div>
             </>
         );
@@ -245,13 +245,14 @@ function smartMindMap() {
                         border: '1px solid #fff7b5',
                         position: 'absolute',
                         margin: '27px',
+                        fontSize: '14px',
                         visibility: 'hidden',
                         zIndex: 1000
                     }}>
                         <div id="closeIconDiv" style={{
                             float: 'right',
-                            width: '22px',
-                            height: '22px',
+                            width: '16px',
+                            height: '16px',
                             border: '1px solid #fff7b5'
                         }}
                             onClick={onHideNodeClick}

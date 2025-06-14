@@ -90,8 +90,8 @@ const routerEle = createHashRouter(
       <Route path="smart-editor" element={<SmartEditor />} />
       <Route path="writing-assist" element={<WritingAssist />} />
       {/* Diagram */}
-      <Route path="smart-mindmap" element={<SmartMindMap />} />
       <Route path="smart-flowchart" element={<SmartFlowchart />} />
+      <Route path="smart-mindmap" element={<SmartMindMap />} />
        <Route path="smart-umlSequenceDiagram" element={<SmartUmlSequenceDiagram />} />
       {/* Image Editor */}
       <Route path="image-editor" element={<ImageEditor />} />

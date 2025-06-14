@@ -107,7 +107,7 @@ diagram.appendTo('#diagram');
 
 
 //Button
-let button = new Fab({ isPrimary: true, content: 'AI Assist', iconCss: 'e-btn-icon e-icons e-assist-chat e-icon-left' });
+let button = new Fab({ isPrimary: true, content: 'AI Assist', iconCss: 'e-icons e-assistview-icon' });
 button.appendTo('#ai-assist');
 let btnZoomIncrement: DropDownButton;
 //Initialize Toolbar component
@@ -176,7 +176,7 @@ function onUploadSuccess(args: any) {
 // Dialog
 
 let dialog: Dialog = new Dialog({
-  header: '<span class="e-icons e-assist-chat" style="color: black;width:20px; font-size: 16px;"></span> AI Assist',
+  header: '<span class="e-icons e-assistview-icon" style="color: black;width:20px; font-size: 16px;"></span> AI Assist',
   showCloseIcon: true,
   isModal: true,
   content: `<p style="margin-bottom: 10px;font-weight:bold;">Suggested Prompts</p>

@@ -237,7 +237,7 @@ function SmartFlowchart() {
                             }
                         }}
                         iconCss='e-icons e-send' isPrimary={true} disabled={false}
-                        style={{ marginLeft: '5px', height: '32px', width: '32px' }}></ButtonComponent>
+                        style={{ marginLeft: '5px', height: '32px', width: '32px',paddingTop: '4px', paddingLeft: '6px' }}></ButtonComponent>
                 </div>
             </>
         );

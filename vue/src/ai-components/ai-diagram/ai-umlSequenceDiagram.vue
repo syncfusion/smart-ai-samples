@@ -540,10 +540,6 @@ export default {
     content: '\e71e';
 }
 
-.e-file-select-wrap {
-    display: none;
-}
-
 /* Toolbar width */
 .db-toolbar-editor {
     width: 100%;
