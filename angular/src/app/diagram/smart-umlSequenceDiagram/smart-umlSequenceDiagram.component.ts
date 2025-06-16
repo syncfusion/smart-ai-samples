@@ -1,26 +1,28 @@
 import { Component, ViewChild } from '@angular/core';
 import {
-  DiagramComponent, DiagramModule, NodeModel, ConnectorModel, SymbolPaletteModule, GridlinesModel, IScrollChangeEventArgs, IDragEnterEventArgs,
-  PaletteModel, FileFormats, Connector, IExportOptions, FlowShapeModel, Node, DiagramTools, PathAnnotationModel, DataBindingService, PrintAndExportService, FlowchartLayoutService
+  DiagramComponent, DiagramModule, NodeModel,
+  IScrollChangeEventArgs, FileFormats, DiagramTools, PrintAndExportService,
+  IExportOptions, SnapConstraints,
 } from '@syncfusion/ej2-angular-diagrams';
+import {UmlSequenceParticipant, UmlSequenceFragment, UmlSequenceDiagramModel} from '@syncfusion/ej2-diagrams';
 import { ToolbarModule, ClickEventArgs } from '@syncfusion/ej2-angular-navigations';
 import { TextBoxComponent, TextBoxModule } from '@syncfusion/ej2-angular-inputs';
 import { ButtonComponent, ButtonModule, FabModule } from '@syncfusion/ej2-angular-buttons';
 import { UploaderModule, InputEventArgs } from '@syncfusion/ej2-angular-inputs';
 import { DialogComponent, DialogModule } from '@syncfusion/ej2-angular-popups';
 import { DropDownButtonComponent, DropDownButtonModule, MenuEventArgs } from '@syncfusion/ej2-angular-splitbuttons';
-import { DataManager } from '@syncfusion/ej2-data';
-import { flowchartData, flowShapes, exportItems, zoomMenuItems, connectorSymbols } from './datasource';
-import { convertTextToFlowchart } from './ai-flowchart';
+import { convertTextToUmlSequenceDiagram } from './ai-umlSequenceDiagram';
+import { exportItems, sequenceModel, zoomMenuItems } from './dataSource';
+
 @Component({
-  selector: 'app-smart-flowchart',
+  selector: 'app-smart-uml-sequence-diagram',
+  providers: [PrintAndExportService],
+  templateUrl: './smart-umlSequenceDiagram.component.html',
+  styleUrls: ['./smart-umlSequenceDiagram.component.css'],
   standalone: true,
-  imports: [DiagramModule, SymbolPaletteModule, ToolbarModule, ButtonModule, FabModule, UploaderModule, DialogModule, DropDownButtonModule, TextBoxModule],
-  providers: [DataBindingService, PrintAndExportService, FlowchartLayoutService],
-  templateUrl: './smart-flowchart.component.html',
-  styleUrl: './smart-flowchart.component.css'
+  imports: [DiagramModule,ToolbarModule, ButtonModule, FabModule, UploaderModule, DialogModule, DropDownButtonModule, TextBoxModule],
 })
-export class SmartFlowchartComponent {
+export class SmartUmlSequenceDiagramComponent {
   @ViewChild('diagram', { static: true }) public diagram!: DiagramComponent;
   @ViewChild('dialog', { static: true }) public dialog!: DialogComponent;
   @ViewChild('msgBtn1', { static: true }) public msgBtn1!: ButtonComponent;
@@ -28,68 +30,26 @@ export class SmartFlowchartComponent {
   @ViewChild('msgBtn3', { static: true }) public msgBtn3!: ButtonComponent;
   @ViewChild('textBox', { static: true }) public textBox!: TextBoxComponent;
   @ViewChild('dbSend', { static: true }) public sendButton!: ButtonComponent;
-  public dataManager = new DataManager(flowchartData);
   public asyncSettings: Object = {
     saveUrl: 'https://services.syncfusion.com/js/production/api/FileUploader/Save',
     removeUrl: 'https://services.syncfusion.com/js/production/api/FileUploader/Remove'
   };
-  public palettes: PaletteModel[] = [
-    { id: 'flow', expanded: true, symbols: flowShapes, iconCss: 'e-ddb-icons e-flow', title: 'Flow Shapes' },
-    { id: 'connectors', expanded: true, symbols: connectorSymbols, iconCss: 'e-ddb-icons e-connector', title: 'Connectors' }
-  ];
   public zoomMenuItems: any = zoomMenuItems;
   public exportItems: any = exportItems;
-  public gridlines: GridlinesModel = {
-    lineColor: '#e0e0e0',
-    lineIntervals: [
-      1, 9, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75
-    ]
-  };
   public zoomContent: any;
-  public diagramTools: any = DiagramTools;
-
-  public getNodeDefaults(node: NodeModel): NodeModel {
-    if (node.width === undefined) {
-      node.width = 150;
-      node.height = 50;
-    }
-    if ((node.shape as FlowShapeModel).type === 'Flow' && (node.shape as FlowShapeModel).shape === 'Decision') {
-      node.width = 120;
-      node.height = 100;
-    }
-    return node;
-  }
-  public getConnectorDefaults(connector: Connector): ConnectorModel {
-    connector.type = 'Orthogonal';
-    if (connector.annotations && connector.annotations.length > 0) {
-      (connector.annotations as PathAnnotationModel[])[0]!.style!.fill = 'white';
-    }
-    return connector;
-  }
-
+  public diagramTools: DiagramTools = DiagramTools.ZoomPan;
+  public sequenceModel: UmlSequenceDiagramModel = sequenceModel;
+  public nodes: NodeModel[] = [{ id: 'content', offsetX: 100, offsetY: 100 }];
   ngOnInit(): void {
     document.addEventListener('keypress', (event) => {
       if (event.key === 'Enter' && document.activeElement === (this.textBox as any).element.nativeElement) {
         if ((this.textBox as any).value !== '') {
           (this.dialog as any).hide();
-          convertTextToFlowchart((this.textBox as any).value, this.diagram);
+          convertTextToUmlSequenceDiagram((this.textBox as any).value, this.diagram);
         }
       }
     });
-    this.zoomContent = Math.round(this.diagram.scrollSettings.currentZoom! * 100) + ' %'
-  }
-
-  // Handles drag enter events
-  public dragEnter(args: IDragEnterEventArgs): void {
-    let obj: NodeModel = args.element as NodeModel;
-    if (obj instanceof Node) {
-      let ratio: number = 100 / obj.width;
-      obj.width = 100;
-      obj.height *= ratio;
-      obj.offsetX += (obj.width - obj.width) / 2;
-      obj.offsetY += (obj.height - obj.height) / 2;
-      obj.style = { fill: '#357BD2', strokeColor: 'white' };
-    }
+    this.zoomContent = Math.round(this.diagram.scrollSettings.currentZoom! * 100) + ' %';
   }
 
   showDialog() {
@@ -98,12 +58,15 @@ export class SmartFlowchartComponent {
 
   onSendClick() {
     this.dialog.hide();
-    convertTextToFlowchart((this.textBox as any).value, this.diagram);
+    convertTextToUmlSequenceDiagram((this.textBox as any).value, this.diagram);
   }
-
+  diagramCreated() {
+    (this.diagram as any).model = this.sequenceModel;
+    this.diagram.updateFromModel();
+  }
   onBtnClick(msg: any) {
     this.dialog.hide();
-    convertTextToFlowchart(msg, this.diagram);
+    convertTextToUmlSequenceDiagram(msg, this.diagram);
   }
 
   onScrollChange(args: IScrollChangeEventArgs) {
@@ -113,27 +76,22 @@ export class SmartFlowchartComponent {
     }
   }
 
-  // Returns symbol defaults
-  public getSymbolDefaults(symbol: NodeModel): void {
-    const wideSymbols = new Set(['Terminator', 'Process', 'Delay']);
-    const mediumSymbols = new Set(['Decision', 'Document', 'PreDefinedProcess', 'PaperTap', 'DirectData', 'MultiDocument', 'Data']);
-
-    symbol.style = { strokeColor: '#757575' };
-
-    if (wideSymbols.has((symbol as Node).id)) {
-      symbol.width = 80;
-      symbol.height = 40;
-    } else if (mediumSymbols.has((symbol as Node).id)) {
-      symbol.width = 50;
-      symbol.height = 40;
-    } else {
-      symbol.width = 50;
-      symbol.height = 50;
+  public snapSettings: any = { constraints: SnapConstraints.None };
+  // Configure node defaults for UML diagrams
+  public getNodeDefaults(node: NodeModel): NodeModel {
+    // participant node
+    if (node.data instanceof UmlSequenceParticipant) {
+      if (!((node!.data! as UmlSequenceParticipant).isActor)) {
+        if (node.annotations && node.annotations[0] && node.annotations[0].style) {
+          node.annotations[0].style.color = 'white';
+        }
+      }
     }
-  }
-
-  public getSymbolInfo(): { fit: boolean } {
-    return { fit: true };
+    // fragment node
+    else if (node.data instanceof UmlSequenceFragment) {
+      node.style = { strokeColor: 'cornflowerblue' };
+    }
+    return node;
   }
 
   // Export and print logic
@@ -228,7 +186,9 @@ export class SmartFlowchartComponent {
     let reader = new FileReader();
     reader.readAsText(args.file.rawFile);
     reader.onloadend = (event: any) => {
+      this.diagram.model = {fragments:[],messages:[],participants:[]};
       this.diagram.loadDiagram(event.target.result);
+      this.diagram.fitToPage();
     };
   }
 
@@ -257,5 +217,4 @@ export class SmartFlowchartComponent {
       this.sendButton.disabled = true;
     }
   }
-
 }

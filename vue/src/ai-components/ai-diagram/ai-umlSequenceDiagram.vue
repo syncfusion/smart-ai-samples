@@ -1,12 +1,12 @@
 <template>
     <div id="desc-container">
-        <h4 style="text-align: center;">Text To Flowchart</h4>
+        <h4 style="text-align: center;">Text To UML Sequence Diagram</h4>
         <div class="description-container e-card">
-            <div class='e-card-content '>
+            <div class='e-card-content'>
                 <p>
-                    This demo demonstrates how the Vue Diagram Component, enhanced with AI, creates flowcharts
-                    using nodes and connectors. It visually represents processes, workflows, and decision paths,
-                    providing a clear and interactive way to map out procedures.
+                    This demo shows how the Vue Diagram Component, enhanced with AI, creates UML Sequence Diagrams to
+                    depict object interactions in a time sequence. It offers a clear, interactive way to model dynamic
+                    behaviors and message exchanges.
                     Know more <a
                         href="https://github.com/syncfusion/smart-ai-samples/blob/master/vue/src/ai-components/ai-diagram/Readme.md">here</a>.
                 </p>
@@ -32,31 +32,16 @@
                             :height="40">
                             <template #btnZoomIncrement>
                                 <ejs-dropdownbutton id="btnZoomIncrement" ref='btnZoomIncrement' :items='zoomMenuItems'
-                                    :select='zoomChange'>{{ ddbContent
-                                    }}</ejs-dropdownbutton>
+                                    :select='zoomChange'>{{ ddbContent }}</ejs-dropdownbutton>
                             </template>
                         </ejs-toolbar>
                     </div>
                 </div>
-                <div class="sb-mobile-palette-bar">
-                    <div id="palette-icon" role="button" class="e-ddb-icons1 e-toggle-palette"></div>
-                </div>
-                <div id="palette-space" class="sb-mobile-palette">
-                    <ejs-symbolpalette expandMode='Multiple' :palettes="palettes" width='100%' height='900px'
-                        :symbolHeight='60' :symbolWidth='60' :symbolMargin="{
-                            left: 15, right: 15,
-                            top: 15, bottom: 15
-                        }" :getNodeDefaults='getSymbolDefaults' :getSymbolInfo='getSymbolInfo'></ejs-symbolpalette>
-                </div>
-                <div id="diagram-space" class="sb-mobile-diagram">
-                    <ejs-diagram ref="diagram" width='100%' height='900px' :drawingObject='{}'
-                        :tool='diagramTool'
-                        :snapSettings='{ horizontalGridlines: gridlines, verticalGridlines: gridlines }'
-                        :scrollSettings="{ scrollLimit: 'Infinity' }" :layout="diagramLayout"
-                        :dataSourceSettings="dataSourceSettings" :scrollChange="diagramScrollChange"
-                        :rulerSettings="{ showRulers: true }"
-                        :getNodeDefaults='getNodeDefaults' :getConnectorDefaults='getConnectorDefaults'
-                        :dragEnter='dragEnter'></ejs-diagram>
+                <div style="margin-top: 5px;margin-left: 5px;margin-right: 5px; border: 1px solid #b0b0b0;">
+                    <ejs-diagram ref="diagram" width='100%' height='900px' :snapSettings='snapSettings'
+                        :tool='diagramTool' :created="diagramCreated" :scrollChange="diagramScrollChange"
+                        :getNodeDefaults='getNodeDefaults'>
+                    </ejs-diagram>
                 </div>
             </div>
             <div id='container'>
@@ -69,26 +54,26 @@
                     </template>
                     <template #contentTemplate>
                         <p style="margin-bottom: 10px;font-weight:bold;">Suggested Prompts</p>
-                        <ejs-button id="btn2"
-                            style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;"
-                            @click='(e) => { $refs.dialog.hide(); convertTextToFlowChart(e.target.value); }'>
-                            Flowchart for online shopping
-                        </ejs-button>
                         <ejs-button id="btn1"
                             style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;"
-                            @click='(e) => { $refs.dialog.hide(); convertTextToFlowChart(e.target.value); }'>
-                            Flowchart for Mobile banking registration
+                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.innerText); }'>
+                            Sequence Diagram for ATM Transaction Process
+                        </ejs-button>
+                        <ejs-button id="btn2"
+                            style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;"
+                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.innerText); }'>
+                            Sequence Diagram for User Authentication and Authorization
                         </ejs-button>
                         <ejs-button id="btn3"
                             style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;"
-                            @click='(e) => { $refs.dialog.hide(); convertTextToFlowChart(e.target.value); }'>
-                            Flowchart for Bus ticket booking
+                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.innerText); }'>
+                            Sequence Diagram for Medical Appointment Scheduling
                         </ejs-button>
                         <div style="display: flex; align-items: center; margin-top: 20px;">
                             <ejs-textbox ref='textBox' id="textBox" class="db-openai-textbox" style="flex: 1;"
                                 placeholder='Please enter your prompt here...' width='450' :input='onTextBoxChange' />
                             <ejs-button ref="sendButton" id="db-send" iconCss='e-icons e-send' :isPrimary='true'
-                                :disabled='true' style="margin-left:2px; height: 32px; width:32px;padding-top: 7px;padding-left: 6px;"
+                                :disabled='true' style="margin-left: 2px; height: 32px; width:32px;padding-top: 7px;padding-left: 6px;"
                                 @click='dbSend'></ejs-button>
                         </div>
                     </template>
@@ -99,119 +84,27 @@
             <!-- Loading indicator container -->
             <div ref="loadingContainer" id="loadingContainer" class="loading-container">
                 <div class="loading-indicator"></div>
-                <div class="loading-text">Generating Flowchart...</div>
+                <div class="loading-text">Generating UML Sequence Diagram...</div>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-/**
-* Default FlowShape sample
-*/
-
 import {
-    NodeModel, UndoRedo, ConnectorModel,
-    FlowShapes, Node, FlowchartLayout
+    UmlSequenceParticipant, UmlSequenceFragment, UmlSequenceMessageType, UmlSequenceFragmentType, NodeModel, SnapConstraints, IScrollChangeEventArgs,
+    PrintAndExport, DiagramTools,
+    IExportOptions,
+    FileFormats
 } from '@syncfusion/ej2-diagrams';
-import { DataManager } from '@syncfusion/ej2-data';
-import {
-    Connector, ConnectorConstraints, DataBinding, FileFormats, FlowShapeModel,
-    IScrollChangeEventArgs, ISelectionChangeEventArgs
-} from '@syncfusion/ej2-diagrams';
+import { DiagramComponent } from '@syncfusion/ej2-vue-diagrams';
 import { InputEventArgs, TextBoxComponent, UploaderComponent } from '@syncfusion/ej2-vue-inputs';
 import { ClickEventArgs, ItemModel } from '@syncfusion/ej2-navigations';
-import { DiagramComponent, SymbolPaletteComponent, PrintAndExport, IExportOptions, NodeConstraints, SymbolInfo, IDragEnterEventArgs, DiagramTools } from '@syncfusion/ej2-vue-diagrams';
 import { ButtonComponent, FabComponent } from '@syncfusion/ej2-vue-buttons';
 import { ToolbarComponent } from '@syncfusion/ej2-vue-navigations';
 import { DialogComponent } from '@syncfusion/ej2-vue-popups';
 import { DropDownButton, DropDownButtonComponent, MenuEventArgs } from '@syncfusion/ej2-vue-splitbuttons';
 import { getAzureChatAIRequest } from '../common/ai-models';
-
-type FlowChartNode = {
-    id: string;
-    name: string;
-    shape: string;
-    color: string;
-    parentId: string[] | null;
-    arrowType?: string;
-    label?: string | string[];
-    stroke: string;
-    strokeWidth: number;
-};
-
-const flowChartData: FlowChartNode[] = [
-    { id: "A", name: "Start", shape: "Terminator", color: "#90EE90", parentId: null, stroke: "#333", strokeWidth: 2 },
-    {
-        id: "B", name: "Open the browser and go to Amazon site", shape: "Rectangle", color: "#1759B7", parentId: ["A"],
-        arrowType: "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "C", name: "Already a customer?", shape: "Decision", color: "#2F95D8", parentId: ["B"], arrowType:
-            "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "D", name: "Create an account", shape: "Rectangle", color: "#70AF16", parentId: ["C"], label: ["No"], arrowType:
-            "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "E", name: "Enter login information", shape: "Rectangle", color: "#70AF16", parentId: ["C"], label: ["Yes"],
-        arrowType: "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "F", name: "Search for the book in the search bar", shape: "Predefined Process", color: "#1759B7", parentId: ["E",
-            "D"], arrowType: "single-line-arrow", label: ["", ""], stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "G", name: "Select the preferred book", shape: "Rectangle", color: "#1759B7", parentId: ["F"], arrowType:
-            "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "H", name: "Is the book new or used?", shape: "Rectangle", color: "#2F95D8", parentId: ["G"], arrowType:
-            "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "I", name: "Select the new book", shape: "Rectangle", color: "#70AF16", parentId: ["H"], label: ["Yes"],
-        arrowType: "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "J", name: "Select the used book", shape: "Rectangle", color: "#70AF16", parentId: ["H"], label: ["No"],
-        arrowType: "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "K", name: "Add to Cart & Proceed to Checkout", shape: "Rectangle", color: "#1759B7", parentId: ["I", "J"],
-        arrowType: "single-line-arrow", label: ["", ""], stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "L", name: "Enter shipping and payment details", shape: "Rectangle", color: "#1759B7", parentId: ["K", "M"],
-        arrowType: "single-line-arrow", label: ["", ""], stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "M", name: "Is the information correct?", shape: "Decision", color: "#2F95D8", parentId: ["L"], arrowType:
-            "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "N", name: "Review and place the order", shape: "Rectangle", color: "#1759B7", parentId: ["M"], label: ["True"],
-        arrowType: "single-line-arrow", stroke: "#333", strokeWidth: 2
-    },
-    {
-        id: "O", name: "End", shape: "Terminator", color: "#8E44CC", parentId: ["N"], arrowType: "single-line-arrow", stroke:
-            "#333", strokeWidth: 2
-    }
-];
-let bounds = {
-    x: 240,
-    y: 122,
-    width: 719,
-    height: 700,
-    top: 122,
-    right: 959,
-    bottom: 822,
-    left: 240
-};
-let interval = [
-    1, 9, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75
-];
 
 export default {
     components: {
@@ -220,7 +113,6 @@ export default {
         'ejs-fab': FabComponent,
         'ejs-toolbar': ToolbarComponent,
         'ejs-uploader': UploaderComponent,
-        'ejs-symbolpalette': SymbolPaletteComponent,
         'ejs-dropdownbutton': DropDownButtonComponent,
         'ejs-dialog': DialogComponent,
         'ejs-textbox': TextBoxComponent
@@ -229,26 +121,8 @@ export default {
         return {
             ddbContent: '',
             diagramTool: DiagramTools.Default,
-            centerX: bounds.width / 2,
-            gridlines: { lineColor: '#e0e0e0', lineIntervals: interval },
-            dataSourceSettings: {
-                id: 'id',
-                parentId: 'parentId',
-                dataManager: new DataManager(flowChartData)
-            } as any,
-            diagramLayout: {
-                type: 'Flowchart',
-                orientation: 'TopToBottom',
-                flowChartSettings: {
-                    yesBranchDirection: 'LeftInFlow',
-                    noBranchDirection: 'RightInFlow',
-                    yesBranchValues: ['Yes', 'True'],
-                    noBranchValues: ['No', 'False']
-                } as any,
-                verticalSpacing: 50,
-                horizontalSpacing: 50
-            } as any,
-            
+            snapSettings: { constraints: SnapConstraints.None },
+           
             zoomMenuItems: [
                 { text: 'Zoom In' }, { text: 'Zoom Out' }, { text: 'Zoom to Fit' }, { text: 'Zoom to 50%' },
                 { text: 'Zoom to 100%' }, { text: 'Zoom to 200%' },
@@ -256,13 +130,6 @@ export default {
             exportItems: [
                 { text: 'JPG' }, { text: 'PNG' }, { text: 'SVG' }
             ],
-            palettes: [{
-                id: 'flow',
-                expanded: true, symbols: this.getFlowShapes(), iconCss: 'e-ddb-icons e-flow', title: 'Flow Shapes'
-            }, {
-                id: 'connectors',
-                expanded: true, symbols: this.getConnectorSymbols(), iconCss: 'e-ddb-icons e-connector', title: 'Connectors'
-            }] as any
         }
     },
     methods: {
@@ -271,115 +138,105 @@ export default {
         },
         dbSend: function () {
             this.$refs.dialog.ej2Instances.hide();
-            this.convertTextToFlowChart(this.$refs.textBox.ej2Instances.value);
+            this.convertTextToUmlSequenceDiagram(this.$refs.textBox.ej2Instances.value);
         },
-        //Sets the default values of a connector
-        getConnectorDefaults: function (obj: Connector): ConnectorModel {
-            obj.type = 'Orthogonal';
-            return obj;
-        },
-        getFlowShapes: function() {
-            let flowShapes = [
-                this.getFlowShape('Terminator', 'Terminator'),
-                this.getFlowShape('Process', 'Process'), this.getFlowShape('Decision', 'Decision'), this.getFlowShape('Document', 'Document'),
-                this.getFlowShape('PreDefinedProcess', 'PreDefinedProcess'), this.getFlowShape('PaperTap', 'PaperTap'),
-                this.getFlowShape('DirectData', 'DirectData'), this.getFlowShape('SequentialData', 'SequentialData'),
-                this.getFlowShape('Sort', 'Sort'), this.getFlowShape('MultiDocument', 'MultiDocument'), this.getFlowShape('Collate', 'Collate'),
-                this.getFlowShape('Or', 'Or'), this.getFlowShape('Extract', 'Extract'), this.getFlowShape('Merge', 'Merge'),
-                this.getFlowShape('OffPageReference', 'OffPageReference'),
-                this.getFlowShape('SequentialAccessStorage', 'SequentialAccessStorage'), this.getFlowShape('Annotation', 'Annotation'),
-                this.getFlowShape('Annotation2', 'Annotation2'), this.getFlowShape('Data', 'Data'), this.getFlowShape('Card', 'Card'),
-                this.getFlowShape('Delay', 'Delay')
-            ];
-            return flowShapes;
-        },
-        getConnectorSymbols: function () {
-            let connectorSymbols = [{
-                id: 'Link1', type: 'Orthogonal', sourcePoint: { x: 0, y: 0 }, targetPoint: { x: 60, y: 60 },
-                targetDecorator: { shape: 'Arrow', style: { strokeColor: '#757575', fill: '#757575' } }, style: {
-                    strokeWidth: 1,
-                    strokeColor: '#757575'
+        // Define default properties for nodes used in the diagram
+        getNodeDefaults: function (node: NodeModel): NodeModel {
+            if (node.data instanceof UmlSequenceParticipant) {
+                if (!node.data.isActor) {
+                    if (node.annotations && node.annotations[0] && node.annotations[0].style) {
+                        node.annotations[0].style.color = 'white';
+                    }
                 }
-            }, {
-                id: 'link2', type: 'Orthogonal', sourcePoint: { x: 0, y: 0 }, targetPoint: {
-                    x: 60,
-                    y: 60
-                }, style: { strokeWidth: 2, strokeColor: '#757575' }, targetDecorator: { shape: 'Arrow' }
-            }, {
-                id: 'Link3',
-                type: 'Orthogonal', sourcePoint: { x: 0, y: 0 }, targetPoint: { x: 60, y: 60 }, targetDecorator: {
-                    shape: 'Arrow',
-                    style: { strokeColor: '#757575', fill: '#757575' }
-                }, style: {
-                    strokeWidth: 1, strokeDashArray: '5,2',
-                    strokeColor: '#757575'
-                }
-            }, {
-                id: 'Link4', type: 'Orthogonal', sourcePoint: { x: 0, y: 0 }, targetPoint: {
-                    x: 60,
-                    y: 60
-                }, targetDecorator: { shape: 'None', style: { strokeColor: '#757575', fill: '#757575' } }, style: {
-                    strokeWidth: 1, strokeDashArray: '5,2', strokeColor: '#757575'
-                }
-            }];
-            return connectorSymbols;
-        },
-        //Sets the Node style for DragEnter element.
-        dragEnter: function (args: IDragEnterEventArgs): void {
-            let obj: NodeModel = args.element as NodeModel;
-            if (obj instanceof Node) {
-                let oWidth: number = obj.width;
-                let oHeight: number = obj.height;
-                let ratio: number = 100 / obj.width;
-                obj.width = 100;
-                obj.height *= ratio;
-                obj.offsetX += (obj.width - oWidth) / 2;
-                obj.offsetY += (obj.height - oHeight) / 2;
-                obj.style = { fill: '#357BD2', strokeColor: 'white' };
+            } else if (node.data instanceof UmlSequenceFragment) {
+                node.style = { strokeColor: 'cornflowerblue' };
             }
+            return node;
         },
-        getFlowShape: function (id: string, shapeType: FlowShapes): NodeModel {
-            let flowshape: NodeModel = { id: id, shape: { type: 'Flow', shape: shapeType } };
-            return flowshape;
-        },
-        getSymbolDefaults: function (symbol: NodeModel): void {
-            symbol.style = { strokeColor: '#757575' };
-            if (symbol.id === 'Terminator' || symbol.id === 'Process' || symbol.id === 'Delay') {
-                symbol.width = 80;
-                symbol.height = 40;
-            } else if (symbol.id === 'Decision' || symbol.id === 'Document' || symbol.id === 'PreDefinedProcess' ||
-                symbol.id === 'PaperTap' || symbol.id === 'DirectData' || symbol.id === 'MultiDocument' || symbol.id === 'Data') {
-                symbol.width = 50;
-                symbol.height = 40;
-            } else {
-                symbol.width = 50;
-                symbol.height = 50;
-            }
-        },
-        getSymbolInfo: function (symbol: NodeModel): SymbolInfo {
-            return { fit: true };
-        },
-        toolbarCreated: function () {
+         toolbarCreated: function () {
             const diagram = this.$refs.diagram.ej2Instances;
             if (diagram !== undefined) {
-                this.ddbContent = Math.round(diagram.scrollSettings.currentZoom * 100) + ' %';
                 let exportBtn: DropDownButton = new DropDownButton({
-                    items: this.exportItems, iconCss: 'e-ddb-icons e-export', 
-                    select: function (args) { 
+                    items: this.exportItems, iconCss: 'e-ddb-icons e-export',
+                    select: function (args) {
                         let exportOptions: IExportOptions = {};
                         exportOptions.format = args.item.text as FileFormats;
                         exportOptions.mode = 'Download';
-                        exportOptions.region = 'Content';
+                        exportOptions.region = 'PageSettings';
                         exportOptions.fileName = 'Export';
                         exportOptions.margin = { left: 0, top: 0, bottom: 0, right: 0 };
                         diagram.exportDiagram(exportOptions);
-                     },
+                    },
                 });
                 exportBtn.appendTo('#exportBtn');
             }
-            this.refreshOverflow();
         },
-        toolbarItems: function () {
+        getSequenceModel: function () {
+            let  sequenceModel = {
+                // Space between each participant in the diagram
+                spaceBetweenParticipants: 250,
+                // List of participants in the sequence diagram
+                participants: [
+                    {
+                        id: "User",
+                        content: "User",
+                        // Indicates that User is an actor
+                        isActor: true
+                    },
+                    {
+                        id: "Transaction",
+                        content: "Transaction",
+                        // Activation periods for the Transaction participant
+                        activationBoxes: [
+                            { id: "act1", startMessageID: 'msg1', endMessageID: 'msg4' }
+                        ]
+                    },
+                    {
+                        id: "FraudDetectionSystem",
+                        content: "Fraud Detection System",
+                        // Activation periods for the Fraud Detection System participant
+                        activationBoxes: [
+                            { id: "act2", startMessageID: 'msg2', endMessageID: 'msg3' },
+                            { id: "act3", startMessageID: 'msg5', endMessageID: 'msg6' }
+                        ]
+                    }
+                ],
+                // List of messages exchanged between participants
+                messages: [
+                    { id: 'msg1', content: "Initiate Transaction", fromParticipantID: "User", toParticipantID: "Transaction", type: UmlSequenceMessageType.Synchronous },
+                    { id: 'msg2', content: "Send Transaction Data", fromParticipantID: "Transaction", toParticipantID: "FraudDetectionSystem", type: UmlSequenceMessageType.Synchronous },
+                    { id: 'msg3', content: "Validate Transaction", fromParticipantID: "FraudDetectionSystem", toParticipantID: "Transaction", type: UmlSequenceMessageType.Reply },
+                    { id: 'msg4', content: "Transaction Approved", fromParticipantID: "Transaction", toParticipantID: "User", type: UmlSequenceMessageType.Asynchronous },
+                    { id: 'msg5', content: "Flag Transaction", fromParticipantID: "Transaction", toParticipantID: "FraudDetectionSystem", type: UmlSequenceMessageType.Synchronous },
+                    { id: 'msg6', content: "Fraud Detected", fromParticipantID: "FraudDetectionSystem", toParticipantID: "User", type: UmlSequenceMessageType.Reply },
+                    { id: 'msg7', content: "Cancel Transaction", fromParticipantID: "User", toParticipantID: "Transaction", type: UmlSequenceMessageType.Synchronous },
+                    { id: 'msg8', content: "Complete Transaction", fromParticipantID: "User", toParticipantID: "Transaction", type: UmlSequenceMessageType.Synchronous }
+                ],
+                // Conditional fragments within the sequence
+                fragments: [
+                    {
+                        id: 1,
+                        // Represents alternative fragment
+                        type: UmlSequenceFragmentType.Alternative,
+                        conditions: [
+                            // Condition when fraud is detected
+                            {
+                                // Content of condition
+                                content: "Fraud Detected",
+                                // Messages part of this condition
+                                messageIds: ['msg5', 'msg6', 'msg7']
+                            },
+                            {
+                                content: "No Fraud Detected",
+                                messageIds: ['msg8']
+                            }
+                        ]
+                    }
+                ]
+            };
+            return sequenceModel;
+        },
+         toolbarItems: function () {
             let items: ItemModel[] = [
                 { prefixIcon: 'e-icons e-circle-add', tooltipText: 'New Diagram' },
                 { prefixIcon: 'e-icons e-folder-open', tooltipText: 'Open Diagram', },
@@ -388,126 +245,10 @@ export default {
                 { type: 'Input', tooltipText: 'Export Diagram', template: '<button id="exportBtn" style="width:100%;"></button>' },
                 { prefixIcon: 'e-pan e-icons', tooltipText: 'Pan Tool', cssClass: 'tb-item-start pan-item' },
                 { prefixIcon: 'e-mouse-pointer e-icons', tooltipText: 'Select Tool', cssClass: 'tb-item-middle' },
-                {
-                    cssClass: 'tb-item-end tb-zoom-dropdown-btn', template: 'btnZoomIncrement', align: 'Right',
-                },
+               
             ];
             return items;
         },
-        refreshOverflow: function () {
-            const toolbarObj = this.$refs.toolbarObj.ej2Instances;
-            setTimeout(() => {
-                toolbarObj.refreshOverflow();
-            }, 100);
-        },
-        getNodeDefaults: function (node: NodeModel): NodeModel {
-            if (node.width === undefined) {
-                node.width = 145;
-            } if ((node.shape as FlowShapeModel).type === 'Flow' && (node.shape as FlowShapeModel).shape === 'Decision') {
-                node.height = 80;
-            }
-            return node;
-        },
-        printDiagram: function () {
-            const diagram = this.$refs.diagram.ej2Instances;
-            let options: IExportOptions = {};
-            options.mode = 'Download';
-            options.region = 'Content';
-            options.multiplePage = diagram.pageSettings.multiplePage;
-            options.pageHeight = diagram.pageSettings.height;
-            options.pageWidth = diagram.pageSettings.width;
-            diagram.print(options);
-        },
-        toolbarClick: function (args: ClickEventArgs) {
-            const diagram = this.$refs.diagram.ej2Instances;
-            let item = args.item.tooltipText;
-            switch (item) {
-                case 'Select Tool':
-                    diagram.clearSelection();
-                    diagram.tool = DiagramTools.Default;
-                    break;
-                case 'Pan Tool':
-                    diagram.clearSelection();
-                    diagram.tool = DiagramTools.ZoomPan;
-                    break;
-                case 'New Diagram':
-                    diagram.clear();
-                    break;
-                case 'Print Diagram':
-                    this.printDiagram();
-                    break;
-                case 'Save Diagram':
-                    this.download(diagram.saveDiagram());
-                    break;
-                case 'Open Diagram':
-                    (document.getElementsByClassName('e-file-select-wrap') as any)[0]
-                        .querySelector('button')
-                        .click();
-                    break;
-            }
-            diagram.dataBind();
-        },
-        zoomChange: function (args: MenuEventArgs) {
-            const diagram = this.$refs.diagram.ej2Instances;
-            let zoomCurrentValue: DropDownButton = (document.getElementById("btnZoomIncrement") as any).ej2_instances[0];
-            let currentZoom: number = diagram.scrollSettings.currentZoom;
-            let zoom: any = {};
-            switch (args.item.text) {
-                case 'Zoom In':
-                    diagram.zoomTo({ type: 'ZoomIn', zoomFactor: 0.2 });
-                    zoomCurrentValue.content = (diagram.scrollSettings.currentZoom * 100).toFixed() + '%';
-                    break;
-                case 'Zoom Out':
-                    diagram.zoomTo({ type: 'ZoomOut', zoomFactor: 0.2 });
-                    zoomCurrentValue.content = (diagram.scrollSettings.currentZoom * 100).toFixed() + '%';
-                    break;
-                case 'Zoom to Fit':
-                    zoom.zoomFactor = 1 / currentZoom - 1;
-                    diagram.zoomTo(zoom);
-                    zoomCurrentValue.content = diagram.scrollSettings.currentZoom;
-                    break;
-                case 'Zoom to 50%':
-                    if (currentZoom === 0.5) {
-                        currentZoom = 0;
-                        zoom.zoomFactor = (0.5 / currentZoom) - 1;
-                        diagram.zoomTo(zoom);
-                    }
-                    else {
-                        zoom.zoomFactor = (0.5 / currentZoom) - 1;
-                        diagram.zoomTo(zoom);
-                    }
-                    break;
-                case 'Zoom to 100%':
-                    if (currentZoom === 1) {
-                        currentZoom = 0;
-                        zoom.zoomFactor = (1 / currentZoom) - 1;
-                        diagram.zoomTo(zoom);
-                    }
-                    else {
-                        zoom.zoomFactor = (1 / currentZoom) - 1;
-                        diagram.zoomTo(zoom);
-                    }
-                    break;
-                case 'Zoom to 200%':
-                    if (currentZoom === 2) {
-                        currentZoom = 0;
-                        zoom.zoomFactor = (2 / currentZoom) - 1;
-                        diagram.zoomTo(zoom);
-                    }
-                    else {
-                        zoom.zoomFactor = (2 / currentZoom) - 1;
-                        diagram.zoomTo(zoom);
-                    }
-                    break;
-            }
-
-            zoomCurrentValue.content = Math.round(diagram.scrollSettings.currentZoom * 100) + ' %';
-
-        },
-        onselectExport: function (args: MenuEventArgs) {
-           
-        },
-
         onUploadSuccess: function (args: any) {
             let file = args.file;
             let rawFile = file.rawFile;
@@ -516,8 +257,10 @@ export default {
             reader.onloadend = this.loadDiagram;
         },
         loadDiagram: function (event: any) {
-            const diagram = this.$refs.diagram;
+            const diagram = this.$refs.diagram.ej2Instances;
+            diagram.model = {fragments:[],messages:[],participants:[]};
             diagram.loadDiagram(event.target.result);
+            diagram.fitToPage();
         },
         download: function (data: string) {
             if ((window.navigator as any).msSaveBlob) {
@@ -539,72 +282,96 @@ export default {
                 this.$refs.sendButton.ej2Instances.disabled = true;
             }
         },
-        convertTextToFlowChart: async function (inputText: string) {
+        convertTextToUmlSequenceDiagram: async function (inputText: string) {
             const diagram = this.$refs.diagram.ej2Instances;
             this.showLoading();
             const options = {
-               messages: [
-            {
-                role: 'system',
-                content: 'You are an assistant tasked with generating mermaid flow chart diagram data sources based on user queries'
-            },
-            {
-                role: 'user',
-                content: `
-              Generate only the Mermaid flowchart code for the process titled "${inputText}".
-              Use the format provided in the example below, but adjust the steps, conditions, and styles according to the new title:
+                messages: [
+                    {
+                        role: 'system',
+                        content: 'You are an assistant tasked with generating mermaid flow chart diagram data sources based on user queries'
+                    },
+                    {
+                        role: 'user',
+                        content: `
+                    Generate only the Mermaid UML sequence diagrams code for the process titled "${inputText}".
+                    based on the guidelines below. The output should strictly adhere to these rules and must not include any markdown code fences, blank space or the string 'mermaid' at the beginning
+                    1.	Start with sequenceDiagram.
+                    2.	Declare all participants with actor or participant; user types must be actor.
+                    3.	Use specific arrows only: ->>, -), --), and for self-messages also ->>.
+                    4.	Mark activations (activate) and deactivations (deactivate) for all interactions.
+                    5.	Include at least one alt, opt, or loop block.
+                    6.	Add at least one create and destroy message.
+                    7.	Include at least 10 interaction steps, building a complex flow.
+                    8.	Follow proper indentation and do not add extra comments or markdown syntax.
+
+                    Basic simple examples for your context, but you try to create a complex diagram with all the given elements:
+
+                    Example 1: All Types of Messages
+                    sequenceDiagram
+                    actor Client
+                    participant Server
+                    Client ->> Server: Sync Request
+                    Server -) Client: Async Notification
+                    Client -->> Server: Reply Message
+                    Client ->> Client: Self Check
+                    Server ->> Client: Delete Record
+
+                    Example 2: With Activations
+                    sequenceDiagram
+                    participant User
+                    participant Service
+                    User ->> Service: Start Process
+                    activate Service
+                    Service -->> User: Process Acknowledged
+                    deactivate Service
+
+                    Example 3: With Fragments
+                    sequenceDiagram
+                    participant User
+                    participant System
+                    alt Successful Login
+                        User ->> System: Enter Credentials
+                        activate System
+                        System -->> User: Login Successful
+                        deactivate System
+                    else Failed Login
+                        loop Retry up to 3 times
+                            User ->> System: Re-enter Credentials
+                        end
+                    end
+
+                    Example 4: With Create/Destroy Messages
+                    sequenceDiagram
+                    actor Admin
+                    create participant Worker as DataProcessor
+                    Admin -) Worker: Initialize Service
+                    activate Worker
+                    Worker ->> Admin: Service Ready
+                    deactivate Worker
+                    destroy Worker
+
+                    Return only the structured Mermaid sequence diagram syntax.
               
-              **Example Title:** Bus Ticket Booking
-              
-              **Example Steps and Mermaid Code:**
-              
-                  graph TD
-                  A([Start]) --> B[Choose Destination]
-                  B --> C{Already Registered?}
-                  C -->|No| D[Sign Up]
-                  D --> E[Enter Details]
-                  E --> F[Search Buses]
-                  C --> |Yes| F
-                  F --> G{Buses Available?}
-                  G -->|Yes| H[Select Bus]
-                  H --> I[Enter Passenger Details]
-                  I --> J[Make Payment]
-                  J --> K[Booking Confirmed]
-                  G -->|No| L[Set Reminder]
-                  K --> M([End])
-                  L --> M
-                  style A fill:#90EE90,stroke:#333,stroke-width:2px;
-                  style B fill:#4682B4,stroke:#333,stroke-width:2px;
-                  style C fill:#32CD32,stroke:#333,stroke-width:2px;
-                  style D fill:#FFD700,stroke:#333,stroke-width:2px;
-                  style E fill:#4682B4,stroke:#333,stroke-width:2px;
-                  style F fill:#4682B4,stroke:#333,stroke-width:2px;
-                  style G fill:#32CD32,stroke:#333,stroke-width:2px;
-                  style H fill:#4682B4,stroke:#333,stroke-width:2px;
-                  style I fill:#4682B4,stroke:#333,stroke-width:2px;
-                  style J fill:#4682B4,stroke:#333,stroke-width:2px;
-                  style K fill:#FF6347,stroke:#333,stroke-width:2px;
-                  style L fill:#FFD700,stroke:#333,stroke-width:2px;
-                  style M fill:#FF6347,stroke:#333,stroke-width:2px;
-              
-              
-              Note: Please ensure the generated code matches the title "${inputText}" and follows the format given above. Provide only the Mermaid flowchart code, without any additional explanations, comments, or text.
-              `
+                    Note: Please ensure the generated code matches the title "${inputText}" and follows the guidelines & format given above.
+                    Provide only the Mermaid UML sequence diagram code, without any additional explanations, comments, or text.
+                    `
 
 
-            }
-        ],
+                    }
+                ],
             }
 
             try {
                 let jsonResponse = await getAzureChatAIRequest(options);
                 jsonResponse = jsonResponse.replace('```mermaid', '').replace('```', '');
+                diagram.model = {fragments:[],messages:[],participants:[]};
                 diagram.loadDiagramFromMermaid(jsonResponse);
                 this.hideLoading();
 
             } catch (error) {
                 console.error('Error:', error);
-                this.convertTextToFlowChart(inputText);
+                this.convertTextToUmlSequenceDiagram(inputText);
             }
         },
         // Function to show loading indicator
@@ -615,34 +382,118 @@ export default {
         hideLoading: function () {
             (this.$refs.loadingContainer as HTMLInputElement).style.display = 'none';
         },
+        toolbarClick: function (args: ClickEventArgs) {
+            const diagram = this.$refs.diagram.ej2Instances;
+            let item = args.item.tooltipText;
+            switch (item) {
+                case 'Undo':
+                    diagram.undo();
+                    break;
+                case 'Redo':
+                    diagram.redo();
+                    break;
+                case 'Select Tool':
+                    diagram.clearSelection();
+                    diagram.tool = DiagramTools.Default;
+                    break;
+                case 'Pan Tool':
+                    diagram.tool = DiagramTools.ZoomPan;
+                    break;
+                case 'New Diagram':
+                    diagram.clear();
+                    break;
+                case 'Print Diagram':
+                    this.printDiagram();
+                    break;
+                case 'Save Diagram':
+                    this.download(diagram.saveDiagram());
+                    break;
+                case 'Open Diagram':
+                    (document.getElementsByClassName('e-file-select-wrap') as any)[0]
+                        .querySelector('button')
+                        .click();
+                    break;
+            }
+            diagram.dataBind();
+        },
+          printDiagram: function () {
+            const diagram = this.$refs.diagram.ej2Instances;
+            let options: IExportOptions = {};
+            options.mode = 'Download';
+            options.region = 'Content';
+            options.multiplePage = diagram.pageSettings.multiplePage;
+            options.pageHeight = diagram.pageSettings.height;
+            options.pageWidth = diagram.pageSettings.width;
+            diagram.print(options);
+        },
+        zoomChange: function (args: MenuEventArgs) {
+            const diagram = this.$refs.diagram.ej2Instances;
+            let zoomCurrentValue: DropDownButton = (document.getElementById("btnZoomIncrement") as any).ej2_instances[0];
+            let currentZoom: number = diagram.scrollSettings.currentZoom;
+            let zoom: any = {};
+            switch (args.item.text) {
+                case 'Zoom In':
+                    diagram.zoomTo({ type: 'ZoomIn', zoomFactor: 0.2 });
+                    zoomCurrentValue.content = (diagram.scrollSettings.currentZoom * 100).toFixed() + '%';
+                    break;
+                case 'Zoom Out':
+                    diagram.zoomTo({ type: 'ZoomOut', zoomFactor: 0.2 });
+                    zoomCurrentValue.content = (diagram.scrollSettings.currentZoom * 100).toFixed() + '%';
+                    break;
+                case 'Zoom to Fit':
+                    zoom.zoomFactor = 1 / currentZoom - 1;
+                    diagram.zoomTo(zoom);
+                    zoomCurrentValue.content = diagram.scrollSettings.currentZoom;
+                    break;
+                case 'Zoom to 50%':
+                    zoom.zoomFactor = 0.5 / currentZoom - 1;
+                    diagram.zoomTo(zoom);
+                    break;
+                case 'Zoom to 100%':
+                    zoom.zoomFactor = 1 / currentZoom - 1;
+                    diagram.zoomTo(zoom);
+                    break;
+                case 'Zoom to 200%':
+                    zoom.zoomFactor = 2 / currentZoom - 1;
+                    diagram.zoomTo(zoom);
+                    break;
+            }
+
+            zoomCurrentValue.content = Math.round(diagram.scrollSettings.currentZoom * 100) + ' %';
+        },
         diagramScrollChange: function (args: IScrollChangeEventArgs) {
             const diagram = this.$refs.diagram.ej2Instances;
             if (args.panState !== 'Start') {
                 this.ddbContent = Math.round(diagram.scrollSettings.currentZoom * 100) + ' %';
             }
+        },
+        diagramCreated: function () {
+            const diagram = this.$refs.diagram.ej2Instances;
+            diagram.model = this.getSequenceModel();
+            diagram.updateFromModel();
         }
     },
     mounted() {
         const textbox = this.$refs.textBox.ej2Instances;
         const dialog = this.$refs.dialog;
-        const convertTextToFlowChart = this.convertTextToFlowChart;
+        const convertTextToUmlSequenceDiagram = this.convertTextToUmlSequenceDiagram;
 
         // Add keypress event listener to the document
         document.addEventListener('keypress', function (event) {
             if (event.key === 'Enter' && document.activeElement === textbox.element) {
                 if (textbox.value !== '') {
                     dialog.hide();
-                    convertTextToFlowChart(textbox.value);
+                    convertTextToUmlSequenceDiagram(textbox.value);
                 }
             }
         });
     },
     provide: {
-        diagram: [UndoRedo, DataBinding, PrintAndExport, FlowchartLayout],
+        diagram: [PrintAndExport],
     }
 }
-
 </script>
+
 <style>
 /* These styles are used for toolbar icons*/
 @font-face {
@@ -651,6 +502,7 @@ export default {
     font-weight: normal;
     font-style: normal;
 }
+
 
 .e-ddb-icons {
     font-family: 'e-ddb-icons';
@@ -687,11 +539,6 @@ export default {
 /* Toolbar width */
 .db-toolbar-editor {
     width: 100%;
-}
-
-/* symbolpalette width */
-#symbolpalette {
-    width: 90%;
 }
 
 /* Overall div width */
@@ -755,9 +602,5 @@ export default {
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #000;
-}
-
-#db-send .e-btn .e-btn-icon {
-    margin-top:0px !important;
 }
 </style>

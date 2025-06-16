@@ -55,8 +55,9 @@ function LeftPane() {
         {
             "id": 33, "name": "Diagram", expanded: true,
             "child": [
-                { "id": 34, "name": "Smart MindMap", 'navigateUrl': '#/smart-mindmap' },
                 { "id": 34, "name": "Smart Flowchart", 'navigateUrl': '#/smart-flowchart' },
+                { "id": 46, "name": "Smart Mind Map", 'navigateUrl': '#/smart-mindmap' },
+                { "id": 47, "name": "Smart Uml Sequence", 'navigateUrl': '#/smart-umlSequenceDiagram' },
             ]
         },
         {

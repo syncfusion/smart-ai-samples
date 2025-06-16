@@ -66,7 +66,7 @@ export class SmartMindmapComponent {
   @ViewChild('msgBtn2', { static: true }) public msgBtn2!: ButtonComponent;
   @ViewChild('msgBtn3', { static: true }) public msgBtn3!: ButtonComponent;
   @ViewChild('textBox', { static: true }) public textBox!: TextBoxComponent;
-  @ViewChild('sendButton', { static: true }) public sendButton!: ButtonComponent;
+  @ViewChild('dbSend', { static: true }) public sendButton!: ButtonComponent;
   @ViewChild('toolbarObj', { static: true }) public toolbarObj!: ToolbarComponent;
   @ViewChild('menu', { static: true }) public menu!: MenuComponent;
   public asyncSettings: Object = {
@@ -96,7 +96,17 @@ export class SmartMindmapComponent {
     public selectedItems: any = { constraints: SelectorConstraints.UserHandle, userHandles: this.handle };
     public menuItems = menuItems;
     public getConnectorDefaults = getConnectorDefaults;
-
+    public layout = {
+      type: 'MindMap', horizontalSpacing: 80,
+      verticalSpacing: 50,
+      getBranch: function (node: Node) {
+        if (node.addInfo) {
+          var addInfo = node.addInfo;
+          return (addInfo as any).orientation.toString();
+        }
+        return 'Left';
+      }
+    }
 
     ngOnInit(): void {
       document.addEventListener('keypress', (event) => {
@@ -224,11 +234,11 @@ pushWorkingData(diagram: DiagramComponent) {
           id: node.id,
           Label: node.annotations ? node.annotations[0].content : 'Node',
           fill: node!.style.fill,
-          branch: node.addInfo.orientation,
+          branch: node.addInfo?.orientation,
           strokeColor: node.style.strokeColor,
-          parentId: node.data.parentId,
-          level: node.addInfo.level,
-          orientation: node.addInfo!.orientation,
+          parentId: node.data?.parentId,
+          level: node.addInfo?.level,
+          orientation: node.addInfo?.orientation,
           hasChild: false,
       };
       this.workingData.push(nodeData);

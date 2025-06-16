@@ -83,7 +83,8 @@ export async function convertTextToMindMap(inputText: string, diagram: Diagram) 
     }
 
     try {
-        const jsonResponse = await getAzureChatAIRequest(options);
+        let jsonResponse = await getAzureChatAIRequest(options);
+        jsonResponse = (jsonResponse as string).replace('```mermaid', '').replace('```', '');
         diagram.loadDiagramFromMermaid(jsonResponse as string);
         diagram.clearHistory();
         pushWorkingData(diagram as DiagramComponent);
@@ -104,12 +105,12 @@ function pushWorkingData(diagram: DiagramComponent) {
         let nodeData: any = {
             id: node.id,
             Label: node.annotations ? node.annotations[0].content : 'Node',
-            fill: node!.style.fill,
+            fill: node.style.fill,
             branch: node.addInfo.orientation,
             strokeColor: node.style.strokeColor,
             parentId: node.data.parentId,
             level: node.addInfo.level,
-            orientation: node.addInfo!.orientation,
+            orientation: node.addInfo.orientation,
             hasChild: false,
         };
         workingData.push(nodeData);

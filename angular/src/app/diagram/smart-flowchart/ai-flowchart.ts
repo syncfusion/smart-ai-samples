@@ -58,7 +58,8 @@ export async function convertTextToFlowchart(inputText: string, diagram: Diagram
     }
 
     try {
-        const jsonResponse = await getAzureChatAIRequest(options);
+        let jsonResponse: string | null = await getAzureChatAIRequest(options);
+        jsonResponse = (jsonResponse as string).replace('```mermaid', '').replace('```', '');
         diagram.loadDiagramFromMermaid(jsonResponse as string);
         hideLoading();
 

@@ -33,21 +33,6 @@
     content: '\e725';
   }
   
-  .e-export::before {
-    content: '\e711';
-  }
-  
-  .material .e-export::before {
-    content: '\e706';
-  }
-  
-  .bootstrap .e-export::before {
-    content: '\e71e';
-  }
-  
-  .e-file-select-wrap {
-    display: none;
-  }
   
   /* Toolbar width */
   .db-toolbar-editor {
@@ -116,7 +101,7 @@
     font-size: 14px;
     color: #000;
   }
-  .e-menu-caret-icon .e-caret {
+  #aiMindMap .e-menu-caret-icon .e-caret {
     display: none !important;
   }
   
@@ -186,11 +171,11 @@
     content: "\e75d";
   }
   
-  .e-toolbar-left,
-  .e-toolbar-right {
-    padding-top: 3px !important;
-  }
-  
-  .e-menu-wrapper ul .e-menu-item.e-menu-caret-icon {
+  #aiMindMap .e-menu-wrapper ul .e-menu-item.e-menu-caret-icon {
     padding-right: 10px !important;
   }
+
+  #closeIconDiv:hover {
+      padding: 3px;
+      background-color: #b4ac61;
+    }

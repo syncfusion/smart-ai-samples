@@ -40,7 +40,8 @@ let treeData: { [key: string]: Object }[] = [
   {
     id: '5', name: 'Diagram', url: '', subItems: [
       { id: '/diagram/text-to-flowchart/index.html', name: 'Text to Flowchart' },
-      { id: '/diagram/text-to-mindmap/index.html', name: 'Text to Mindmap' },
+      { id: '/diagram/text-to-mindmap/index.html', name: 'Text to Mind Map' },
+      { id: '/diagram/text-to-umlSequenceDiagram/index.html', name: 'Text to UML Sequence' },
     ]
   },
   {

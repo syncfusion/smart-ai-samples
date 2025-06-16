@@ -1,10 +1,8 @@
-<h4 style="text-align: center;">Text To Flowchart</h4>
+<h4 style="text-align: center;">Text To UML Sequence Diagram</h4>
 <div class="description-container e-card">
-    <div class='e-card-content '>
+    <div class='e-card-content'>
         <p>
-            This demo illustrates how the Angular Diagram Component, enhanced with AI, creates flowcharts with nodes and
-            connectors. It visually represents processes, workflows, and decision paths, offering a clear and
-            interactive way to map procedures.
+            This demo illustrates how the Angular Diagram Component, enhanced with AI, generates UML Sequence Diagrams to depict object interactions in a timeline. It offers a dynamic representation of system behaviors showing the sequence of message exchanges.
         </p>
     </div>
 </div>
@@ -49,36 +47,10 @@
                 </ejs-toolbar>
             </div>
         </div>
-        <div class="sb-mobile-palette-bar">
-            <div id="palette-icon" role="button" class="e-ddb-icons1 e-toggle-palette"></div>
-        </div>
-        <div style="margin-top: 5px;border-top: 0.5px solid #b0b0b0;" id="palette-space" class="sb-mobile-palette">
-            <ejs-symbolpalette id="symbolpalette" [expandMode]="'Multiple'" [palettes]="palettes" [width]="'100%'"
-                [height]="'900px'" [symbolHeight]="60" [symbolWidth]="60"
-                [symbolMargin]="{ left: 15, right: 15, top: 15, bottom: 15 }" [getNodeDefaults]="getSymbolDefaults"
-                [getSymbolInfo]="getSymbolInfo">
-            </ejs-symbolpalette>
-        </div>
-        <div style="margin-top: 5px;border: 0.5px solid #b0b0b0;" id="diagram-space" class="sb-mobile-diagram">
-            <ejs-diagram #diagram id="diagram" width="100%" height="900px" [rulerSettings]="{ showRulers: true }"
-                [tool]="diagramTools" [snapSettings]="{ horizontalGridlines: gridlines, verticalGridlines: gridlines }"
-                [scrollSettings]="{ scrollLimit: 'Infinity' }" [layout]="{
-    type: 'Flowchart',
-    orientation: 'TopToBottom',
-    flowchartLayoutSettings: {
-      yesBranchDirection: 'LeftInFlow',
-      noBranchDirection: 'RightInFlow',
-      yesBranchValues: ['Yes', 'True'],
-      noBranchValues: ['No', 'False']
-    },
-    verticalSpacing: 50,
-    horizontalSpacing: 50
-  }" [dataSourceSettings]="{
-    id: 'id',
-    parentId: 'parentId',
-    dataManager: dataManager
-  }" (scrollChange)="onScrollChange($event)" [getNodeDefaults]="getNodeDefaults"
-                [getConnectorDefaults]="getConnectorDefaults" (dragEnter)="dragEnter($event)">
+        <div style="margin-top: 5px;border: 0.5px solid #b0b0b0;">
+            <ejs-diagram #diagram id="diagram" width="100%" height="900px"
+                [tool]="diagramTools" [snapSettings]="snapSettings" (created)="diagramCreated()"
+                [getNodeDefaults]="getNodeDefaults" (scrollChange)="onScrollChange($event)">
             </ejs-diagram>
         </div>
     </div>
@@ -88,28 +60,28 @@
             showCloseIcon='true' isModal='true' [visible]='false' [width]="'540px'" [height]="'310px'">
             <p style="margin-bottom: 10px; font-weight: bold;">Suggested Prompts</p>
 
-            <button ejs-button id="btn2" (click)="onBtnClick('Flowchart for online shopping')"
+            <button ejs-button id="btn1" (click)="onBtnClick('Sequence Diagram for ATM Transaction Process')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
-                Flowchart for online shopping
+                Sequence Diagram for ATM Transaction Process
             </button>
 
-            <button ejs-button id="btn1" 
-                (click)="onBtnClick('Flowchart for Mobile banking registration')"
+            <button ejs-button id="btn2" 
+                (click)="onBtnClick('Sequence Diagram for User Authentication and Authorization')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
-                Flowchart for Mobile banking registration
+                Sequence Diagram for User Authentication and Authorization
             </button>
 
-            <button ejs-button id="btn3" (click)="onBtnClick('Flowchart for Bus ticket booking')"
+            <button ejs-button id="btn3" (click)="onBtnClick('Sequence Diagram for Medical Appointment Scheduling')"
                 style="flex: 1; overflow: visible; border-radius: 8px; margin-bottom: 10px">
-                Flowchart for Bus ticket booking
+                Sequence Diagram for Medical Appointment Scheduling
             </button>
 
             <div style="display: flex; align-items: center; margin-top: 20px;">
                 <ejs-textbox #textBox id="textBox" placeholder="Please enter your prompt here..." style="flex: 1;"
                     (input)="onTextBoxChange($event)"></ejs-textbox>
 
-                <button #dbSend ejs-button id="#dbSend" (click)="onSendClick()" disabled="true" iconCss='e-icons e-send' cssClass="e-primary"
-                    style="margin-left: 2px; height: 32px; width:32px;padding-top: 4px;padding-left: 6px;"></button>
+                <button #dbSend ejs-button id="dbSend" (click)="onSendClick()" disabled="true" iconCss='e-icons e-send' cssClass="e-primary"
+                    style="margin-left: 2px; height: 32px;width:32px;padding-top: 4px;padding-left: 6px;"></button>
             </div>
         </ejs-dialog>
     </div>
@@ -119,6 +91,6 @@
     <!-- Loading indicator container -->
     <div id="loadingContainer" class="loading-container">
         <div class="loading-indicator"></div>
-        <div class="loading-text">Generating Flowchart...</div>
+        <div class="loading-text">Generating UML Sequence Diagram...</div>
     </div>
 </div>

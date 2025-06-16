@@ -15,6 +15,7 @@ import Maps from './ai-components/ai-maps/ai-weather-prediction.vue'
 import ImageEditor from './ai-components/ai-image-editor/ai-smart-image-editor.vue'
 import DiagramFlowChart from './ai-components/ai-diagram/ai-text-to-flowchart.vue';
 import DiagramMindmap from './ai-components/ai-diagram/ai-mindmap.vue';
+import DiagramUMLSequence from './ai-components/ai-diagram/ai-umlSequenceDiagram.vue';
 import DocumentSmart from './ai-components/ai-document-editor/ai-smart-editor.vue';
 import DocumentAssist from './ai-components/ai-document-editor/ai-writing-assist.vue';
 import SmartKanban from './ai-components/ai-kanban/ai-smart-kanban.vue'
@@ -44,6 +45,11 @@ const routes = [
         path: '/DiagramMindmap',
         name: 'DiagramMindmap',
         component: DiagramMindmap
+    },
+      {
+        path: '/DiagramUMLSequence',
+        name: 'DiagramUMLSequence',
+        component: DiagramUMLSequence
     },
     {
         path: '/DocumentSmart',

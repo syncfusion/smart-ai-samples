@@ -38,7 +38,6 @@
   }
   
   
-  
   /* Toolbar width */
   .db-toolbar-editor {
     width: 100%;
@@ -69,11 +68,6 @@
     fill: #0345fc;
     /* Change this to your desired hover color */
   }
-  
-  .e-toolbar-left,
-  .e-toolbar-right {
-    padding-top: 3px !important;
-  }
 
   
   /* Center the loading indicator and text */
@@ -99,7 +93,8 @@
     margin: 0 auto;
   }
   
-   /* Spin animation */
+  
+  /* Spin animation */
   @keyframes spin {
     0% {
       transform: rotate(0deg);

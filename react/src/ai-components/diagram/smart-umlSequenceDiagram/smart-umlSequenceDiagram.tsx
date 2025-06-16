@@ -1,25 +1,21 @@
 import {
-    DiagramComponent, NodeModel, ConnectorModel,
-    SymbolInfo, IDragEnterEventArgs, GridlinesModel, PaletteModel, Node,
-    DataBinding, PrintAndExport, FlowchartLayout, Inject,
-    SymbolPaletteComponent
+    DiagramComponent, NodeModel, PrintAndExport, Inject,
+    DiagramTools, FileFormats,
+    IExportOptions, IScrollChangeEventArgs
 } from '@syncfusion/ej2-react-diagrams';
-import {
-    Connector, DiagramTools, FileFormats, FlowShapeModel,
-    IExportOptions, IScrollChangeEventArgs, PathAnnotationModel
-} from '@syncfusion/ej2-react-diagrams';
+import { UmlSequenceParticipant, UmlSequenceFragment,} from '@syncfusion/ej2-diagrams';
 import { ButtonComponent, FabComponent } from '@syncfusion/ej2-react-buttons';
-import { DataManager } from "@syncfusion/ej2-data";
-import { convertTextToFlowchart } from './ai-flowchart';
-import { flowchartData, flowShapes, exportItems, zoomMenuItems, connectorSymbols } from './datasource';
+import { convertTextToUmlSequenceDiagram } from './ai-umlSequenceDiagram';
+import { sequenceModel, exportItems, zoomMenuItems } from './datasource';
 import { ClickEventArgs, ItemDirective, ItemsDirective, ToolbarComponent } from '@syncfusion/ej2-react-navigations';
 import { DropDownButtonComponent, MenuEventArgs } from '@syncfusion/ej2-react-splitbuttons';
 import { InputEventArgs, TextBoxComponent, UploaderComponent } from '@syncfusion/ej2-react-inputs';
 import { DialogComponent } from '@syncfusion/ej2-react-popups';
 import { useEffect } from 'react';
-import './smart-flowchart.css';
+import './smart-umlSequenceDiagram.css';
+import { from } from 'form-data';
 
-function SmartFlowchart() {
+function SmartUmlSequenceDiagram() {
     let diagram: DiagramComponent;
     let dialog: DialogComponent;
     let msgBtn1: ButtonComponent;
@@ -33,50 +29,11 @@ function SmartFlowchart() {
             if (event.key === 'Enter' && document.activeElement === textBox.element) {
                 if (textBox.value !== '') {
                     dialog.hide();
-                    convertTextToFlowchart(textBox.value, diagram);
+                    convertTextToUmlSequenceDiagram(textBox.value, diagram);
                 }
             }
         });
     }, []);
-    //Sets the Node style for DragEnter element.
-    function dragEnter(args: IDragEnterEventArgs): void {
-        let obj: NodeModel = args.element as NodeModel;
-        if (obj instanceof Node) {
-            let oWidth: number = obj.width;
-            let oHeight: number = obj.height;
-            let ratio: number = 100 / obj.width;
-            obj.width = 100;
-            obj.height *= ratio;
-            obj.offsetX += (obj.width - oWidth) / 2;
-            obj.offsetY += (obj.height - oHeight) / 2;
-            obj.style = { fill: '#357BD2', strokeColor: 'white' };
-        }
-    }
-
-    function getSymbolDefaults(symbol: NodeModel): void {
-        symbol.style = { strokeColor: '#757575' };
-        const wideSymbols = new Set(['Terminator', 'Process', 'Delay']);
-        const mediumSymbols = new Set(['Decision', 'Document', 'PreDefinedProcess', 'PaperTap', 'DirectData', 'MultiDocument', 'Data']);
-        if (wideSymbols.has((symbol as Node).id)) {
-            symbol.width = 80;
-            symbol.height = 40;
-        } else if (mediumSymbols.has((symbol as Node).id)) {
-            symbol.width = 50;
-            symbol.height = 40;
-        } else {
-            symbol.width = 50;
-            symbol.height = 50;
-        }
-    }
-
-    function getSymbolInfo(): SymbolInfo {
-        return { fit: true };
-    }
-    let interval: number[] = [
-        1, 9, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75
-    ];
-
-    let gridlines: GridlinesModel = { lineColor: '#e0e0e0', lineIntervals: interval };
 
     function printDiagram() {
         let options: IExportOptions = {};
@@ -165,7 +122,9 @@ function SmartFlowchart() {
         reader.onloadend = loadDiagram;
     }
     function loadDiagram(event: any) {
+        diagram.model = {fragments:[],messages:[],participants:[]};
         diagram.loadDiagram(event.target.result);
+        diagram.fitToPage();
     }
 
 
@@ -185,11 +144,6 @@ function SmartFlowchart() {
         }
     }
 
-    let palettes: PaletteModel[] = [
-        { id: 'flow', expanded: true, symbols: flowShapes, iconCss: 'e-ddb-icons e-flow', title: 'Flow Shapes' },
-        { id: 'connectors', expanded: true, symbols: connectorSymbols, iconCss: 'e-ddb-icons e-connector', title: 'Connectors' }
-    ];
-
     function onTextBoxChange(args: InputEventArgs) {
         if (args.value !== '') {
             sendButton.disabled = false;
@@ -202,38 +156,43 @@ function SmartFlowchart() {
         return (
             <>
                 <p style={{ marginBottom: '10px', fontWeight: 'bold' }}>Suggested Prompts</p>
+                <ButtonComponent ref={(btn1: ButtonComponent) => msgBtn1 = btn1 as ButtonComponent}
+                    onClick={() => {
+                        dialog.hide();
+                        convertTextToUmlSequenceDiagram('Sequence Diagram for ATM Transaction Process', diagram);
+                    }}
+                    id="btn1" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}
+                >Sequence Diagram for ATM Transaction Process</ButtonComponent>
+
                 <ButtonComponent
-                    ref={btn2 => msgBtn2 = btn2 as ButtonComponent}
+                    ref={(btn2: ButtonComponent) => msgBtn2 = btn2 as ButtonComponent}
                     id="btn2" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}
                     onClick={() => {
                         dialog.hide();
-                        convertTextToFlowchart('Flowchart for online shopping', diagram);
+                        convertTextToUmlSequenceDiagram('Sequence Diagram for User Authentication and Authorization', diagram);
                     }}
-                >Flowchart for online shopping</ButtonComponent>
-                <ButtonComponent ref={btn1 => msgBtn1 = btn1 as ButtonComponent}
-                    onClick={() => {
-                        dialog.hide();
-                        convertTextToFlowchart('Flowchart for Mobile banking registration', diagram);
-                    }}
-                    id="btn1" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}>Flowchart for Mobile banking registration</ButtonComponent>
+                >Sequence Diagram for User Authentication and Authorization</ButtonComponent>
+                
                 <ButtonComponent
-                    ref={btn3 => msgBtn3 = btn3 as ButtonComponent}
+                    ref={(btn3: ButtonComponent) => msgBtn3 = btn3 as ButtonComponent}
                     onClick={() => {
                         dialog.hide();
-                        convertTextToFlowchart('Flowchart for Bus ticket booking', diagram);
+                        convertTextToUmlSequenceDiagram('Sequence Diagram for Medical Appointment Scheduling', diagram);
                     }}
-                    id="btn3" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}>Flowchart for Bus ticket booking</ButtonComponent>
+                    id="btn3" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}
+                >Sequence Diagram for Medical Appointment Scheduling</ButtonComponent>
+                
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
                     <TextBoxComponent type="text" id="textBox" className="db-openai-textbox" style={{ flex: 1 }}
-                        ref={textboxObj => textBox = textboxObj as TextBoxComponent}
+                        ref={(textboxObj: TextBoxComponent) => textBox = textboxObj as TextBoxComponent}
                         placeholder='Please enter your prompt here...' width={450} input={onTextBoxChange}
                     />
                     <ButtonComponent id="db-send"
-                        ref={btn => sendButton = btn as ButtonComponent}
+                        ref={(btn: ButtonComponent) => sendButton = btn as ButtonComponent}
                         onClick={() => {
                             if (textBox.value) {
-                                dialog.hide();
-                                convertTextToFlowchart(textBox.value, diagram)
+                            dialog.hide();
+                            convertTextToUmlSequenceDiagram(textBox.value, diagram)
                             }
                         }}
                         iconCss='e-icons e-send' isPrimary={true} disabled={false}
@@ -248,7 +207,7 @@ function SmartFlowchart() {
             <div className="description-container e-card">
                 <div className='e-card-content'>
                     <p>
-                        This demo demonstrates how the React Diagram Component, enhanced with AI, creates flowcharts using nodes and connectors. It visually represents processes, workflows, and decision paths, providing a clear and interactive way to map out procedures.
+                        This demo illustrates how the JavaScript Diagram Component, enhanced with AI, generates UML Sequence Diagrams representing object interactions in a time sequence. It visually depicts object collaborations and message exchanges, providing a clear and interactive means to model dynamic behaviors in systems.
                         Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/react/src/ai-components/diagram/Readme.md">here</a>.
                     </p>
                 </div>
@@ -296,49 +255,26 @@ function SmartFlowchart() {
                             </ToolbarComponent>
                         </div>
                     </div>
-                    <div className="sb-mobile-palette-bar">
-                        <div id="palette-icon" role="button" className="e-ddb-icons1 e-toggle-palette"></div>
-                    </div>
-                    <div id="palette-space" className="sb-mobile-palette">
-                        <SymbolPaletteComponent
-                            id="symbolpalette"
-                            expandMode="Multiple"
-                            palettes={palettes}
-                            width="100%"
-                            height="900px"
-                            symbolHeight={60}
-                            symbolWidth={60}
-                            symbolMargin={{ left: 15, right: 15, top: 15, bottom: 15 }}
-                            getNodeDefaults={getSymbolDefaults}
-                            getSymbolInfo={getSymbolInfo}
-                        />
-                    </div>
-                    <div id="diagram-space" className="sb-mobile-diagram">
+                    <div style={{ marginTop: '5px', marginLeft: '5px', marginRight: '5px', border: '1px solid #b0b0b0' }}>
                         <DiagramComponent
-                            ref={diagramObj => diagram = diagramObj as DiagramComponent}
+                            ref={(diagramObj: DiagramComponent) => diagram = diagramObj as DiagramComponent}
                             id="diagram"
                             width="100%"
                             height="900px"
-                            rulerSettings={{ showRulers: true }}
-                            tool={DiagramTools.Default}
-                            snapSettings={{ horizontalGridlines: gridlines, verticalGridlines: gridlines }}
-                            scrollSettings={{ scrollLimit: 'Infinity' }}
-                            layout={{
-                                type: 'Flowchart',
-                                orientation: 'TopToBottom',
-                                flowchartLayoutSettings: {
-                                    yesBranchDirection: 'LeftInFlow',
-                                    noBranchDirection: 'RightInFlow',
-                                    yesBranchValues: ['Yes', 'True'],
-                                    noBranchValues: ['No', 'False']
-                                },
-                                verticalSpacing: 50,
-                                horizontalSpacing: 50
-                            } as any}
-                            dataSourceSettings={{
-                                id: 'id',
-                                parentId: 'parentId',
-                                dataManager: new DataManager(flowchartData)
+                            tool={DiagramTools.ZoomPan}
+                            model={sequenceModel}
+                            getNodeDefaults={(node: NodeModel) => {
+                                // participant node
+                                if (node.data instanceof UmlSequenceParticipant) {
+                                    if (!((node.data as any).isActor)) {
+                                        if (node.annotations && node.annotations[0] && node.annotations[0].style) {
+                                            node.annotations[0].style.color = 'white';
+                                        }
+                                    }
+                                }    // fragment node
+                                else if (node.data instanceof UmlSequenceFragment) {
+                                    node.style = { strokeColor: 'cornflowerblue' };
+                                }
                             }}
                             scrollChange={(args: IScrollChangeEventArgs) => {
                                 if (args.panState !== 'Start') {
@@ -346,33 +282,14 @@ function SmartFlowchart() {
                                     zoomCurrentValue.content = Math.round(diagram.scrollSettings.currentZoom! * 100) + ' %';
                                 }
                             }}
-                            getNodeDefaults={(node: NodeModel): NodeModel => {
-                                if (node.width === undefined) {
-                                    node.width = 150;
-                                    node.height = 50;
-                                }
-                                if ((node.shape as FlowShapeModel).type === 'Flow' && (node.shape as FlowShapeModel).shape === 'Decision') {
-                                    node.width = 120;
-                                    node.height = 100;
-                                }
-                                return node;
-                            }}
-                            getConnectorDefaults={(connector: Connector): ConnectorModel => {
-                                connector.type = 'Orthogonal';
-                                if (connector.annotations && connector.annotations.length > 0) {
-                                    (connector.annotations as PathAnnotationModel[])[0]!.style!.fill = 'white';
-                                }
-                                return connector;
-                            }}
-                            dragEnter={dragEnter}
                         >
-                            <Inject services={[DataBinding, PrintAndExport, FlowchartLayout]} />
+                            <Inject services={[PrintAndExport]} />
                         </DiagramComponent>
                     </div>
                 </div>
                 <div id='dialog-container'>
                     <DialogComponent
-                        ref={dialogObj => dialog = dialogObj as DialogComponent}
+                        ref={(dialogObj: DialogComponent) => dialog = dialogObj as DialogComponent}
                         id='dialog'
                         header='<span class="e-icons e-assistview-icon" style="color: black;width:20px; font-size: 16px;"></span> AI Assist'
                         showCloseIcon={true}
@@ -392,11 +309,11 @@ function SmartFlowchart() {
                 {/* Loading indicator container */}
                 <div id="loadingContainer" className="loading-container">
                     <div className="loading-indicator"></div>
-                    <div className="loading-text">Generating Flowchart...</div>
+                    <div className="loading-text">Generating Sequence Diagram...</div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
 
-export default SmartFlowchart
+export default SmartUmlSequenceDiagram

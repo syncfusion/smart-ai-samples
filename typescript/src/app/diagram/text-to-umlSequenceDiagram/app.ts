@@ -1,88 +1,37 @@
 
 /**
- * Default FlowShape sample
+ * Default Uml Sequence Diagram sample
  */
-
-import {
-  Diagram, NodeModel, ConnectorModel, SymbolPalette,
-  SymbolInfo, IDragEnterEventArgs, GridlinesModel, PaletteModel, Node, FlowchartLayout
-} from '@syncfusion/ej2-diagrams';
 import { Button, Fab } from '@syncfusion/ej2/buttons';
-import { DataManager } from '@syncfusion/ej2/data';
-import { Connector, DataBinding, DiagramTools, FileFormats, FlowShapeModel, IExportOptions, IScrollChangeEventArgs, PathAnnotationModel, PrintAndExport } from '@syncfusion/ej2/diagrams';
+import { Diagram, SnapConstraints, NodeModel, UmlSequenceParticipant, UmlSequenceFragment, DiagramTools, FileFormats, IExportOptions, IScrollChangeEventArgs, PrintAndExport } from '@syncfusion/ej2/diagrams';
 import { InputEventArgs, TextBox, Uploader } from '@syncfusion/ej2/inputs';
 import { ClickEventArgs, ItemModel, Toolbar } from '@syncfusion/ej2/navigations';
 import { createSpinner, Dialog } from '@syncfusion/ej2/popups';
 import { DropDownButton, MenuEventArgs } from '@syncfusion/ej2/splitbuttons';
-import { convertTextToFlowchart } from './ai-flowchart';
-import { flowchartData, toolbarItems, flowShapes, exportItems, zoomMenuItems, connectorSymbols } from './dataSource'
-Diagram.Inject(DataBinding, PrintAndExport, FlowchartLayout);
-
-
-//Sets the Node style for DragEnter element.
-function dragEnter(args: IDragEnterEventArgs): void {
-  let obj: NodeModel = args.element as NodeModel;
-  if (obj instanceof Node) {
-    let oWidth: number = obj.width;
-    let oHeight: number = obj.height;
-    let ratio: number = 100 / obj.width;
-    obj.width = 100;
-    obj.height *= ratio;
-    obj.offsetX += (obj.width - oWidth) / 2;
-    obj.offsetY += (obj.height - oHeight) / 2;
-    obj.style = { fill: '#357BD2', strokeColor: 'white' };
-  }
-}
-
-function getSymbolDefaults(symbol: NodeModel): void {
-  symbol.style = { strokeColor: '#757575' };
-  const wideSymbols = new Set(['Terminator', 'Process', 'Delay']);
-  const mediumSymbols = new Set(['Decision', 'Document', 'PreDefinedProcess', 'PaperTap', 'DirectData', 'MultiDocument', 'Data']);
-  if (wideSymbols.has((symbol as Node).id)) {
-    symbol.width = 80;
-    symbol.height = 40;
-  } else if (mediumSymbols.has((symbol as Node).id)) {
-    symbol.width = 50;
-    symbol.height = 40;
-  } else {
-    symbol.width = 50;
-    symbol.height = 50;
-  }
-}
-
-function getSymbolInfo(): SymbolInfo {
-  return { fit: true };
-}
-let interval: number[] = [
-  1, 9, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75, 0.25, 9.75
-];
-
-let gridlines: GridlinesModel = { lineColor: '#e0e0e0', lineIntervals: interval };
-
-
-let diagram: Diagram | any;
+import { convertTextToUmlSequenceDiagram } from './ai-Umlsequencediagram';
+import { sequenceModel, toolbarItems, exportItems, zoomMenuItems } from './dataSource'
+Diagram.Inject(PrintAndExport);
 
 //Initializes diagram control
-diagram = new Diagram({
+let diagram: Diagram | any = new Diagram({
   width: '100%', height: '900px',
-  rulerSettings: { showRulers: true },
-  tool: DiagramTools.Default,
-  snapSettings: { horizontalGridlines: gridlines, verticalGridlines: gridlines },
-  scrollSettings: { scrollLimit: 'Infinity' },
-  layout: {
-    type: 'Flowchart',
-    orientation: 'TopToBottom',
-    flowchartLayoutSettings: {
-      yesBranchDirection: 'LeftInFlow', noBranchDirection: 'RightInFlow', yesBranchValues: ['Yes', 'True'], noBranchValues: ['No', 'False']
-    },
-    verticalSpacing: 50,
-    horizontalSpacing: 50
-  } as any,
-  // rulerSettings:{showRulers:true},
-  dataSourceSettings: {
-    id: 'id',
-    parentId: 'parentId',
-    dataManager: new DataManager(flowchartData)
+  tool: DiagramTools.ZoomPan,
+  snapSettings: { constraints: SnapConstraints.None },
+  model: sequenceModel,
+  // Define default properties for nodes used in the diagram
+  getNodeDefaults: (node: NodeModel) => {
+    // participant node
+    if (node.data instanceof UmlSequenceParticipant) {
+      if (!node.data.isActor) {
+        if (node.annotations && node.annotations[0] && node.annotations[0].style) {
+          node.annotations[0].style.color = 'white';
+        }
+      }
+    }
+    // fragment node
+    else if (node.data instanceof UmlSequenceFragment) {
+      node.style = { strokeColor: 'cornflowerblue' };
+    }
   },
   scrollChange: function (args: IScrollChangeEventArgs) {
     if (args.panState !== 'Start') {
@@ -90,30 +39,6 @@ diagram = new Diagram({
       zoomCurrentValue.content = Math.round(diagram.scrollSettings.currentZoom * 100) + ' %';
     }
   },
-  //Sets the default values of a node
-  getNodeDefaults: function (node: NodeModel): NodeModel {
-    if (node.width === undefined) {
-      node.width = 150;
-      node.height = 50;
-      ((node as Node).annotations[0] as any).width = node.width - 20;
-      ((node as Node).annotations[0] as any).style = { color: 'black' }
-    } if ((node.shape as FlowShapeModel).type === 'Flow' && (node.shape as FlowShapeModel).shape === 'Decision') {
-      node.width = 120;
-      node.height = 100;
-    }
-    return node;
-  },
-  //Sets the default values of a connector
-  getConnectorDefaults: function (connector: Connector): ConnectorModel {
-    connector.type = 'Orthogonal';
-    if (connector.annotations && connector.annotations.length > 0) {
-      (connector.annotations as PathAnnotationModel[])[0]!.style!.fill = 'white';
-    }
-    return connector;
-
-  },
-  //Sets the Node style for DragEnter element.
-  dragEnter: dragEnter,
 });
 diagram.appendTo('#diagram');
 
@@ -237,7 +162,9 @@ function onUploadSuccess(args: any) {
   reader.onloadend = loadDiagram;
 }
 function loadDiagram(event: any) {
+  diagram.model = {fragments:[],messages:[],participants:[]};
   diagram.loadDiagram(event.target.result);
+  diagram.fitToPage();
 }
 
 
@@ -257,20 +184,6 @@ function download(data: string) {
   }
 }
 
-let palettes: PaletteModel[] = [
-  { id: 'flow', expanded: true, symbols: flowShapes, iconCss: 'e-ddb-icons e-flow', title: 'Flow Shapes' },
-  { id: 'connectors', expanded: true, symbols: connectorSymbols, iconCss: 'e-ddb-icons e-connector', title: 'Connectors' }
-];
-//Initializes the symbol palette
-
-let palette: SymbolPalette = new SymbolPalette({
-  expandMode: 'Multiple', palettes: palettes,
-  width: '100%', height: '900px', symbolHeight: 60, symbolWidth: 60,
-  symbolMargin: { left: 15, right: 15, top: 15, bottom: 15 },
-  getNodeDefaults: getSymbolDefaults, getSymbolInfo: getSymbolInfo
-});
-palette.appendTo('#symbolpalette');
-
 // Dialog
 
 let dialog: Dialog = new Dialog({
@@ -278,9 +191,9 @@ let dialog: Dialog = new Dialog({
   showCloseIcon: true,
   isModal: true,
   content: `<p style="margin-bottom: 10px;font-weight:bold;">Suggested Prompts</p>
-    <button id="btn2" style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;">Flowchart for online shopping</button>
-    <button id="btn1" style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;">Flowchart for Mobile banking registration</button>
-    <button id="btn3" style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;">Flowchart for Bus ticket booking</button>
+    <button id="btn1" style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;">Sequence Diagram for ATM Transaction Process</button>
+    <button id="btn2" style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;">Sequence Diagram for User Authentication and Authorization</button>
+    <button id="btn3" style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;">Sequence Diagram for Medical Appointment Scheduling</button>
     <div style="display: flex; align-items: center; margin-top: 20px;">
     <input type="text" id="textBox" class="db-openai-textbox" style="flex: 1;" />
     <button id="db-send" style="margin-left: 5px; height: 32px; width: 32px;padding:0px;"></button>
@@ -313,7 +226,7 @@ let [msgBtn1, msgBtn2, msgBtn3] = buttonIds.map(id => document.getElementById(id
 
 (document.getElementById('db-send') as HTMLInputElement).onclick = () => {
   dialog.hide();
-  convertTextToFlowchart(textBox.value, diagram)
+  convertTextToUmlSequenceDiagram(textBox.value, diagram)
 }
 
 function onTextBoxChange(args: InputEventArgs) {
@@ -326,29 +239,29 @@ function onTextBoxChange(args: InputEventArgs) {
 
 msgBtn1.onclick = () => {
   dialog.hide();
-  convertTextToFlowchart(msgBtn1.innerText, diagram);
+  convertTextToUmlSequenceDiagram(msgBtn1.innerText, diagram);
 }
 msgBtn2.onclick = () => {
   dialog.hide();
-  convertTextToFlowchart(msgBtn2.innerText, diagram);
+  convertTextToUmlSequenceDiagram(msgBtn2.innerText, diagram);
 
 }
 msgBtn3.onclick = () => {
   dialog.hide();
-  convertTextToFlowchart(msgBtn3.innerText, diagram);
+  convertTextToUmlSequenceDiagram(msgBtn3.innerText, diagram);
 }
 // Add keypress event listener to the document
 document.addEventListener('keypress', function (event) {
   if (event.key === 'Enter' && document.activeElement === textBox.element) {
     if (textBox.value !== '') {
       dialog.hide();
-      convertTextToFlowchart(textBox.value, diagram);
+      convertTextToUmlSequenceDiagram(textBox.value, diagram);
     }
   }
 });
 
 createSpinner({
   target: document.getElementById('loadingContainer') as HTMLDivElement,
-  type: 'Bootstrap', label: 'Generating Flowchart...'
+  type: 'Bootstrap', label: 'Generating Sequence Diagram...'
 
 });
