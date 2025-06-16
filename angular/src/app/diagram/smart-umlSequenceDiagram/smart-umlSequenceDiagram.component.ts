@@ -186,7 +186,9 @@ export class SmartUmlSequenceDiagramComponent {
     let reader = new FileReader();
     reader.readAsText(args.file.rawFile);
     reader.onloadend = (event: any) => {
+      this.diagram.model = {fragments:[],messages:[],participants:[]};
       this.diagram.loadDiagram(event.target.result);
+      this.diagram.fitToPage();
     };
   }
 

@@ -122,7 +122,9 @@ function SmartUmlSequenceDiagram() {
         reader.onloadend = loadDiagram;
     }
     function loadDiagram(event: any) {
+        diagram.model = {fragments:[],messages:[],participants:[]};
         diagram.loadDiagram(event.target.result);
+        diagram.fitToPage();
     }
 
 

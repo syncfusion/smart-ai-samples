@@ -257,8 +257,10 @@ export default {
             reader.onloadend = this.loadDiagram;
         },
         loadDiagram: function (event: any) {
-            const diagram = this.$refs.diagram;
+            const diagram = this.$refs.diagram.ej2Instances;
+            diagram.model = {fragments:[],messages:[],participants:[]};
             diagram.loadDiagram(event.target.result);
+            diagram.fitToPage();
         },
         download: function (data: string) {
             if ((window.navigator as any).msSaveBlob) {
@@ -363,6 +365,7 @@ export default {
             try {
                 let jsonResponse = await getAzureChatAIRequest(options);
                 jsonResponse = jsonResponse.replace('```mermaid', '').replace('```', '');
+                diagram.model = {fragments:[],messages:[],participants:[]};
                 diagram.loadDiagramFromMermaid(jsonResponse);
                 this.hideLoading();
 

@@ -80,6 +80,7 @@ export async function convertTextToUmlSequenceDiagram(inputText: string, diagram
 
     try {
         const jsonResponse = await getAzureChatAIRequest(options);
+        diagram.model = {fragments:[],messages:[],participants:[]};
         diagram.loadDiagramFromMermaid(jsonResponse as string);
         diagram.dataBind();
         hideLoading();
