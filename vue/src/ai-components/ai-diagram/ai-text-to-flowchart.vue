@@ -1,6 +1,6 @@
 <template>
     <div id="desc-container">
-        <h4 style="text-align: center;">Text To Flow Chart</h4>
+        <h4 style="text-align: center;">Text To Flowchart</h4>
         <div class="description-container e-card">
             <div class='e-card-content '>
                 <p>
@@ -683,13 +683,6 @@ export default {
     content: '\e711';
 }
 
-.material .e-export::before {
-    content: '\e706';
-}
-
-.bootstrap .e-export::before {
-    content: '\e71e';
-}
 
 /* Toolbar width */
 .db-toolbar-editor {

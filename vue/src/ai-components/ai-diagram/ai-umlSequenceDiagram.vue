@@ -56,17 +56,17 @@
                         <p style="margin-bottom: 10px;font-weight:bold;">Suggested Prompts</p>
                         <ejs-button id="btn1"
                             style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;"
-                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.value); }'>
+                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.innerText); }'>
                             Sequence Diagram for ATM Transaction Process
                         </ejs-button>
                         <ejs-button id="btn2"
                             style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;"
-                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.value); }'>
+                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.innerText); }'>
                             Sequence Diagram for User Authentication and Authorization
                         </ejs-button>
                         <ejs-button id="btn3"
                             style="flex: 1; overflow: visible; border-radius: 8px;margin-bottom: 10px;"
-                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.value); }'>
+                            @click='(e) => { $refs.dialog.hide(); convertTextToUmlSequenceDiagram(e.target.innerText); }'>
                             Sequence Diagram for Medical Appointment Scheduling
                         </ejs-button>
                         <div style="display: flex; align-items: center; margin-top: 20px;">
@@ -532,13 +532,6 @@ export default {
     content: '\e711';
 }
 
-.material .e-export::before {
-    content: '\e706';
-}
-
-.bootstrap .e-export::before {
-    content: '\e71e';
-}
 
 /* Toolbar width */
 .db-toolbar-editor {

@@ -237,16 +237,16 @@ function onTextBoxChange(args: InputEventArgs) {
 
 msgBtn1.onclick = () => {
   dialog.hide();
-  convertTextToUmlSequenceDiagram(msgBtn1.value, diagram);
+  convertTextToUmlSequenceDiagram(msgBtn1.innerText, diagram);
 }
 msgBtn2.onclick = () => {
   dialog.hide();
-  convertTextToUmlSequenceDiagram(msgBtn1.value, diagram);
+  convertTextToUmlSequenceDiagram(msgBtn2.innerText, diagram);
 
 }
 msgBtn3.onclick = () => {
   dialog.hide();
-  convertTextToUmlSequenceDiagram(msgBtn1.value, diagram);
+  convertTextToUmlSequenceDiagram(msgBtn3.innerText, diagram);
 }
 // Add keypress event listener to the document
 document.addEventListener('keypress', function (event) {

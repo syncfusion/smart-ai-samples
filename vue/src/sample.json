@@ -15,7 +15,7 @@
     "children": [
         { "id": 13, "name": "Text to Flowchart", "path": "/DiagramFlowChart" },
         { "id": 14, "name": "Text to Mind Map", "path": "/DiagramMindmap" },
-        { "id": 14, "name": "Text to UML Sequence", "path": "/DiagramUMLSequence" }
+        { "id": 28, "name": "Text to UML Sequence", "path": "/DiagramUMLSequence" }
     ] 
     },
 

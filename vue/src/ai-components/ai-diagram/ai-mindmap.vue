@@ -1483,14 +1483,6 @@ export default {
     content: '\e711';
 }
 
-.material .e-export::before {
-    content: '\e706';
-}
-
-.bootstrap .e-export::before {
-    content: '\e71e';
-}
-
 
 /* Toolbar width */
 .db-toolbar-editor {
