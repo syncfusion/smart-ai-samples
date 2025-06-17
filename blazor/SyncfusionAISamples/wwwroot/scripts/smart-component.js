@@ -436,3 +436,22 @@ window.preventTabDefault = function (textareaId, dotnetRef) {
 }
 
 /* Diagram scripts end */
+
+async function fingerPrint() {
+    try {
+        // Import FingerprintJS and load the agent
+        const FingerprintJS = await import('https://openfpcdn.io/fingerprintjs/v4');
+        const fp = await FingerprintJS.load();
+
+        // Get the visitor identifier
+        const result = await fp.get();
+        return result.visitorId;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+function showAlert(message) {
+    alert(message);
+}
