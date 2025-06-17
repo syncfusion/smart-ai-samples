@@ -62,7 +62,8 @@ namespace SyncfusionAISamples.Components.Layout
             SubMenu = new List<MenuItem>
             {
                 new MenuItem { Text = "Smart MindMap", Href = "diagram/mindmap" },
-                new MenuItem { Text = "Smart FlowChart", Href = "diagram/flowchart" }
+                new MenuItem { Text = "Smart FlowChart", Href = "diagram/flowchart" },
+                  new MenuItem { Text = "Smart Sequence", Href = "diagram/sequence" }
             }
         },
         new MenuItem

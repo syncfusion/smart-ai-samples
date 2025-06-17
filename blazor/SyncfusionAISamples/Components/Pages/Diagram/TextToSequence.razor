@@ -1,4 +1,4 @@
-﻿@page "/ai-diagram/text-to-sequence-diagram"
+﻿@page "/diagram/sequence"
 
 @using Syncfusion.Blazor.Diagram
 @using Syncfusion.Blazor.Diagram.SymbolPalette
@@ -13,14 +13,11 @@
 @using System.Text.RegularExpressions
 @namespace TextToSequenceDiagram
 
-@using BlazorDemos.Service
-@using BlazorDemos.Model
 @inject AzureAIService ChatGptService
 @implements IDisposable
 
 @inject IJSRuntime JS
 @*Hidden:Lines*@
-@inherits SampleBaseComponent
 @inject NavigationManager NavigationManager
 @*End:Hidden*@
 

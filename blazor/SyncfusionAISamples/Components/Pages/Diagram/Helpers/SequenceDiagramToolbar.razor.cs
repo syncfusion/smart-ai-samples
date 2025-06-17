@@ -1,9 +1,10 @@
-﻿using BlazorDemos.Model;
+﻿
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Syncfusion.Blazor.Diagram;
 using System;
 using System.Threading.Tasks;
+using SyncfusionAISamples.Models;
 using TextToSequenceDiagram;
 
 namespace TextToSequenceDiagram
