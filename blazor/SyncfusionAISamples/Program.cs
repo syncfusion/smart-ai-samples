@@ -1,6 +1,7 @@
 using FileManagerAI.Services;
 using SmartComponents.LocalEmbeddings;
 using Syncfusion.Blazor;
+using Syncfusion.Blazor.AI;
 using Syncfusion.Blazor.SmartComponents;
 using SyncfusionAISamples.Components;
 using SyncfusionAISamples.Service;
@@ -34,7 +35,7 @@ builder.Services.AddSyncfusionSmartComponents()
     .ConfigureCredentials(new AIServiceCredentials(apiKey, deploymentName, endpoint)) //Configuring credentials for AI functionality to work
     .InjectOpenAIInference(); // Injecting OpenAI Services
 
-builder.Services.AddSingleton<OpenAIConfiguration>();
+builder.Services.AddSingleton<SyncfusionAIService>();
 builder.Services.AddSingleton<AzureAIService>();
 #endregion
 

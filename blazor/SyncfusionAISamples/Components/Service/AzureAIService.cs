@@ -1,14 +1,15 @@
 ﻿using Microsoft.Extensions.AI;
+using Syncfusion.Blazor.AI;
 using Syncfusion.Blazor.SmartComponents;
 
 namespace SyncfusionAISamples.Service
 {
     public class AzureAIService
     {
-        private OpenAIConfiguration _openAIConfiguration;
+        private SyncfusionAIService _openAIConfiguration;
         private ChatParameters chatParameters_history = new ChatParameters();
 
-        public AzureAIService(OpenAIConfiguration openAIConfiguration)
+        public AzureAIService(SyncfusionAIService openAIConfiguration)
         {
             _openAIConfiguration = openAIConfiguration;
         }
@@ -44,7 +45,7 @@ namespace SyncfusionAISamples.Service
                         new ChatMessage(ChatRole.User,prompt)
                     };
                 }
-                var completion = await _openAIConfiguration.GetChatResponseAsync(chatParameters);
+                var completion = await _openAIConfiguration.GenerateResponseAsync(chatParameters);
                 if (appendPreviousResponse)
                 {
                     chatParameters_history?.Messages?.Add(new ChatMessage(ChatRole.Assistant, completion.ToString()));
