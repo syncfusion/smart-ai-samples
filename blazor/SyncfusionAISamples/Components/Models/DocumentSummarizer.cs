@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.AI;
 using SmartComponents.LocalEmbeddings;
+using Syncfusion.Blazor.AI;
 using Syncfusion.Blazor.SmartComponents;
 
 namespace SyncfusionAISamples.Models
@@ -12,9 +13,9 @@ namespace SyncfusionAISamples.Models
 
         private LocalEmbedder? Embedder;
 
-        private OpenAIConfiguration? OpenAIService;
+        private SyncfusionAIService? OpenAIService;
 
-        public DocumentSummarizer(LocalEmbedder embedder, OpenAIConfiguration azureAIService)
+        public DocumentSummarizer(LocalEmbedder embedder, SyncfusionAIService azureAIService)
         {
             Embedder = embedder;
             OpenAIService = azureAIService;
@@ -44,7 +45,7 @@ namespace SyncfusionAISamples.Models
                 foreach (var chunk in embed)
                 {
                     chatParameters.Messages.Add(new ChatMessage(ChatRole.User, chunk));
-                    var result = await OpenAIService.GetChatResponseAsync(chatParameters);
+                    var result = await OpenAIService.GenerateResponseAsync(chatParameters);
                     summaryResults.Add(result.ToString());
                     chatParameters.Messages.RemoveAt(chatParameters.Messages.Count - 1);
                 }
@@ -53,7 +54,7 @@ namespace SyncfusionAISamples.Models
             else
             {
                 chatParameters.Messages.Add(new ChatMessage(ChatRole.User, message));
-                var result = await OpenAIService.GetChatResponseAsync(chatParameters);
+                var result = await OpenAIService.GenerateResponseAsync(chatParameters);
                 return result.ToString();
             }
         }
