@@ -1,0 +1,182 @@
+﻿@page "/pivot/smart-pivot"
+
+@using Syncfusion.Blazor.PivotView
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Inputs
+
+@inject AzureAIService ChatGptService
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Notifications
+
+<title>Syncfusion - Smart Pivot Table</title>
+
+<h4 style="text-align:center;">Smart Pivot Table</h4>
+
+<div>
+    <Description>
+        <p>
+            The <b>Pivot</b>, enhanced with AI, offers features such as <b>Smart Data Aggregation</b>, <b>Predictive Modeling</b>, and <b>Adaptive Filtering</b>. Click the <mark><b>AI Assist</b></mark> option to explore these AI-powered capabilities.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAIWasmExamples/Components/Pages/PivotTable/Readme.md">here</a>.
+        </p>
+    </Description>
+    <div class="pivot-toast">
+    <SfToast ID="toast_default" @ref="ToastObj" Title="Server Busy" Content="@ToastContent" Timeout="5000" Icon="e-meeting">
+    <ToastPosition X="@ToastPosition"></ToastPosition>
+    </SfToast>
+    </div>  
+
+    <SfDialog Target="#PivotView" @ref="Dialog" CssClass="AI-dialog" MinHeight="200px" Height="500px" ShowCloseIcon="true" @bind-Visible="@Visibility">
+        <DialogTemplates>
+            <Header> <span class="e-icons e-ai-chat e-btn-icon e-icon-left"></span> AI Assistant </Header>
+            <Content>
+                <p>Pick a Suggested Query:</p>
+                <div class="chip-container">
+                    <SfChip ID="chip-choice" Selection="SelectionType.Single" SelectedChips=@ChoiceSelected aria-label="Choice Chips" SelectedChipsChanged="SelectedChipsChanged">
+                        <ChipItems>
+                            <ChipItem Text="Predictive Analytics & Modeling" CssClass="e-outline" ></ChipItem>
+                            <ChipItem Text="Intelligent Report Aggregation" CssClass="e-outline"></ChipItem>
+                            <ChipItem Text="Adaptive Filter Suggestions" CssClass="e-outline"></ChipItem>
+                        </ChipItems>
+                    </SfChip>
+                </div>
+                <br>
+                <p>Prompt:</p>
+                <div class="inline">
+                @if (ChoiceSelected[0] == "Predictive Analytics & Modeling")
+                {
+                        <span id="contentText" class="dropdown-size">
+                            Provide future data points up to the year
+                            <SfDropDownList TValue="string" TItem="Data" CssClass="inlinecss" Placeholder="Select a Year" DataSource="@InlineYears" @bind-Value="@TextValue" Width="45px" PopupHeight="200px" PopupWidth="140px">
+                                <DropDownListFieldSettings Value="Name"></DropDownListFieldSettings>
+                            </SfDropDownList>
+                            along with the existing data.
+                        </span>
+                }
+                @if (ChoiceSelected[0] == "Adaptive Filter Suggestions")
+                {
+                        <span id="contentText" class="dropdown-size">
+                            Filter the products field based on 
+                            <SfTextBox @bind-Value="@filterText" Placeholder="Enter filter category" CssClass="product-class"></SfTextBox>
+                        </span>
+                }
+                @if (ChoiceSelected[0] == "Intelligent Report Aggregation")
+                {
+                        <span id="contentText">
+                            Suggest the best way to aggregate and view provided fields
+                            <SfMultiSelect TValue="string[]" TItem="PivotFields" @bind-Value="@SelectedGroup" PopupWidth="180px" AllowFiltering="true" Placeholder="Select Fields" Mode="@VisualMode.CheckBox" DataSource="@Country" ShowDropDownIcon="true" EnableSelectionOrder="false" FilterBarPlaceholder="Search Fields">
+                                <MultiSelectFieldSettings Text="Name" Value="Code"></MultiSelectFieldSettings>
+                            </SfMultiSelect>
+                             in
+                             <span style="margin-left: 20px">
+                            <SfDropDownList TValue="string" TItem="AggregateData" CssClass="inlinecss" Placeholder="Select aggregation type" DataSource="@AggregationTypes" @bind-Value="@AggregationValue" Width="70px" PopupHeight="200px" PopupWidth="140px">
+                                <DropDownListFieldSettings Value="Name"></DropDownListFieldSettings>
+                            </SfDropDownList>
+                            </span>
+                        </span>
+                }
+                </div>
+            </Content>
+        </DialogTemplates>
+        <DialogButtons>
+            <DialogButton IsPrimary="true" Content="Submit" OnClick="@OnBtnClick" />
+        </DialogButtons>
+    </SfDialog>
+
+  <div style="width: 100%; position: relative">
+    <SfPivotView ID="PivotView" @ref="pivotRef" TValue="PivotProductDetails" Width="100%" Height="500" ShowFieldList="true" ShowToolbar="true" AllowConditionalFormatting="true" AllowPdfExport="true" AllowExcelExport="true" Toolbar="@toolbar">
+        <PivotViewTemplates>
+            <CellTemplate>
+                @{
+                    var data = (context as AxisSet);
+                    if (data != null)
+                    {
+                        if ((data.Axis == "value" || (data.Axis == "value" && data.ColumnHeaders.ToString() == "Grand Total")) && !(data.RowHeaders as string).Contains('.') && (predictivePoints.Contains(data.ColumnHeaders.ToString()) || predictivePoints.Contains(data.RowHeaders.ToString()))
+                            && ChoiceSelected[0] == "Predictive Analytics & Modeling")
+                        {
+                            pivotRef.PivotValues[data.RowIndex][data.ColIndex].CssClass = "e-custom-class";
+                            @data.FormattedText
+                        }
+                        else
+                        {
+                            @data.FormattedText
+                        }
+                    }
+                }
+            </CellTemplate>
+        </PivotViewTemplates>
+        <PivotViewDataSourceSettings DataSource="@data" AllowLabelFilter="true" AllowMemberFilter="true">
+            <PivotViewColumns>
+                <PivotViewColumn Name="Year"></PivotViewColumn>
+            </PivotViewColumns>
+            <PivotViewRows>
+                <PivotViewRow Name="Products"></PivotViewRow>
+            </PivotViewRows>
+            <PivotViewValues>
+                <PivotViewValue Name="Sold" Type="SummaryTypes.Count"></PivotViewValue>
+                <PivotViewValue Name="Amount"></PivotViewValue>
+            </PivotViewValues>
+        </PivotViewDataSourceSettings>
+        <PivotViewEvents TValue="PivotProductDetails" ToolbarRendered="ToolbarRender"></PivotViewEvents>
+        <SfSpinner @ref="@spinnerObj"></SfSpinner>
+    </SfPivotView>
+  </div>
+</div>
+
+<style>
+    .e-custom-class {
+        background-color: yellow !important;
+    }
+    
+    .AI-dialog {
+        max-height: 350px !important;
+        max-width: 500px !important;
+    }
+    .inlinecss.e-ddl .e-input-group-icon.e-ddl-icon {
+        display: none;
+    }
+    .inlinecss.e-ddl .e-control.e-dropdownlist.e-input {
+        font-size: 16px;
+        font-weight: 500;
+        margin: -7px 0px 0px 0px;
+        padding: 0px;
+    }
+    #contentText .e-input-group.e-control-wrapper.e-ddl::before,
+    #contentText .e-input-group.e-control-wrapper.e-ddl::after {
+        content: none;
+    }
+    #contentText .e-input-group.e-control-wrapper.e-ddl,
+    #contentText .e-input-group.e-control-wrapper.e-ddl:hover,
+    #contentText .e-input-group.e-ddl.e-input-focus,
+    #contentText .e-input-group.e-ddl.e-input-focus::before,
+    #contentText .e-input-group.e-ddl.e-input-focus::after {
+        border-width: 0px;
+        border: none;
+        border-bottom: 1px dashed black;
+        box-shadow: none;
+    }
+    #contentText .e-multi-select-wrapper {
+        padding: 0px !important;
+    }
+
+    #contentText .e-multiselect.e-input-group {
+        max-width: 200px !important;
+        margin-right: 20px;
+    }
+
+    #contentText .product-class.e-control-wrapper {
+        border-width: 0px;
+        border: none;
+        border-bottom: 1px dashed black;
+        box-shadow: none;
+        max-width: 150px;
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    .e-toolbar-item.e-separator {
+        border: 1px solid #000000 !important
+    }
+</style>

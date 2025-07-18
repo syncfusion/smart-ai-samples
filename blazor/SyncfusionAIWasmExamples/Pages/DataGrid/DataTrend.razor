@@ -1,0 +1,80 @@
+﻿@page "/grid/datatrend"
+
+
+@inject AzureAIService OpenAIService
+
+@using System;
+@using System.Collections.Generic;
+@using Newtonsoft.Json
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.DropDowns;
+@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Spinner
+
+
+<div id="container">
+    <div class="e-dddata">
+        <SfDropDownList TValue="string" TItem="Years" DataSource="@years" Placeholder="Select a year" Width="300px" @bind-Value="dropdownInitialValue">
+            <DropDownListEvents OnValueSelect="@ValueSelectHandler" TItem="Years" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="Year" Value="ID" />
+        </SfDropDownList>
+    </div>
+
+    <div class="e-description">@predictiveDescription</div>
+    <div style="width: 950px; height: 500px;">
+        <SfGrid @ref="Grid" DataSource="@OverallData" EnableAltRow=true AllowSorting=true EnableHover=false AllowSelection=false Query="query">
+            <GridEditSettings AllowAdding=true NewRowPosition="NewRowPosition.Bottom"></GridEditSettings>
+            <GridEvents QueryCellInfo="CustomizeCell" Created="GridRendered" TValue="MonthlyData"></GridEvents>
+            <GridColumns>
+                <GridColumn Field=@nameof(MonthlyData.Month) HeaderText="Time Stamp" IsPrimaryKey=true Width="100"></GridColumn>
+                <GridColumn Field="@nameof(MonthlyData.Sales)" HeaderText="Sales" TextAlign="TextAlign.Right" Format="C2" Width="80"></GridColumn>
+                <GridColumn Field="@nameof(MonthlyData.MarketingSpend)" HeaderText="Marketing Spend" TextAlign="TextAlign.Right" Format="C2" Width="80"></GridColumn>
+                <GridColumn Field="@nameof(MonthlyData.NewCustomers)" HeaderText="New Customers" TextAlign="TextAlign.Right" Width="80"></GridColumn>
+                <GridColumn Field="@nameof(MonthlyData.ReturningCustomers)" HeaderText="Returning Customers" TextAlign="TextAlign.Right" Width="100"></GridColumn>
+            </GridColumns>
+            <SfSpinner Visible="@spinnerVisibility"></SfSpinner>
+        </SfGrid>
+    </div>
+</div>
+
+<style>
+    .low-values {
+        background-color: #B8595A !important;
+        color: white !important;
+    }
+
+    .e-grid .e-rowcell.low-values:not(.e-editedbatchcell):not(.e-updatedtd) {
+        color: #FFFFFF;
+    }
+
+    .high-values {
+        background-color: #AAF38C !important;
+    }
+
+    .e-row.e-altrow {
+        background-color: #FAFAFA;
+    }
+
+    .predicted-rows {
+        background-color: #ADD8E6;
+    }
+
+    .e-row.e-altrow .predicted-rows {
+        background-color: #D3EBF5;
+    }
+
+    .e-dddata {
+        padding-bottom: 10px;
+    }
+
+    .e-description {
+        padding-bottom: 10px;
+        padding-top: 4px;
+        color: mediumblue;
+        margin-left: 2px;
+    }
+</style>
+
+
+

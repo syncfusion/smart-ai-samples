@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\ComboBox\**" />
+    <Compile Remove="Pages\FileManager\**" />
+    <Content Remove="Pages\ComboBox\**" />
+    <Content Remove="Pages\FileManager\**" />
+    <EmbeddedResource Remove="Pages\ComboBox\**" />
+    <EmbeddedResource Remove="Pages\FileManager\**" />
+    <None Remove="Pages\ComboBox\**" />
+    <None Remove="Pages\FileManager\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.6" PrivateAssets="all" />
+  </ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Markdig" Version="0.23.*" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.*" />
+		<PackageReference Include="Syncfusion.Blazor.AI" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.InteractiveChat" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Themes" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Buttons" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Cards" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.DataForm" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Spinner" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Notifications" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Popups" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.SplitButtons" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Layouts" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Inputs" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Calendars" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Navigations" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Diagram" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.DropDowns" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.ImageEditor" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.QueryBuilder" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Schedule" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Kanban" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Maps" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Grid" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.TreeGrid" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.Gantt" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.TreeMap" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.FileManager" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.PivotTable" Version="*" />
+		<PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="*" />
+        <PackageReference Include="Syncfusion.Blazor.SfPdfViewer" Version="*" />
+		<PackageReference Include="Syncfusion.Pdf.Net.Core" Version="*" />
+		<PackageReference Include="Syncfusion.Pdf.Imaging.Net.Core" Version="*" />
+		<PackageReference Include="Syncfusion.Licensing" Version="*" />
+	</ItemGroup>
+
+</Project>

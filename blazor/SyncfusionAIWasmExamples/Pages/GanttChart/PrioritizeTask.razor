@@ -1,0 +1,102 @@
+﻿@page "/gantt-chart/task-prioritizer"
+
+
+@inject AzureAIService OpenAIService
+@inject IJSRuntime JsInterop
+
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Gantt
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Notifications
+
+<title>Syncfusion - Smart Prioritizer in Gantt</title>
+
+<h4 style="text-align:center;">Smart Prioritizer</h4>
+<div class="control-section" id="gantt-control-section">
+    <Description>
+        <p>This sample uses AI to identify critical tasks based on the project schedule. The AI then prompts for resource reassignment and generates a summary outlining the reallocation process and details of the critical tasks. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAIWasmExamples/Components/Pages/GanttChart/Readme.md">here</a>.</p>
+    </Description>
+    @if (showMessage)
+    {
+        <div>
+            <SfButton CssClass="e-flat" IsPrimary="true" IconCss="e-icons e-refresh" IconPosition=@IconPosition.Right OnClick="Reload">Something went wrong.</SfButton>
+        </div>
+    }
+    <div style="width:100%; position: relative">
+        <SfGantt @ref="Gantt" DataSource="@TaskCollection" Width="100%" RowHeight="38" HighlightWeekends="true" TreeColumnIndex="1">
+            <GanttTaskFields Id="Id" Name="Name" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
+                             ParentID="ParentId" BaselineStartDate="BaselineStartDate" BaselineEndDate="BaselineEndDate">
+            </GanttTaskFields>
+            <GanttColumns>
+                <GanttColumn Field="Id" HeaderText="Task Id" Visible="false"></GanttColumn>
+                <GanttColumn Field="Name" HeaderText="Task Name" Width="250px" ClipMode="Syncfusion.Blazor.Grids.ClipMode.EllipsisWithTooltip"></GanttColumn>
+                <GanttColumn Field="Duration" HeaderText="Duration"></GanttColumn>
+                <GanttColumn Field="StartDate" HeaderText="Start Date "></GanttColumn>
+                <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
+            </GanttColumns>
+            <GanttEditSettings AllowEditing></GanttEditSettings>
+            <GanttLabelSettings RightLabel="Resources" TValue="GanttDataModel.TaskInfoModel"></GanttLabelSettings>
+            <GanttResource DataSource="ResourceCollection" Id="Id" Name="Name" MaxUnits="MaxUnit" TValue="GanttDataModel.TaskInfoModel" TResources="GanttDataModel.ResourceInfoModel"></GanttResource>
+            <GanttAssignmentFields DataSource="AssignmentCollection" PrimaryKey="PrimaryId" TaskID="TaskId" ResourceID="ResourceId" Units="Unit" TValue="GanttDataModel.TaskInfoModel" TAssignment="GanttDataModel.AssignmentModel"></GanttAssignmentFields>
+            <GanttSplitterSettings Position="23%"> </GanttSplitterSettings>
+            <GanttTemplates TValue="GanttDataModel.TaskInfoModel">
+                <TaskbarTemplate>
+                    @{
+                        var task = (context as GanttDataModel.TaskInfoModel);
+                        if (task == null)
+                        {
+                            return;
+                        }
+                        var taskModel = Gantt.GetRowTaskModel(task);
+                        string taskbarClassName = string.Empty;
+                        string progressClassName = string.Empty;
+                        if (taskIds.Count > 0 && taskIds.Any(s => s == task.Id))
+                        {
+                            taskbarClassName = "e-custom-taskbar";
+                            progressClassName = "e-custom-progress";
+                        }
+                        <div class="e-gantt-child-taskbar e-gantt-child-taskbar-inner-div @taskbarClassName" style="height:22px;--taskbar-bg: #FAEBD7;" tabindex=-1>
+                            <div class="e-gantt-child-progressbar-inner-div e-gantt-child-progressbar @progressClassName" style="height:22px;width:@(taskModel.ProgressWidth + "px");text-align: right;border-radius: 0px;">
+                            </div>
+                        </div>
+                    }
+                </TaskbarTemplate>
+            </GanttTemplates>
+            <SfToolbar ID="Gantt_Toolbar">
+                <ToolbarItems>
+                    <ToolbarItem>
+                        <Template>
+                            <SfButton IsPrimary ID="openAI" @onclick="OpenAIHandler">Assign prioritize tasks</SfButton>
+                        </Template>
+                    </ToolbarItem>
+                </ToolbarItems>
+            </SfToolbar>
+        </SfGantt>
+    </div>
+
+    <div style="width:100%;height:120px">
+        <SfToast @ref=ToastObj Width="800px" ShowCloseButton="true" CssClass="e-gantt-toast-customize" Height="120px" Timeout="8000">
+            <ToastTemplates>
+                <Content> @summary </Content>
+            </ToastTemplates>
+            <ToastPosition X="Right" Y="Top"></ToastPosition>
+        </SfToast>
+    </div>
+
+</div>
+
+<style>
+    #Gantt_Toolbar {
+        border: 1px solid lightgray !important;
+        padding: 4px !important;
+    }
+
+    .e-icons.e-refresh::before {
+        content: '\e706';
+    }
+
+    .e-gantt-toast-customize {
+        background-color: #F3F4F6 !important;
+    }
+</style>
