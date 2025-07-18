@@ -1,0 +1,102 @@
+﻿@page "/grid/predictive-entry"
+
+@inject AzureAIService OpenAIService
+
+@using Newtonsoft.Json
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.Grids
+@using System.Collections
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Buttons
+@using SmartComponents.LocalEmbeddings
+@using Syncfusion.Blazor.Spinner
+
+
+
+<div class="col-lg-12 control-section">
+    <div class="content-wrapper">
+        <div class="row">
+            <SfGrid @ref=gridObj DataSource="@GridSource" EnableHover="false" TValue="Predictivedata">
+                <GridTemplates>
+                    <ToolbarTemplate>
+                        <SfToolbar>
+                            <ToolbarEvents Clicked="ToolbarClickHandler"></ToolbarEvents>
+                            <ToolbarItems>
+                                <ToolbarItem>
+                                    <Template>
+                                        <div>
+                                            <SfButton Content="Calculate Grade" IsPrimary="true"></SfButton>
+                                        </div>
+                                    </Template>
+                                </ToolbarItem>
+                            </ToolbarItems>
+                        </SfToolbar>
+                    </ToolbarTemplate>
+                </GridTemplates>
+                <GridEvents QueryCellInfo="CustomizeCell" TValue="Predictivedata"></GridEvents>
+                <GridColumns>
+                    <GridColumn Field=@nameof(Predictivedata.StudentID) IsPrimaryKey="true" HeaderText="Student ID" TextAlign="TextAlign.Right" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(Predictivedata.StudentName) HeaderText="Student Name" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(Predictivedata.FirstYearGPA) TextAlign="TextAlign.Center" HeaderText="First Year GPA" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(Predictivedata.SecondYearGPA) HeaderText="Second Year GPA" HeaderTextAlign="TextAlign.Center" TextAlign="TextAlign.Center" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(Predictivedata.ThirdYearGPA) HeaderTextAlign="TextAlign.Center" TextAlign="TextAlign.Center" HeaderText="Third Year GPA" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(Predictivedata.FinalYearGPA) Visible="@VisibleProperty" HeaderTextAlign="TextAlign.Center" TextAlign="TextAlign.Center" HeaderText="Final Year GPA" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(Predictivedata.TotalGPA) Visible="@VisibleProperty" HeaderTextAlign="TextAlign.Center" TextAlign="TextAlign.Center" HeaderText="Total GPA" Width="100"></GridColumn>
+                    <GridColumn Field=@nameof(Predictivedata.TotalGrade) Visible="@VisibleProperty" HeaderTextAlign="TextAlign.Center" TextAlign="TextAlign.Center" HeaderText="Total Grade" Width="100"></GridColumn>
+                </GridColumns>
+                <SfSpinner @bind-Visible="@Visible"></SfSpinner>
+            </SfGrid>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div>
+    <p><b>NOTE:</b></p>
+    <p>1. We have already created the ItemCount property in the model class.</p>
+    <p>2. The Item Count column is initially rendered without a value.</p>
+    <p>3. After prompting the AI, values are generated internally, and then using the SetCellValueAsync method, we update the results in the Item Count column.</p>
+</div>
+
+
+<style>
+
+    .e-control-wrapper {
+        margin-right: 7px;
+    }
+
+    .e-tbar-btn {
+        border: 1px double !important;
+        border-color: gray !important;
+    }
+
+    .e-inactivecolor {
+        background-color: indianred !important;
+        width: 100%;
+        color: black !important;
+    }
+
+    .e-grid .e-rowcell.e-inactivecolor:not(.e-editedbatchcell):not(.e-updatedtd) {
+        color: #FFFFFF;
+    }
+
+    .e-activecolor {
+        background-color: lightgreen !important;
+        width: 100%;
+        color: black !important;
+    }
+
+    .e-PredictiveColumn {
+        background-color: lightblue
+    }
+
+    .e-studentcolumn {
+        background-color: lightslategray !important;
+        color: white !important;
+    }
+
+</style>
+

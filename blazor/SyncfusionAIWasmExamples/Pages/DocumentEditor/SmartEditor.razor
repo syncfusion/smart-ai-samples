@@ -1,0 +1,102 @@
+﻿@page "/document-editor/smart-editor"
+
+@using Syncfusion.Blazor.DocumentEditor;
+@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Popups;
+@using Syncfusion.Blazor.Inputs;
+@using Syncfusion.Blazor.Spinner
+@using System.ClientModel
+@using System.Text.Json
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor.Navigations
+
+@inject IJSRuntime JSRuntime
+
+<title>Syncfusion - Smart Editor</title>
+
+<h4 style="text-align:center;">Smart Editor</h4>
+
+<div>
+    <Description>
+        <p>This sample showcases the Smart Editor's capabilities in the Syncfusion Blazor Document Editor. It enhances document editing by rewriting, checking grammar, and translating text. Users can refine content through selection context, improving writing quality with grammar corrections, paraphrasing for readability, and translating into different languages - all within the editor.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAIWasmExamples/Components/Pages/DocumentEditor/Readme.md">here</a>.
+        </p>
+    </Description>
+
+    <div id="target">
+        <div id='documenteditor_titlebar' class="e-de-ctn-title">
+            <div class="single-line" id="documenteditor_title_contentEditor" style="border: 1px solid transparent;" title="Document Name." contenteditable="false">
+                <label id="documenteditor_title_name" class="doc-edit-title"> @DocumentName</label>
+            </div>
+            <div style="float: right">
+                <SfButton IconCss="e-de-icon-Print" CssClass="title-bar-btn" @onclick="Print">Print</SfButton>
+            </div>
+            <div style="float: right">
+                <SfButton IconCss="e-de-icon-Download" CssClass="title-bar-btn" @onclick="OnExport">Download</SfButton>
+            </div>
+        </div>
+        <div id="documentEditorDiv" style="width:100%;float:left;height:600px">
+            <SfDocumentEditorContainer Height="100%" Width="100%" @ref="container" EnableToolbar=true ShowPropertiesPane="true" DocumentEditorSettings="settings">
+                <DocumentEditorContainerEvents Created="OnCreated" OnContextMenuOpen="OnShowMenu" ContextMenuItemSelected="OnContentMenuSelect"></DocumentEditorContainerEvents>
+            </SfDocumentEditorContainer>
+            <AIPopup PopupType="@PopupType" InputText="@EditorText" OnChange="OnInsert" />
+        </div>
+    </div>
+</div>
+<style>
+
+    .title-bar-btn, .title-bar-btn:hover, .title-bar-btn:focus {
+        background: transparent;
+        box-shadow: none;
+        font-family: inherit;
+        border-color: transparent;
+        border-radius: 2px;
+        color: inherit;
+        font-size: 12px;
+        text-transform: capitalize;
+        height: 28px;
+        font-weight: 400;
+        margin-top: 2px;
+    }
+
+    [class^="e-de-icon-"],
+    [class*=" e-de-icon-"] {
+        font-family: 'Sample brower icons' !important;
+    }
+
+    .e-de-icon-Print:before {
+        content: "\e723";
+        font-family: 'Sample brower icons' !important;
+    }
+
+    .e-de-icon-Download:before {
+        content: "\e728";
+        font-family: 'Sample brower icons' !important;
+    }
+
+    .print-ctnr {
+        cursor: pointer;
+        margin-top: 6px;
+    }
+
+</style>
+
+<script>
+    window.showElements = (ids) => {
+        ids.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'block';
+            }
+        });
+    }
+    window.hideElements = (ids) => {
+        ids.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'none';
+            }
+        });
+    }
+</script>

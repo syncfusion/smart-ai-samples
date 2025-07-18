@@ -1,0 +1,68 @@
+﻿@page "/diagram/flowchart"
+
+@namespace TextToFlowchartDiagram
+@implements IDisposable
+
+@using Syncfusion.Blazor.Diagram
+@using Syncfusion.Blazor.Diagram.SymbolPalette
+@using System.Collections.ObjectModel
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.SplitButtons
+@using Syncfusion.Blazor.Inputs
+@using System.Text.RegularExpressions
+
+
+<title>Syncfusion - Text To Flow Chart</title>
+
+<h4 style="text-align:center;">Text To Flow Chart</h4>
+
+<div class="control-section" style="height: calc(100% - 350px); width: 100%">
+    <Description>
+        <p>
+            This demo demonstrates how the Blazor Diagram Component, enhanced with AI, creates flowcharts using nodes and connectors. It visually represents processes, workflows, and decision paths, providing a clear and interactive way to map out procedures.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAIWasmExamples/Components/Pages/Diagram/Readme.md">here</a>.
+        </p>
+    </Description>
+    <div class="sb-mobile-palette-bar">
+        <div id="palette-icon" style="float: right;" role="button" @onclick="ShowHideSymbolPalette" class="e-ddb-icons1 e-toggle-palette"></div>
+    </div>
+    <FlowchartDiagramToolbar @ref="ToolbarRef"></FlowchartDiagramToolbar>
+    <div id="palette-space" class="sb-mobile-palette">
+        <SfSymbolPaletteComponent @ref="@PaletteInstance" Height="700px" SymbolDragPreviewSize="@SymbolPreview" Palettes="@palettes" SymbolHeight="60" SymbolWidth="60" SymbolMargin="@SymbolMargin">
+        </SfSymbolPaletteComponent>
+    </div>
+    <div id="diagram-space" class="sb-mobile-diagram">
+        <SfDiagramComponent @ref="@Diagram" @bind-Connectors="@connectors" Created="Created" HistoryChanged="@OnHistoryChange" ScrollChanged="ScrollChanged" Height="700px" Width="100%" @bind-Nodes="@nodes" SelectionSettings="@selectionSettings" NodeCreating="OnNodeCreating" ConnectorCreating="OnConnectorCreating" DragDrop="DragDropEvent" @bind-InteractionController="@DiagramTool">
+            <RulerSettings>
+                <HorizontalRuler>
+                </HorizontalRuler>
+                <VerticalRuler>
+                </VerticalRuler>
+            </RulerSettings>
+            <SnapSettings>
+                <HorizontalGridLines LineColor="#e0e0e0 " LineIntervals="@GridLineIntervals">
+                </HorizontalGridLines>
+                <VerticalGridLines LineColor="#e0e0e0" LineIntervals="@GridLineIntervals">
+                </VerticalGridLines>
+            </SnapSettings>
+            <PageSettings MultiplePage="true">
+            </PageSettings>
+            <ContextMenuSettings Show="true" ContextMenuItemClicked="@ContextMenuItemClickHandler"></ContextMenuSettings>
+            <Layout Type="LayoutType.Flowchart" @bind-HorizontalSpacing="@HorizontalSpacing" @bind-VerticalSpacing="@VerticalSpacing">
+            </Layout>
+            <SfSpinner @ref="@SpinnerRef" Label="Generating diagram...." Type="@SpinnerType.Bootstrap"> </SfSpinner>
+        </SfDiagramComponent>
+    </div>
+    <div style="display: none;visibility: hidden;">
+        <SfUploader @ref="@uploadFiles" ID="UploadFiles" ShowFileList="false" AllowedExtensions="@ExtensionType">
+            <UploaderEvents OnUploadStart="@OnUploadFileSelected"></UploaderEvents>
+            <UploaderAsyncSettings SaveUrl="https://blazor.syncfusion.com/services/production/api/FileUploader/Save"
+                                   RemoveUrl="https://blazor.syncfusion.com/services/production/api/FileUploader/Remove"></UploaderAsyncSettings>
+        </SfUploader>
+    </div>
+</div>
+<FlowchartDiagramOpenAI @ref="DiagramOpenAIRef"></FlowchartDiagramOpenAI>
+

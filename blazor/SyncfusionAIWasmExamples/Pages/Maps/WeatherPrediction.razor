@@ -1,0 +1,100 @@
+﻿@page "/maps/weather-prediction"
+
+@inject AzureAIService ChatGptService
+@using Syncfusion.Blazor.Maps
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.Data
+@using System.Collections.ObjectModel
+@using System.Net.Http.Json;
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+<title>Syncfusion - Smart Weather Prediction</title>
+
+<h4 style="text-align:center;">Smart Weather Prediction</h4>
+<style>
+    .spacing {
+        margin: 5px;
+    }
+</style>
+
+<Description>
+    <p>Syncfusion Blazor Maps integrated with AI to automatically forecast weather conditions in the United States for the next five days. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAIWasmExamples/Components/Pages/Maps/Readme.md">here</a>.</p>
+</Description>
+
+<SfMaps Height="630px">
+    <SfSpinner @bind-Visible="@SpinnerVisibility"></SfSpinner>
+    <MapsEvents Loaded="Loaded"></MapsEvents>
+    <MapsCenterPosition Latitude="35.07653392014242" Longitude="-95.40586193773237"></MapsCenterPosition>
+    <MapsMargin Top="0" Bottom="0" Left="0" Right="0"></MapsMargin>
+    <MapsZoomSettings Enable=false MaxZoom="19" ZoomFactor="5">
+        <MapsZoomToolbarSettings>
+            <MapsZoomToolbarButton ToolbarItems="new List<ToolbarItem>() { ToolbarItem.Zoom, ToolbarItem.ZoomIn, ToolbarItem.ZoomOut, ToolbarItem.Pan, ToolbarItem.Reset }"></MapsZoomToolbarButton>
+        </MapsZoomToolbarSettings>
+    </MapsZoomSettings>
+    <MapsLayers>
+        <MapsLayer UrlTemplate="https://a.tile.openstreetmap.org/level/tileX/tileY.png" TValue="string">
+            <MapsMarkerSettings>
+                @if (MarkerCollection.Count > 0)
+                {
+                    <MapsMarker TValue="Markers" Visible="true" DataSource="MarkerCollection" AnimationDuration="0">
+                        <MarkerTemplate>
+                            @{
+                                var Data = context as Markers;
+                                string currentImage = string.Empty;
+                                if (Data.WeatherCondition == "sunny day")
+                                {
+                                    currentImage = "weather-clear";
+                                }
+                                else if (Data.WeatherCondition == "snowy day")
+                                {
+                                    currentImage = "weather-snow";
+                                }
+                                else if (Data.WeatherCondition == "foggy day")
+                                {
+                                    currentImage = "weather-foggy";
+                                }
+                                else if (Data.WeatherCondition == "cloudy day")
+                                {
+                                    currentImage = "weather-clouds";
+                                }
+                                else if (Data.WeatherCondition == "rainy day")
+                                {
+                                    currentImage = "weather-rain";
+                                }
+
+                                <div style="display:flex;transform:translate(-50%, -50%)">
+                                    <div style="background-color:black; opacity:0.8; align-content:center; padding-left:5px;padding-right:5px">
+                                        <img class="markerTemplate" src='@("images/"+ currentImage + ".svg")' alt="Weather" height="35px" width="35px" />
+                                    </div>
+                                    <div style="background-color:#fff; opacity:0.8; padding-left:5px;padding-right:5px">
+                                        <span style="font-size:12px;font-weight:bold">@Data.Name</span><br />
+                                        <span style="font-size:16px;font-weight:bold">@Data.Temperature °C</span>
+                                    </div>
+                                </div>
+                            }
+                        </MarkerTemplate>
+                    </MapsMarker>
+                }
+            </MapsMarkerSettings>
+            <MapsAnnotations>
+                <MapsAnnotation X="80%" Y="0%" ZIndex="10">
+                    <ContentTemplate>
+                        <div style="display: flex">
+                            <div style="background-color: #4f46e5; color:white; font-size: 16px; padding:5px 10px 5px; width: max-content;">Weather Forecast</div>
+                            <div style="background-color: white; color:black; font-size: 16px; padding:5px 10px 5px">@Day</div>
+                        </div>
+                    </ContentTemplate>
+                </MapsAnnotation>
+            </MapsAnnotations>
+        </MapsLayer>
+    </MapsLayers>
+</SfMaps>
+
+<div style="display:flex; justify-content: center; align-items: center;">
+    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetTomorrowWeather">Tomorrow</SfButton>
+    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetSecondDayWeather">@SecondButtonContent</SfButton>
+    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetThirdDayWeather">@ThirdButtonContent</SfButton>
+    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetFourthDayWeather">@FourthButtonContent</SfButton>
+    <SfButton IsPrimary="true" CssClass="e-outline spacing" OnClick="GetFifthDayWeather">@FifthButtonContent</SfButton>
+</div>

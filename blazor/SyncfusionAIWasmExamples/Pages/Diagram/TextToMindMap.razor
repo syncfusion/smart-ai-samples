@@ -1,0 +1,47 @@
+﻿@page "/diagram/mindmap"
+
+@using Syncfusion.Blazor.Diagram
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Spinner
+@using System.Collections.ObjectModel
+@using Syncfusion.Blazor.Diagram.SymbolPalette
+@using System.Text.Json;
+@using Syncfusion.Blazor.Navigations
+@using DiagramShapes = Syncfusion.Blazor.Diagram.NodeShapes
+@using DiagramSegments = Syncfusion.Blazor.Diagram.ConnectorSegment
+@using Orientation= Syncfusion.Blazor.Diagram.Orientation
+@using shapes = Syncfusion.Blazor.Diagram.NodeShapes
+
+@namespace TextToMindMapDiagram
+@inject IJSRuntime JS
+
+<title>Syncfusion - Text To Mind Map</title>
+
+<h4 style="text-align:center;">Text To Mind Map</h4>
+
+<div class="diagrambuilder-container" style="height: calc(100% - 350px); width: 100%">
+    <Description>
+        <p>
+            This demo showcases the Blazor Diagram Component used to create an AI-assisted mindmap diagrams. It features nodes and connectors for visually organizing ideas and concepts, ideal for brainstorming and mapping complex information.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAIWasmExamples/Components/Pages/Diagram/Readme.md">here</a>.
+        </p>
+    </Description>
+    <div style="border: 2px solid #ccc;">
+    <DiagramMenuBar @ref="@MenubarRef"></DiagramMenuBar>
+    <DiagramToolBar @ref="@Toolbar"></DiagramToolBar>
+    <div class="diagram-area">
+        <SfDiagramComponent @ref="@Diagram" @bind-InteractionController="@interactionController" @bind-Nodes="@nodes" @bind-Connectors="@connectors" ScrollChanged="ScrollChanged" CollectionChanging="CollectionChanging" @bind-Height="@height" @bind-Width="@width" GetCustomTool="@GetCustomTool" NodeCreating="@NodeCreating" ConnectorCreating="@ConnectorCreating" @bind-SelectionSettings="@selectionSettings" SelectionChanging="OnSelectionChanging" Created="OnCreated" SelectionChanged="@SelectionChanged" HistoryChanged="@HistoryChange">
+            <ScrollSettings @bind-ScrollLimit="@scrollLimit" @bind-CurrentZoom="@CurrentZoom" @bind-MaxZoom="@maxZoom" @bind-MinZoom="@minZoom"></ScrollSettings>
+            <Layout @bind-HorizontalSpacing="@HorizontalSpacing" @bind-VerticalSpacing="@VerticalSpacing" @bind-Type="@layoutType" GetBranch="@getbranch"></Layout>
+            <SnapSettings @bind-Constraints="@SnapConstraint"></SnapSettings>
+            <PageSettings MultiplePage="true"></PageSettings>
+            <CommandManager @bind-Commands="@commands" Execute="@ExecuteCommand" CanExecute="@CanExecute" />
+            <SfSpinner @ref="@SpinnerRef" Label="Generating diagram...." Type="@SpinnerType.Bootstrap"> </SfSpinner>
+        </SfDiagramComponent>
+    </div>
+    </div>
+    <DiagramShortCutKey @ref="@DiagramShortCutKeyRef"></DiagramShortCutKey>
+    <DiagramOpenAI @ref="DiagramOpenAIRef"></DiagramOpenAI>
+</div>

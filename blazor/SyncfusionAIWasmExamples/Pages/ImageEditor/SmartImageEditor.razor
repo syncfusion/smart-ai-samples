@@ -1,0 +1,262 @@
+﻿@page "/image-editor/smart-imageeditor"
+@using Syncfusion.Blazor.ImageEditor
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@inject IJSRuntime JS
+
+<title>Syncfusion - Smart Image Editor</title>
+
+<h4 style="text-align:center;">Smart Image Editor</h4>
+
+<div id="control-section">
+    <Description>
+        <p> 
+            The Image Editor, enhanced with AI, includes features like <b>Magic Eraser</b>, <b>Background Changer</b> and <b>Background Remover</b>. Click the Sidebar to explore these capabilities. The Image Editor uses the Stable Diffusion API for its AI features. Need to configure the Key in Sample.
+            Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAIWasmExamples/Components/Pages/ImageEditor/Readme.md">here</a>.
+        </p>
+    </Description>
+    <div class="@MagicEraserOpt">
+        <div class="upper-div">
+            <label>Magic Eraser</label>
+            <SfButton id="remove-btn" IconCss="e-icons e-close" CssClass="e-small e-round" IsPrimary=true OnClick="RemoveBtnClick"></SfButton>
+        </div>
+        <div class="lower-div">
+            <video muted="muted" loop="loop" autoplay="autoplay" playsinline="" defaultmuted="defaultmuted" preload="auto" src="images/object-remover.mp4" style="width:130px;height:130px;"></video>
+            <br><span>Select the object to be removed</span>
+        </div>
+        <SfButton class="remove-button" id="eraseBtn" CssClass="e-primary" OnClick="EraseBtnClick" Content="Remove"></SfButton>
+    </div>
+    <div class="@BgChangerOpt">
+        <div class="upper-div">
+            <label>Change Background</label>
+            <SfButton id="bg-change-remove-btn" CssClass="e-small e-round" IconCss="e-icons e-close" IsPrimary=true OnClick="BgRemoveBtnClick"></SfButton>
+        </div>
+        <div class="lower-div">
+            <div class="control-section">
+                <div id="default-control">
+                    <span>New Color</span><br/>
+                    <SfColorPicker Value="@CirclePaletteValue" ValueChange="CirclePaletteChange"></SfColorPicker>
+                </div>
+            </div>
+            <br/>
+            <span>Preset Colors</span>
+            <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6">
+                <SfColorPicker Value="@CirclePaletteValue" Mode="ColorPickerMode.Palette" CssClass="circle-palette" ModeSwitcher="false" Inline="true" ShowButtons="false" Columns="6" PresetColors="@CirclePaletteColors" ValueChange="CirclePaletteChange"></SfColorPicker>
+            </div>
+            <span>Custom Background</span><br>
+            <SfTextBox Placeholder="Example: Waterfalls, Mountains, etc.." CssClass="e-outline" @bind-Value="@BgTextValue"></SfTextBox>
+        </div>
+        <SfButton class="bg-change-button" id="bgChangeBtn" Content="Apply" CssClass="e-primary" OnClick="ApplyBtnClick"></SfButton>
+    </div>
+	<div id="sidebar-wrapper">
+		<div>
+			<SfSidebar class= "default-sidebar" Width="220px" Target="@Target" Position="@Position" @bind-IsOpen="SidebarToggle" Changed="Changed" Type="SidebarType.Push">
+				<ChildContent>
+					<SfTreeView TValue="TreeData" @ref="TreeViewObj">
+						<TreeViewEvents TValue="TreeData" NodeClicked="OnSelect"></TreeViewEvents>
+						<TreeViewFieldsSettings Id="Id" Text="Name" Selected="Selected" ParentID="Pid" HasChildren="HasChild" Expanded="Expanded" ImageUrl="ImageUrl" DataSource="@LocalData"></TreeViewFieldsSettings>
+					</SfTreeView>
+				</ChildContent>
+			</SfSidebar>
+			<SfToolbar CssClass="defaultToolbar" >
+				<ToolbarItems>
+					<ToolbarItem>
+						<Template>
+							<SfButton IconCss="e-icons e-menu" @onclick="OnMenuClick"></SfButton>
+						</Template>
+					</ToolbarItem>
+					<ToolbarItem>
+						<Template>
+							<div class="e-folder">
+								<div class="e-folder-name">AI Image Editor</div>
+							</div>
+						</Template>
+					</ToolbarItem>
+				</ToolbarItems>
+			</SfToolbar>
+		</div>
+		<div class="maincontent">
+			<div id="controlWrapper" class="@WrapperClass">
+				<SfImageEditor @ref="ImageEditor" HtmlAttributes="@maskAttribute">
+					<ImageEditorEvents Created="Created" FileOpened="FileOpened"></ImageEditorEvents>
+                    <SfSpinner @bind-Visible="@VisibleProperty"></SfSpinner>
+				</SfImageEditor>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+    
+    #remove-btn, #bg-change-remove-btn {
+        background: #fff;
+        color: #000;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: #ccc;
+    }
+
+    .remove-button, .bg-change-button {
+        display: block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 200px !important;
+    }
+
+    #sidebar-wrapper.control-section {
+        padding: 0;
+    }
+
+    #sidebar-wrapper .default-sidebar {
+        z-index: 20 !important;
+    }
+
+    #sidebar-wrapper .e-content-animation {
+        width: auto;
+    }
+
+    .e-tbar-btn .tb-icons {
+        font-family: 'Material_toolbar';
+        speak: none;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+    }
+
+    .e-toolbar .e-icons {
+        font-size: 20px;
+    }
+
+    .e-tbar-menu-icon:before {
+        content: "\e718";
+    }
+
+    .e-treeview .e-list-icon, .e-treeview .e-list-img {
+        width: 150px !important;
+        height: 130px !important;
+    }
+
+    .e-treeview .e-fullrow {
+        height: 162px !important;
+    }
+
+    .e-text-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important;
+    }
+
+    /* Color Picker Code Starts */
+    /* Circle palette customization */
+    .circle-palette .e-container .e-palette .e-tile {
+        border: 0;
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        margin: 4px;
+    }
+    .mobile .circle-palette .e-container .e-palette .e-tile {
+        height: 32px;
+        width: 32px;
+    }
+    .circle-palette .e-container .e-palette .e-tile:hover {
+        box-shadow: none;
+        transform: scale(1.2);
+        transition: transform .2s ease-out;
+    }
+    .circle-palette .e-container .e-palette .e-tile::before {
+        content: '';
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        display: inline-block;
+        transform: scale(0);
+        transition: transform 1.2s ease-in;
+    }
+    .circle-palette .e-container .e-palette .e-tile.e-selected::before {
+        transform: scale(0.8);
+        background-color: #fff;
+        transition: transform .2s ease-out;
+    }
+    .circle-palette .e-container,
+    .scroll-palette .e-container {
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: none;
+    }
+    /* Color Picker Code Ends*/
+
+    .e-input-group {
+        margin-top: 10px !important;
+    }
+
+    .bg-changer .lower-div span {
+        font-weight: 500;
+    }
+
+    .e-list-item {
+        padding: 10px;
+        border: 2px solid transparent;
+    }
+
+    .e-list-item:hover {
+        border: 2px solid lightgray;
+    }
+
+    .e-fullrow {
+        left: 20px !important;
+        width: 160px !important;
+    }
+
+    .e-treeview .e-list-icon, .e-treeview .e-list-img {
+        margin: 0 !important;
+    }
+
+    .e-treeview .e-ul {
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    #colorpicker-control .e-colorpicker-wrapper {
+        margin-top: 10px;
+    }
+    .e-palette {
+        padding-left: 0px !important;
+    }
+
+    .defaultToolbar.e-toolbar .e-folder {
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    #sidebar-wrapper .defaultToolbar .e-btn.e-icon-btn {
+        border: 0;
+        background-color: #f3f2f1;
+    }
+
+    .e-treeview .e-list-item.e-active>.e-fullrow {
+        background-color: transparent !important;
+        border-color: transparent !important;
+        font-weight: 400;
+    }
+    .e-treeview .e-list-item.e-hover>.e-fullrow {
+        background-color: transparent !important;
+        border-color: transparent !important;
+    }
+    .e-treeview .e-list-item.e-active.e-hover>.e-fullrow {
+        background-color: transparent !important;
+        border-color: transparent !important;
+    }
+ </style>

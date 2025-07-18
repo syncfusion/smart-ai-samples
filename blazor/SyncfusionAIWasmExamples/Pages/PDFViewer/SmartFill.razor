@@ -1,0 +1,80 @@
+﻿@page "/pdfviewer/smart-fill"
+
+@using Microsoft.JSInterop
+@using Syncfusion.Blazor;
+@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Cards;
+@using Syncfusion.Blazor.Layouts;
+@inject IJSRuntime JsRuntime
+@implements IDisposable
+
+<title>Syncfusion - Smart Fill</title>
+
+<h4 style="text-align: center;">Smart Fill</h4>
+<div>
+    <Description>
+        <p>Copy the sample content and click <i>Smart Form Fill</i>. The AI will process the copied content to automatically populate the relevant fields in the PDF form, enhancing efficiency and minimizing manual entry errors. However, users should review and adjust the filled fields as necessary. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAIWasmExamples/Components/Pages/PDFViewer/Readme.md">here</a>.</p>
+    </Description>
+    <div style="position:relative">
+        <div class="parent-container">
+            <div class="sample-content">
+                @if (!isMobileDevice)
+                {
+                    @* For Desktop *@
+                    <div class="left-content" style="width:@(isMobileDevice ? "100%" : "75%");">
+                        <PdfViewer></PdfViewer>
+                    </div>
+                    <div class="right-content">
+                        <div class="smart-fill-container">
+                            <div class="header">
+                                <h6>Sample content to copy</h6>
+                            </div>
+                            @foreach (var userDetail in userDetails)
+                            {
+                                <SfCard CssClass="box" @onmouseover="() => isPopupVisible[userDetail.ID] = true" @onmouseout="() => isPopupVisible[userDetail.ID] = false">
+                                    @if (isPopupVisible[userDetail.ID])
+                                    {
+                                        <SfButton OnClick="() => CopyToClipboard(userDetail.ID, userDetail.Value)" IconCss="@copyIcons[userDetail.ID]" CssClass="copy-icon"></SfButton>
+                                    }
+                                    <CardContent Content="@userDetail.Value" />
+                                </SfCard>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @* For Mobile *@
+                    <SfSplitter Height="96vh" Width="100%" Orientation="Syncfusion.Blazor.Layouts.Orientation.Vertical">
+                        <SplitterEvents OnResizeStop="OnResizeStop"></SplitterEvents>
+                        <SplitterPanes>
+                            <SplitterPane CssClass="pdfPane">
+                                <ContentTemplate>
+                                    <PdfViewer IsMobileDevice="true" RefreshContainer="@refreshContainer" ViewerHeight="@viewerHeight"></PdfViewer>
+                                </ContentTemplate>
+                            </SplitterPane>
+                            <SplitterPane @ref="splitterPane" @bind-Size="@size" @bind-Max="@maxValue" @bind-Min="@minValue" CssClass="mobile-smart-fill-container">
+                                <ContentTemplate>
+                                    <div class="mobile-header">
+                                        <SfButton OnClick="ChangeIcon" @bind-IconCss="@chevronIcon" CssClass="splitter-icon"></SfButton>
+                                        <h6>Sample content to copy</h6>
+                                    </div>
+                                    @foreach (var userDetail in userDetails)
+                                    {
+                                        <SfCard CssClass="box" @onmouseover="() => isPopupVisible[userDetail.ID] = true" @onmouseout="() => isPopupVisible[userDetail.ID] = false">
+                                            @if (isPopupVisible[userDetail.ID])
+                                            {
+                                                <SfButton OnClick="() => CopyToClipboard(userDetail.ID, userDetail.Value)" IconCss="@copyIcons[userDetail.ID]" CssClass="copy-icon"></SfButton>
+                                            }
+                                            <CardContent Content="@userDetail.Value" />
+                                        </SfCard>
+                                    }
+                                </ContentTemplate>
+                            </SplitterPane>
+                        </SplitterPanes>
+                    </SfSplitter>
+                }
+            </div>
+        </div>
+    </div>
+</div>
