@@ -180,6 +180,7 @@ function SmartRichTextEditor() {
                 replaceButton.disabled = true;
                 apiResultData = getResponseFromOpenAI(subQuery, promptQuery);
                 apiResultData.then((result: any) => {
+                    result = result && result.text ? result.text : result;
                     AIResult = isSentimentCheck ? promptQuery : result;
                     sentimentButton.content = result.toLowerCase().includes("positive") ? "😊 Positive" : result.toLowerCase().includes("negative") ? "😞 Negative" : "😐 Neutral";
                     sentimentButton.element.style.display = !isSentimentCheck ? 'none' : '';
@@ -274,7 +275,7 @@ function SmartRichTextEditor() {
             </div>
             <div id='container' className='e-rte-custom-tbar-section'>
                 <RichTextEditorComponent
-                    ref={richtexteditor => defaultRTE = richtexteditor as RichTextEditorComponent}
+                    ref={(richtexteditor: RichTextEditorComponent) => defaultRTE = richtexteditor as RichTextEditorComponent}
                     id='defaultRTE'
                     height={550}
                     saveInterval={0}
@@ -288,7 +289,7 @@ function SmartRichTextEditor() {
                 </RichTextEditorComponent>
                 <DialogComponent
                     id="dialog"
-                    ref={dialogObj => dialog = dialogObj as DialogComponent}
+                    ref={(dialogObj: DialogComponent) => dialog = dialogObj as DialogComponent}
                     className="modal"
                     style={{ display: "none" }}
                     header="AI Assistant"
@@ -316,7 +317,7 @@ function SmartRichTextEditor() {
                             <div className="cuscol-0" style={{ width: "100%", alignItems: "center", justifyContent: "left" }}>
                                 <div style={{ width: '75%', textAlign: 'left' }}>
                                     <DropDownListComponent
-                                        ref={query => queryCategory = query as DropDownListComponent}
+                                        ref={(query: DropDownListComponent) => queryCategory = query as DropDownListComponent}
                                         id="queryCategory"
                                         index={0}
                                         dataSource={queryList}
@@ -341,7 +342,7 @@ function SmartRichTextEditor() {
                                         </div>
                                         <div style={{ textAlign: 'right' }}>
                                             <DropDownListComponent
-                                                ref={language => languageCategory = language as DropDownListComponent}
+                                                ref={(language: DropDownListComponent) => languageCategory = language as DropDownListComponent}
                                                 id="language-Category"
                                                 index={0}
                                                 dataSource={languageList}
@@ -357,7 +358,7 @@ function SmartRichTextEditor() {
                                 </div>
                                 <ChipListComponent
                                     id="chips-container"
-                                    ref={chip => chipList = chip as ChipListComponent}
+                                    ref={(chip: ChipListComponent) => chipList = chip as ChipListComponent}
                                     style={{ justifyContent: 'right', alignItems: 'center', width: '100%', display: 'none' }}
                                     chips={['Standard', 'Fluent', 'Professional']}
                                     selection="Single"
@@ -374,7 +375,7 @@ function SmartRichTextEditor() {
                             <div className="cuscol-0" style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "left" }}>
                                 <div style={{ textAlign: 'left' }}>
                                     <RichTextEditorComponent
-                                        ref={richtexteditor => leftRte = richtexteditor as RichTextEditorComponent}
+                                        ref={(richtexteditor: RichTextEditorComponent) => leftRte = richtexteditor as RichTextEditorComponent}
                                         id="leftRte"
                                         height={310}
                                         value={resultData}
@@ -392,7 +393,7 @@ function SmartRichTextEditor() {
                             <div className="cuscol-1" style={{ display: 'flex', justifyContent: 'space-between', width: '100%', height: '100%' }}>
                                 <div style={{ textAlign: 'left', width: '100%' }}>
                                     <RichTextEditorComponent
-                                        ref={richtexteditor => rightRte = richtexteditor as RichTextEditorComponent}
+                                        ref={(richtexteditor: RichTextEditorComponent) => rightRte = richtexteditor as RichTextEditorComponent}
                                         id="rightRte"
                                         style={{ display: 'none' }}
                                         height={310}
@@ -457,7 +458,7 @@ function SmartRichTextEditor() {
                                 <div className="cuscol-0" style={{ width: "100%", alignItems: "center", justifyContent: "left" }}>
                                     <div style={{ textAlign: 'right' }}>
                                         <ButtonComponent
-                                            ref={button => regenerateButton = button as ButtonComponent}
+                                            ref={(button: ButtonComponent) => regenerateButton = button as ButtonComponent}
                                             content="Regenerate"
                                             isPrimary={true}
                                             disabled={true}
@@ -467,18 +468,18 @@ function SmartRichTextEditor() {
                                 <div className="cuscol-1" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                                     <div style={{ textAlign: 'right', width: '100%' }}>
                                         <ButtonComponent
-                                            ref={button => sentimentButton = button as ButtonComponent}
+                                            ref={(button: ButtonComponent) => sentimentButton = button as ButtonComponent}
                                             content="😊 Neutral"
                                             disabled={true}
                                             cssClass="sentiment"
                                         />
                                         <ButtonComponent
-                                            ref={button => copyButton = button as ButtonComponent}
+                                            ref={(button: ButtonComponent) => copyButton = button as ButtonComponent}
                                             content="Copy"
                                             disabled={true}
                                         />
                                         <ButtonComponent
-                                            ref={button => replaceButton = button as ButtonComponent}
+                                            ref={(button: ButtonComponent) => replaceButton = button as ButtonComponent}
                                             content="Replace"
                                             isPrimary={true}
                                             disabled={true}
@@ -491,7 +492,7 @@ function SmartRichTextEditor() {
                 </DialogComponent>
                 <ToastComponent
                     id="toast_default"
-                    ref={toast => toastObj = toast as ToastComponent}
+                    ref={(toast: ToastComponent) => toastObj = toast as ToastComponent}
                     showCloseButton={true}
                     timeOut={0}
                     content="An error occurred during the AI process, Please try again."

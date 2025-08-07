@@ -72,7 +72,7 @@ function Progress() {
                 </div>
                 <div id='container'>
                     <GanttComponent
-                        ref={gantt => ganttInstance = gantt as GanttComponent}
+                        ref={(gantt: GanttComponent) => ganttInstance = gantt as GanttComponent}
                         dataSource={TaskDataCollection}
                         enableContextMenu={true}
                         allowSorting={true}

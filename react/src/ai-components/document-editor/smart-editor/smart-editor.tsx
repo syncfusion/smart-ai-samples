@@ -419,7 +419,7 @@ function SmartEditor() {
                 >
                     <DialogComponent
                         id='dialog'
-                        ref={dialogRef => dialog = dialogRef as DialogComponent}
+                        ref={(dialogRef: DialogComponent) => dialog = dialogRef as DialogComponent}
                         header='AI Rephrase'
                         showCloseIcon={true}
                         content={document.getElementById("splitter") as HTMLElement | undefined}
@@ -480,7 +480,7 @@ function SmartEditor() {
                                 contentEditable="true" style={{ height: "85px", padding: "5px" }}></div>
                         </SplitterComponent>
                         <ToolbarComponent id="e-d-toolbar"
-                            ref={toolbarObj => toolbar = toolbarObj as ToolbarComponent}
+                            ref={(toolbarObj: ToolbarComponent) => toolbar = toolbarObj as ToolbarComponent}
                             created={onToolbarCreated}>
                             <ItemsDirective>
                                 {/* 1st Group */}

@@ -43,7 +43,7 @@ function AdaptiveDataStructuring() {
                 </div>
                 <div id='container'>
                     <TreeGridComponent
-                        ref={treegrid => treeGridInstance = treegrid!}
+                        ref={(treegrid: TreeGridComponent) => treeGridInstance = treegrid!}
                         dataSource={projectData}
                         idMapping='CategoryId'
                         parentIdMapping='ParentId'

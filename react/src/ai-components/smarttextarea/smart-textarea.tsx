@@ -102,7 +102,7 @@ function SmartTextarea() {
                     <div className='smart-component'>
                         <SmartTextAreaComponent
                             id='smart-textarea'
-                            ref={(textarea) => { textareaObj = textarea as SmartTextAreaComponent; }}
+                            ref={(textarea: SmartTextAreaComponent) => { textareaObj = textarea as SmartTextAreaComponent; }}
                             placeholder={'Enter your queries here'}
                             floatLabelType={'Auto'}
                             rows={5}

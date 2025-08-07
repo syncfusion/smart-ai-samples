@@ -222,7 +222,7 @@ function SmartRecommendation() {
                         <div className="e-rte-field" style={{ margin: '10px' }}>
                             <TextBoxComponent
                                 id="project-details-home"
-                                ref={textbox => projectDetailsHome = textbox as TextBoxComponent}
+                                ref={(textbox: TextBoxComponent) => projectDetailsHome = textbox as TextBoxComponent}
                                 name="project-details"
                                 width="100%"
                                 floatLabelType="Always"
@@ -236,7 +236,7 @@ function SmartRecommendation() {
                         <div className="e-rte-field" style={{ margin: '10px' }}>
                             <NumericTextBoxComponent
                                 id="tasks-value-home"
-                                ref={numeric => taskCountHome = numeric as NumericTextBoxComponent}
+                                ref={(numeric: NumericTextBoxComponent) => taskCountHome = numeric as NumericTextBoxComponent}
                                 name="tasks-value"
                                 min={1}
                                 step={1}
@@ -248,7 +248,7 @@ function SmartRecommendation() {
                         <div className="d-flex justify-content-center" style={{ margin: '10px' }}>
                             <ProgressButtonComponent
                                 id="generate-tasks-home"
-                                ref={button => generateTasks = button as ProgressButtonComponent}
+                                ref={(button: ProgressButtonComponent) => generateTasks = button as ProgressButtonComponent}
                                 content="Generate Tasks"
                                 enableProgress={false}
                                 begin={() => {
@@ -265,17 +265,17 @@ function SmartRecommendation() {
                     <div className="col-12 col-md-6 mt-6 mt-md-0 d-flex cuscol-2 justify-content-center e-right">
                         <div className="col-12 text-center my-3" id="backlog">
                             <ButtonComponent id="openProjectDetailsDialog" style={{ float: 'right' }}
-                                ref={button => openProjectDetailsDialog = button as ButtonComponent}
+                                ref={(button: ButtonComponent) => openProjectDetailsDialog = button as ButtonComponent}
                                 content='Add New Projects'
                             ></ButtonComponent>
                             <ButtonComponent id="goToBacklogBoardView"
-                                ref={button => goToBacklogBoardView = button as ButtonComponent}
+                                ref={(button: ButtonComponent) => goToBacklogBoardView = button as ButtonComponent}
                                 style={{ float: 'left' }} content="View as Board"></ButtonComponent>
                         </div>
                         <div className="w-100">
                             <GridComponent
                                 id="grid-container"
-                                ref={gridObj => grid = gridObj as GridComponent}
+                                ref={(gridObj: GridComponent) => grid = gridObj as GridComponent}
                                 dataSource={smartSuggestion}
                                 allowPaging={true}
                                 toolbar={['Add']}
@@ -297,7 +297,7 @@ function SmartRecommendation() {
                             </GridComponent>
                             <KanbanComponent
                                 id="backlogsBoard"
-                                ref={kanban => backlogKanbanObj = kanban as KanbanComponent}
+                                ref={(kanban: KanbanComponent) => backlogKanbanObj = kanban as KanbanComponent}
                                 style={{ display: 'none' }}
                                 keyField="Status"
                                 dataSource={smartSuggestion}
@@ -320,7 +320,7 @@ function SmartRecommendation() {
                 </div>
             </div >
             <ToastComponent
-                ref={toastObj => toast = toastObj as ToastComponent}
+                ref={(toastObj: ToastComponent) => toast = toastObj as ToastComponent}
                 id="toast"
                 position={{ X: 'Right', Y: 'Top' }}
                 showCloseButton={true}
@@ -329,7 +329,7 @@ function SmartRecommendation() {
             <DialogComponent
                 id="projectDetailsDialog"
                 header="AI Smart Task Suggestion"
-                ref={dialog => projectDetailsDialog = dialog as DialogComponent}
+                ref={(dialog: DialogComponent) => projectDetailsDialog = dialog as DialogComponent}
                 content={document.getElementById('projectDetails') as HTMLElement}
                 showCloseIcon={true}
                 width="30%"
@@ -352,7 +352,7 @@ function SmartRecommendation() {
                                 </div>
                                 <div className="e-rte-field" style={{ margin: '10px' }}>
                                     <TextAreaComponent
-                                        ref={textbox => projectDetails = textbox as TextAreaComponent}
+                                        ref={(textbox: TextAreaComponent) => projectDetails = textbox as TextAreaComponent}
                                         id="project-details"
                                         name="project-details"
                                         width="100%"
@@ -365,7 +365,7 @@ function SmartRecommendation() {
                                 </div>
                                 <div className="e-rte-field" style={{ margin: '10px' }}>
                                     <NumericTextBoxComponent
-                                        ref={numeric => taskCount = numeric as NumericTextBoxComponent}
+                                        ref={(numeric: NumericTextBoxComponent) => taskCount = numeric as NumericTextBoxComponent}
                                         id="tasks-value"
                                         name="tasks-value"
                                         min={1}

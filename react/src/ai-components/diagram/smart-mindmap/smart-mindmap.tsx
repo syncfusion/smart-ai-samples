@@ -162,7 +162,7 @@ function smartMindMap() {
                 >Mindmap for different components in syncfusion</ButtonComponent>
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
                     <TextBoxComponent type="text" id="textBox" className="db-openai-textbox" style={{ flex: 1 }}
-                        ref={textBoxObj => textBox = textBoxObj as TextBoxComponent}
+                        ref={(textBoxObj: TextBoxComponent) => textBox = textBoxObj as TextBoxComponent}
                         placeholder='Please enter your prompt here...' width={450} input={onTextBoxChange}
                     />
                     <ButtonComponent id="db-send"
@@ -172,7 +172,7 @@ function smartMindMap() {
                                 convertTextToMindMap(textBox.value, diagram)
                             }
                         }}
-                        ref={sendButtonObj => sendButton = sendButtonObj as ButtonComponent}
+                        ref={(sendButtonObj: ButtonComponent) => sendButton = sendButtonObj as ButtonComponent}
 
                         iconCss='e-icons e-send' isPrimary={true} disabled={false}
                         style={{ marginLeft: '5px', height: '32px', width: '32px',paddingTop: '4px', paddingLeft: '6px' }}></ButtonComponent>
@@ -196,13 +196,13 @@ function smartMindMap() {
                     <div className="db-toolbar-editor">
                         <div id="aiMindMap" className="menu-control">
                             <MenuComponent id="menu"
-                                ref={menuObj => menu = menuObj as MenuComponent}
+                                ref={(menuObj: MenuComponent) => menu = menuObj as MenuComponent}
                                 items={menuItems} select={menuClick}
                             ></MenuComponent >
                         </div>
                         <div className="db-toolbar-container">
                             <ToolbarComponent id="toolbarEditor"
-                                ref={toolbar => toolbarObj = toolbar as ToolbarComponent}
+                                ref={(toolbar: ToolbarComponent) => toolbarObj = toolbar as ToolbarComponent}
                                 clicked={function (args: any) { toolbarClick(args); }}
                                 width='100%'
                                 height={46}
@@ -361,7 +361,7 @@ function smartMindMap() {
                     </div>
                     <div style={{ marginTop: '5px', marginLeft: '5px', marginRight: '5px', border: '1px solid #b0b0b0' }}>
                         <DiagramComponent
-                            ref={diagramObj => diagram = diagramObj as DiagramComponent}
+                            ref={(diagramObj: DiagramComponent) => diagram = diagramObj as DiagramComponent}
                             id="diagram"
                             width="100%"
                             height="900px"
@@ -407,7 +407,7 @@ function smartMindMap() {
                 </div>
                 <div id='dialog-container'>
                     <DialogComponent
-                        ref={dialogObj => dialog = dialogObj as DialogComponent}
+                        ref={(dialogObj: DialogComponent) => dialog = dialogObj as DialogComponent}
                         id='dialog'
                         header='<span class="e-icons e-aiassist-chat" style="color: black;width:20px; font-size: 16px;"></span> AI Assist'
                         showCloseIcon={true}

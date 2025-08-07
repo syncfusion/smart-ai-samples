@@ -81,7 +81,7 @@ function SemanticSearch() {
                     </div>
                 </div>
                 <div id='container'>
-                    <GridComponent id='SemanticGrid' ref={grid => gridInstance = grid as GridComponent} toolbar={toolbarOptions} dataSource={MedicalRecords} enableAltRow={true} allowTextWrap={true}
+                    <GridComponent id='SemanticGrid' ref={(grid: GridComponent) => gridInstance = grid as GridComponent} toolbar={toolbarOptions} dataSource={MedicalRecords} enableAltRow={true} allowTextWrap={true}
                         created={getEmbeddingsData} >
                         <ColumnsDirective>
                             <ColumnDirective field='RecordID' headerText='Record ID' width='90' textAlign='Right' />

@@ -100,7 +100,7 @@ function NLQuerying() {
                     </div>
                     <div style={{ display: "none" }}>
                         <div id="querybuilder-ui">
-                            <QueryBuilderComponent id="querybuilder" className="row" ref={querybuilder => qryBldrObj = querybuilder as QueryBuilderComponent}
+                            <QueryBuilderComponent id="querybuilder" className="row" ref={(querybuilder: QueryBuilderComponent) => qryBldrObj = querybuilder as QueryBuilderComponent}
                                 dataSource={users}
                                 columns={columnData}
                             ></QueryBuilderComponent>
@@ -111,7 +111,7 @@ function NLQuerying() {
                     </div>
                     <div className="e-custom-elem">
                         <span className="e-text">Results from your AI generated Query</span>
-                        <GridComponent style={{ marginTop: "10px" }} id="grid" ref={grid => gridInstance = grid as GridComponent}
+                        <GridComponent style={{ marginTop: "10px" }} id="grid" ref={(grid: GridComponent) => gridInstance = grid as GridComponent}
                             dataSource={users}
                             allowPaging={true}
                             pageSettings={{ pageSize: 10 }}

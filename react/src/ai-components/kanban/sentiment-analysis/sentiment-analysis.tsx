@@ -272,7 +272,7 @@ function SentimentAnalysis() {
             </div>
             <div id="ai-button" style={{ margin: '10px' }}>
                 <ProgressButtonComponent
-                    ref={button => sentiment = button as ProgressButtonComponent}
+                    ref={(button: ProgressButtonComponent) => sentiment = button as ProgressButtonComponent}
                     id="sentiment"
                     content="Check Customer Sentiments"
                     enableProgress={false}
@@ -295,7 +295,7 @@ function SentimentAnalysis() {
             <div className="control-section">
                 <div className="control_wrapper">
                     <KanbanComponent
-                        ref={kanban => kanbanObj = kanban as KanbanComponent}
+                        ref={(kanban: KanbanComponent) => kanbanObj = kanban as KanbanComponent}
                         id="Kanban"
                         keyField="Category"
                         dataSource={dataSource}
@@ -318,7 +318,7 @@ function SentimentAnalysis() {
                 </div>
             </div>
             <ToastComponent
-                ref={toastObj => toast = toastObj as ToastComponent}
+                ref={(toastObj: ToastComponent) => toast = toastObj as ToastComponent}
                 id="toast"
                 position={{ X: 'Right', Y: 'Top' }}
                 showCloseButton={true}

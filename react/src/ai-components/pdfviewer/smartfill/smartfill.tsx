@@ -321,7 +321,7 @@ function SmartFill() {
                             </AppBarComponent>
                         </div>
                         <ToolbarComponent id="e-pv-smartfill-toolbar" style={{ top: '0px' }}
-                            ref={toolbar => toolbarObj = toolbar as ToolbarComponent}
+                            ref={(toolbar: ToolbarComponent) => toolbarObj = toolbar as ToolbarComponent}
                         >
                             <ItemsDirective>
                                 <ItemDirective prefixIcon="e-icons e-folder" tooltipText="Open" text="Open File" id="openButton" cssClass="e-pv-open-container" click={openDocument} />
@@ -351,7 +351,7 @@ function SmartFill() {
                             </ItemsDirective>
                         </ToolbarComponent>
                         <PdfViewerComponent id="e-pv-smartfill-pdfviewer"
-                            ref={pdfviewerObj => pdfviewer = pdfviewerObj as PdfViewerComponent}
+                            ref={(pdfviewerObj: PdfViewerComponent) => pdfviewer = pdfviewerObj as PdfViewerComponent}
                             serviceUrl={SERVICE_URL}
                             enableAnnotationToolbar={false}
                             enableToolbar={false}
@@ -381,20 +381,20 @@ function SmartFill() {
                         </div>
                         <div tabIndex={0} className="e-card" id="e-pv-card1">
                             <ButtonComponent cssClass='e-copy-icon' iconCss='e-icons e-copy' id="e-pv-copy-card1" style={{ display: 'none' }}
-                                ref={btn => copyObjBtn1 = btn as ButtonComponent}
+                                ref={(btn: ButtonComponent) => copyObjBtn1 = btn as ButtonComponent}
                             ></ButtonComponent>
                             <div className="e-card-content" id="e-pv-card-content1">
                                 Hi, this is Alice. You can contact me at alice456@gmail.com. I am female, born on July 15, 1998. I want to unsubscribe from a newspaper and learn courses, specifically a Cloud Computing course. I am from Texas.
                             </div>
                         </div>
                         <div tabIndex={0} className="e-card" id="e-pv-card2">
-                            <ButtonComponent cssClass='e-copy-icon' ref={btn => copyObjBtn2 = btn as ButtonComponent} iconCss='e-icons e-copy' id="e-pv-copy-card2" style={{ display: 'none' }}></ButtonComponent>
+                            <ButtonComponent cssClass='e-copy-icon' ref={(btn: ButtonComponent) => copyObjBtn2 = btn as ButtonComponent} iconCss='e-icons e-copy' id="e-pv-copy-card2" style={{ display: 'none' }}></ButtonComponent>
                             <div className="e-card-content" id="e-pv-card-content2">
                                 Hello, I'm John Paul born on March 12, 2001. I am not looking to subscribe to any newspapers or enroll in courses. I'm male and you can reach me at johnpaul2209@gmail.com. I'm from Alaska and I'm interested in a Web Development course.
                             </div>
                         </div>
                         <div tabIndex={0} className="e-card" id="e-pv-card3">
-                            <ButtonComponent cssClass='e-copy-icon' ref={btn => copyObjBtn3 = btn as ButtonComponent} iconCss='e-icons e-copy' id="e-pv-copy-card3" style={{ display: 'none' }}></ButtonComponent>
+                            <ButtonComponent cssClass='e-copy-icon' ref={(btn: ButtonComponent) => copyObjBtn3 = btn as ButtonComponent} iconCss='e-icons e-copy' id="e-pv-copy-card3" style={{ display: 'none' }}></ButtonComponent>
                             <div className="e-card-content" id="e-pv-card-content3">
                                 Hello, my name is Peter Parker, born on Sept 22, 2002. I'm interested in subscribing to a newspaper and learning through courses. I'm male, and you can contact me at peterparker03@gmail.com. I'm from New York, and I'm interested in a Digital Marketing course.
                             </div>

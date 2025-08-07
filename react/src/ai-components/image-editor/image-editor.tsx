@@ -237,7 +237,7 @@ function ImageEditor() {
                             <br></br><span>Preset Colors</span>
                             <div className="col-xs-12 col-sm-12 col-lg-6 col-md-6">
                                 <ColorPickerComponent
-                                    ref={colorpickerObj => colorPicker = colorpickerObj as ColorPickerComponent}
+                                    ref={(colorpickerObj: ColorPickerComponent) => colorPicker = colorpickerObj as ColorPickerComponent}
                                     id="circle-palette"
                                     type="color"
                                     mode="Palette"
@@ -258,7 +258,7 @@ function ImageEditor() {
                             </div>
                             <span>Custom Background</span><br></br>
                             <TextBoxComponent id="outlined"
-                                ref={textbox => outlineTextBox = textbox as TextBoxComponent}
+                                ref={(textbox: TextBoxComponent) => outlineTextBox = textbox as TextBoxComponent}
                                 placeholder='Example: Waterfalls, Mountains, etc..'
                                 cssClass='e-outline'
                             />
@@ -288,7 +288,7 @@ function ImageEditor() {
                         <div className="maincontent" style={{ width: "100%" }}>
                             <div id="controlWrapper">
                                 <ImageEditorComponent id="imageeditor" className="row"
-                                    ref={imageEditor => imageEditorObj = imageEditor as ImageEditorComponent}
+                                    ref={(imageEditor: ImageEditorComponent) => imageEditorObj = imageEditor as ImageEditorComponent}
                                     fileOpened={() => {
                                         setTimeout(() => {
                                             imageEditorObj.update();
@@ -299,7 +299,7 @@ function ImageEditor() {
                         </div>
                     </div>
                     <SidebarComponent id="defaultSidebar" className="default-sidebar"
-                        ref={sidebar => sideObj = sidebar as SidebarComponent}
+                        ref={(sidebar: SidebarComponent) => sideObj = sidebar as SidebarComponent}
                         width="200px"
                         target=".maincontent"
                         position='Left'
@@ -307,7 +307,7 @@ function ImageEditor() {
                     >
                         <TreeViewComponent id="defaultTree"
                             cssClass="image-editor-tree"
-                            ref={tree => treeObj = tree as TreeViewComponent}
+                            ref={(tree: TreeViewComponent) => treeObj = tree as TreeViewComponent}
                             nodeSelected={OnSelect}
                             fields={{ dataSource: treeData, id: "id", text: "name", selected: "selected", parentID: "pid", hasChildren: "hasChild", expanded: "expanded" }}
                         ></TreeViewComponent>

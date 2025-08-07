@@ -21,6 +21,7 @@ import './smart-flowchart.css';
 
 function SmartFlowchart() {
     let diagram: DiagramComponent;
+    let btn2:any;
     let dialog: DialogComponent;
     let msgBtn1: ButtonComponent;
     let msgBtn2: ButtonComponent;
@@ -203,21 +204,21 @@ function SmartFlowchart() {
             <>
                 <p style={{ marginBottom: '10px', fontWeight: 'bold' }}>Suggested Prompts</p>
                 <ButtonComponent
-                    ref={btn2 => msgBtn2 = btn2 as ButtonComponent}
+                    ref={(btn2: ButtonComponent) => msgBtn2 = btn2 as ButtonComponent}
                     id="btn2" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}
                     onClick={() => {
                         dialog.hide();
                         convertTextToFlowchart('Flowchart for online shopping', diagram);
                     }}
                 >Flowchart for online shopping</ButtonComponent>
-                <ButtonComponent ref={btn1 => msgBtn1 = btn1 as ButtonComponent}
+                <ButtonComponent ref={(btn1: ButtonComponent) => msgBtn1 = btn1 as ButtonComponent}
                     onClick={() => {
                         dialog.hide();
                         convertTextToFlowchart('Flowchart for Mobile banking registration', diagram);
                     }}
                     id="btn1" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}>Flowchart for Mobile banking registration</ButtonComponent>
                 <ButtonComponent
-                    ref={btn3 => msgBtn3 = btn3 as ButtonComponent}
+                    ref={(btn3: ButtonComponent) => msgBtn3 = btn3 as ButtonComponent}
                     onClick={() => {
                         dialog.hide();
                         convertTextToFlowchart('Flowchart for Bus ticket booking', diagram);
@@ -225,11 +226,11 @@ function SmartFlowchart() {
                     id="btn3" style={{ flex: 1, overflow: 'visible', borderRadius: '8px', marginBottom: '10px' }}>Flowchart for Bus ticket booking</ButtonComponent>
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
                     <TextBoxComponent type="text" id="textBox" className="db-openai-textbox" style={{ flex: 1 }}
-                        ref={textboxObj => textBox = textboxObj as TextBoxComponent}
+                        ref={(textboxObj: TextBoxComponent) => textBox = textboxObj as TextBoxComponent}
                         placeholder='Please enter your prompt here...' width={450} input={onTextBoxChange}
                     />
                     <ButtonComponent id="db-send"
-                        ref={btn => sendButton = btn as ButtonComponent}
+                        ref={(btn: ButtonComponent) => sendButton = btn as ButtonComponent}
                         onClick={() => {
                             if (textBox.value) {
                                 dialog.hide();
@@ -315,7 +316,7 @@ function SmartFlowchart() {
                     </div>
                     <div id="diagram-space" className="sb-mobile-diagram">
                         <DiagramComponent
-                            ref={diagramObj => diagram = diagramObj as DiagramComponent}
+                            ref={(diagramObj: DiagramComponent) => diagram = diagramObj as DiagramComponent}
                             id="diagram"
                             width="100%"
                             height="900px"
@@ -372,7 +373,7 @@ function SmartFlowchart() {
                 </div>
                 <div id='dialog-container'>
                     <DialogComponent
-                        ref={dialogObj => dialog = dialogObj as DialogComponent}
+                        ref={(dialogObj: DialogComponent) => dialog = dialogObj as DialogComponent}
                         id='dialog'
                         header='<span class="e-icons e-assistview-icon" style="color: black;width:20px; font-size: 16px;"></span> AI Assist'
                         showCloseIcon={true}

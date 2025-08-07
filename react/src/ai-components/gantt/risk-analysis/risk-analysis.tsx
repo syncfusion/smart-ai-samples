@@ -95,7 +95,7 @@ function RiskAnalysis() {
                 <div id='container'>
                     <GanttComponent
                         id="GanttContainer"
-                        ref={gantt => ganttInstance = gantt as GanttComponent}
+                        ref={(gantt: GanttComponent) => ganttInstance = gantt as GanttComponent}
                         dataSource={tasksCollection}
                         allowSorting={true}
                         allowReordering={true}

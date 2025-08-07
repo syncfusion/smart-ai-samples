@@ -244,12 +244,12 @@ function Summarizer() {
                 <div id="e-pv-left-container"
                     ref={container => leftContainer = container as HTMLDivElement}>
                     <FabComponent id="e-pv-fab-btn" title="Open AI Assist" style={{ display: 'none' }}
-                        ref={fab => fabButton = fab as FabComponent}
+                        ref={(fab: FabComponent) => fabButton = fab as FabComponent}
                         iconCss='e-icons e-assistview-icon'
                         onClick={showAI}
                     ></FabComponent>
                     <PdfViewerComponent id="PdfViewer" style={{ height: '100%', width: '100%' }}
-                        ref={pdfviewerObj => pdfviewer = pdfviewerObj as PdfViewerComponent}
+                        ref={(pdfviewerObj: PdfViewerComponent) => pdfviewer = pdfviewerObj as PdfViewerComponent}
                         documentPath="https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf"
                         serviceUrl={SERVICE_URL}
                         documentLoad={documentLoad}
@@ -263,7 +263,7 @@ function Summarizer() {
                     ref={container => rightContainer = container as HTMLDivElement}>
                     <div id="container-ai-assist">
                         <AIAssistViewComponent
-                            ref={(aiAssistView) => aiAssistViewInst = aiAssistView as AIAssistViewComponent}
+                            ref={(aiAssistView: AIAssistViewComponent) => aiAssistViewInst = aiAssistView as AIAssistViewComponent}
                             id="e-pv-defaultAIAssistView"
                             promptPlaceholder="Type your prompt for assistance..."
                             promptSuggestionsHeader="Suggested Prompts"

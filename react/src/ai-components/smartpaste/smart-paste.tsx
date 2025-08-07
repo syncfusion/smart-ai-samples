@@ -124,7 +124,7 @@ function SmartPaste() {
                 <div className="content-flexed">
                     <div className="content-body" data-index="0">
                         <div className="copy-container" style={{ float: 'right' }}>
-                            <ButtonComponent ref={btn => copyButton1 = btn as ButtonComponent} id="copy1" onClick={() => copyContent('1')} aria-label="content-copy-button" className="e-control e-btn e-lib custom-copy-icon e-primary e-icon-btn">
+                            <ButtonComponent ref={(btn: ButtonComponent) => copyButton1 = btn as ButtonComponent} id="copy1" onClick={() => copyContent('1')} aria-label="content-copy-button" className="e-control e-btn e-lib custom-copy-icon e-primary e-icon-btn">
                                 <span className="e-icons e-copy e-btn-icon"></span>
                             </ButtonComponent>
                         </div>
@@ -134,7 +134,7 @@ function SmartPaste() {
                     </div>
                     <div className="content-body" data-index="1">
                         <div className="copy-container" style={{ float: 'right' }}>
-                            <ButtonComponent ref={btn => copyButton2 = btn as ButtonComponent} id="copy2" onClick={() => copyContent('2')} aria-label="content-copy-button" className="e-control e-btn e-lib custom-copy-icon e-primary e-icon-btn">
+                            <ButtonComponent ref={(btn: ButtonComponent) => copyButton2 = btn as ButtonComponent} id="copy2" onClick={() => copyContent('2')} aria-label="content-copy-button" className="e-control e-btn e-lib custom-copy-icon e-primary e-icon-btn">
                                 <span className="e-icons e-copy e-btn-icon"></span>
                             </ButtonComponent>
                         </div>

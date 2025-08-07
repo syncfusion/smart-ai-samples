@@ -276,7 +276,7 @@ function smartPivotTable() {
             <div id="container">
                 <div style={{ padding: "10px" }}></div>
                 <PivotViewComponent
-                    ref={(pivot) => pivotObj = pivot as PivotViewComponent}
+                    ref={(pivot: PivotViewComponent) => pivotObj = pivot as PivotViewComponent}
                     id="pivotTable"
                     className="row"
                     dataSourceSettings={{
@@ -313,7 +313,7 @@ function smartPivotTable() {
                     <Inject services={[FieldList, CalculatedField, Toolbar, ConditionalFormatting, NumberFormatting, PDFExport]} />
                 </PivotViewComponent>
                 <DialogComponent
-                    ref={dialogObj => dialog = dialogObj as DialogComponent}
+                    ref={(dialogObj: DialogComponent) => dialog = dialogObj as DialogComponent}
                     id="pivotDialog"
                     minHeight="200px"
                     showCloseIcon={true}

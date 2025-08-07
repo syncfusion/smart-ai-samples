@@ -85,7 +85,7 @@ function PredictiveDataEntry() {
                     </div>
                 </div>
                 <div id='container'>
-                    <GridComponent id='Grid' ref={grid => gridInstance = grid as GridComponent} toolbar={toolbarOptions} dataSource={predictiveData} queryCellInfo={CustomizeCell} enableHover={false}>
+                    <GridComponent id='Grid' ref={(grid: GridComponent) => gridInstance = grid as GridComponent} toolbar={toolbarOptions} dataSource={predictiveData} queryCellInfo={CustomizeCell} enableHover={false}>
                         <ColumnsDirective>
                             <ColumnDirective field='StudentID' isPrimaryKey={true} headerText='Student ID' textAlign='Right' width={100} />
                             <ColumnDirective field='StudentName' headerText='Student Name' width={100} />

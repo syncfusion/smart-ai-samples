@@ -12,11 +12,11 @@ function WeatherPrediction() {
         temperature: number;
         weatherCondition: string;
     };
-    let tomorrowButton: ButtonComponent;
-    let secondDayButtonInstance: ButtonComponent;
-    let thirdDayButtonInstance: ButtonComponent;
-    let fourthDayButtonInstance: ButtonComponent;
-    let fifthDayButtonInstance: ButtonComponent;
+    let tomorrowButton: ButtonComponent | null = null;
+    let secondDayButtonInstance: ButtonComponent | null = null;
+    let thirdDayButtonInstance: ButtonComponent | null = null;
+    let fourthDayButtonInstance: ButtonComponent | null = null;
+    let fifthDayButtonInstance: ButtonComponent | null = null;
 
     const todayDate = new Date();
     const secondDayDate = new Date(todayDate);
@@ -42,7 +42,7 @@ function WeatherPrediction() {
     function getWeatherData(day: string): void {
         let weatherDataRequest;
         let offset: number = 0;
-        let buttonInstance: ButtonComponent;
+        let buttonInstance: ButtonComponent | null = null;
         if ((day === 'Tomorrow') || (day === 'Second Day') || (day === 'Third Day') || (day === 'Fourth Day') || (day === 'Fifth Day')) {
             if (day === 'Tomorrow') {
                 offset = 1;
@@ -118,7 +118,7 @@ function WeatherPrediction() {
                 </div>
                 <div id='container'>
                     <MapsComponent
-                        ref={map => mapInstance = map as MapsComponent}
+                        ref={(map: MapsComponent) => mapInstance = map as MapsComponent}
                         id='Maps'
                         height='630px'
                         centerPosition={{
@@ -190,11 +190,11 @@ function WeatherPrediction() {
                     </MapsComponent>
                     <br></br>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <ButtonComponent style={{ margin: "5px" }} id="tomorrowButton" onClick={() => getWeatherData('Tomorrow')} content='Tomorrow'></ButtonComponent>
-                        <ButtonComponent style={{ margin: "5px" }} id="secondDayButton" onClick={() => getWeatherData('Second Day')} content={secondDayText}></ButtonComponent>
-                        <ButtonComponent style={{ margin: "5px" }} id="thirdDayButton" onClick={() => getWeatherData('Third Day')} content={thirdDayText}></ButtonComponent>
-                        <ButtonComponent style={{ margin: "5px" }} id="fourthDayButton" onClick={() => getWeatherData('Fourth Day')} content={fourthDayText}></ButtonComponent>
-                        <ButtonComponent style={{ margin: "5px" }} id="fifthDayButton" onClick={() => getWeatherData('Fifth Day')} content={fifthDayText}></ButtonComponent>
+                        <ButtonComponent ref={(btn: ButtonComponent | null) => tomorrowButton = btn} style={{ margin: "5px" }} id="tomorrowButton" onClick={() => getWeatherData('Tomorrow')} content='Tomorrow'></ButtonComponent>
+                        <ButtonComponent ref={(btn: ButtonComponent | null) => secondDayButtonInstance = btn} style={{ margin: "5px" }} id="secondDayButton" onClick={() => getWeatherData('Second Day')} content={secondDayText}></ButtonComponent>
+                        <ButtonComponent ref={(btn: ButtonComponent | null) => thirdDayButtonInstance = btn} style={{ margin: "5px" }} id="thirdDayButton" onClick={() => getWeatherData('Third Day')} content={thirdDayText}></ButtonComponent>
+                        <ButtonComponent ref={(btn: ButtonComponent | null) => fourthDayButtonInstance = btn} style={{ margin: "5px" }} id="fourthDayButton" onClick={() => getWeatherData('Fourth Day')} content={fourthDayText}></ButtonComponent>
+                        <ButtonComponent ref={(btn: ButtonComponent | null) => fifthDayButtonInstance = btn} style={{ margin: "5px" }} id="fifthDayButton" onClick={() => getWeatherData('Fifth Day')} content={fifthDayText}></ButtonComponent>
                     </div>
                 </div>
             </div>

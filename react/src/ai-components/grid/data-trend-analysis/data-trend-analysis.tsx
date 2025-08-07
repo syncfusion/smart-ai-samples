@@ -122,7 +122,7 @@ function DataTrendAnalysis() {
                 <div id='container'>
                     <div className='dddata'>
                         <DropDownListComponent type="text"
-                        ref={yearDropDown => yearDdl = yearDropDown as DropDownListComponent}
+                        ref={(yearDropDown: DropDownListComponent) => yearDdl = yearDropDown as DropDownListComponent}
                             id='year_ddl'
                             dataSource={years}
                             value='Year2023'
@@ -134,7 +134,7 @@ function DataTrendAnalysis() {
                     </div>
                     <GridComponent
                         id='Grid'
-                        ref={grid => gridInstance = grid as GridComponent}
+                        ref={(grid: GridComponent) => gridInstance = grid as GridComponent}
                         dataSource={OverallData}
                         editSettings={{ allowAdding: true, newRowPosition: 'Bottom' }}
                         queryCellInfo={CustomizeCell}

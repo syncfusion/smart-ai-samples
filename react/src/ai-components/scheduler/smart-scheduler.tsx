@@ -205,7 +205,7 @@ function SmartScheduler() {
         return (
             <div id="scheduler" >
                 <ScheduleComponent
-                    ref={schedule => scheduleObj = schedule as ScheduleComponent}
+                    ref={(schedule: ScheduleComponent) => scheduleObj = schedule as ScheduleComponent}
                     height={'750px'}
                     selectedDate={new Date()}
                     currentView='Week'
@@ -325,7 +325,7 @@ function SmartScheduler() {
             </div>
             <div id='container' className="scheduler-ai-container">
                 <TabComponent id="tab" heightAdjustMode='Auto'
-                    ref={tab => tabObj = tab as TabComponent}
+                    ref={(tab: TabComponent) => tabObj = tab as TabComponent}
                     selected={tabSelected}
                     animation={{ previous: { effect: 'None' }, next: { effect: 'None' } }}
                     created={() => {
@@ -340,7 +340,7 @@ function SmartScheduler() {
                 </TabComponent>
             </div>
             <DialogComponent id="editor_dialog"
-                ref={dialogObj => dialog = dialogObj as DialogComponent}
+                ref={(dialogObj: DialogComponent) => dialog = dialogObj as DialogComponent}
                 header={() => {
                     return (
                         <div id="dlgHeader" style={{ visibility: "hidden" }} className="dialogHeader">
@@ -406,10 +406,10 @@ function SmartScheduler() {
                             </div>
 
                             <div style={{ display: "inline-block" }}>
-                                <ButtonComponent id="saveButton" type='button' ref={button => saveButton = button as ButtonComponent} className="samplebtn" isPrimary={true} disabled={true} style={{ marginRight: "10px" }} data-ripple={true}>Save</ButtonComponent>
+                                <ButtonComponent id="saveButton" type='button' ref={(button: ButtonComponent) => saveButton = button as ButtonComponent} className="samplebtn" isPrimary={true} disabled={true} style={{ marginRight: "10px" }} data-ripple={true}>Save</ButtonComponent>
                             </div>
                             <div style={{ float: "right" }}>
-                                <ButtonComponent ref={button => cancelButton = button as ButtonComponent} id="cancelButton" className="samplebtn"
+                                <ButtonComponent ref={(button: ButtonComponent) => cancelButton = button as ButtonComponent} id="cancelButton" className="samplebtn"
                                     type="reset" data-ripple="true">cancel</ButtonComponent>
                             </div>
                         </div>
@@ -419,7 +419,7 @@ function SmartScheduler() {
 
 
             <ToastComponent id="ToastElement"
-                ref={toastObj => toast = toastObj as ToastComponent}
+                ref={(toastObj: ToastComponent) => toast = toastObj as ToastComponent}
                 title='Events Added'
                 content=''
                 position={{ X: 'Right', Y: 'Top' }}

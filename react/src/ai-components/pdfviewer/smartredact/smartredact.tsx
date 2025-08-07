@@ -692,7 +692,7 @@ function SmartRedact() {
                         <span className="e-pv-smartredact-regular">Smart Redact</span>
                         <div className="e-appbar-spacer"></div>
                         <ButtonComponent id="e-pv-smartredact-downloadBtn"
-                            ref={btn => (downloadBtn = btn as ButtonComponent)}
+                            ref={(btn: ButtonComponent) => (downloadBtn = btn as ButtonComponent)}
                             cssClass='e-inherit' iconCss='e-icons e-download e-btn-icon e-icon-left' content='Download'
                         ></ButtonComponent>
                     </AppBarComponent>
@@ -700,12 +700,12 @@ function SmartRedact() {
                 <div id="e-pv-smart-redact-container">
                     <div id="e-pv-smartredact-left-container">
                         <FabComponent id="e-pv-fab-btn" title="Open AI Assist"
-                            ref={fab => (fabButton = fab as FabComponent)}
+                            ref={(fab: FabComponent) => (fabButton = fab as FabComponent)}
                             onClick={openSmartReact}
                             iconCss='e-icons e-assistview-icon'
                             style={{ display: 'none' }}></FabComponent>
                         <ToolbarComponent id="e-pv-smartredact-toolbar" style={{ top: '0px' }}
-                            ref={toolbar => (toolbarObj = toolbar as ToolbarComponent)}>
+                            ref={(toolbar: ToolbarComponent) => (toolbarObj = toolbar as ToolbarComponent)}>
                             <ItemsDirective>
                                 <ItemDirective prefixIcon="e-icons e-folder" tooltipText="Open" text="Open File" id="openButton" cssClass="e-pv-open-container" click={openDocument} />
                                 <ItemDirective type="Separator" tooltipText="separator" align="Left" />
@@ -719,7 +719,7 @@ function SmartRedact() {
                         <div id="e-pv-smartredact-pdfviewer-container">
                             <PdfViewerComponent id="e-pv-smartredact-pdfviewer" style={{ height: '100%', width: '100%' }}
                                 serviceUrl={SERVICE_URL}
-                                ref={pdfviewerObj => (pdfviewer = pdfviewerObj as PdfViewerComponent)}
+                                ref={(pdfviewerObj: PdfViewerComponent) => (pdfviewer = pdfviewerObj as PdfViewerComponent)}
                                 enableAnnotationToolbar={false}
                                 enableToolbar={false}
                                 enablePageOrganizer={false}
@@ -750,7 +750,7 @@ function SmartRedact() {
                     >
                         <div id="e-pv-right-container-header">
                             <ButtonComponent id="e-pv-right-container-close-btn"
-                                ref={btn => (rightContainerCloseBtn = btn as ButtonComponent)}
+                                ref={(btn: ButtonComponent) => (rightContainerCloseBtn = btn as ButtonComponent)}
                                 iconCss='e-icons e-close'
                             ></ButtonComponent>
                         </div>
@@ -766,7 +766,7 @@ function SmartRedact() {
                             ref={tree => (scanTreeObj = tree as HTMLElement)}>
                             <div id="e-pv-smartredact-treeViewScanObj">
                                 <TreeViewComponent id="e-pv-smartredact-scantree"
-                                    ref={tree => (treeObj = tree as TreeViewComponent)}
+                                    ref={(tree: TreeViewComponent) => (treeObj = tree as TreeViewComponent)}
                                     fields={{ dataSource: treeObjData, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' }}
                                     showCheckBox={true}
                                     nodeChecked={optionsSelect}
@@ -778,24 +778,24 @@ function SmartRedact() {
                             ref={tree => (selectedTreeObj = tree as HTMLElement)}>
                             <div id="e-pv-smartredact-treeViewSelectedObj">
                                 <TreeViewComponent id="e-pv-smartredact-selectedTree"
-                                    ref={tree => (selectedTreeViewObj = tree as TreeViewComponent)}
+                                    ref={(tree: TreeViewComponent) => (selectedTreeViewObj = tree as TreeViewComponent)}
                                 ></TreeViewComponent>
                             </div>
                         </div>
                         <div id="e-pv-right-container-footer-content" style={{ display: 'none' }}
                             ref={btn => (scanBtnObj = btn as HTMLElement)}>
                             <ButtonComponent id="e-pv-smartredact-redactScanBtn"
-                                ref={btn => (scanBtn = btn as ButtonComponent)}
+                                ref={(btn: ButtonComponent) => (scanBtn = btn as ButtonComponent)}
                                 content='Scan' isPrimary={true}
                             ></ButtonComponent>
                         </div>
                         <div id="e-pv-right-container-footer-result" style={{ display: 'none' }}
                             ref={btn => (selectedBtnObj = btn as HTMLElement)}>
                             <ButtonComponent id="e-pv-smartredact-redactCancelBtn" content='Cancel'
-                                ref={btn => (redactCancelBtnObj = btn as ButtonComponent)}
+                                ref={(btn: ButtonComponent) => (redactCancelBtnObj = btn as ButtonComponent)}
                             ></ButtonComponent>
                             <ButtonComponent id="e-pv-smartredact-redactApplyBtn"
-                                ref={btn => (redactAIBtn = btn as ButtonComponent)}
+                                ref={(btn: ButtonComponent) => (redactAIBtn = btn as ButtonComponent)}
                                 content='Redact' isPrimary={true}
                             ></ButtonComponent>
                         </div>

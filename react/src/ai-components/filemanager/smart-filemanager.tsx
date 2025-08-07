@@ -254,7 +254,7 @@ function SmartFileManager() {
             </div>
             <div className="filemanager_container">
                 <FileManagerComponent id='smartfilemanager'
-                    ref={fileManager => fileManagerObj = fileManager as FileManagerComponent}
+                    ref={(fileManager: FileManagerComponent) => fileManagerObj = fileManager as FileManagerComponent}
                     ajaxSettings={{
                         url: hostUrl + 'api/FileManager/FileOperations',
                         getImageUrl: hostUrl + 'api/FileManager/GetImage',
@@ -279,7 +279,7 @@ function SmartFileManager() {
                     toolbarClick={toolbarClick}
                 >
                     <DialogComponent id="customTbarDialog"
-                        ref={dialogObj => dialog = dialogObj as DialogComponent}
+                        ref={(dialogObj: DialogComponent) => dialog = dialogObj as DialogComponent}
                         header="File Summary"
                         content="<span>Loading...</span>"
                         target={document.getElementById('filemanager') as HTMLElement}
@@ -307,7 +307,7 @@ function SmartFileManager() {
                         <p id="emptyTag" style={{ display: "none" }}>No tags available</p>
                         <div id="fileTags" className="scrollable-container">
                             <ChipListComponent id="fileChips" aria-label="inputChips"
-                                ref={chipList => fileChips = chipList as ChipListComponent}
+                                ref={(chipList: ChipListComponent) => fileChips = chipList as ChipListComponent}
                                 chips={[]} enableDelete={true} deleted={chipDeleted}
                             ></ChipListComponent>
                         </div>
@@ -317,7 +317,7 @@ function SmartFileManager() {
                             suggested tags from AI.</p>
                         <div id="aiTags" className="scrollable-container">
                             <ChipListComponent id="aiChips" aria-label="inputChips"
-                                ref={chipList => aiChips = chipList as ChipListComponent}
+                                ref={(chipList: ChipListComponent) => aiChips = chipList as ChipListComponent}
                                 chips={[]} enableDelete={true} deleted={aiChipDeleted}
                             ></ChipListComponent>
                         </div>

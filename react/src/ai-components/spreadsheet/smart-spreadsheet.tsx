@@ -319,14 +319,14 @@ function SmartSpreadsheet() {
                 </div>
             </div>
             <SpreadsheetComponent id='spreadsheet'
-                ref={spreadsheetObj => spreadsheet = spreadsheetObj as SpreadsheetComponent}
+                ref={(spreadsheetObj: SpreadsheetComponent) => spreadsheet = spreadsheetObj as SpreadsheetComponent}
                 sheets={sheet}
                 height='708px'
                 created={onCreate}
             >
             </SpreadsheetComponent>
             <SidebarComponent id="defaultSidebar" className="default-sidebar"
-                ref={sidebar => sidebarObj = sidebar as SidebarComponent}
+                ref={(sidebar: SidebarComponent) => sidebarObj = sidebar as SidebarComponent}
                 width="500px"
                 target=".maincontent"
                 position='Right'
@@ -335,7 +335,7 @@ function SmartSpreadsheet() {
                 created={() => sidebarObj.toggle()}
             >
                 <AIAssistViewComponent id="defaultAIAssistView" style={{ border: "none" }}
-                    ref={aiAssistView => aiInstance = aiAssistView as AIAssistViewComponent}
+                    ref={(aiAssistView: AIAssistViewComponent) => aiInstance = aiAssistView as AIAssistViewComponent}
                     promptPlaceholder="Type your prompt for assistance..."
                     prompts={prompts}
                     promptRequest={promptHandler}

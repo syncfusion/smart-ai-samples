@@ -272,7 +272,7 @@ function WritingAssist() {
                     ]}
                 >
                     <DialogComponent
-                        ref={dialogObj => dialog = dialogObj as DialogComponent}
+                        ref={(dialogObj: DialogComponent) => dialog = dialogObj as DialogComponent}
                         id='dialog'
                         header='Generate Content'
                         showCloseIcon={true}
@@ -312,7 +312,7 @@ function WritingAssist() {
                             ref={editable => editableDiv = editable as HTMLElement}
                         ></div>
                         <ToolbarComponent id="e-d-toolbar"
-                            ref={toolbarObj => toolbar = toolbarObj as ToolbarComponent}
+                            ref={(toolbarObj: ToolbarComponent) => toolbar = toolbarObj as ToolbarComponent}
                             created={onToolbarCreated}
                         >
                             <ItemsDirective>

@@ -72,7 +72,7 @@ function AnamolyDetection() {
                 <div id='container'>
                     <GridComponent
                         id='Grid'
-                        ref={grid => gridInstance = grid as GridComponent}
+                        ref={(grid: GridComponent) => gridInstance = grid as GridComponent}
                         dataSource={machineDataList}
                         toolbar={toolbarOptions}
                         queryCellInfo={CustomizeCell}
