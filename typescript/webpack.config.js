@@ -4,11 +4,14 @@ const path = require('path');
 const glob = require('glob');
 const CopyPlugin = require("copy-webpack-plugin");
 const cssPatterns = glob.sync('./src/app/**/**/*.css');
-const cssFiles =[];
- cssPatterns.map(file => {
-  cssFiles.push({ from: file, to: file.replace('./src/app/','') });
-
- });
+const cssFiles = [];
+cssPatterns.map(file => {
+  // Normalize path separators for webpack 5 compatibility and add ./ prefix
+  const normalizedFile = './' + file.replace(/\\/g, '/');
+  // Properly remove ./src/app/ prefix from destination path
+  const normalizedTo = normalizedFile.replace('./src/app/', '');
+  cssFiles.push({ from: normalizedFile, to: normalizedTo });
+});
  
 console.log('css patterns:' + JSON.stringify(cssFiles));
 // Function to generate entry points
@@ -68,6 +71,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    preferRelative: true,
   },
   output: {
     filename: '[name].js',
@@ -87,7 +91,13 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: path.join(__dirname, 'dist'),
+    static: [
+      path.join(__dirname, 'dist'),
+      {
+        directory: path.join(__dirname, 'src/app'),
+        publicPath: '/'
+      }
+    ],
     compress: true,
     port: 5001,
     open: true,
