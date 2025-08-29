@@ -18,6 +18,16 @@ namespace SyncfusionAISamples.Components.Layout
         },
         new MenuItem
         {
+            Text = "Charts",
+            SubMenu = new List<MenuItem>
+            {
+                new MenuItem { Text = "Stock Forecasting", Href = "chart/ai-stock-forecasting" },
+                new MenuItem { Text = "Data Preprocessing", Href = "chart/ai-data-preprocessing" },
+                new MenuItem { Text = "Smart Chart", Href = "chart/ai-smart-chart" }
+            }
+        },
+        new MenuItem
+        {
             Text = "ComboBox",
             Href = "combobox/embeddings"
         },
