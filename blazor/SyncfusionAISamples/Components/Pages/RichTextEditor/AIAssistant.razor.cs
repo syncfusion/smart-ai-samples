@@ -77,7 +77,7 @@ namespace SyncfusionAISamples.Components.Pages.RichTextEditor
             }
         }
 
-        private async Task SelectedChipsChanged(SelectionChangedEventArgs args)
+        private async Task SelectedChipsChanged(Syncfusion.Blazor.Buttons.SelectionChangedEventArgs args)
         {
             if (chipValue.Length == 0 && args != null && args.RemovedItems.Length > 0)
             {
