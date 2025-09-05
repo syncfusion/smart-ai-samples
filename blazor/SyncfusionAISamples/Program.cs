@@ -1,4 +1,6 @@
 using FileManagerAI.Services;
+using Microsoft.Extensions.AI;
+using OpenAI;
 using SmartComponents.LocalEmbeddings;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.AI;
@@ -24,16 +26,14 @@ builder.Services.AddSignalR(o => { o.MaximumReceiveMessageSize = 1024000000000; 
 // Local Embeddings
 builder.Services.AddSingleton<LocalEmbedder>();
 
-// OpenAI Service
-string apiKey = "your-api-key";
-string deploymentName = "your-deployment-name";
-// your-azure-endpoint-url
-string endpoint = "";
+builder.Services.AddSyncfusionSmartComponents().InjectOpenAIInference();
+// Open AI Service
+string apiKey = "Api Key";
+string deploymentName = "model-name";
 
-//Injecting smart components
-builder.Services.AddSyncfusionSmartComponents()
-    .ConfigureCredentials(new AIServiceCredentials(apiKey, deploymentName, endpoint)) //Configuring credentials for AI functionality to work
-    .InjectOpenAIInference(); // Injecting OpenAI Services
+OpenAIClient openAIClient = new OpenAIClient(apiKey);
+IChatClient openAiChatClient = openAIClient.GetChatClient(deploymentName).AsIChatClient();
+builder.Services.AddChatClient(openAiChatClient);
 
 builder.Services.AddSingleton<SyncfusionAIService>();
 builder.Services.AddSingleton<AzureAIService>();
