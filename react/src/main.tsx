@@ -51,6 +51,9 @@ import SmartFill from './ai-components/pdfviewer/smartfill/smartfill.tsx'
 import SmartRedact from './ai-components/pdfviewer/smartredact/smartredact.tsx'
 import Summarizer from './ai-components/pdfviewer/summarizer/summarizer.tsx'
 import './index.css'
+//Chart
+import DataPreprocessingChart from './ai-components/charts/data-preprocessing-chart.tsx'
+
 
 const routerEle = createHashRouter(
   createRoutesFromElements(
@@ -58,12 +61,14 @@ const routerEle = createHashRouter(
       {/* Smart Components */}
       <Route path="smart-paste" element={<SmartPaste />} />
       <Route path="smart-textarea" element={<SmartTextArea />} />
-      <Route path="/" element={<SmartPaste />} />
+      {/* <Route path="/" element={<SmartPaste />} /> */}
       {/* DataGrid */}
       <Route path="semantic-search" element={<SemanticSearch />} />
       <Route path="predictive-data" element={<PredictiveDataEntry />} />
       <Route path="anamoly-detection" element={<AnamolyDetection />} />
       <Route path="data-trend" element={<DataTrendAnalysis />} />
+      {/* Charts */}
+      <Route path="data-preprocessing-chart" element={<DataPreprocessingChart />} />
       {/* ComboBox */}
       <Route path="combobox-semantic-search" element={<ComboBoxSemanticSearch />} />
       {/* Tree Grid */}

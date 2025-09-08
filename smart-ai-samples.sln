@@ -1,0 +1,50 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blazor", "blazor", "{E83BDDD6-600F-B5F0-78FF-47929315255A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "react", "react", "{F5FFE232-13EE-5D6E-F461-7F7D022EA45F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncfusionAISamples", "blazor\SyncfusionAISamples\SyncfusionAISamples.csproj", "{19F536D6-F57C-7554-462C-FF88A557DE5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{06D3180A-C7D7-E495-0927-BDE94B39EEBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ai-components", "ai-components", "{7175E513-346A-6DAA-BE24-B90B321A9EFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pdfviewer", "pdfviewer", "{746A77A4-150F-8047-F6CD-9762C96FA8F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Webservice", "Webservice", "{B412C7BD-B446-F947-EF7A-5B06D1BBA537}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EJ2APIServices_NET8", "react\src\ai-components\pdfviewer\Webservice\src\EJ2APIServices_NET8.csproj", "{3489435D-D5C8-C8D1-F0DA-6E876CCD0E57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19F536D6-F57C-7554-462C-FF88A557DE5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F536D6-F57C-7554-462C-FF88A557DE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F536D6-F57C-7554-462C-FF88A557DE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F536D6-F57C-7554-462C-FF88A557DE5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3489435D-D5C8-C8D1-F0DA-6E876CCD0E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3489435D-D5C8-C8D1-F0DA-6E876CCD0E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3489435D-D5C8-C8D1-F0DA-6E876CCD0E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3489435D-D5C8-C8D1-F0DA-6E876CCD0E57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19F536D6-F57C-7554-462C-FF88A557DE5C} = {E83BDDD6-600F-B5F0-78FF-47929315255A}
+		{06D3180A-C7D7-E495-0927-BDE94B39EEBE} = {F5FFE232-13EE-5D6E-F461-7F7D022EA45F}
+		{7175E513-346A-6DAA-BE24-B90B321A9EFD} = {06D3180A-C7D7-E495-0927-BDE94B39EEBE}
+		{746A77A4-150F-8047-F6CD-9762C96FA8F9} = {7175E513-346A-6DAA-BE24-B90B321A9EFD}
+		{B412C7BD-B446-F947-EF7A-5B06D1BBA537} = {746A77A4-150F-8047-F6CD-9762C96FA8F9}
+		{3489435D-D5C8-C8D1-F0DA-6E876CCD0E57} = {B412C7BD-B446-F947-EF7A-5B06D1BBA537}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21EE40F9-18D3-43DD-B67B-990D14F118D0}
+	EndGlobalSection
+EndGlobal
