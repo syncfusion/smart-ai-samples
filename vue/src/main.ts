@@ -25,6 +25,8 @@ import GridPredictive from './ai-components/ai-grid/ai-predictive-entry.vue'
 import GanttTask from './ai-components/ai-gantt/ai-task-prioritizer.vue';
 import GanttProgress from './ai-components/ai-gantt/ai-progress-predictor.vue';
 import GanttResource from './ai-components/ai-gantt/ai-resource-manager.vue';
+import DataPreprocessing from './ai-components/ai-chart/data-preprocessing.vue';
+import StockForecastingChart from './ai-components/ai-chart/stock-chart.vue'
 
 const routes = [
     {
@@ -36,6 +38,20 @@ const routes = [
         name: 'ComboBox',
         component: ComboBox
     },
+      {
+        path: '/DataPreprocessing',
+        name: 'DataPreprocessing',
+        component:DataPreprocessing
+    },
+    //  { "id": 29, "name": "Data Preprocessing", "path": "/DataPreprocessing" },
+        // { "id": 30, "name": "Stock Forcasting", "path": "/StockForcasting" }
+    
+    {
+        path: '/StockForcasting',
+        name: 'StockChart',
+        component:StockForecastingChart
+    },
+
     {
         path: '/DiagramFlowChart',
         name: 'DiagramFlowChart',

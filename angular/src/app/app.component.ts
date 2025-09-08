@@ -2,13 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { SidebarAllModule, TreeViewAllModule, NodeSelectEventArgs, ToolbarAllModule, SidebarComponent } from '@syncfusion/ej2-angular-navigations';
-
+//  Import Syncfusion Chart modules
+import { ChartAllModule, LineSeriesService, CategoryService, DateTimeService, TooltipService, LegendService } from '@syncfusion/ej2-angular-charts';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarAllModule, TreeViewAllModule, ToolbarAllModule],
+  imports: [RouterOutlet, SidebarAllModule, TreeViewAllModule, ToolbarAllModule, ChartAllModule  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css'  
 })
 export class AppComponent {
   @ViewChild('sidebarhome') sidebar!: SidebarComponent;
@@ -17,6 +18,7 @@ export class AppComponent {
     { id: '1', name: 'Smart Paste', route: '/smart-paste' },
     { id: '2', name: 'Smart TexArea', route: '/smart-textarea' },
     { id: '11', name: 'ComboBox', route: 'combobox/local-embedding' },
+    { id: '22', name: 'Chart', route: 'chart/data-preprocessing' },
     { id: '4', name: 'Schedule', url: '', route: '/scheduler/smart-scheduler' },
     { id: '14', name: 'Rich Text Editor', url: '', route: 'rich-text-editor' },
     { id: '16', name: 'SpreadSheet', url: '', route: 'spreadsheet' },
@@ -69,8 +71,6 @@ export class AppComponent {
 
       ]
     },
-    { id: '11', name: '' }
-
 
   ];
   public fields: Object = { dataSource: this.treeData, id: 'id', text: 'name', child: 'subItems' };
