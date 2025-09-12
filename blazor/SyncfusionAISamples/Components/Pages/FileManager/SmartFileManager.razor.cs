@@ -22,27 +22,27 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
         private string promptQuery = string.Empty;
         private string DialogContent = string.Empty;
         private static readonly HashSet<string> AllowedFileTypes = new HashSet<string>
-    {
-        ".txt",
-        ".docx",
-        ".pdf"
-    };
+        {
+            ".txt",
+            ".docx",
+            ".pdf"
+        };
         public List<ToolBarItemModel> Items = new List<ToolBarItemModel>(){
-        new ToolBarItemModel() { Name = "NewFolder" },
-        new ToolBarItemModel() { Name = "Cut" },
-        new ToolBarItemModel() { Name = "Copy" },
-        new ToolBarItemModel() { Name = "Paste" },
-        new ToolBarItemModel() { Name = "Delete" },
-        new ToolBarItemModel() { Name = "Download" },
-        new ToolBarItemModel() { Name = "Rename" },
-        new ToolBarItemModel() { Name = "SortBy" },
-        new ToolBarItemModel() { Name = "Refresh" },
-        new ToolBarItemModel() { Name = "Organize", Text="Organize", TooltipText="Organize", PrefixIcon="e-icons e-folder", Visible=true },
-        new ToolBarItemModel() { Name = "Quick Summary", Text="Quick Summary", TooltipText="Get a quick summary of the selected file using AI", PrefixIcon="e-icons e-print-layout", Visible=false },
-        new ToolBarItemModel() { Name = "Selection" },
-        new ToolBarItemModel() { Name = "View" },
-        new ToolBarItemModel() { Name = "Details" },
-    };
+            new ToolBarItemModel() { Name = "NewFolder" },
+            new ToolBarItemModel() { Name = "Cut" },
+            new ToolBarItemModel() { Name = "Copy" },
+            new ToolBarItemModel() { Name = "Paste" },
+            new ToolBarItemModel() { Name = "Delete" },
+            new ToolBarItemModel() { Name = "Download" },
+            new ToolBarItemModel() { Name = "Rename" },
+            new ToolBarItemModel() { Name = "SortBy" },
+            new ToolBarItemModel() { Name = "Refresh" },
+            new ToolBarItemModel() { Name = "Organize", Text="Organize", TooltipText="Organize", PrefixIcon="e-icons e-folder", Visible=true },
+            new ToolBarItemModel() { Name = "Quick Summary", Text="Quick Summary", TooltipText="Get a quick summary of the selected file using AI", PrefixIcon="e-icons e-print-layout", Visible=false },
+            new ToolBarItemModel() { Name = "Selection" },
+            new ToolBarItemModel() { Name = "View" },
+            new ToolBarItemModel() { Name = "Details" },
+        };
 
         public string[] FileItems = new string[] { "Quick Summary", "Cut", "Copy", "|", "Delete", "Rename", "|", "Details" };
         public string[] FolderItems = new string[] { "Organize", "|", "Open", "|", "Cut", "Copy", "Paste", "|", "Delete", "Rename", "|", "Details" };
