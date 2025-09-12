@@ -8,28 +8,28 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
     public partial class FileManagerTagSearch
     {
         SfFileManager<FileManagerDirectoryContent>? FileManager;
-        SfChip AIChip;
-        SfChip Chip;
+        SfChip? AIChip;
+        SfChip? Chip;
         private string FileManagerId { get; set; } = "FileManager_" + Guid.NewGuid().ToString("N");
         private bool isTag { get; set; } = false;
         private bool isSave { get; set; } = true;
         private string promptQuery = string.Empty;
         public List<ToolBarItemModel> Items = new List<ToolBarItemModel>(){
-        new ToolBarItemModel() { Name = "NewFolder" },
-        new ToolBarItemModel() { Name = "Cut" },
-        new ToolBarItemModel() { Name = "Copy" },
-        new ToolBarItemModel() { Name = "Paste" },
-        new ToolBarItemModel() { Name = "Delete" },
-        new ToolBarItemModel() { Name = "Download" },
-        new ToolBarItemModel() { Name = "Rename" },
-        new ToolBarItemModel() { Name = "SortBy" },
-        new ToolBarItemModel() { Name = "Refresh" },
-        new ToolBarItemModel() { Name = "Selection" },
-        new ToolBarItemModel() { Name = "View" },
-        new ToolBarItemModel() { Name = "Details" },
-    };
-        private string[] fileTags { get; set; } = new string[] { };
-        private string[] aiTags { get; set; } = new string[] { };
+            new ToolBarItemModel() { Name = "NewFolder" },
+            new ToolBarItemModel() { Name = "Cut" },
+            new ToolBarItemModel() { Name = "Copy" },
+            new ToolBarItemModel() { Name = "Paste" },
+            new ToolBarItemModel() { Name = "Delete" },
+            new ToolBarItemModel() { Name = "Download" },
+            new ToolBarItemModel() { Name = "Rename" },
+            new ToolBarItemModel() { Name = "SortBy" },
+            new ToolBarItemModel() { Name = "Refresh" },
+            new ToolBarItemModel() { Name = "Selection" },
+            new ToolBarItemModel() { Name = "View" },
+            new ToolBarItemModel() { Name = "Details" },
+        };
+        private List<ChipItem> fileTags = new List<ChipItem>();
+        private List<ChipItem> aiTags = new List<ChipItem>();
         public string[] FileItems = new string[] { "Manage Tags", "|", "Cut", "Copy", "|", "Delete", "Rename", "|", "Details" };
         public string[] FolderItems = new string[] { "Open", "|", "Cut", "Copy", "Paste", "|", "Delete", "Rename", "|", "Details" };
 
@@ -148,12 +148,12 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
             string tagsString = await GetTagsFromAI(fileContent);
             try
             {
-                string[] tagsArray = Regex.Split(tagsString, @"\r\n|\n\n|\n")
+                var tagsArray = Regex.Split(tagsString, @"\r\n|\n\n|\n")
                 .Where(tag => !string.IsNullOrWhiteSpace(tag))
                 .Select(tag => tag.Substring(tag.IndexOf(' ') + 1).Trim())
-                .ToArray();
-                aiTags = tagsArray;
-                isSave = false;
+                .ToList();
+                aiTags = tagsArray.Select(tag => new ChipItem { Text = tag }).ToList();
+                isSave = aiTags.Count == 0 ? true : false;
             }
             catch (Exception e)
             {
@@ -168,16 +168,16 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
         {
             var data = FileManager?.GetSelectedFiles();
             List<string> tagsList = new List<string>();
-            foreach (var item in AIChip.Chips)
+            foreach (var item in AIChip?.Chips)
             {
                 tagsList.Add(item.Text);
             }
-            aiTags = tagsList.ToArray();
+            aiTags = tagsList.Select(tag => new ChipItem { Text = tag }).ToList();
             string filePath = FileManagerService.contentRootPath + data?.FirstOrDefault()?.FilterPath + data?.FirstOrDefault()?.Name;
             string fileContent = "File Named as " + data?.FirstOrDefault()?.Name;
             FileManagerService.UpdateTagsToFile(filePath, aiTags);
-            fileTags = FileManagerService.GetTagsFromFile(filePath);
-            aiTags = new string[] { };
+            fileTags = FileManagerService.GetTagsFromFile(filePath).Select(tag => new ChipItem { Text = tag }).ToList();
+            aiTags = null;
             isSave = true;
         }
 
@@ -185,7 +185,7 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
         {
             if (Chip.Chips.Count == 0)
             {
-                fileTags = new string[] { };
+                fileTags = null;
                 isSave = true;
             }
             var data = FileManager?.GetSelectedFiles();
@@ -197,7 +197,7 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
         {
             if (AIChip.Chips.Count == 0)
             {
-                aiTags = new string[] { };
+                aiTags = null;
                 isSave = true;
             }
         }
@@ -205,8 +205,8 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
         private void CloseTagContainer()
         {
             this.isTag = false;
-            aiTags = new string[] { };
-            fileTags = new string[] { };
+            aiTags = null;
+            fileTags = null;
         }
 
         private async Task OnMenuClick(MenuClickEventArgs<FileManagerDirectoryContent> args)
@@ -214,7 +214,7 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
             if (args.Item.Text == "Manage Tags")
             {
                 string filePath = FileManagerService.contentRootPath + args.FileDetails.FirstOrDefault()?.FilterPath + args.FileDetails.FirstOrDefault()?.Name;
-                fileTags = FileManagerService.GetTagsFromFile(filePath);
+                fileTags = FileManagerService.GetTagsFromFile(filePath).Select(tag => new ChipItem { Text = tag }).ToList();
                 this.isTag = true;
             }
         }

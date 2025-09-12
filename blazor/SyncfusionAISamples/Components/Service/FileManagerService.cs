@@ -5,6 +5,7 @@ using Syncfusion.Blazor.FileManager;
 using SyncfusionAISamples.Service;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
+using Syncfusion.Blazor.Buttons;
 
 namespace FileManagerAI.Services
 {
@@ -24,12 +25,11 @@ namespace FileManagerAI.Services
         public static string DemoDirectoryName = "DemoBaseDirectory";
         public string DemoBaseDirectory = "wwwroot\\" + DemoDirectoryName;
         public TagService TagService = new TagService();
-        private AzureAIService openAIService;
+        public AzureAIService OpenAIService { get; set; }
         public Dictionary<string, EmbeddingF32> FileEmbeddings { get; set; } = new Dictionary<string, EmbeddingF32>();
 
-        public FileManagerService(IWebHostEnvironment hostingEnvironment, AzureAIService azureAIService)
+        public FileManagerService(IWebHostEnvironment hostingEnvironment, AzureAIService openAIService)
         {
-            openAIService = azureAIService;
             this.basePath = hostingEnvironment.ContentRootPath;
             this.DemoBaseDirectory = Path.Combine(this.basePath, this.DemoBaseDirectory);
             this.DefaultDirectory = Path.Combine(this.basePath, this.DefaultDirectory);
@@ -41,6 +41,7 @@ namespace FileManagerAI.Services
             {
                 _ = Task.Run(() => CleanUpOldDirectories());
             }
+            OpenAIService = openAIService;
         }
 
         public void RootFolder(string name)
@@ -210,7 +211,7 @@ namespace FileManagerAI.Services
             {
                 message += $"File: {file.Name}, Type: {file.Type}\n";
             }
-            var result = await openAIService.GetCompletionAsync((prompt + message), false);
+            var result = await OpenAIService.GetCompletionAsync(prompt + message, false);
             return result;
         }
 
@@ -1340,7 +1341,7 @@ namespace FileManagerAI.Services
                 bool hasPermission = parentsHavePermission(fileDetails);
                 if (hasPermission)
                 {
-                    string[] tags = TagService.GetTags(fileDetails.Name);
+                    List<ChipItem> tags = TagService.GetTags(fileDetails.Name).Select(tag => new ChipItem { Text = tag }).ToList();
                     string filePath = Path.Combine(this.contentRootPath, file.DirectoryName, file.Name);
                     UpdateTagsToFile(filePath, tags);
                 }
@@ -1348,15 +1349,15 @@ namespace FileManagerAI.Services
 
         }
 
-        public void UpdateTagsToFile(string filePath, string[] newTags)
+        public void UpdateTagsToFile(string filePath, List<ChipItem> newTags)
         {
             string adsPath = filePath + ":tags";
-            string[] existingTags = GetTagsFromFile(filePath);
+            List<ChipItem> existingTags = GetTagsFromFile(filePath).Select(tag => new ChipItem { Text = tag }).ToList();
             var combinedTags = existingTags.Union(newTags).ToArray();
             using (FileStream fs = new FileStream(adsPath, FileMode.OpenOrCreate, FileAccess.Write))
             using (StreamWriter writer = new StreamWriter(fs))
             {
-                string tagsString = string.Join(";", combinedTags);
+                string tagsString = string.Join(";", combinedTags.Select(tag => tag.Text));
                 writer.Write(tagsString);
             }
         }
