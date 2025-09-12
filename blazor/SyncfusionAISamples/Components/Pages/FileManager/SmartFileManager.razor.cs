@@ -301,7 +301,7 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
             string promptQuery = "You are a helpful assistant. Your task is to analyze the provided text and generate a short summary. Provide the summary with highlighted topics in ordered list HTML format and it should be ready for execution :\n\n Do not provide codeblock prefixes or introductory texts such as ``` or html, etc.";
             string query = promptQuery + fileContent;
 
-            string finalSummary = await openAIService.GetCompletionAsync(query, false);
+            string finalSummary = await AzureAIService.GetCompletionAsync(query, false);
 
             this.DialogContent = !string.IsNullOrEmpty(finalSummary) ? finalSummary : "Please provide a proper file content to summarize.";
             this.isContentGenerating = false;
