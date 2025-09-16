@@ -63,6 +63,12 @@ export class AppComponent {
     },
 
     {
+      id: '41', name: 'Chart', url: '', subItems: [
+        { id: '19', name: 'Smart Stock Forecasting', route: '/stockForecasting' },
+      ]
+    },
+    
+    {
       id: '10', name: 'Kanban', subItems: [
         { id: '/kanban/sentiment-analysis/', name: 'Smart Recommendation' },
         { id: '/kanban/smart-recommendation/', name: 'Smart Analysis' }
