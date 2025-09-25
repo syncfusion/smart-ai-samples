@@ -9,6 +9,7 @@ import SmartTextArea from './ai-components/smarttextarea/smart-textarea.tsx'
 import SemanticSearch from './ai-components/grid/semantic-search/semantic-search.tsx'
 import PredictiveDataEntry from './ai-components/grid/predictive-data/predictive-data.tsx'
 import AnamolyDetection from './ai-components/grid/anomaly-detection/anomaly-detection.tsx'
+import AssistiveGrid from './ai-components/grid/assistive-grid/assistive-grid.tsx'
 import DataTrendAnalysis from './ai-components/grid/data-trend-analysis/data-trend-analysis.tsx'
 // ComboBox
 import ComboBoxSemanticSearch from './ai-components/combobox/semantic-search.tsx'
@@ -63,6 +64,7 @@ const routerEle = createHashRouter(
       <Route path="semantic-search" element={<SemanticSearch />} />
       <Route path="predictive-data" element={<PredictiveDataEntry />} />
       <Route path="anamoly-detection" element={<AnamolyDetection />} />
+      <Route path="assistive-grid" element={<AssistiveGrid />} />
       <Route path="data-trend" element={<DataTrendAnalysis />} />
       {/* ComboBox */}
       <Route path="combobox-semantic-search" element={<ComboBoxSemanticSearch />} />

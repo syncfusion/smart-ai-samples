@@ -88,7 +88,8 @@ function LeftPane() {
                 { "id": 4, "name": "Semantic search", 'navigateUrl': '#/semantic-search' },
                 { "id": 5, "name": "Predictive Data Entry", 'navigateUrl': '#/predictive-data' },
                 { "id": 6, "name": "Anamoly Detection", 'navigateUrl': '#/anamoly-detection' },
-                { "id": 7, "name": "Data Trend Analysis", 'navigateUrl': '#/data-trend' }
+                { "id": 7, "name": "Data Trend Analysis", 'navigateUrl': '#/data-trend' },
+                { "id": 8, "name": "Assistive Grid", 'navigateUrl': '#/assistive-grid' }
             ]
         },
         {

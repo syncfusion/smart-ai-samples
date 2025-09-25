@@ -1,6 +1,5 @@
 import { getAzureChatAIRequest } from '../../../ai-models';
 import {executeGridAction} from './GridAction';
-// import { serverAIRequest } from '../../../ai-service';
 
 
 function onPromptExecute(text: string | undefined, gridInstance: any, dialogInstance: any, assistInstance: any, columns: any) {
