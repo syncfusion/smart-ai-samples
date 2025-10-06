@@ -55,7 +55,7 @@ function AssistiveGrid() {
     };
 
     // Renders response template for AI prompts.
-    const responseTemplate = (props: {propmt: string}) => {
+    const responseTemplate = (props: {prompt: string}) => {
         return (
             <div className="responseItemContent">
                 <div className="response-header">
