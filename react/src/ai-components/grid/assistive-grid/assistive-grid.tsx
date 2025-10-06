@@ -12,10 +12,10 @@ let gridInstance!:GridComponent;
 let suggestionListRef = createRef<any>();
 function AssistiveGrid() {
     
-    /// <summary>Toolbar options for Grid with AI Assist button</summary>
+    // Toolbar options for Grid with AI Assist button.
     const toolbarOptions: object[] = [{ tooltipText: 'AI Assist', prefixIcon: 'e-assistview-icon', id: 'ai-assist-btn', align: 'Left' }];
 
-    /// <summary>Handles the Grid toolbar button click action. If the AI Assist button clicked shows the AI Assist dialog.</summary>
+    // Handles the Grid toolbar button click action. If the AI Assist button clicked shows the AI Assist dialog.
     const toolbarClick = (args: any) => {
         if (args.item.id === 'ai-assist-btn') {
             const gridRect = gridInstance.element.getBoundingClientRect();
@@ -28,7 +28,7 @@ function AssistiveGrid() {
         }
     }
 
-    /// <summary>Configures toolbar settings for AI assist dialog</summary>
+    // Configures toolbar settings for AI assist dialog.
     const toolbarSettings: ToolbarSettingsModel  = {
         items: [
             { tooltip: 'Start New Chat', iconCss: 'e-icons e-rename', align: 'Right' },
@@ -54,7 +54,7 @@ function AssistiveGrid() {
         }
     };
 
-    /// <summary>Renders response template for AI prompts</summary>
+    // Renders response template for AI prompts.
     const responseTemplate = (props: any) => {
         return (
             <div className="responseItemContent">
@@ -66,7 +66,7 @@ function AssistiveGrid() {
         );
     };
 
-    /// <summary>Handles prompt request execution</summary>
+    // Handles prompt request execution.
     const onPromptRequest = (args: PromptRequestEventArgs) => {
         (assistInstance as any).stopResponding.classList.remove('e-btn-active');
         assistInstance.scrollToBottom();
@@ -82,7 +82,7 @@ function AssistiveGrid() {
         onPromptExecute(args.prompt, gridInstance, dialogInstance, assistInstance, columns);
     };
 
-    /// <summary>Sets up suggestion list click handler</summary>
+    // Sets up suggestion list click handler.
     const created = (): void => {
         suggestionListRef.current.addEventListener('click', (event: any) => {
             if (event.target.tagName === 'LI') {
@@ -93,7 +93,7 @@ function AssistiveGrid() {
         });
     }
 
-    /// <summary>Renders footer template with suggestion list</summary>
+    // Renders footer template with suggestion list.
     const dialogFooterTemplate = () => {
         return (
             <div className="e-suggestions">
@@ -146,7 +146,6 @@ function AssistiveGrid() {
                         template={(data: any) => (
                                 <div className='product-items'>
                                     <img className="rounded" src={`src/ai-components/grid/assistive-grid/sales-transactions-table/${data.product.image}`} width={40} height={40} alt="product image" />
-                                    {/* src={data.product.image ? `/sales-transactions-table/${data.product.image}` : '/sales-transactions-table/fallback-image.jpg'} */}
                                     <p>{data.product.name}</p>
                                 </div>
                             )}
