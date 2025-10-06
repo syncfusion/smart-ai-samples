@@ -19,7 +19,7 @@ function AssistiveGrid() {
     const toolbarClick = (args: any) => {
         if (args.item.id === 'ai-assist-btn') {
             const gridRect = gridInstance.element.getBoundingClientRect();
-            const toolbarEleRect = document.getElementById('ai-grid_toolbarItems').getBoundingClientRect();
+            const toolbarEleRect = document.getElementById('ai-grid_toolbarItems')!.getBoundingClientRect();
             const targetRect = args.originalEvent.target.closest('.e-toolbar-item').getBoundingClientRect();
             const x = (targetRect.left + targetRect.width) - gridRect.left;
             const y = (toolbarEleRect.top + toolbarEleRect.height) - gridRect.top;
@@ -103,12 +103,10 @@ function AssistiveGrid() {
                         <li>Find iPhone 15 Pro</li>
                         <li>Sort Amount from lowest to highest</li>
                         <li>Payment status not completed</li>
-                        <li>Sold quantity below 2</li>
+                        <li>Group status column</li>
                         <li>Clear Filtering</li>
                         <li>Clear Sorting</li>
                         <li>Remove Grouping</li>
-                        <li>Group amount and status columns</li>
-                        <li>Group status column</li>
                     </ul>
                 </div>
             </div>
@@ -134,14 +132,14 @@ function AssistiveGrid() {
                         <ColumnDirective field="transactionId" headerText="Transaction ID" width="160"
                         />
                         <ColumnDirective field="customerD   etails.name" headerText="Customer Name" width="220" textAlign="Center"
-                            template={(data: object) => (
+                            template={(data: any) => (
                                 <div >
                                     <p>{data.customerDetails.name}</p>
                                     <p className="email">{data.customerDetails.email}</p>
                                 </div>
                             )} />
                         <ColumnDirective field="product.name" headerText="Product" width="208" textAlign="Left"
-                        template={(data: object) => (
+                        template={(data: any) => (
                                 <div className='product-items'>
                                     <img className="rounded" src={`src/ai-components/grid/assistive-grid/sales-transactions-table/${data.product.image}`} width={40} height={40} alt="product image" />
                                     {/* src={data.product.image ? `/sales-transactions-table/${data.product.image}` : '/sales-transactions-table/fallback-image.jpg'} */}
@@ -154,7 +152,7 @@ function AssistiveGrid() {
                         <ColumnDirective field="date" headerText="Purchase Date" width="180" format={{ type: "date", format: "MM/dd/yyyy" }} textAlign="Right" />
                         <ColumnDirective field="paymentMethod" headerText="Payment Method" width="200" />
                         <ColumnDirective field="status" headerText="Status" width="120" textAlign='Right'
-                            template={(data: object) => (
+                            template={(data: any) => (
                                 <div >
                                     <span className={`e-badge ${data.status === "Completed" ? "e-badge-success" : data.status === "Pending" ? "e-badge-info" : data.status === "Processing" ? "e-badge-warning" : data.status === "Failed" ? "e-badge-danger" : ""} !px-2`}>{data.status}</span>
                                 </div>

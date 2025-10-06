@@ -49,7 +49,7 @@ export const executeGridAction = (data: GridActionData, gridInstance: GridCompon
         gridInstance.goToPage(data.page.pageNumber);
     }
     if (data.group && data.group.length) {
-        var groupColumns = [...gridInstance.groupSettings.columns];
+        const groupColumns: string[] = [...(gridInstance.groupSettings.columns ?? [])];
         if (groupColumns.indexOf(data.group[0]) === -1) {
             gridInstance.groupColumn(data.group[0]);
         }
@@ -58,7 +58,7 @@ export const executeGridAction = (data: GridActionData, gridInstance: GridCompon
         if (data.clearGroup.length === 0) {
             gridInstance.clearGrouping();
         } else {
-            var groupColumns = [...gridInstance.groupSettings.columns];
+            const groupColumns: string[] = [...(gridInstance.groupSettings.columns ?? [])];
             if (groupColumns.indexOf(data.clearGroup[0]) !== -1) {
                 gridInstance.ungroupColumn(data.clearGroup[0]);
             }
