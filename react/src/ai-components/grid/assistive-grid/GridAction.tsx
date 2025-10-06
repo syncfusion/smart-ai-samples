@@ -24,43 +24,43 @@ interface GridActionData {
   group?: string[];
   clearGroup?: string[];
 }
-export const executeGridAction = (data: GridActionData, gridInstance: GridComponent) => {
+export const executeGridAction = (data: GridActionData, grid: GridComponent) => {
     if (data.filter && data.filter.length) {
         data.filter.forEach((filter: Filter) => {
-            gridInstance.filterByColumn(filter.field, filter.operator, filter.value);
+            grid.filterByColumn(filter.field, filter.operator, filter.value);
         })
     }
     if (data.clearFilter) {
         if (data.clearFilter.length === 0) {
-            gridInstance.clearFiltering();
+            grid.clearFiltering();
         } else {
-            gridInstance.clearFiltering(data.clearFilter);
+            grid.clearFiltering(data.clearFilter);
         }
     }
     if (data.sort && data.sort.length) {
         data.sort.forEach((sort: Sort) => {
-            gridInstance.sortColumn(sort.field, sort.direction, true);
+            grid.sortColumn(sort.field, sort.direction, true);
         })
     }
     else if (data.clearSort) {
-        gridInstance.clearSorting();
+        grid.clearSorting();
     }
     if (data.page && data.page.pageNumber && data.page.pageSize) {
-        gridInstance.goToPage(data.page.pageNumber);
+        grid.goToPage(data.page.pageNumber);
     }
     if (data.group && data.group.length) {
-        const groupColumns: string[] = [...(gridInstance.groupSettings.columns ?? [])];
+        const groupColumns: string[] = [...(grid.groupSettings.columns ?? [])];
         if (groupColumns.indexOf(data.group[0]) === -1) {
-            gridInstance.groupColumn(data.group[0]);
+            grid.groupColumn(data.group[0]);
         }
     }
     if (data.clearGroup) {
         if (data.clearGroup.length === 0) {
-            gridInstance.clearGrouping();
+            grid.clearGrouping();
         } else {
-            const groupColumns: string[] = [...(gridInstance.groupSettings.columns ?? [])];
+            const groupColumns: string[] = [...(grid.groupSettings.columns ?? [])];
             if (groupColumns.indexOf(data.clearGroup[0]) !== -1) {
-                gridInstance.ungroupColumn(data.clearGroup[0]);
+                grid.ungroupColumn(data.clearGroup[0]);
             }
         }
     }

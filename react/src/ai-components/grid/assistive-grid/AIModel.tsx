@@ -2,7 +2,7 @@ import { getAzureChatAIRequest } from '../../../ai-models';
 import {executeGridAction} from './GridAction';
 
 
-function onPromptExecute(text: string | undefined, gridInstance: any, dialogInstance: any, assistInstance: any, columns: any) {
+function fetchAI(text: string | undefined, grid: any, dialog: any, assistView: any, columns: any) {
     let textArea = `Convert the following natural language query into a JSON object representing Syncfusion Query operations.
 
     Rules:
@@ -44,14 +44,14 @@ function onPromptExecute(text: string | undefined, gridInstance: any, dialogInst
         let data;
         try {
             data = JSON.parse(jsonResult);
-            executeGridAction(data, gridInstance);
+            executeGridAction(data, grid);
         } catch (error) {
-            assistInstance.addPromptResponse({ prompt: error, response: error });
+            assistView.addPromptResponse({ prompt: error, response: error });
             return;
         }
-        assistInstance.addPromptResponse({ prompt: data.message, response: data });
-        dialogInstance.hide();
+        assistView.addPromptResponse({ prompt: data.message, response: data });
+        dialog.hide();
     });
 }
 
-export {onPromptExecute};
+export { onPromptExecute, fetchAI };

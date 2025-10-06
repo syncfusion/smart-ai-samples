@@ -1,4 +1,4 @@
-export let gadgetsPurchaseData: Object[] = [
+export let purchaseDetails: Object[] = [
     {
         id: 1,
         transactionId: "TRX202501",
