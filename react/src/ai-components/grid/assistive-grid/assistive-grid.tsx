@@ -128,10 +128,10 @@ function AssistiveGrid() {
                 </div>
                 </div>
                 <div id='container'>
-                    <DialogComponent ref={(dialog: DialogComponent) => dialog = dialog as DialogComponent} target='#ai-grid' id='ai-assist-dialog' width='500px' visible={false} height='500px' footerTemplate={dialogFooterTemplate} created={created}>
+                    <DialogComponent ref={(dialogIns: DialogComponent) => dialog = dialogIns as DialogComponent} target='#ai-grid' id='ai-assist-dialog' width='500px' visible={false} height='500px' footerTemplate={dialogFooterTemplate} created={created}>
                     <AIAssistViewComponent id="ai-grid-aiassistview" ref={(assist: AIAssistViewComponent) => assistView = assist as AIAssistViewComponent} toolbarSettings={toolbarSettings} promptRequest={onPromptRequest} promptSuggestionsHeader='Suggestions' responseItemTemplate={responseTemplate} ></AIAssistViewComponent>
                 </DialogComponent>
-                <GridComponent ref = {(grid: GridComponent) => grid = grid as GridComponent} id="ai-grid" height={650} dataSource={purchaseDetails} allowFiltering={true} allowSorting={true} allowGrouping={true} filterSettings={filterSettings} allowPaging={true} toolbar={toolbarOptions} toolbarClick={toolbarClick} >
+                <GridComponent ref = {(gridIns: GridComponent) => grid = gridIns as GridComponent} id="ai-grid" height={650} dataSource={purchaseDetails} allowFiltering={true} allowSorting={true} allowGrouping={true} filterSettings={filterSettings} allowPaging={true} toolbar={toolbarOptions} toolbarClick={toolbarClick} >
                     <ColumnsDirective>
                         <ColumnDirective field="transactionId" headerText="Transaction ID" width="160"
                         />

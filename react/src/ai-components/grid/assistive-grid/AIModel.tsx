@@ -54,4 +54,4 @@ function fetchAI(text: string | undefined, grid: any, dialog: any, assistView: a
     });
 }
 
-export { onPromptExecute, fetchAI };
+export {fetchAI};
