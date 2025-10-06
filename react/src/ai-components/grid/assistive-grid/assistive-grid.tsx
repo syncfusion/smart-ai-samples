@@ -120,8 +120,12 @@ function AssistiveGrid() {
             <div className='control-section'>
                 <div className="description-container e-card">
                     <div className='e-card-content'>
-                        <p>Smart Grid</p>
-                    </div>
+                        <p>This demo highlights the <b>Syncfusion React DataGrid component</b>, enhanced with conversational capabilities through the integrated <b>Syncfusion React AI Assist View component</b>. 
+                    The grid data operations such as sorting, filtering, and grouping can be performed using natural language input, offering a streamlined alternative to traditional UI interactions.</p>
+                    <p>The Syncufusion React AI Assist View component is embedded directly within the grid interface, enabling intelligent prompt processing, contextual suggestions, and adaptive responses. 
+                        This integration makes working with data in the grid easier, faster, and more natural, especially for handling complex datasets and enabling adaptable processes.
+                    </p> 
+                </div>
                 </div>
                 <div id='container'>
                     <DialogComponent ref={(dialog: DialogComponent) => dialogInstance = dialog as DialogComponent} target='#ai-grid' id='ai-assist-dialog' width='500px' visible={false} height='500px' footerTemplate={dialogFooterTemplate} created={created}>
