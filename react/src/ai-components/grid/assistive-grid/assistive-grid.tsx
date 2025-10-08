@@ -20,10 +20,10 @@ function AssistiveGrid() {
     const toolbarClick = (args: any) => {
         if (args.item.id === 'ai-assist-btn') {
             const gridRect = grid.element.getBoundingClientRect();
-            const toolbarEleRect = document.getElementById('ai-grid_toolbarItems')!.getBoundingClientRect();
+            const toolbarRect = document.getElementById('ai-grid_toolbarItems')!.getBoundingClientRect();
             const targetRect = args.originalEvent.target.closest('.e-toolbar-item').getBoundingClientRect();
             const x = (targetRect.left + targetRect.width) - gridRect.left;
-            const y = (toolbarEleRect.top + toolbarEleRect.height) - gridRect.top;
+            const y = (toolbarRect.top + toolbarRect.height) - gridRect.top;
             dialog.position = { X: x, Y: y };
             dialog.show();
         }
