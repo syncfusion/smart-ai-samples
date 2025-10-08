@@ -5,7 +5,6 @@ import { purchaseDetails } from './datasource';
 import { createRef } from "react";
 import { fetchAI } from './AIModel';
 import './assistive-grid.css';
-import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 let assistView!: AIAssistViewComponent;
 let dialog!: DialogComponent;
