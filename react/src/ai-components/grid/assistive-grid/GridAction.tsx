@@ -2,7 +2,7 @@ import { GridComponent } from '@syncfusion/ej2-react-grids';
 interface Filter {
   field: string;
   operator: string;
-  value: any;
+  value: number | boolean | string | Date;
 }
 
 interface Sort {
@@ -49,7 +49,7 @@ export const executeGridAction = (data: GridActionData, grid: GridComponent) => 
         grid.goToPage(data.page.pageNumber);
     }
     if (data.group && data.group.length) {
-        const groupColumns: string[] = [...(grid.groupSettings.columns ?? [])];
+        const groupColumns = [...(grid.groupSettings.columns ?? [])];
         if (groupColumns.indexOf(data.group[0]) === -1) {
             grid.groupColumn(data.group[0]);
         }
@@ -58,7 +58,7 @@ export const executeGridAction = (data: GridActionData, grid: GridComponent) => 
         if (data.clearGroup.length === 0) {
             grid.clearGrouping();
         } else {
-            const groupColumns: string[] = [...(grid.groupSettings.columns ?? [])];
+            const groupColumns = [...(grid.groupSettings.columns ?? [])];
             if (groupColumns.indexOf(data.clearGroup[0]) !== -1) {
                 grid.ungroupColumn(data.clearGroup[0]);
             }

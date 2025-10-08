@@ -5,6 +5,7 @@ import { purchaseDetails } from './datasource';
 import { createRef } from "react";
 import { fetchAI } from './AIModel';
 import './assistive-grid.css';
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 let assistView!: AIAssistViewComponent;
 let dialog!: DialogComponent;
@@ -12,23 +13,23 @@ let grid!:GridComponent;
 let suggestionListRef = createRef<any>();
 function AssistiveGrid() {
     
-    // Toolbar options for Grid with AI Assist button.
+    // Toolbar options for Grid with AI Assist button
     const toolbarOptions: object[] = [{ tooltipText: 'AI Assist', prefixIcon: 'e-assistview-icon', id: 'ai-assist-btn', align: 'Left' }];
 
     // Handles the Grid toolbar button click action. If the AI Assist button clicked shows the AI Assist dialog.
     const toolbarClick = (args: any) => {
         if (args.item.id === 'ai-assist-btn') {
             const gridRect = grid.element.getBoundingClientRect();
-            const toolbarRect = document.getElementById('ai-grid_toolbarItems')!.getBoundingClientRect();
+            const toolbarEleRect = document.getElementById('ai-grid_toolbarItems')!.getBoundingClientRect();
             const targetRect = args.originalEvent.target.closest('.e-toolbar-item').getBoundingClientRect();
             const x = (targetRect.left + targetRect.width) - gridRect.left;
-            const y = (toolbarRect.top + toolbarRect.height) - gridRect.top;
+            const y = (toolbarEleRect.top + toolbarEleRect.height) - gridRect.top;
             dialog.position = { X: x, Y: y };
             dialog.show();
         }
     }
 
-    // Configures toolbar settings for AI assist dialog.
+    // Configures toolbar settings for AI assist dialog
     const toolbarSettings: ToolbarSettingsModel  = {
         items: [
             { tooltip: 'Start New Chat', iconCss: 'e-icons e-rename', align: 'Right' },
@@ -54,8 +55,8 @@ function AssistiveGrid() {
         }
     };
 
-    // Renders response template for AI prompts.
-    const responseTemplate = (props: {prompt: string}) => {
+    // Renders response template for AI prompts
+    const responseTemplate = (props: { prompt: string }) => {
         return (
             <div className="responseItemContent">
                 <div className="response-header">
@@ -66,7 +67,7 @@ function AssistiveGrid() {
         );
     };
 
-    // Handles prompt request execution.
+    // Handles prompt request execution
     const onPromptRequest = (args: PromptRequestEventArgs) => {
         (assistView as any).stopResponding.classList.remove('e-btn-active');
         assistView.scrollToBottom();
@@ -82,7 +83,7 @@ function AssistiveGrid() {
         fetchAI(args.prompt, grid, dialog, assistView, columns);
     };
 
-    // Sets up suggestion list click handler.
+    // Sets up suggestion list click handler
     const created = (): void => {
         suggestionListRef.current.addEventListener('click', (event: any) => {
             if (event.target.tagName === 'LI') {
@@ -93,7 +94,7 @@ function AssistiveGrid() {
         });
     }
 
-    // Renders footer template with suggestion list.
+    // Renders footer template with suggestion list
     const dialogFooterTemplate = () => {
         return (
             <div className="e-suggestions">
@@ -120,32 +121,29 @@ function AssistiveGrid() {
             <div className='control-section'>
                 <div className="description-container e-card">
                     <div className='e-card-content'>
-                        <p>This demo highlights the <b>Syncfusion React DataGrid component</b>, enhanced with conversational capabilities through the integrated <b>Syncfusion React AI Assist View component</b>. 
-                    The grid data operations such as sorting, filtering, and grouping can be performed using natural language input, offering a streamlined alternative to traditional UI interactions.</p>
-                    <p>The Syncufusion React AI Assist View component is embedded directly within the grid interface, enabling intelligent prompt processing, contextual suggestions, and adaptive responses. 
-                        This integration makes working with data in the grid easier, faster, and more natural, especially for handling complex datasets and enabling adaptable processes.
-                    </p> 
-                </div>
+                        <p>Smart Grid</p>
+                    </div>
                 </div>
                 <div id='container'>
                     <DialogComponent ref={(dialogIns: DialogComponent) => dialog = dialogIns as DialogComponent} target='#ai-grid' id='ai-assist-dialog' width='500px' visible={false} height='500px' footerTemplate={dialogFooterTemplate} created={created}>
-                    <AIAssistViewComponent id="ai-grid-aiassistview" ref={(assist: AIAssistViewComponent) => assistView = assist as AIAssistViewComponent} toolbarSettings={toolbarSettings} promptRequest={onPromptRequest} promptSuggestionsHeader='Suggestions' responseItemTemplate={responseTemplate} ></AIAssistViewComponent>
+                    <AIAssistViewComponent id="ai-grid-aiassistview" ref={(assistIns: AIAssistViewComponent) => assistView = assistIns as AIAssistViewComponent} toolbarSettings={toolbarSettings} promptRequest={onPromptRequest} promptSuggestionsHeader='Suggestions' responseItemTemplate={responseTemplate} ></AIAssistViewComponent>
                 </DialogComponent>
                 <GridComponent ref = {(gridIns: GridComponent) => grid = gridIns as GridComponent} id="ai-grid" height={650} dataSource={purchaseDetails} allowFiltering={true} allowSorting={true} allowGrouping={true} filterSettings={filterSettings} allowPaging={true} toolbar={toolbarOptions} toolbarClick={toolbarClick} >
                     <ColumnsDirective>
                         <ColumnDirective field="transactionId" headerText="Transaction ID" width="160"
                         />
-                        <ColumnDirective field="customerD   etails.name" headerText="Customer Name" width="220" textAlign="Center"
-                            template={(data: any) => (
+                        <ColumnDirective field="customerDetails.name" headerText="Customer Name" width="220" textAlign="Center"
+                            template={(data: { customerDetails: { name: string; email: string } }) => (
                                 <div >
                                     <p>{data.customerDetails.name}</p>
                                     <p className="email">{data.customerDetails.email}</p>
                                 </div>
                             )} />
                         <ColumnDirective field="product.name" headerText="Product" width="208" textAlign="Left"
-                        template={(data: any) => (
+                        template={(data: { product: { name: string, image: string} }) => (
                                 <div className='product-items'>
                                     <img className="rounded" src={`src/ai-components/grid/assistive-grid/sales-transactions-table/${data.product.image}`} width={40} height={40} alt="product image" />
+                                    {/* src={data.product.image ? `/sales-transactions-table/${data.product.image}` : '/sales-transactions-table/fallback-image.jpg'} */}
                                     <p>{data.product.name}</p>
                                 </div>
                             )}
@@ -155,7 +153,7 @@ function AssistiveGrid() {
                         <ColumnDirective field="date" headerText="Purchase Date" width="180" format={{ type: "date", format: "MM/dd/yyyy" }} textAlign="Right" />
                         <ColumnDirective field="paymentMethod" headerText="Payment Method" width="200" />
                         <ColumnDirective field="status" headerText="Status" width="120" textAlign='Right'
-                            template={(data: any) => (
+                            template={(data: {status: string}) => (
                                 <div >
                                     <span className={`e-badge ${data.status === "Completed" ? "e-badge-success" : data.status === "Pending" ? "e-badge-info" : data.status === "Processing" ? "e-badge-warning" : data.status === "Failed" ? "e-badge-danger" : ""} !px-2`}>{data.status}</span>
                                 </div>
