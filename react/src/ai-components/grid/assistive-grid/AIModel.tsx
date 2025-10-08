@@ -4,7 +4,6 @@ import { DialogComponent } from '@syncfusion/ej2-react-popups';
 import { AIAssistViewComponent } from '@syncfusion/ej2-react-interactive-chat';
 import { GridComponent } from '@syncfusion/ej2-react-grids';
 
-
 function fetchAI(text: string | undefined, grid: GridComponent, dialog: DialogComponent, assistView: AIAssistViewComponent, columns: object) {
     let textArea = `Convert the following natural language query into a JSON object representing Syncfusion Query operations.
 

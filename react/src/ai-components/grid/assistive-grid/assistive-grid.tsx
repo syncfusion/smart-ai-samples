@@ -11,6 +11,7 @@ let assistView!: AIAssistViewComponent;
 let dialog!: DialogComponent;
 let grid!:GridComponent;
 let suggestionListRef = createRef<any>();
+
 function AssistiveGrid() {
     
     // Toolbar options for Grid with AI Assist button
