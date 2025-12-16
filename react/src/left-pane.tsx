@@ -85,10 +85,11 @@ function LeftPane() {
         {
             "id": 3, "name": "Data Grid", expanded: true,
             "child": [
-                { "id": 4, "name": "Semantic search", 'navigateUrl': '#/semantic-search' },
-                { "id": 5, "name": "Predictive Data Entry", 'navigateUrl': '#/predictive-data' },
-                { "id": 6, "name": "Anamoly Detection", 'navigateUrl': '#/anamoly-detection' },
-                { "id": 7, "name": "Data Trend Analysis", 'navigateUrl': '#/data-trend' }
+                {"id": 4, "name": "Assistive Grid", 'navigateUrl': '#/ai-assistive-grid'},
+                { "id": 5, "name": "Semantic search", 'navigateUrl': '#/semantic-search' },
+                { "id": 6, "name": "Predictive Data Entry", 'navigateUrl': '#/predictive-data' },
+                { "id": 7, "name": "Anamoly Detection", 'navigateUrl': '#/anamoly-detection' },
+                { "id": 8, "name": "Data Trend Analysis", 'navigateUrl': '#/data-trend' }
             ]
         },
         {
