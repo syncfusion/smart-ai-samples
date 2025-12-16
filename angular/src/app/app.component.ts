@@ -28,6 +28,7 @@ export class AppComponent {
 
     {
       id: '3', name: 'Grid', url: '', subItems: [
+        { id: '32', name: 'Assistive Grid', route: '/grid/assistive-grid/' },
         { id: '34', name: 'Semantic Search', route: '/grid/semantic-search/' },
         { id: '31', name: 'Anamoly Detection', route: 'grid/anamoly-detection' },
         { id: '33', name: 'Data Trend Analysis', route: '/grid/data-trend-analysis' },
