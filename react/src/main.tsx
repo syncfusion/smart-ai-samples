@@ -7,6 +7,7 @@ import SmartPaste from './ai-components/smartpaste/smart-paste.tsx'
 import SmartTextArea from './ai-components/smarttextarea/smart-textarea.tsx'
 // DataGrid
 import SemanticSearch from './ai-components/grid/semantic-search/semantic-search.tsx'
+import AIAssistiveGrid from './ai-components/grid/assistive-grid/ai-assistive-grid.tsx'
 import PredictiveDataEntry from './ai-components/grid/predictive-data/predictive-data.tsx'
 import AnamolyDetection from './ai-components/grid/anomaly-detection/anomaly-detection.tsx'
 import DataTrendAnalysis from './ai-components/grid/data-trend-analysis/data-trend-analysis.tsx'
@@ -60,6 +61,7 @@ const routerEle = createHashRouter(
       <Route path="smart-textarea" element={<SmartTextArea />} />
       <Route path="/" element={<SmartPaste />} />
       {/* DataGrid */}
+      <Route path="ai-assistive-grid" element={<AIAssistiveGrid />} />
       <Route path="semantic-search" element={<SemanticSearch />} />
       <Route path="predictive-data" element={<PredictiveDataEntry />} />
       <Route path="anamoly-detection" element={<AnamolyDetection />} />
