@@ -44,8 +44,7 @@
             fetch('https://localhost:7159/api/AI/Stream', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authentication': userId
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     message: (args.prompt || '') + (args.text || '')
