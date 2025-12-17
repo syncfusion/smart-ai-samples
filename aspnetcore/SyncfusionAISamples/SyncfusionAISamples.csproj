@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.AI" Version="10.1.1" />
     <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.1.1-preview.1.25612.2" />
-    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="32.1.19" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="*" />
   </ItemGroup>
 
 </Project>
