@@ -26,7 +26,7 @@ Syncfusion Smart Components are designed to seamlessly integrate with AI and off
 
 - [Blazor](blazor/README.md)
 
-- [Asp.Net Core](aspnetcore/README.md)
+- [ASP.NET Core](aspnetcore/README.md)
 
 - [Angular](angular/README.md)
 
@@ -40,7 +40,7 @@ Syncfusion Smart Components are designed to seamlessly integrate with AI and off
 
 - For Blazor Follow this [Steps](blazor/README.md#configuration-instructions)
 
-- For Asp.Net Core Follow this [Steps](aspnetcore/README.md#configuration-instructions)
+- For ASP.NET Core Follow this [Steps](aspnetcore/README.md#configuration-instructions)
 
 - For Angular Follow this [Steps](angular/README.md#configuring-ai-services)
 

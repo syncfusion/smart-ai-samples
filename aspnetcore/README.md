@@ -24,7 +24,7 @@ Install-Package Microsoft.Extensions.AI.OpenAI
 
 ```
 
-* To configure the AI service, add the following settings to the **~/Program.cs** file in your Asp.Net Core application.
+* To configure the AI service, add the following settings to the **~/Program.cs** file in your ASP.NET Core application.
 
 ```cs
 
@@ -64,7 +64,7 @@ Install-Package Azure.AI.OpenAI
 
 ```
 
-* To configure the AI service, add the following settings to the **~/Program.cs** file in your Asp.Net Core application.
+* To configure the AI service, add the following settings to the **~/Program.cs** file in your ASP.NET Core application.
 
 ```cs
 
@@ -115,7 +115,7 @@ Install-Package Microsoft.Extensions.AI
 Install-Package OllamaSharp 
 ```
 
-* Add the following settings to the **~/Program.cs** file in your Asp.Net Core application.
+* Add the following settings to the **~/Program.cs** file in your ASP.NET Core application.
 
 ```cs
 
@@ -158,7 +158,7 @@ The **ejs-smarttextarea** is an AI-powered enhancement to the traditional textar
 
 ### Rich Text Editor
 
-The **Syncfusion Asp.Net Core Rich Text Editor** now features advanced AI-powered samples that enhance content creation and editing. This integration provides users with powerful tools for rephrasing, grammar correction, summarization, elaboration, translation, and sentiment analysis, making the writing process more efficient and intuitive.
+The **Syncfusion ASP.NET Core Rich Text Editor** now features advanced AI-powered samples that enhance content creation and editing. This integration provides users with powerful tools for rephrasing, grammar correction, summarization, elaboration, translation, and sentiment analysis, making the writing process more efficient and intuitive.
 
 ![Gif image of RichTextArea control](SyncfusionAISamples/wwwroot/gif-images/richtexteditor/ai-assistant.gif)
 
