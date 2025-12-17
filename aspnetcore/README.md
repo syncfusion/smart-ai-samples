@@ -1,6 +1,6 @@
 # AI Syncfusion Samples Repository
 
-This repository contains all AI-related Syncfusion samples organized in a separate repository. It includes various components and functionalities that leverage AI technologies to enhance Syncfusion controls.
+This repository contains all AI-related Syncfusion samples organized in a separate repository. It includes various UI controls and functionalities that leverage AI technologies to enhance Syncfusion controls.
 
 ## Controls and Dependencies
 
@@ -24,19 +24,16 @@ Install-Package Microsoft.Extensions.AI.OpenAI
 
 ```
 
-* To configure the AI service, add the following settings to the **~/Program.cs** file in your Blazor Server app.
+* To configure the AI service, add the following settings to the **~/Program.cs** file in your Asp.Net Core application.
 
 ```cs
 
-using Syncfusion.Blazor.SmartComponents;
-using Syncfusion.Blazor.AI;
 using Microsoft.Extensions.AI;
 using OpenAI;
-var builder = WebApplication.CreateBuilder(args);
+using Syncfusion.EJ2;
 
-....
 
-builder.Services.AddSyncfusionBlazor();
+builder.Services.AddRazorPages();
 
 string openAIApiKey = "API-KEY";
 string openAIModel = "OPENAI_MODEL";
@@ -45,9 +42,10 @@ IChatClient openAIChatClient = openAIClient.GetChatClient(openAIModel).AsIChatCl
 builder.Services.AddChatClient(openAIChatClient);
 
 builder.Services.AddSyncfusionSmartComponents()
-.InjectOpenAIInference();
+    .InjectOpenAIInference();
 
 var app = builder.Build();
+....
 ....
 
 ```
@@ -66,21 +64,16 @@ Install-Package Azure.AI.OpenAI
 
 ```
 
-* To configure the AI service, add the following settings to the **~/Program.cs** file in your Blazor Server app.
+* To configure the AI service, add the following settings to the **~/Program.cs** file in your Asp.Net Core application.
 
 ```cs
 
-using Syncfusion.Blazor.SmartComponents;
-using Syncfusion.Blazor.AI;
-using Azure.AI.OpenAI;
+using Syncfusion.EJ2;
 using Microsoft.Extensions.AI;
+using Azure.AI.OpenAI;
 using System.ClientModel;
 
-var builder = WebApplication.CreateBuilder(args);
-
-....
-
-builder.Services.AddSyncfusionBlazor();
+builder.Services.AddRazorPages();
 
 string azureOpenAIKey = "AZURE_OPENAI_KEY";
 string azureOpenAIEndpoint = "AZURE_OPENAI_ENDPOINT";
@@ -93,7 +86,7 @@ IChatClient azureOpenAIChatClient = azureOpenAIClient.GetChatClient(azureOpenAIM
 builder.Services.AddChatClient(azureOpenAIChatClient);
 
 builder.Services.AddSyncfusionSmartComponents()
-.InjectOpenAIInference();
+    .InjectOpenAIInference();
 
 var app = builder.Build();
 ....
@@ -122,27 +115,22 @@ Install-Package Microsoft.Extensions.AI
 Install-Package OllamaSharp 
 ```
 
-* Add the following settings to the **~/Program.cs** file in your Blazor Server app.
+* Add the following settings to the **~/Program.cs** file in your Asp.Net Core application.
 
 ```cs
 
-using Syncfusion.Blazor.SmartComponents;
-using Syncfusion.Blazor.AI;
+using Syncfusion.EJ2;
 using Microsoft.Extensions.AI;
 using OllamaSharp;
 
-var builder = WebApplication.CreateBuilder(args);
-
-....
-
-builder.Services.AddSyncfusionBlazor();
+builder.Services.AddRazorPages();
 
 string ModelName = "MODEL_NAME";
 IChatClient chatClient = new OllamaApiClient("http://localhost:11434", ModelName);
 builder.Services.AddChatClient(chatClient);
 
 builder.Services.AddSyncfusionSmartComponents()
-.InjectOpenAIInference();
+    .InjectOpenAIInference();
 
 var app = builder.Build();
 ....
