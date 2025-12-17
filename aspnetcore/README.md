@@ -149,20 +149,6 @@ var app = builder.Build();
 
 ```
 
-## Configuring Image Editor AI
-The Image Editor AI depends on a third-party AI service called Stability AI for AI Image processing. To use it, follow these steps:
-
-- You may obtain your API key from [Stability AI](https://platform.stability.ai/account/keys).
-- Navigate to `SmartImageEditor.razor` file under `Pages/ImageEditor` folder and replace the placeholder with actual API_KEY:
-
-```cs
-// Stability AI APIKEY
-public string ApiKey = "your-api-key";
-
-```
-
-Once configured everything, hit `Run` and you're good to go!
-
 ## Smart Controls
 
 ### Smart Paste Button
