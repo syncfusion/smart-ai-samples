@@ -149,7 +149,7 @@ By integrating the capabilities of AI, the `ejs-smartpaste` goes beyond simple d
 
 **Learn More:**
 - [Getting Started Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/smart-paste/getting-started) - Complete setup and configuration guide
-- [Live Demo](https://ej2.syncfusion.com/aspnetcore/smartpastebutton/defaultfunctionalities#/fluent2) - Interactive demo with default functionalities
+- [Live Demo](https://ej2.syncfusion.com/aspnetcore/smartpastebutton/defaultfunctionalities#/fluent2) - Interactive demo with ASP.NET Core Smart Paste Button Control
 
 ### Smart TextArea
 
@@ -159,7 +159,7 @@ The **ejs-smarttextarea** is an AI-powered enhancement to the traditional textar
 
 **Learn More:**
 - [Getting Started Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/smart-textarea/getting-started) - Complete setup and configuration guide
-- [Live Demo](https://ej2.syncfusion.com/aspnetcore/smarttextarea/defaultfunctionalities#/fluent2) - Interactive demo with default functionalities
+- [Live Demo](https://ej2.syncfusion.com/aspnetcore/smarttextarea/defaultfunctionalities#/fluent2) - Interactive demo with ASP.NET Core Smart TextArea Control
 
 ## Smart AI Solutions
 
