@@ -147,12 +147,19 @@ The **ejs-smartpaste** is an advanced AI control built on top of Syncfusion's Bu
 
 By integrating the capabilities of AI, the `ejs-smartpaste` goes beyond simple data insertion. It ensures that pasted content is contextually relevant and is ideal for applications where users frequently copy and paste data.
 
+**Learn More:**
+- [Getting Started Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/smart-paste/getting-started) - Complete setup and configuration guide
+- [Live Demo](https://ej2.syncfusion.com/aspnetcore/smartpastebutton/defaultfunctionalities#/fluent2) - Interactive demo with default functionalities
+
 ### Smart TextArea
 
 The **ejs-smarttextarea** is an AI-powered enhancement to the traditional textarea, offering sentence-level autocompletion based on its configuration and user input, improving typing speed and efficiency.
 
 ![Gif image of SmartTextArea control](SyncfusionAISamples/wwwroot/gif-images/smart-textarea/smart-textarea.gif)
 
+**Learn More:**
+- [Getting Started Documentation](https://ej2.syncfusion.com/aspnetcore/documentation/smart-textarea/getting-started) - Complete setup and configuration guide
+- [Live Demo](https://ej2.syncfusion.com/aspnetcore/smarttextarea/defaultfunctionalities#/fluent2) - Interactive demo with default functionalities
 
 ## Smart AI Solutions
 
@@ -162,3 +169,5 @@ The **Syncfusion ASP.NET Core Rich Text Editor** now features advanced AI-powere
 
 ![Gif image of RichTextArea control](SyncfusionAISamples/wwwroot/gif-images/richtexteditor/ai-assistant.gif)
 
+**Learn More:**
+- [Live Demo](https://ej2.syncfusion.com/aspnetcore/smartaisolutions/airichtexteditor#/fluent2) - Interactive demo showcasing AI-powered features
