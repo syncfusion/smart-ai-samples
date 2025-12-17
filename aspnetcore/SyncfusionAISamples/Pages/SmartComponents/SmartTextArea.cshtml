@@ -1,0 +1,109 @@
+﻿@page
+@model SmartTextAreaModel
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.Inputs
+@using Syncfusion.EJ2.DropDowns
+@using Syncfusion.EJ2.SmartComponents
+
+@{
+    var roles = new List<object>
+    {
+        new { ID = "Role1", Text = "Maintainer of an open-source project replying to GitHub issues" },
+        new { ID = "Role2", Text = "Employee communicating with internal team" },
+        new { ID = "Role3", Text = "Customer support representative responding to customer queries" },
+        new { ID = "Role4", Text = "Sales representative responding to client inquiries" }
+    };
+    var presets = new[]
+    {
+        new { userRole = "Maintainer of an open-source project replying to GitHub issues", userPhrases = new[] { "Thank you for contacting us.", "To investigate, we'll need a repro as a public Git repo.", "Could you please post a screenshot of NEED_INFO?", "This sounds like a usage question. This issue tracker is intended for bugs and feature proposals. Unfortunately, we don't have the capacity to answer general usage questions and would recommend StackOverflow for a faster response.", "We don't accept ZIP files as repros." }, placeHolder = "Write your response to the GitHub issue..." },
+        new { userRole = "Customer support representative responding to customer queries", userPhrases = new[] { "Thank you for reaching out to us.", "Can you please provide your order number?", "We apologize for the inconvenience.", "Our team is looking into this issue and will get back to you shortly.", "For urgent matters, please call our support line." }, placeHolder = "Enter your reply to the customer query..." },
+        new { userRole = "Employee communicating with internal team", userPhrases = new[] { "Please find the attached report.", "Let's schedule a meeting to discuss this further.", "Can you provide an update on this task?", "I appreciate your prompt response.", "Let's collaborate on this project to ensure timely delivery." }, placeHolder = "Draft your message for the team..." },
+        new { userRole = "Sales representative responding to client inquiries", userPhrases = new[] { "Thank you for your interest in our product.", "Can I schedule a demo for you?", "Please find the pricing details attached.", "Our team is excited to work with you.", "Let me know if you have any further questions." }, placeHolder = "Enter your reply to the client's inquiry..." }
+    };
+    var currentPreset = presets[0];
+    var selectedRole = "Role1";
+}
+<h4 style="text-align:center;">Smart TextArea</h4>
+<div class="description-container">
+    <p >The <b >Syncfusion Smart TextArea</b> is an AI-powered version of Syncfusion's TextArea that adds smart autocompletion. It helps by suggesting complete sentences based on user input, making typing faster and easier.</p>
+    <p >Select a user role as <b >Maintainer of an open-source project replying to GitHub issues</b> and start typing <b >Create an issue</b>. It will automatically complete the text based on the selected user role..</p>
+</div>
+<div class="control-section">
+    <div class="content-wrapper">
+        <div class="example-label">Select a role</div>
+        <ejs-dropdownlist id="roleDropdown" width="75%" dataSource="@roles" placeholder="Select a role" value="@selectedRole" change="onRoleChange">
+            <e-dropdownlist-fields text="Text" value="ID"></e-dropdownlist-fields>
+        </ejs-dropdownlist>
+        <ejs-smarttextarea id="smartTextarea" user-role="@currentPreset.userRole" user-phrases="@currentPreset.userPhrases" width="75%" placeholder="@currentPreset.placeHolder" floatLabelType="Auto" rows="5"></ejs-smarttextarea>
+    </div>
+</div>
+
+
+<style>
+    .content-wrapper {
+        margin: 50px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .example-label {
+        width: 75%;
+        font-weight: 700;
+    }
+</style>
+
+<script>
+    async function setTextareaConfig(textareaElement, preset) {
+        try {
+            const smartTextarea = textareaElement?.ej2_instances?.[0];
+            const customElement = document.querySelector('smart-textarea');
+
+            if (!smartTextarea || !customElement || !preset) {
+                throw new Error('Required elements or preset not found');
+            }
+
+            const config = {
+                UserRole: preset.userRole,
+                UserPhrases: preset.userPhrases
+            };
+
+            customElement.setAttribute('data-config', JSON.stringify(config));
+            smartTextarea.placeholder = preset.placeHolder;
+            smartTextarea.dataBind();
+        } catch (error) {
+            console.error('Error setting textarea config:', error);
+        }
+    }
+
+    async function onRoleChange(args) {
+        try {
+            const dropdown = document.getElementById('roleDropdown')?.ej2_instances?.[0];
+            if (!dropdown) {
+                throw new Error('Dropdown element not found');
+            }
+
+            const presets = @Html.Raw(Json.Serialize(presets));
+            const preset = presets.find(p => p.userRole === dropdown.text);
+            if (!preset) {
+                throw new Error('Preset not found for selected role');
+            }
+
+            await setTextareaConfig(document.getElementById('smartTextarea'), preset);
+        } catch (error) {
+            console.error('Error in onRoleChange:', error);
+        }
+    }
+
+    window.onload = async function() {
+        try {
+            const textareaElement = document.getElementById('smartTextarea');
+            const preset = @Html.Raw(Json.Serialize(currentPreset));
+
+            await setTextareaConfig(textareaElement, preset);
+        } catch (error) {
+            console.error('Error in window.onload:', error);
+        }
+    };
+</script>
+
