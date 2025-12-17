@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SyncfusionAISamples</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SyncfusionAISamples.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/32.1.19/fluent.css" />
+    <script src="https://cdn.syncfusion.com/ej2/32.1.19/dist/ej2.min.js"></script>
+</head>
+<body>
+    <div id="head">
+        <ejs-button id="toggle" isToggle="true" cssClass="e-info" iconCss="e-icons burg-icon"></ejs-button>
+        <span class="header-text">Syncfusion AI Samples</span>
+    </div>
+    <ejs-sidebar id="default-sidebar" type="Push" width="280px" target=".body-container">
+        <e-content-template>
+            <div>
+                <span>Smart Controls</span>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/SmartComponents/SmartPasteButton">Smart Paste Button</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Smartcomponents/SmartTextArea">Smart Text Area</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <span>Rich Text Editor</span>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/RichTextEditor/AIRichTextEditor">AI Assistant</a>
+                    </li>
+                </ul>
+            </div>
+        </e-content-template>
+    </ejs-sidebar>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // Create instances for sidebar element
+            var defaultSidebar = document.getElementById("default-sidebar").ej2_instances[0];
+            // Show and Hide the sidebar
+            document.getElementById('toggle').onclick = function () {
+                var togglebtn = document.getElementById("toggle").ej2_instances[0];
+                if (document.getElementById('toggle').classList.contains('e-active')) {
+                    defaultSidebar.show();
+                } else {
+                    defaultSidebar.hide();
+                }
+            }
+        });
+    </script>
+
+    <div class="body-container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <ejs-scripts></ejs-scripts>
+</body>
+</html>
