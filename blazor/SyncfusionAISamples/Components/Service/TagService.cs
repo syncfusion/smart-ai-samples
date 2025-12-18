@@ -33,7 +33,11 @@
 
         public string[] GetTags(string fileName)
         {
-            return fileTags[fileName];
+            if (fileTags.TryGetValue(fileName, out var tags))
+            {
+                return tags;
+            }
+            return Array.Empty<string>();
         }
     }
 }
