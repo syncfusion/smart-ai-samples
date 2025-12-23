@@ -6,6 +6,7 @@ using SyncfusionAISamples.Service;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
 using Syncfusion.Blazor.Buttons;
+using System.Text.Json;
 
 namespace FileManagerAI.Services
 {
@@ -1330,7 +1331,50 @@ namespace FileManagerAI.Services
             }
         }
 
-        public async Task TagInitialFiles()
+        private string GetTagsIndexPath()
+        {
+            var tagsDir = Path.Combine(this.DemoBaseDirectory, ".tags");
+            if (!Directory.Exists(tagsDir))
+            {
+                Directory.CreateDirectory(tagsDir);
+            }
+            return Path.Combine(tagsDir, "index.json");
+        }
+
+        private string GetRelativeKeyForFile(string filePath)
+        {
+            var rel = Path.GetRelativePath(this.contentRootPath, filePath);
+            return rel.Replace('\\', '/');
+        }
+
+        private Dictionary<string, string[]> LoadTagIndex()
+        {
+            var indexPath = GetTagsIndexPath();
+            if (!File.Exists(indexPath))
+            {
+                return new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase);
+            }
+
+            try
+            {
+                var json = File.ReadAllText(indexPath);
+                var dict = JsonSerializer.Deserialize<Dictionary<string, string[]>>(json);
+                return dict ?? new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase);
+            }
+            catch
+            {
+                return new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase);
+            }
+        }
+
+        private void SaveTagIndex(Dictionary<string, string[]> index)
+        {
+            var indexPath = GetTagsIndexPath();
+            var json = JsonSerializer.Serialize(index, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(indexPath, json);
+        }
+
+        public void TagInitialFiles()
         {
             DirectoryInfo rootDirectory = new DirectoryInfo(this.contentRootPath);
             IEnumerable<FileInfo> filteredFileList = GetDirectoryFiles(rootDirectory, new List<FileInfo>()).
@@ -1351,43 +1395,58 @@ namespace FileManagerAI.Services
 
         public void UpdateTagsToFile(string filePath, List<ChipItem> newTags)
         {
-            string adsPath = filePath + ":tags";
-            List<ChipItem> existingTags = GetTagsFromFile(filePath).Select(tag => new ChipItem { Text = tag }).ToList();
-            var combinedTags = existingTags.Union(newTags).ToArray();
-            using (FileStream fs = new FileStream(adsPath, FileMode.OpenOrCreate, FileAccess.Write))
-            using (StreamWriter writer = new StreamWriter(fs))
-            {
-                string tagsString = string.Join(";", combinedTags.Select(tag => tag.Text));
-                writer.Write(tagsString);
-            }
+            var index = LoadTagIndex();
+
+            var key = GetRelativeKeyForFile(filePath);
+            var existing = index.ContainsKey(key) ? index[key] : Array.Empty<string>();
+
+            var merged = existing
+                .Concat(newTags.Select(t => t.Text))
+                .Where(t => !string.IsNullOrWhiteSpace(t))
+                .Select(t => t.Trim())
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+
+            index[key] = merged;
+            SaveTagIndex(index);
         }
 
         public string[] GetTagsFromFile(string filePath)
         {
-            string adsPath = filePath + ":tags";
-            if (File.Exists(adsPath))
+            var index = LoadTagIndex();
+            var key = GetRelativeKeyForFile(filePath);
+            if (index.TryGetValue(key, out var tags) && tags != null)
             {
-                using (FileStream fs = new FileStream(adsPath, FileMode.Open, FileAccess.Read))
-                using (StreamReader reader = new StreamReader(fs))
-                {
-                    string tagsString = reader.ReadToEnd();
-                    return tagsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                }
+                return tags;
             }
-            return new string[0];
+            return Array.Empty<string>();
         }
 
         public void RemoveTagsFromFile(string filePath, string[] tagsToRemove)
         {
-            string adsPath = filePath + ":tags";
-            string[] existingTags = GetTagsFromFile(filePath);
-            var updatedTags = existingTags.Except(tagsToRemove).ToArray();
-            using (FileStream fs = new FileStream(adsPath, FileMode.Create, FileAccess.Write))
-            using (StreamWriter writer = new StreamWriter(fs))
+            if (tagsToRemove == null || tagsToRemove.Length == 0) return;
+
+            var index = LoadTagIndex();
+            var key = GetRelativeKeyForFile(filePath);
+
+            if (!index.TryGetValue(key, out var existing) || existing == null || existing.Length == 0)
             {
-                string tagsString = string.Join(";", updatedTags);
-                writer.Write(tagsString);
+                return;
             }
+
+            var updated = existing
+                .Where(t => !tagsToRemove.Contains(t, StringComparer.OrdinalIgnoreCase))
+                .ToArray();
+
+            if (updated.Length == 0)
+            {
+                index.Remove(key);
+            }
+            else
+            {
+                index[key] = updated;
+            }
+            SaveTagIndex(index);
         }
 
         public async Task EmbedInitialFiles()
