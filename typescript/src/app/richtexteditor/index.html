@@ -6,89 +6,56 @@
     <meta charset="utf-8" />
     <meta name="description" content="Essential JS 2" />
     <meta name="author" content="Syncfusion" />
-    <link href="../../bundle.css" rel="stylesheet"/>
-    <link href="style.css" rel="stylesheet"/>
-   
+    <link href="../../bundle.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+
 </head>
 
 <body>
     <h2 style="text-align: center;">Smart Rich Text Editor</h2>
     <div class="description-container e-card">
-      
+
         <div class='e-card-content '>
             <!--!-->
-        <p>The <b>Rich Text Editor</b>, enhanced with AI, offers features such as <i>content generation</i>, <i>summarization</i>, <i>rephrasing</i>, <i>translation</i>, and <i>grammar correction</i>. Click the <mark><b>AI Assist</b></mark> option to explore these AI-powered capabilities. Know more <a href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/richtexteditor/Readme.md">here</a>.</p>
+            <p>The <b>Rich Text Editor</b>, enhanced with AI, offers features such as <i>content generation</i>,
+                <i>summarization</i>, <i>rephrasing</i>, <i>translation</i>, and <i>grammar correction</i>. Click the
+                <mark><b>AI Assist</b></mark> option to explore these AI-powered capabilities. Know more <a
+                    href="https://github.com/syncfusion/smart-ai-samples/blob/master/typescript/src/app/richtexteditor/Readme.md">here</a>.
+            </p>
 
         </div>
     </div>
     <div id='container' class='e-rte-custom-tbar-section'>
-<div class="control-section">
-    <div id="editor">
-        <p><strong>Editing and Improving</strong></p>
-        <p>In today's competitive landscape, effective marketing focuses on building lasting customer relationships
-            rather than just selling products. Brands are expected to provide personalized experiences through data
-            analytics and consumer insights. As expectations evolve, marketers must stay agile and proactive in their
-            strategies.</p>
-        <p><strong>Tone and style</strong></p>
-        <p>Agile methodologies are essential in modern project management, particularly in software development.
-            They enable teams to adapt quickly and deliver greater customer value through iterative processes and
-            collaboration. Successful Agile implementation requires fostering a culture of adaptability, trust,
-            and shared ownership.</p>
-        <p><strong>Grammar</strong></p>
-        <p>Strong leadership is more than directing a team—it's about inspiring people toward a common vision.
-            Effective leaders cultivate transparency, empathy, and accountability within their organizations.
-            They empower others by encouraging autonomy and providing opportunities for growth. In times of
-            uncertainty or rapid change, it's the leaders who stay grounded and lead with clarity who build the
-            most resilient and high-performing teams.</p>
-        <p><strong>Summarization, simplification, or elaboration</strong></p>
-        <p>Strong leadership inspires a team toward a shared vision while promoting transparency, empathy,
-            and accountability. Effective leaders empower others through autonomy and growth. In times of
-            uncertainty or change, clear leaders build resilient, high-performing teams.</p>
-    </div>
-</div>
-
-<div id="action-description">
-    <p>The AI Assistant feature provides a user interface such as an AssistView inside a popup, nested dropdown with
-        predefined prompts, and a toolbar button for interacting with an AI model.</p>
-</div>
-<div id="description">
-    <p>The <b>AI Assistant</b> feature provides a predefined user interface for integrating AI capabilities into the
-        Rich Text Editor, enabling users to create, edit, and enhance content more efficiently.</p>
-    <ul>
-        <li>The AI Assistant can be accessed via the keyboard shortcut(<code>Alt + Enter or ⌥ + Enter</code>) or
-            toolbar.</li>
-        <li>The <b>AI Commands</b> menu provides a predefined list of prompts useful for performing common
-            content-related actions such as improving, shortening, elaborating, simplifying, summarizing, and checking
-            grammar.</li>
-        <li>The <b>AI Query </b>button helps to open the AI Assistant with the flexibility to provide a user defined
-            prompt when processing the content.</li>
-    </ul>
-    <p>In this sample the AI Assistant feature is enabled by </p>
-    <ul>
-        <li>Injecting the <code>AIAssistant</code> class in to the RichTextEditor Inject method.</li>
-        <li>Adding the <code>AICommands</code>, <code>AIQuery</code> into the toolbarSettings items property.</li>
-    </ul>
-    <p><b>Processing of the Prompt:</b></p>
-    <ul>
-        <li>When a prompt is executed the <code>aiAssistantPromptRequest</code> event is triggered, followed by a
-            <code>fetch</code> request to the backend service to process the query.
-        </li>
-        <li>The response from the LLM is streamed back into the editor’s Assistant view using the
-            <code>addAIPromptResponse</code> public method.
-        </li>
-        <li>When the Stop Responding button is clicked the streaming process is cancelled by setting the
-            <code>stopStreaming</code> boolean to false.
-        </li>
-    </ul>
-    <p><b>Injectible Modules:</b></p>
-    <p>The AI Assistant feature is built as an injectable module to be modular and then tree-shaken and opted in only
-        when needed. It can be used by injecting the module in the RichTextEditor's Inject method. For example:
-        <code>AIAssistant</code> feature can be injected by
-        <code>RichTextEditor.Inject(AIAssistant, HtmlEditor, Toolbar, QuickToolbar, Image, Table, Link, PasteCleanup);</code>
-    </p>
-</div>
+        <div class="control-section">
+            <div id="editor">
+                <p><strong>Editing and Improving</strong></p>
+                <p>In today's competitive landscape, effective marketing focuses on building lasting customer
+                    relationships
+                    rather than just selling products. Brands are expected to provide personalized experiences through
+                    data
+                    analytics and consumer insights. As expectations evolve, marketers must stay agile and proactive in
+                    their
+                    strategies.</p>
+                <p><strong>Tone and style</strong></p>
+                <p>Agile methodologies are essential in modern project management, particularly in software development.
+                    They enable teams to adapt quickly and deliver greater customer value through iterative processes
+                    and
+                    collaboration. Successful Agile implementation requires fostering a culture of adaptability, trust,
+                    and shared ownership.</p>
+                <p><strong>Grammar</strong></p>
+                <p>Strong leadership is more than directing a team—it's about inspiring people toward a common vision.
+                    Effective leaders cultivate transparency, empathy, and accountability within their organizations.
+                    They empower others by encouraging autonomy and providing opportunities for growth. In times of
+                    uncertainty or rapid change, it's the leaders who stay grounded and lead with clarity who build the
+                    most resilient and high-performing teams.</p>
+                <p><strong>Summarization, simplification, or elaboration</strong></p>
+                <p>Strong leadership inspires a team toward a shared vision while promoting transparency, empathy,
+                    and accountability. Effective leaders empower others through autonomy and growth. In times of
+                    uncertainty or change, clear leaders build resilient, high-performing teams.</p>
+            </div>
+        </div>
     </div>
     <script src="./rte.js"></script>
-    <script src="./service.js"></script>
 </body>
+
 </html>

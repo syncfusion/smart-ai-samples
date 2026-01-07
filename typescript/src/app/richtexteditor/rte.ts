@@ -2,11 +2,9 @@
  * Rich Text Editor AI Assistant sample
  */
 import { AIAssistant, AIAssistantPromptRequestArgs, HtmlEditor, Image, Link, PasteCleanup, QuickToolbar, RichTextEditor, Table, Toolbar, CodeBlock } from '@syncfusion/ej2-richtexteditor';
-import { getUserID, AI_SERVICE_URL } from './ai-service';
 
 RichTextEditor.Inject(AIAssistant, HtmlEditor, Toolbar, QuickToolbar, Image, Table, Link, PasteCleanup, CodeBlock);
-
-this.default = (): void => {
+    let STREAM_LINK = 'https://ai-samples-server-f5hta2h9g5aqhcfg.southindia-01.azurewebsites.net';
     let abortController: AbortController;
     let userID: string;
     const editor: RichTextEditor = new RichTextEditor({
@@ -18,14 +16,12 @@ this.default = (): void => {
             text: ['AICommands', 'AIQuery', '|', 'Bold', 'Italic', 'Underline', 'StrikeThrough', 'Fontcolor', 'BackgroundColor', '|', 'Unorderedlist', 'Orderedlist']
         },
         aiAssistantPromptRequest: async (args: AIAssistantPromptRequestArgs) => {
-            userID = await getUserID();
             try {
                 abortController = new AbortController();
-                const response: Response = await fetch(AI_SERVICE_URL + '/api/stream', {
+                const response: Response = await fetch(STREAM_LINK + '/api/stream', {
                     method: 'POST',
                     headers: {
                         "Content-Type": 'application/json',
-                        "Authorization": userID
                     },
                     body: JSON.stringify({ message: args.prompt + (args.text) }),
                     signal: abortController.signal
@@ -34,7 +30,11 @@ this.default = (): void => {
                     const errorData = await response.json(); // read the JSON body
                     throw new Error(errorData.error || `HTTP Error ${response.status}`);
                 }
-                const stream: ReadableStream<string> = response.body.pipeThrough(new TextDecoderStream());
+                const body = response.body;
+                if (!body) {
+                    throw new Error('Response body is null');
+                }
+                const stream: ReadableStream<string> = body.pipeThrough(new TextDecoderStream());
                 let fullText: string = '';
                 for await (const chunk of stream as unknown as AsyncIterable<string>) {
                     fullText += chunk;
@@ -42,15 +42,29 @@ this.default = (): void => {
                 }
                 editor.addAIPromptResponse(fullText, true); // Final update
             } catch (error) {
-                if (error.name === 'AbortError') {
-                    console.log('AI Request aborted by user.');
-                    return;
-                } else if (error.message.includes('token limit')) {
-                    editor.addAIPromptResponse(error.message, true);
-                    document.querySelector('.banner-message').innerHTML = error.message;
-                    document.querySelector('.sb-header1').classList.remove('sb-hide');
-                } else {
-                    console.error('There was a problem with your fetch operation:', error);
+                const message = error instanceof Error ? error.message : String(error);
+                const name = error instanceof Error ? error.name : String(error);
+                if (message.includes('token limit')) {
+                    if (name === 'AbortError') {
+                        console.log('AI Request aborted by user.');
+                        return;
+                    } else if (message.includes('token limit')) {
+                        editor.addAIPromptResponse(message, true);
+
+                        const bannerEl = document.querySelector('.banner-message');
+                        const headerEl = document.querySelector('.sb-token-header');
+
+                        if (bannerEl) {
+                            bannerEl.textContent = message; // prefer textContent over innerHTML for safety
+                        }
+
+                        if (headerEl) {
+                            headerEl.classList.remove('sb-hide');
+                        }
+
+                    } else {
+                        console.error('There was a problem with your fetch operation:', error);
+                    }
                 }
             }
         },
@@ -59,4 +73,3 @@ this.default = (): void => {
         }
     })
     editor.appendTo('#editor');
-}
