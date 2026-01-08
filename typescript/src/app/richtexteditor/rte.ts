@@ -49,18 +49,6 @@ RichTextEditor.Inject(AIAssistant, HtmlEditor, Toolbar, QuickToolbar, Image, Tab
                         return;
                     } else if (message.includes('token limit')) {
                         editor.addAIPromptResponse(message, true);
-
-                        const bannerEl = document.querySelector('.banner-message');
-                        const headerEl = document.querySelector('.sb-token-header');
-
-                        if (bannerEl) {
-                            bannerEl.textContent = message; // prefer textContent over innerHTML for safety
-                        }
-
-                        if (headerEl) {
-                            headerEl.classList.remove('sb-hide');
-                        }
-
                     } else {
                         console.error('There was a problem with your fetch operation:', error);
                     }

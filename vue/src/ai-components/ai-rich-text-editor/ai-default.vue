@@ -98,10 +98,6 @@ export default {
                         editorRef.value.addAIPromptResponse(error.message, false);
                         editorRef.value.addAIPromptResponse(error.message, true);
                     }
-                    const bannerMessage = document.querySelector('.banner-message');
-                    if (bannerMessage) bannerMessage.innerHTML = error.message;
-                    const sbHeader = document.querySelector('.sb-header1');
-                    if (sbHeader) sbHeader.classList.remove('sb-hide');
                 } else {
                     console.error('There was a problem with your fetch operation:', error);
                 }
