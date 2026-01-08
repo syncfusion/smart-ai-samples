@@ -4,9 +4,8 @@
 import { AIAssistant, AIAssistantPromptRequestArgs, HtmlEditor, Image, Link, PasteCleanup, QuickToolbar, RichTextEditor, Table, Toolbar, CodeBlock } from '@syncfusion/ej2-richtexteditor';
 
 RichTextEditor.Inject(AIAssistant, HtmlEditor, Toolbar, QuickToolbar, Image, Table, Link, PasteCleanup, CodeBlock);
-    let STREAM_LINK = 'https://ai-samples-server-f5hta2h9g5aqhcfg.southindia-01.azurewebsites.net';
+    let serviceURL = 'YOUR_API_ENDPOINT';
     let abortController: AbortController;
-    let userID: string;
     const editor: RichTextEditor = new RichTextEditor({
         toolbarSettings: {
             items: ['AICommands', 'AIQuery', '|', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '|', 'Alignments', 'Formats', 'OrderedList',
@@ -18,7 +17,7 @@ RichTextEditor.Inject(AIAssistant, HtmlEditor, Toolbar, QuickToolbar, Image, Tab
         aiAssistantPromptRequest: async (args: AIAssistantPromptRequestArgs) => {
             try {
                 abortController = new AbortController();
-                const response: Response = await fetch(STREAM_LINK + '/api/stream', {
+                const response: Response = await fetch(serviceURL + '/api/stream', {
                     method: 'POST',
                     headers: {
                         "Content-Type": 'application/json',

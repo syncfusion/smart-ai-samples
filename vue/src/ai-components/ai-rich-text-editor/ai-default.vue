@@ -41,7 +41,7 @@ export default {
         ejsRichtexteditor: RichTextEditorComponent,
     },
     setup() {
-            let STREAM_LINK = 'https://ai-samples-server-f5hta2h9g5aqhcfg.southindia-01.azurewebsites.net';
+        let serviceURL = 'YOUR_API_ENDPOINT';
 
         const richtexteditor = [AIAssistant, Toolbar, HtmlEditor, QuickToolbar, Image, Table, Link, PasteCleanup, CodeBlock];
 
@@ -63,7 +63,7 @@ export default {
         async function onAIAssistantPromptRequest(args: AIAssistantPromptRequestArgs): Promise<void> {
             try {
                 abortController = new AbortController();
-                const response: Response = await fetch(STREAM_LINK + '/api/stream', {
+                const response: Response = await fetch(serviceURL + '/api/stream', {
                     method: 'POST',
                     headers: {
                         "Content-Type": 'application/json',

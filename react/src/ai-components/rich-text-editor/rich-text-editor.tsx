@@ -6,7 +6,7 @@ import { enableRipple } from '@syncfusion/ej2-base';
 enableRipple(true);
 
 function SmartRichTextEditor() {
-    const STREAM_LINK: string = 'https://ai-samples-server-f5hta2h9g5aqhcfg.southindia-01.azurewebsites.net';
+    const serviceURL: string = 'YOUR_API_ENDPOINT';
     const editorRef = React.useRef<RichTextEditorComponent | null>(null);
     const toolbarSettings: ToolbarSettingsModel = {
         items: ['AICommands', 'AIQuery', '|', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '|', 'Alignments', 'Formats', 'OrderedList',
@@ -22,7 +22,7 @@ function SmartRichTextEditor() {
     async function onAIAssistantPromptRequest(args: AIAssistantPromptRequestArgs): Promise<void> {
         try {
             abortController = new AbortController();
-            const response: Response = await fetch(STREAM_LINK + '/api/stream', {
+            const response: Response = await fetch(serviceURL + '/api/stream', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json',
@@ -96,63 +96,6 @@ function SmartRichTextEditor() {
                         uncertainty or change, clear leaders build resilient, high-performing teams.</p>
                     <Inject services={[AIAssistant, Toolbar, HtmlEditor, QuickToolbar, Image, Table, Link, PasteCleanup, CodeBlock]} />
                 </RichTextEditorComponent>
-            </div>
-            <div id="action-description">
-                <p>The AI Assistant feature provides a user interface such as an AssistView inside a popup, nested dropdown with
-                    predefined prompts, and a toolbar button for interacting with an AI model.</p>
-            </div>
-            <div id='description'>
-                <p>
-                    The <b>AI Assistant</b> feature provides a predefined user interface for integrating AI capabilities into the Rich Text Editor, enabling users to create, edit, and enhance
-                    content more efficiently.
-                </p>
-                <ul>
-                    <li>
-                        The AI Assistant can be accessed via the keyboard shortcut (<code>Alt + Enter or ⌥ + Enter</code>) or toolbar.
-                    </li>
-                    <li>
-                        The <b>AI Commands</b> menu provides a predefined list of prompts useful for performing common content-related actions such as improving, shortening, elaborating,
-                        simplifying, summarizing, and checking grammar.
-                    </li>
-                    <li>
-                        The <b>AI Query </b>button helps to open the AI Assistant with the flexibility to provide a user defined prompt when processing the content.
-                    </li>
-                </ul>
-                <p>In this sample the AI Assistant feature is enabled by </p>
-                <ul>
-                    <li>
-                        Injecting the <code>AIAssistant</code> Service in to the Component <code>providers</code> section.
-                    </li>
-                    <li>
-                        Adding the <code>AICommands</code>, <code>AIQuery</code> into the <code>toolbarSettings</code> items property.
-                    </li>
-                </ul>
-                <p>
-                    <b>Processing of the Prompt:</b>
-                </p>
-                <ul>
-                    <li>
-                        When a prompt is executed the <code>aiAssistantPromptRequest</code> event is triggered, followed by a<code>fetch</code> request to the backend service to process the query.
-                    </li>
-                    <li>
-                        The response from the LLM is streamed back into the editor’s Assistant view using the
-                        <code>addAIPromptResponse</code> public method.
-                    </li>
-                    <li>
-                        When the Stop Responding button is clicked the streaming process is cancelled by setting the
-                        <code>stopStreaming</code> boolean to false.
-                    </li>
-                </ul>
-                <p>
-                    <b>Injectible Modules:</b>
-                </p>
-                <p>
-                    The AI Assistant feature is built as an injectable module to be modular and then tree-shaken and opted in only when needed. It can be used by injecting the module in the{" "}
-                    <code>Inject</code> component.
-                    <br />
-                    For example: The <code>AIAssistant</code> service can be injected by using the <code>Inject</code>
-                    component with the services array:
-                </p>
             </div>
         </div>
     )

@@ -13,7 +13,7 @@ enableRipple(true);
 })
 export class SmartRichTextEditor {
   @ViewChild('editor')
-  private STREAM_LINK = 'https://ai-samples-server-f5hta2h9g5aqhcfg.southindia-01.azurewebsites.net';
+  private serviceURL = 'YOUR_API_ENDPOINT';
 
   public editor: RichTextEditorComponent | undefined;
 
@@ -32,7 +32,7 @@ export class SmartRichTextEditor {
   async onAIAssistantPromptRequest(args: AIAssistantPromptRequestArgs): Promise<void> {
     try {
       this.abortController = new AbortController();
-      const response: Response = await fetch(this.STREAM_LINK + '/api/stream', {
+      const response: Response = await fetch(this.serviceURL + '/api/stream', {
         method: 'POST',
         headers: {
           "Content-Type": 'application/json',
