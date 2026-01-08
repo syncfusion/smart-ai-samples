@@ -12,446 +12,98 @@
             </div>
         </div>
     </div>
-    <div id='container' class='e-rte-custom-tbar-section' style="width: 97%;">
-        <ejs-richtexteditor ref="defaultRTE" id='defaultRTE' height='550' :saveInterval='0' :autoSaveOnIdle='true'
-            :value="value" :toolbarSettings="toolbarSettings" :toolbarClick="onToolbarClick">
-            <template #aiAssist>
-                <ejs-dropdownbutton cssClass="menubutton e-tbar-btn e-tbar-btn-text" tabindex="-1"
-                    id="ai_assistant_button_tbar" style="width:100%" :select="aiQuerySelectedMenu" :items="[
-                        { text: 'Rephrase' },
-                        { text: 'Correct Grammar' },
-                        { text: 'Summarize' },
-                        { text: 'Elaborate' },
-                        { text: 'Translate' },
-                        { text: 'Sentiment Analysis' }
-                    ]">
-                    <div class="e-rte-dropdown-btn-text">AI Assist</div>
-                </ejs-dropdownbutton>
-            </template>
-            <template #rephrase>
-                <button class="e-tbar-btn e-btn" tabindex="-1" id="ai_rephrase_button_tbar" style="width:100%">
-                    <div class="e-tbar-btn-text">Rephrase</div>
-                </button>
-            </template>
+    <div class="control-section">
+        <ejs-richtexteditor id="editor" ref="editorRef" :toolbarSettings="toolbarSettings"
+            :quickToolbarSettings="quickToolbarSettings" :aiAssistantPromptRequest="onAIAssistantPromptRequest">
+            <p><b>Editing and Improving</b></p>
+            <p>In today's competitive landscape, effective marketing focuses on building lasting customer relationships rather than just selling products. Brands are expected to provide personalized experiences through data analytics and consumer insights. As expectations evolve, marketers must stay agile and proactive in their strategies.</p>
+            <p><b>Tone and style</b></p>
+            <p>Agile methodologies are essential in modern project management, particularly in software development. They enable teams to adapt quickly and deliver greater customer value through iterative processes and collaboration. Successful Agile implementation requires fostering a culture of adaptability, trust, and shared ownership.</p>
+            <p><b>Grammar</b></p>
+            <p>Strong leadership is more than directing a team—it's about inspiring people toward a common vision. Effective leaders cultivate transparency, empathy, and accountability within their organizations. They empower others by encouraging autonomy and providing opportunities for growth. In times of uncertainty or rapid change, it's the leaders who stay grounded and lead with clarity who build the most resilient and high-performing teams.</p>
+            <p><b>Summarization, simplification, or elaboration</b></p>
+            <p>Strong leadership inspires a team toward a shared vision while promoting transparency, empathy, and accountability. Effective leaders empower others through autonomy and growth. In times of uncertainty or change, clear leaders build resilient, high-performing teams.</p>
         </ejs-richtexteditor>
-        <ejs-dialog ref="dialog" id="dialog" class="modal" header="AI Assist" target="#container"
-            :showCloseIcon="true" :isModal="true" height="100%" width="80%" cssClass="e-rte-elements custom-dialog"
-            :zIndex="1000" content="dialogTemplate" footerTemplate="footer" :close="closeDialog"
-            :overlayClick="overlayClick" :open="dialogShow">
-            <template #dialogTemplate>
-                <div id="dialog-content" class="dialog-content" style="height: 100%;">
-                    <div class="custom-row-0">
-                        <div class="cuscol-0" style="width:100%; align-items: center;justify-content: left;">
-                            <div style="width:75%; text-align: left;">
-                                <ejs-dropdownlist ref="queryCategory" id="queryCategory" :index="0"
-                                    :dataSource="queryList" :fields="{ text: 'Text', value: 'ID' }"
-                                    cssClass="e-round-corner" :select="queryCategorySelect">
-                                    Rephrase
-                                </ejs-dropdownlist>
-                            </div>
-                        </div>
-                        <div class="cuscol-1" style="justify-content: space-between; align-items: center; width: 100%;">
-                            <div id="language" style="width: 100%; display: none;">
-                                <div style="display: flex; justify-content: right; align-items: center;">
-                                    <div style="text-align: end; padding-right: 20px">
-                                        <span>Target Language</span>
-                                    </div>
-                                    <div style="text-align: right;">
-                                        <ejs-dropdownlist ref="languageCategory" id="language-Category" :index="0"
-                                            :dataSource="languageList" :fields="{ text: 'Text', value: 'ID' }"
-                                            cssClass="e-round-corner" :select="languageCategorySelect">
-                                        </ejs-dropdownlist>
-                                    </div>
-                                </div>
-                            </div>
-                            <ejs-chip ref="chipList" id="chips-container"
-                                :chips="['Standard', 'Fluent', 'Professional']" selection="Single"
-                                style="justify-content: right; align-items: center; width: 100%; display: none"
-                                cssClass="e-outline" :selectedChips="[0]" :click="chipClick">
-                            </ejs-chip>
-                        </div>
-                    </div>
-                    <div class="custom-row-1" style="height:74%">
-                        <div class="cuscol-0"
-                            style="width:100%; height: 100%; align-items: center;justify-content: left;">
-                            <div style="text-align: left;">
-                                <ejs-richtexteditor ref="leftRte" :height="310" :value="resultData"
-                                    placeholder="Analysis of AI Support" width="100%"
-                                    cssClass="e-outline"></ejs-richtexteditor>
-                            </div>
-                        </div>
-                        <div class="cuscol-1"
-                            style="display: flex; justify-content: space-between; width: 100%; height: 100%;">
-                            <div style="text-align: left; width: 100%;">
-                                <ejs-richtexteditor ref="rightRte" :height="310" :value="resultData"
-                                    :toolbarSettings="{ enable: false }" placeholder="Analysis of AI Support"
-                                    width="100%" cssClass="e-outline"></ejs-richtexteditor>
-                                <div class="no-results-found" id="no-results-found"
-                                    style="height: 244px; align-content: center; display: none;">
-                                    <img height="50" width="50"
-                                        src="https://storage.googleapis.com/cdn-bolddesk/agent-angular-app/images/light/no-records-warning.svg">
-                                    <div>No results found</div>
-                                </div>
-                                <div id='skeletonId' style="display: none;">
-                                    <ejs-skeleton id="skeletonId1" shape="Rectangle" height="20px"
-                                        width="100%"></ejs-skeleton><br>
-                                    <ejs-skeleton id="skeletonId2" shape="Rectangle" height="20px"
-                                        width="90%"></ejs-skeleton><br>
-                                    <ejs-skeleton id="skeletonId3" shape="Rectangle" height="20px"
-                                        width="70%"></ejs-skeleton><br>
-                                    <ejs-skeleton id="skeletonId4" shape="Rectangle" height="20px"
-                                        width="50%"></ejs-skeleton><br>
-                                    <ejs-skeleton id="skeletonId5" shape="Rectangle" height="20px"
-                                        width="30%"></ejs-skeleton><br>
-                                    <ejs-skeleton id="skeletonId6" shape="Rectangle" height="20px"
-                                        width="10%"></ejs-skeleton><br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </template>
-            <template #footer>
-                <div class="custom-row-0">
-                    <div class="cuscol-0" style="width:100%; align-items: center;justify-content: left;">
-                        <div style="text-align: right;">
-                            <ejs-button ref="regenerate" id="regenerate" :isPrimary="true" :disabled="true"
-                                @click="updateAISugesstions">Regenerate</ejs-button>
-                        </div>
-                    </div>
-                    <div class="cuscol-1"
-                        style="display: flex; flex-direction: column;justify-content: center; align-items: center; width: 100%;">
-                        <div style="text-align: right; width: 100%;">
-                            <ejs-button ref="sentiment" id="sentiment" :disabled="true" cssClass="sentiment">😊
-                                Neutral</ejs-button>
-                            <ejs-button ref="copy" id="copy" :disabled="true"
-                                @click="() => copyTextToClipboard(AIResult)">Copy</ejs-button>
-                            <ejs-button ref="replace" id="replace" :isPrimary="true" :disabled="true"
-                                @click="replaceBtnClick">Replace</ejs-button>
-                        </div>
-                    </div>
-                </div>
-            </template>
-        </ejs-dialog>
-        <ejs-toast ref="defaultToast" :showCloseButton="true" :timeOut="0" :position="{ X: 'Right', Y: 'Top' }" content="An error occurred during the AI process, Please try again later.">
-            
-        </ejs-toast>
     </div>
 </template>
 
 <script lang="ts">
 import { enableRipple } from '@syncfusion/ej2-base';
-import { OpenAiModel } from '../common/ai-models';
-import { Toolbar, Link, Image, QuickToolbar, HtmlEditor, ToolbarClickEventArgs, RichTextEditorComponent } from '@syncfusion/ej2-vue-richtexteditor';
-import { DialogComponent } from '@syncfusion/ej2-vue-popups';
-import { DropDownListComponent } from '@syncfusion/ej2-vue-dropdowns';
-import { SkeletonComponent, ToastComponent } from '@syncfusion/ej2-vue-notifications';
-import { ButtonComponent, ChipListComponent } from '@syncfusion/ej2-vue-buttons';
-import { DropDownButtonComponent } from '@syncfusion/ej2-vue-splitbuttons';
-import { createApp } from 'vue';
+	import { defineComponent, ref, provide } from "vue";
+import { AIAssistant, AIAssistantPromptRequestArgs, HtmlEditor, Image, Link, PasteCleanup, QuickToolbar,
+    QuickToolbarSettingsModel, RichTextEditorComponent, Table, Toolbar, ToolbarSettingsModel , CodeBlock} from '@syncfusion/ej2-vue-richtexteditor';
 
 enableRipple(true);
 
 export default {
+  	    name: "RichTextEditoAIAssistant",
     components: {
-        'ejs-richtexteditor': RichTextEditorComponent,
-        'ejs-toast': ToastComponent,
-        'ejs-dialog': DialogComponent,
-        'ejs-dropdownbutton': DropDownButtonComponent,
-        'ejs-chip': ChipListComponent,
-        'ejs-dropdownlist': DropDownListComponent,
-        'ejs-skeleton': SkeletonComponent,
-        'ejs-button': ButtonComponent
+        ejsRichtexteditor: RichTextEditorComponent,
     },
-    data() {
-        return {
-            queryList: [
-                { ID: "Rephrase", Text: "Rephrase" },
-                { ID: "Grammar", Text: "Correct Grammar" },
-                { ID: "Summarize", Text: "Summarize" },
-                { ID: "Elaborate", Text: "Elaborate" },
-                { ID: "Translate", Text: "Translate" },
-                { ID: "SentimentAnalysis", Text: "Sentiment Analysis" }
-            ],
-            languageList: [
-                { ID: "EN", Text: "English" },
-                { ID: "ZH", Text: "Chinese (Simplified)" },
-                { ID: "ZHT", Text: "Chinese (Traditional)" },
-                { ID: "ES", Text: "Spanish" },
-                { ID: "HI", Text: "Hindi" },
-                { ID: "AR", Text: "Arabic" },
-                { ID: "BN", Text: "Bengali" },
-                { ID: "PT", Text: "Portuguese" },
-                { ID: "RU", Text: "Russian" },
-                { ID: "JA", Text: "Japanese" },
-                { ID: "DE", Text: "German" },
-                { ID: "KO", Text: "Korean" },
-                { ID: "FR", Text: "French" },
-                { ID: "IT", Text: "Italian" },
-                { ID: "TR", Text: "Turkish" }
-            ],
-            subQuery: '',
-            promptQuery: '',
-            isSentimentCheck: false,
-            resultData: '',
-            dropValIndex: 0,
-            isDialogElementCreated: false,
-            chipValue: ['Standard'],
-            AIResult: '',
-            apiResultData: {},
-            translatelanguage: '',
-            value: `<h2><span>Integrate AI with the Editor</span></h2><p>Integrate the AI assist into the rich text editor by capturing the content from the editor, sending it to the AI service, and displaying the results or suggestions back in the editor.</p><h3>Summarize</h3><p>This function condenses the selected content into a brief summary, capturing the main points succinctly.</p><h3>Elaborate</h3><p>This function expands the selected content, adding additional details and context.</p><h3>Rephrase</h3><p>This function rewrites the selected content to convey the same meaning using different words or structures. It also enables rephrase options and disables language selection.</p><h3>Correct Grammar</h3><p>This function reviews and corrects the grammar of the selected content, ensuring it adheres to standard grammatical rules.</p><h3>Translate</h3><p>This function translates the selected content into the specified language, enabling language selection and disabling rephrase options.</p>`,
-            toolbarSettings: {
-                items: [
-                    {
-                        tooltipText: 'AI Assist',
-                        template: this.aiAssistTemplate
-                    },
-                    {
-                        tooltipText: 'Rephrase',
-                        template: this.rephraseTemplate
-                    },
-                    'Bold',
-                    'Italic',
-                    'Underline',
-                    '|',
-                    'FontName',
-                    'FontSize',
-                    'FontColor',
-                    '|',
-                    'BackgroundColor',
-                    'Formats',
-                    'Alignments',
-                    '|',
-                    'OrderedList',
-                    'BulletFormatList',
-                    'CreateLink',
-                    'Image',
-                    '|',
-                    'createTable',
-                    'SourceCode',
-                    'Undo',
-                    'Redo',
-                ],
-            } as any
-        }
-    },
-    methods: {
-        aiQuerySelectedMenu: function (args: any): void {
-            this.dialogueOpen(args.item.text);
-        },
-        onToolbarClick: function (args: ToolbarClickEventArgs): void {
-            if (args.item.tooltipText === 'Rephrase') {
-                this.dialogueOpen("Rephrase");
-            }
-        },
-        dialogueOpen: function (selectedQuery: string): void {
-            const defaultRTE = this.$refs.defaultRTE.ej2Instances;
-            const leftRte = this.$refs.leftRte.ej2Instances;
-            const dialog = this.$refs.dialog.ej2Instances;
-            const defaultToast = this.$refs.defaultToast.ej2Instances;
-            const queryCategory = this.$refs.queryCategory.ej2Instances;
-            var selectionText = defaultRTE.getSelectedHtml();
+    setup() {
+        let serviceURL = 'YOUR_API_ENDPOINT';
 
-            if (selectionText) {
-                let range: Range = (defaultRTE as any).formatter.editorManager.nodeSelection?.getRange((defaultRTE as any).contentModule.getDocument());
-                (defaultRTE as any).formatter.editorManager.nodeSelection?.save(range, (defaultRTE as any).contentModule.getDocument());
-                this.dropValIndex = this.queryList.findIndex(q => q.Text.toLowerCase() === selectedQuery.toLowerCase());
-                queryCategory.index = this.dropValIndex;
-                leftRte.value = this.promptQuery = selectionText;
-                leftRte.refreshUI();
-                dialog.show();
-                this.updateAISugesstionsData(selectedQuery);
-            } else {
-                defaultToast.timeOut = 2000;
-                defaultToast.content = 'Please select the content to perform the AI operation.';
-                defaultToast.show();
-            }
-        },
-        updateAISugesstionsData: function (selectedQuery: string): void {
-            (document.getElementById('language') as HTMLElement).style.display = 'none';
-            (document.getElementById('chips-container') as HTMLElement).style.display = 'none';
-            this.isSentimentCheck = false;
-            switch (selectedQuery) {
-                case "Summarize":
-                    this.subQuery = "Summarize the upcoming sentence shortly.";
-                    break;
-                case "Elaborate":
-                    this.subQuery = "Elaborate on the upcoming sentence.";
-                    break;
-                case "Rephrase":
-                    (document.getElementById('chips-container') as HTMLElement).style.display = '';
-                    this.subQuery = this.chipValue[0] + " rephrase the upcoming sentence.";
-                    break;
-                case "Correct Grammar":
-                    this.subQuery = "Correct the grammar of the upcoming sentence.";
-                    break;
-                case "Translate":
-                    (document.getElementById('language') as HTMLElement).style.display = '';
-                    this.subQuery = "Translate the upcoming sentence to " + this.translatelanguage + ".";
-                    break;
-                case "Sentiment Analysis":
-                    this.isSentimentCheck = true;
-                    this.subQuery = "Analyze the sentiment and grammar of the following paragraphs and provide the expression score with an emoji followed by the sentiment in the format: \"😊 Neutral\". \n\nNOTE: Avoid any additional text or explanation:";
-                    break;
-            }
-            this.updateAISugesstions();
-        },
-        updateAISugesstions: function (): void {
-            const sentiment = this.$refs.sentiment.ej2Instances;
-            const regenerate = this.$refs.regenerate.ej2Instances;
-            const copy = this.$refs.copy.ej2Instances;
-            const replace = this.$refs.replace.ej2Instances;
-            const rightRte = this.$refs.rightRte.ej2Instances;
+        const richtexteditor = [AIAssistant, Toolbar, HtmlEditor, QuickToolbar, Image, Table, Link, PasteCleanup, CodeBlock];
 
+        provide("richtexteditor", richtexteditor);
+
+        const editorRef = ref<RichTextEditorComponent | null>(null);
+
+        const toolbarSettings: ToolbarSettingsModel = {
+            items: ['AICommands', 'AIQuery', '|', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '|', 'Alignments', 'Formats', 'OrderedList',
+                'UnorderedList', 'CheckList', 'CodeBlock', 'Blockquote', 'CreateLink', 'Image', 'CreateTable', '|', 'SourceCode', '|', 'Undo', 'Redo']
+        };
+
+        const quickToolbarSettings: QuickToolbarSettingsModel = {
+            text: ['AICommands', 'AIQuery', '|', 'Bold', 'Italic', 'Underline', 'StrikeThrough', 'FontColor', 'BackgroundColor', '|', 'UnorderedList', 'OrderedList']
+        };
+
+        let abortController: AbortController;
+
+        async function onAIAssistantPromptRequest(args: AIAssistantPromptRequestArgs): Promise<void> {
             try {
-                if (this.promptQuery) {
-                    (document.getElementById('skeletonId') as HTMLElement).style.display = '';
-                    rightRte.element.style.display = 'none';
-                    sentiment.element.style.display = 'none';
-                    regenerate.disabled = true;
-                    copy.disabled = true;
-                    replace.disabled = true;
-                    this.apiResultData = this.getResponseFromOpenAI(this.subQuery, this.promptQuery);
-                    this.apiResultData.then((result: any) => {
-                        this.AIResult = this.isSentimentCheck ? this.promptQuery : result;
-                        this.AIResult = this.AIResult.replace('```html', '').replace('```', '');
-                        sentiment.content = result.toLowerCase().includes("positive") ? "😊 Positive" : result.toLowerCase().includes("negative") ? "😞 Negative" : "😐 Neutral";
-                        sentiment.element.style.display = !this.isSentimentCheck ? 'none' : '';
-                        rightRte.value = this.AIResult;
-                        var noResultsFound = !(this.AIResult || this.promptQuery);
-                        (document.getElementById('no-results-found') as HTMLElement).style.display = noResultsFound ? '' : 'none';
-                        regenerate.disabled = noResultsFound;
-                        copy.disabled = noResultsFound;
-                        replace.disabled = noResultsFound;
-                        (document.getElementById('skeletonId') as HTMLElement).style.display = 'none';
-                        rightRte.element.style.display = noResultsFound ? 'none' : '';
-                    });
-                }
-            } catch {
-                this.$refs.defaultToast.show();
-            }
-        },
-        getResponseFromOpenAI: async function (subQuery: string, promptQuery: string): Promise<string> {
-            const content = await OpenAiModel(subQuery, promptQuery);
-            return content ? content as string : '';
-        },
-        chipClick: function (args: any) {
-            this.chipValue[0] = args.text;
-            this.updateAISugesstionsData("Rephrase");
-        },
-        languageCategorySelect: function (args) {
-            this.translatelanguage = args.itemData.ID;
-            this.updateAISugesstionsData("Translate");
-        },
-        queryCategorySelect: function (args) {
-            this.$refs.chipList.ej2Instances.selectedChips = 0;
-            this.$refs.languageCategory.ej2Instances.index = 0;
-            this.translatelanguage = "EN";
-            this.updateAISugesstionsData(args.itemData.Text);
-        },
-        replaceBtnClick: function () {
-            const defaultRTE = this.$refs.defaultRTE.ej2Instances;
-            let range: Range = (defaultRTE as any).formatter.editorManager.nodeSelection?.getRange((defaultRTE as any).contentModule.getDocument());
-            (defaultRTE as any).formatter.editorManager.nodeSelection?.restore(range);
-            (defaultRTE as any).executeCommand('insertHTML', this.AIResult, { undo: true });
-            this.closeDialog();
-        },
-        dialogShow: function (): void {
-            this.isDialogElementCreated = true;
-        },
-        closeDialog: function (): void {
-            const dialog = this.$refs.dialog.ej2Instances;
-            const rightRte = this.$refs.rightRte.ej2Instances;
-            const leftRte = this.$refs.leftRte.ej2Instances;
-            const sentiment = this.$refs.sentiment.ej2Instances;
-
-            dialog.hide();
-            rightRte.value = '';
-            leftRte.value = '';
-            this.promptQuery = '';
-            this.chipValue[0] = 'Standard';
-            this.AIResult = '';
-            this.dropValIndex = 0;
-            (document.getElementById('chips-container') as HTMLElement).style.display = '';
-            (document.getElementById('language') as HTMLElement).style.display = 'none';
-            sentiment.content = '😊 Neutral';
-        },
-        copyTextToClipboard: function (text: string): void {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(() => {
-                    console.log('Text copied to clipboard successfully!');
-                }).catch(err => {
-                    console.error('Failed to copy text: ', err);
-                });
-            } else {
-                // Fallback for browsers that do not support the Clipboard API
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                document.body.appendChild(textarea);
-                textarea.select();
-                try {
-                    document.execCommand('copy');
-                    console.log('Text copied to clipboard using execCommand');
-                } catch (err) {
-                    console.error('Failed to copy text: ', err);
-                } finally {
-                    document.body.removeChild(textarea);
-                }
-            }
-        },
-        overlayClick: function () {
-            const dialog = this.$refs.dialog.ej2Instances;
-            let activeEle: HTMLElement = dialog.element.querySelector('.char_block.e-active') as HTMLElement;
-            if (activeEle) {
-                activeEle.classList.remove('e-active');
-            }
-            this.closeDialog();
-        },
-        aiAssistTemplate: function () {
-            const dialogueOpen = this.dialogueOpen;
-            return {
-                template: createApp({}).component('aiAssist', {
-                    template: `<ejs-dropdownbutton cssClass="menubutton e-tbar-btn e-tbar-btn-text" tabindex="-1"
-                    id="ai_assistant_button_tbar" style="width:100%" :select="aiQuerySelectedMenu" :items="[
-                        { text: 'Rephrase' },
-                        { text: 'Correct Grammar' },
-                        { text: 'Summarize' },
-                        { text: 'Elaborate' },
-                        { text: 'Translate' },
-                        { text: 'Sentiment Analysis' }
-                    ]">
-                    <div class="e-rte-dropdown-btn-text e-icons e-assistview-icon">AI Assist</div>
-                </ejs-dropdownbutton>`,
-                    components: {
-                        'ejs-dropdownbutton': DropDownButtonComponent,
+                abortController = new AbortController();
+                const response: Response = await fetch(serviceURL + '/api/stream', {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": 'application/json',
                     },
-                    data() { return {} },
-                    methods: {
-                        aiQuerySelectedMenu: function (args: any): void {
-                            dialogueOpen(args.item.text);
-                        }
+                    body: JSON.stringify({ message: args.prompt + (args.text || '') }),
+                    signal: abortController.signal
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `HTTP Error ${response.status}`);
+                }
+
+                const stream: ReadableStream<string> = response.body!.pipeThrough(new TextDecoderStream());
+                let fullText: string = '';
+
+                for await (const chunk of stream as unknown as AsyncIterable<string>) {
+                    fullText += chunk;
+                    if (editorRef.value) {
+                        editorRef.value.addAIPromptResponse(fullText, false);
                     }
-                })
-            }
-        },
-        rephraseTemplate: function () {
-            return {
-                template: createApp({}).component('rephrase', {
-                    template: `
-                <button class="e-tbar-btn e-btn" tabindex="-1" id="ai_rephrase_button_tbar" style="width:100%">
-                    <div class="e-tbar-btn-text">Rephrase</div>
-                </button>`,
-                    data() { return {} },
-                })
+                }
+                if (editorRef.value) {
+                    editorRef.value.addAIPromptResponse(fullText, true); // Final update
+                }
+            } catch (error: any) {
+                if (error.name === 'AbortError') {
+                    console.log('AI Request aborted by user.');
+                    return;
+                } else if (error.message.includes('token limit')) {
+                    if (editorRef.value) {
+                        editorRef.value.addAIPromptResponse(error.message, false);
+                        editorRef.value.addAIPromptResponse(error.message, true);
+                    }
+                } else {
+                    console.error('There was a problem with your fetch operation:', error);
+                }
             }
         }
-    },
-    mounted() {
-        this.$refs.dialog.hide();
-    },
-    provide: {
-        richtexteditor: [Toolbar, Link, Image, QuickToolbar, HtmlEditor]
+        return { editorRef, toolbarSettings, quickToolbarSettings, onAIAssistantPromptRequest };
     }
 }
 

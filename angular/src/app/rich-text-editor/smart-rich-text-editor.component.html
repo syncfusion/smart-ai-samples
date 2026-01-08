@@ -1,136 +1,54 @@
 <div class="description-container e-card">
     <div class="e-card-content">
-      <p>
-        Rich Text Editor integrated with AI featuring content generation, summarization, rephrasing, translation, and grammar correction. 
-        Click <code><mark>AI Assist</mark></code> option to see the AI Features. 
-        Refer <a href="#">here</a> for more details.
-      </p>
+        <p>
+            Rich Text Editor integrated with AI featuring content generation, summarization, rephrasing, translation,
+            and grammar correction.
+            Click <code><mark>AI Assist</mark></code> option to see the AI Features.
+            Refer <a href="#">here</a> for more details.
+        </p>
     </div>
-  </div>
+</div>
 <div id='container' class='e-rte-custom-tbar-section'>
-    <ejs-richtexteditor #defaultRTE id='defaultRTE' height="550" [saveInterval]="0" [autoSaveOnIdle]="true"
-        [toolbarSettings]="toolbarSettings" (created)="onCreate()" (toolbarClick)="onToolbarClick($event)">
+    <ejs-richtexteditor #editor [toolbarSettings]="toolbarSettings" [quickToolbarSettings]="quickToolbarSettings"
+        (aiAssistantPromptRequest)="onAIAssistantPromptRequest($event)">
         <ng-template #valueTemplate>
-            <h2><span>Integrate AI with the Editor</span></h2>
-            <p>Integrate the AI Assist into the rich text editor by capturing the content from the editor, sending it to
-                the AI service, and displaying the results or suggestions back in the editor.</p>
-            <h3>Summarize</h3>
-            <p>This function condenses the selected content into a brief summary, capturing the main points succinctly.
-            </p>
-            <h3>Elaborate</h3>
-            <p>This function expands the selected content, adding additional details and context.</p>
-            <h3>Rephrase</h3>
-            <p>This function rewrites the selected content to convey the same meaning using different words or
-                structures. It also enables rephrase options and disables language selection.</p>
-            <h3>Correct Grammar</h3>
-            <p>This function reviews and corrects the grammar of the selected content, ensuring it adheres to standard
-                grammatical rules.</p>
-            <h3>Translate</h3>
-            <p>This function translates the selected content into the specified language, enabling language selection
-                and disabling rephrase options.</p>
+            <p><strong>Editing and Improving</strong></p>
+            <p>In today’s competitive landscape, effective marketing is no longer just about selling a product—it's
+                about
+                building lasting relationships with customers. Brands are expected to deliver personalized experiences
+                that
+                resonate with their target audience. Leveraging data analytics and consumer insights has become
+                essential
+                for creating campaigns that not only reach people but truly engage them. As consumer expectations
+                continue
+                to evolve, marketers must remain agile and proactive in their strategies.</p>
+            <p><strong>Tone and style</strong></p>
+            <p>Agile methodologies have become a cornerstone for modern project management, especially in software
+                development and digital innovation. By embracing iterative processes, cross-functional collaboration,
+                and
+                continuous feedback, Agile teams can respond quickly to change and deliver more value to customers.
+                However,
+                implementing Agile is not just about following a framework—it's about fostering a culture of
+                adaptability,
+                trust, and shared ownership across teams.</p>
+            <p><strong>Grammar</strong></p>
+            <p>Strong leadership is more than directing a team—it's about inspiring people toward a common vision.
+                Effective
+                leaders cultivate transparency, empathy, and accountability within their organizations. They empower
+                others
+                by encouraging autonomy and providing opportunities for growth. In times of uncertainty or rapid change,
+                it's the leaders who stay grounded and lead with clarity who build the most resilient and
+                high-performing
+                teams.</p>
+            <p><strong>Summarization, simplification, or elaboration</strong></p>
+            <p>Technology continues to transform how we live and work, with advancements in artificial intelligence,
+                cloud
+                computing, and automation reshaping industries. Businesses that fail to adapt risk falling behind more
+                innovative competitors. As digital transformation accelerates, it's important for organizations to not
+                only
+                invest in new tools but also upskill their teams. A tech-driven mindset is no longer optional—it's
+                critical
+                to staying relevant in a rapidly changing world.</p>
         </ng-template>
-
     </ejs-richtexteditor>
-    <ejs-dialog #dialog id="dialog" class="modal" [visible]="false" header="AI Assist" target="#container"
-        [showCloseIcon]="true" [isModal]="true" height="100%" width="80%" cssClass="e-rte-elements custom-dialog-rte"
-        zIndex="1000" (close)="closeDialog()" (overlayClick)="onOverlayClick()" (open)="dialogShow()">
-        <ng-template #footerTemplate>
-            <div id="dialog-footer-content">
-                <div class="custom-row-0">
-                    <div class="cuscol-0" style="width: 100%; align-items: center; justify-content: left;">
-                        <div style="text-align: right;">
-                            <button ejs-button #regenerateButton content="Regenerate" isPrimary="true"
-                                disabled="false"></button>
-                        </div>
-                    </div>
-                    <div class="cuscol-1"
-                        style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
-                        <div style="text-align: right; width: 100%;">
-                            <button ejs-button #sentimentButton content="😊 Neutral" disabled="false"
-                                cssClass="sentiment"></button>
-                            <button ejs-button #copyButton content="Copy" disabled="false"></button>
-                            <button ejs-button #replaceButton content="Replace" isPrimary="true"
-                                disabled="false"></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template #content>
-            <div class="dialog-content" style="height: 100%">
-                <div class="custom-row-0">
-                    <div class="cuscol-0" style="width: 100%; align-items: center; justify-content: left;">
-                        <div style="width: 75%; text-align: left;">
-                            <ejs-dropdownlist #queryCategory id="queryCategory" [dataSource]="queryList" index="0"
-                                [fields]="{ text: 'Text', value: 'ID' }" (select)="onQuerySelect($event)">
-                                Rephrase
-                            </ejs-dropdownlist>
-                        </div>
-                    </div>
-                    <div class="cuscol-1" style="justify-content: space-between; align-items: center; width: 100%;">
-                        <div id="language" style="width: 100%; display: none;">
-                            <div style="display: flex; justify-content: right; align-items: center;">
-                                <div style="text-align: end; padding-right: 20px;">
-                                    <span>Target Language</span>
-                                </div>
-                                <div style="text-align: right;">
-                                    <ejs-dropdownlist #languageCategory id="language-Category"
-                                        [dataSource]="languageList" [fields]="{ text: 'Text', value: 'ID' }"
-                                        (select)="onLanguageSelect($event)">
-                                    </ejs-dropdownlist>
-                                </div>
-                            </div>
-                        </div>
-                        <ejs-chiplist id="chips-container" #chipList [chips]="['Standard', 'Fluent', 'Professional']"
-                            selection="Single" cssClass="e-outline" [selectedChips]="[0]" (click)="onChipClick($event)">
-                        </ejs-chiplist>
-                    </div>
-                </div>
-                <div class="custom-row-1" style="height: 74%;">
-                    <div class="cuscol-0"
-                        style="width: 100%; height: 100%; align-items: center; justify-content: left;">
-                        <div style="text-align: left;">
-                            <ejs-richtexteditor #leftRte id="leftRte" height="310" [toolbarSettings]="{ enable: false }"
-                                placeholder="Analysis of AI Support" cssClass="e-outline">
-                            </ejs-richtexteditor>
-                        </div>
-                    </div>
-                    <div class="cuscol-1"
-                        style="display: flex; justify-content: space-between; width: 100%; height: 100%;">
-                        <div style="text-align: left; width: 100%;">
-                            <ejs-richtexteditor #rightRte id="rightRte" height="310" style="display: none"
-                                [toolbarSettings]="{ enable: false }" placeholder="Analysis of AI Support"
-                                cssClass="e-outline">
-                            </ejs-richtexteditor>
-                            <div class="no-results-found" id="no-results-found"
-                                style="display: none; height: 244px; align-content: center;">
-                                <img height="50" width="50"
-                                    src="https://storage.googleapis.com/cdn-bolddesk/agent-angular-app/images/light/no-records-warning.svg">
-                                <div>No results found</div>
-                            </div>
-                            <div id="skeletonId" style="display: none;">
-                                <ejs-skeleton #skeletonId1 shape="Rectangle" height="20px"
-                                    width="100%"></ejs-skeleton><br />
-                                <ejs-skeleton #skeletonId2 shape="Rectangle" height="20px"
-                                    width="90%"></ejs-skeleton><br />
-                                <ejs-skeleton #skeletonId3 shape="Rectangle" height="20px"
-                                    width="70%"></ejs-skeleton><br />
-                                <ejs-skeleton #skeletonId4 shape="Rectangle" height="20px"
-                                    width="50%"></ejs-skeleton><br />
-                                <ejs-skeleton #skeletonId5 shape="Rectangle" height="20px"
-                                    width="30%"></ejs-skeleton><br />
-                                <ejs-skeleton #skeletonId6 shape="Rectangle" height="20px"
-                                    width="10%"></ejs-skeleton><br />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </ejs-dialog>
-
-    <ejs-toast #toastObj id="toast_default" [showCloseButton]="true" [timeOut]="0"
-        content="An error occurred during the AI process, Please try again." [position]="{ X: 'Right', Y: 'Top' }">
-    </ejs-toast>
-
 </div>
