@@ -118,7 +118,7 @@ function LeftPane() {
 
     return (
         <div>
-            <TreeViewComponent id='home-left-pane' ref={treeview => treeviewInstance = treeview as TreeViewComponent}
+            <TreeViewComponent id='home-left-pane' ref={(treeview: TreeViewComponent)  => treeviewInstance = treeview as TreeViewComponent}
                 fields={fields} fullRowSelect={true} nodeClicked={onClicked} />
         </div>
     );
