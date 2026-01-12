@@ -26,7 +26,7 @@ function App() {
           </ToolbarComponent>
         </div>
         <div className='main-content'>
-          <SidebarComponent id="home-sidebar" ref={Sidebar => (sidebarObj as any) = Sidebar} width={'270px'}
+          <SidebarComponent id="home-sidebar" ref={(Sidebar: SidebarComponent) => (sidebarObj) = Sidebar} width={'270px'}
             target={target} isOpen={true} type='Auto'>
             <LeftPane />
           </SidebarComponent>
