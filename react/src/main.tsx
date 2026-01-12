@@ -32,7 +32,8 @@ import SmartFileManager from './ai-components/filemanager/smart-filemanager.tsx'
 // SpreadSheet
 import SmartSpreadSheet from './ai-components/spreadsheet/smart-spreadsheet.tsx'
 // Pivot Table
-import SmartPivotTable from './ai-components/pivot-table/smart-pivot-table.tsx'
+import SmartPivotTable from './ai-components/pivot-table/smart-pivot-table/smart-pivot-table.tsx'
+import AssistivePivot from './ai-components/pivot-table/assistive-pivot/assistive-pivot.tsx'
 // Document Editor
 import SmartEditor from './ai-components/document-editor/smart-editor/smart-editor.tsx'
 import WritingAssist from './ai-components/document-editor/writing-assist/writing-assist.tsx'
@@ -88,6 +89,7 @@ const routerEle = createHashRouter(
       <Route path="smart-spreadsheet" element={<SmartSpreadSheet />} />
       {/* Pivot Table */}
       <Route path="smart-pivot-table" element={<SmartPivotTable />} />
+      <Route path="assistive-pivot" element={<AssistivePivot />} />
       {/* Document Editor */}
       <Route path="smart-editor" element={<SmartEditor />} />
       <Route path="writing-assist" element={<WritingAssist />} />

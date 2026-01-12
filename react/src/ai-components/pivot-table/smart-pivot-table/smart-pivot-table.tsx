@@ -3,7 +3,7 @@ import {
     NumberFormatting, IDataOptions, IDataSet, PDFExport
 } from '@syncfusion/ej2-react-pivotview';
 import { enableRipple } from '@syncfusion/ej2-base';
-import { getAzureChatAIRequest } from '../../ai-models';
+import { getAzureChatAIRequest } from '../../../ai-models';
 import { pivotData } from './datasource';
 import { createSpinner, DialogComponent, hideSpinner, showSpinner } from '@syncfusion/ej2-react-popups';
 import { DropDownList, MultiSelect } from '@syncfusion/ej2-react-dropdowns';
