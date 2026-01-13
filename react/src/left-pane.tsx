@@ -32,9 +32,6 @@ function LeftPane() {
             "id": 37, "name": "Rich Text Editor", "headerText": "Smart Rich Text Editor", 'navigateUrl': '#/rich-text-editor'
         },
         {
-            "id": 28, "name": "Pivot Table", "headerText": "Smart Pivot Table", 'navigateUrl': '#/smart-pivot-table'
-        },
-        {
             "id": 10, "name": "Tree Grid", "headerText": "Data Restructuring", 'navigateUrl': '#/adaptive-data-structuring'
         },
         {
@@ -90,6 +87,13 @@ function LeftPane() {
                 { "id": 6, "name": "Predictive Data Entry", 'navigateUrl': '#/predictive-data' },
                 { "id": 7, "name": "Anamoly Detection", 'navigateUrl': '#/anamoly-detection' },
                 { "id": 8, "name": "Data Trend Analysis", 'navigateUrl': '#/data-trend' }
+            ]
+        },
+        {
+            "id": 27, "name": "Pivot Table", expanded: true,
+            "child": [
+                {"id": 28, "name": "Assistive Pivot", 'navigateUrl': '#/assistive-pivot'},
+                { "id": 39, "name": "Smart Pivot Table", 'navigateUrl': '#/smart-pivot-table' },
             ]
         },
         {
