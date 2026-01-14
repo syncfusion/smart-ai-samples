@@ -25,7 +25,7 @@ export async function getAzureChatAIRequest(options: any) {
             messages: options.messages,
             topP: options.topP,
             temperature: options.temperature,
-            maxTokens: options.maxTokens,
+            maxOutputTokens: options.maxTokens,
             frequencyPenalty: options.frequencyPenalty,
             presencePenalty: options.presencePenalty,
             stopSequences: options.stopSequences
