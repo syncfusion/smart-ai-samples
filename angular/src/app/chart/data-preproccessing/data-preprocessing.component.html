@@ -1,0 +1,32 @@
+<h4 style="text-align: center;">Data Preprocessing</h4>
+
+<div class="description-container e-card">
+  <div class="e-card-content">
+    <p>
+      The <b>Data Preprocessing</b> sample uses Syncfusion Angular Charts to clean and visualize datasets 
+      containing missing or inconsistent values. With a single click on the AI Assist button, raw data is 
+      automatically processed to fill gaps and correct anomalies. The updated dataset is instantly reflected 
+      in the chart, offering a complete and accurate view.
+    </p>
+    <p>
+      Select a dataset with missing values and click AI Assist to clean and visualize complete data instantly.
+      Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/Charts/Readme.md">here</a>.
+    </p>
+  </div>
+</div>
+
+<div id="chart-wrapper" class="chart-wrapper">
+  <ejs-chart #chart id="data-pre-chart" [primaryXAxis]="{ valueType: 'DateTime', labelFormat: 'h tt', edgeLabelPlacement: 'Shift' }"
+             [primaryYAxis]="{ minimum: 140, maximum: 320, interval: 30 }"
+             [title]="'E-Commerce Website Traffic Data'"
+             [subTitle]="'AI-powered data cleaning and preprocessing for tracking hourly website visitors'">
+    <e-series-collection>
+      <e-series [dataSource]="chartData" xName="Time" yName="Visitors"
+                      type="MultiColoredLine" pointColorMapping="Color" name="Visitors">
+      </e-series>
+    </e-series-collection>
+  </ejs-chart>
+
+  <button ejs-button cssClass="chart-action-button e-primary" iconCss="e-icons e-ai-chat"
+          (click)="processChartData()">AI Assist</button>
+</div>

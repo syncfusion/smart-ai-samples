@@ -2,6 +2,7 @@
     { "id": 1, "name": "Smart Paste", "path": "/SmartPaste" },
     { "id": 2, "name": "Smart Text Area", "path": "/SmartTextArea" },
     { "id": 3, "name": "ComboBox", "path": "/ComboBox" },
+     
     { "id": 4, "name": "Schedule", "path": "/Schedule" },
     { "id": 5, "name": "Rich Text Editor", "path": "/RTE" },
     { "id": 6, "name": "Pivot Table", "path": "/Pivot" },
@@ -45,6 +46,14 @@
         { "id": 25, "name": "Smart Task Prioritizer", "path": "/GanttTask" },
         { "id": 26, "name": "Smart Progress Predictor", "path": "/GanttProgress" },
         { "id": 27, "name": "Smart Resource Allocation", "path": "/GanttResource" }
+    ] 
+},
+    { "id": 28, "name": "Chart", "expanded": true, 
+    "children": [
+        { "id": 29, "name": "Data Preprocessing", "path": "/DataPreprocessing" },
+        { "id": 30, "name": "Stock Forcasting", "path": "/StockForcasting" }
+        
+       
     ] 
 }
 ]

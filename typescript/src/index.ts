@@ -26,6 +26,8 @@ let treeData: { [key: string]: Object }[] = [
   { id: '/smartpaste/index.html', name: 'Smart Paste' },
   { id: '/smarttextarea/index.html', name: 'Smart TexArea' },
   { id: '/combobox/local-embedding/index.html', name: 'ComboBox', url: '' },
+  { id: '/chart/data_preprocessing/index.html', name: 'Chart', url: '' },
+
   {
     id: '/scheduler/smart_scheduler/index.html', name: 'Schedule', url: ''
   },

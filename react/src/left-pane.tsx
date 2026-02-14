@@ -26,6 +26,9 @@ function LeftPane() {
             "id": 8, "name": "ComboBox", "headerText": "Semantic search", 'navigateUrl': '#/combobox-semantic-search'
         },
         {
+            "id": 50, "name": "Chart", "headerText": "chart", 'navigateUrl': '#/data-preprocessing-chart'
+        },
+        {
             "id": 22, "name": "Scheduler", "headerText": "Smart Scheduler", 'navigateUrl': '#/smart-scheduler'
         },
         {

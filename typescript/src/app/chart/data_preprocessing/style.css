@@ -1,0 +1,58 @@
+/* new */
+.chart-wrapper {
+    position: relative;
+}
+
+#aiAssistBtn.e-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+        padding: 8px;
+    line-height: 14px;
+    
+    font-size: 16px;
+    
+        padding: 8.2px 16px;
+}
+
+.chart-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+
+.chart-action-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer;
+ 
+  
+}
+
+.chart-action-button .e-icons { color: rgb(252, 252, 252);      font-size: 17px;
+    line-height: 17px;
+    font-weight: 400;
+}
+ 
+
+.chart-spinner-overlay {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  
+}
+/* Make the spinner overlay cover the chart and center the spinner */
+.chart-spinner-overlay  {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 1000;
+}
