@@ -13,7 +13,6 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
     {
         SfFileManager<FileManagerDirectoryContent>? FileManager;
         private string[] SelectedItems { get; set; } = new string[] { "RandomFiles" };
-        private bool VisibleProperty { get; set; } = false;
         private string FileManagerId { get; set; } = "FileManager_" + Guid.NewGuid().ToString("N");
         private string DialogTitle { get; set; } = "File Summary";
         private bool IsDialogVisible { get; set; } = false;
@@ -187,11 +186,9 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
             }
             else if (args.Item.Text == "Organize")
             {
-                VisibleProperty = true;
                 string path = FileManager?.Path + FileManager?.SelectedItems[0] + "/";
                 bool showHiddenItems = args.FileDetails[0].ShowHiddenItems;
                 await FileManagerService.OrganizeFiles(path, showHiddenItems, args.FileDetails.ToArray());
-                VisibleProperty = false;
                 await FileManager.OpenFileAsync(args.FileDetails[0].Name);
             }
         }
@@ -200,11 +197,9 @@ namespace SyncfusionAISamples.Components.Pages.FileManager
         {
             if (args.Item.Text == "Organize")
             {
-                VisibleProperty = true;
                 string path = FileManager?.Path + FileManager?.SelectedItems[0] + "/";
                 bool showHiddenItems = args.FileDetails[0].ShowHiddenItems;
                 await FileManagerService.OrganizeFiles(path, showHiddenItems, args.FileDetails.ToArray());
-                VisibleProperty = false;
                 await FileManager.OpenFileAsync(args.FileDetails[0].Name);
             }
             else if (args.Item.Text == "Quick Summary")
