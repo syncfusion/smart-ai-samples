@@ -60,5 +60,5 @@ The AI can apply various cell formats including:
 
 1. **Financial Analysis**: "Highlight all negative values in red and positive values in green"
 2. **Report Formatting**: "Make the first row bold with blue background and center-align all headers"
-3. **Conditional Formatting**: "Highlight top 10 performers in yellow"
+3. **Cell Formatting**: "Highlight top 10 performers in yellow"
 
