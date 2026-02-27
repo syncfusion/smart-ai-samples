@@ -369,6 +369,17 @@ The **Syncfusion Blazor Image Editor** offers an sample **Smart Image Editor** w
 
 For more insights, refer [here](SyncfusionAISamples/Components/Pages/ImageEditor/Readme.md).
 
+
+### Spreadsheet
+
+The **Syncfusion Blazor Spreadsheet** offers a sample Smart Spreadsheet with intelligent features designed to simplify how users work with worksheet data. Key functionalities include the AI Assistant for analyzing and interacting with active worksheets using natural-language prompts, Analysis for generating summaries and formula suggestions, advanced **Cell Editing** and **Cell Formatting** tools for precise data manipulation and polished presentation.
+
+#### Smart Spreadsheet
+
+![Gif image of Spreadsheet component](SyncfusionAISamples/wwwroot/gif-images/smart-spreadsheet/smart-spreadsheet.gif)
+For more insights, refer [here](SyncfusionAISamples/Components/Pages/Spreadsheet/Readme.md).
+
+
 ## Project Documentation
 
 This table provides an overview of all the AI Samples in this project, along with links to their respective README files for detailed documentation.
@@ -549,6 +560,12 @@ This table provides an overview of all the AI Samples in this project, along wit
             <td>Hierarchical Data Structuring</td>
             <td>Uses AI to correct and organize hierarchical data in a Tree Grid, fixing parent-child relationships to ensure accurate data nesting.</td>
             <td><a href="SyncfusionAISamples/Components/Pages/TreeGrid/Readme.md">Read More</a></td>
+        </tr>
+        <tr>
+            <td><strong>Spreadsheet</strong></td>
+            <td>Smart Spreadsheet</td>
+            <td>Smart Spreadsheet: AI Assistant with natural-language analysis, plus advanced cell editing and cell formatting for precise data manipulation.</td>
+            <td><a href="SyncfusionAISamples/Components/Pages/Spreadsheet/Readme.md">Read More</a></td>
         </tr>
     </tbody>
 </table>
