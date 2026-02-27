@@ -17,7 +17,6 @@
 @using System.Text.RegularExpressions;
 @using Syncfusion.DocIO;
 @using Syncfusion.DocIO.DLS;
-@using Syncfusion.Blazor.Spinner;
 @using Syncfusion.Blazor.Buttons;
 @inject FileManagerService FileManagerService
 @inject AzureAIService AzureAIService
@@ -40,10 +39,6 @@
             <FileManagerToolbarSettings ToolbarItems="@Items"></FileManagerToolbarSettings>
             <FileManagerContextMenuSettings File="@FileItems" Folder="@FolderItems"></FileManagerContextMenuSettings>
             <FileManagerEvents TValue="FileManagerDirectoryContent" OnRead="OnReadAsync" ItemsDeleting="ItemsDeletingAsync" FolderCreating="FolderCreatingAsync" Searching="SearchingAsync" ItemRenaming="ItemRenamingAsync" ItemsMoving="ItemsMovingAsync" ItemsUploaded="ItemsUploadedAsync" BeforeDownload="BeforeDownload" BeforeImageLoad="BeforeImageLoadAsync" OnFileOpen="OnFileOpen" MenuOpened="MenuOpened" OnMenuClick="OnMenuClick" FileSelected="FileSelected" ToolbarItemClicked="ToolbarItemClicked"></FileManagerEvents>
-            <div id="FileManagerSpinner">
-                <SfSpinner @bind-Visible="@VisibleProperty" ZIndex="1006">
-                </SfSpinner>
-            </div>
         </SfFileManager>
     </div>
 </div>
@@ -76,12 +71,6 @@
     .container {
         display: flex;
         width: 100%;
-    }
-
-
-    #FileManagerSpinner .e-spinner-inner {
-        margin-top: 160px;
-        margin-left: 216px;
     }
 
     .split-container {
