@@ -53,7 +53,7 @@ The AI can apply various cell formats including:
 
 ## Limitations
 
-- **Token & Size Limits**: Very large workbooks or extremely wide ranges may be truncated before sending to the AI service
+- **Size Limits**: Very large workbooks or extremely wide ranges may be truncated before sending to the AI service
 - **Safety & Validation**: Programmatic edits are applied based on AI output; users should validate important changes before saving
 
 ## Example Use Cases
