@@ -129,6 +129,11 @@ namespace SyncfusionAISamples.Components.Layout
         {
             Text = "Image Editor",
             Href = "image-editor/smart-imageeditor"
+        },
+        new MenuItem
+        {
+            Text = "Spreadsheet",
+            Href = "spreadsheet/smart-spreadsheet"
         }
     };
     }

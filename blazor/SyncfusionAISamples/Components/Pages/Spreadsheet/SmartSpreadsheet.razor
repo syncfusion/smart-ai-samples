@@ -1,0 +1,227 @@
+@page "/spreadsheet/smart-spreadsheet"
+
+@using Syncfusion.Blazor.Spreadsheet
+@using System
+@using SyncfusionAISamples.Service
+@inject AzureAIService OpenAIService
+@using System.IO
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.InteractiveChat
+@using Syncfusion.Blazor.Navigations
+@using Markdig
+@using System.Reflection
+@using System.Text.RegularExpressions
+@using System.Collections.Generic
+@using Syncfusion.XlsIO
+
+<title>Syncfusion - Smart Spreadsheet with AI Assistant</title>
+
+<h4 style="text-align:center;">Smart Spreadsheet with AI Assistant</h4>
+
+<div id="container">
+    <Description>
+        <p>This sample demonstrates how the AI-enhanced Syncfusion Spreadsheet provides an intelligent assistant to analyze and interact with worksheet data using natural language prompts. The AI can summarize data, answer questions, apply formatting, and update cell values automatically. Know more <a target="_blank" href="https://github.com/syncfusion/smart-ai-samples/blob/master/blazor/SyncfusionAISamples/Components/Pages/Spreadsheet/Readme.md">here</a>.</p>
+    </Description>
+
+    <div class="col-lg-12 control-section">
+        <div class="content-wrapper">
+            <div class="row">
+                @if (!_isAssistVisible)
+                {
+                    <SfFab id="fab" Target="#Spreadsheet" Position="FabPosition.BottomRight" CssClass="fab-hover" IconCss="e-icons e-assistview-icon" OnClick="OnFullSheetAnalysisAsync">
+                        <span class="text-container"><span class="textEle">AI Assist</span></span>
+                    </SfFab>
+                }
+                <div style="position:relative;">
+                    
+                    <SfSpreadsheet id="Spreadsheet" @ref=_spreadsheetInstance DataSource="DataSourceBytes">
+                        <SpreadsheetRibbon></SpreadsheetRibbon>
+                    </SfSpreadsheet>
+
+                    <SfSidebar @ref="_sidebarRef"
+                               @bind-IsOpen="_isAssistVisible"
+                               Position="SidebarPosition.Right"
+                               Type="SidebarType.Over"
+                               Width="35%"
+                               Target="@SidebarTargetSelector">
+                        @if (_isAssistVisible)
+                        {
+                            <SfAIAssistView @ref=_assistView Height="100%" Width="100%" ShowHeader="true"
+                                            CssClass="ai-assist-pane"
+                                            Prompt="Type your prompt for assistance..." PromptSuggestions="@_promptSuggestions" ResponseIconCss="e-icons e-bullet-4" PromptRequested="@OnPromptRequestedAsync">
+                                <ChildContent>
+                                    <AssistViews>
+                                        <AssistView Header="AI Assist">
+                                            <BannerTemplate>
+                                                @if (_isLoading)
+                                                {
+                                                    <div class="banner-loading banner-loading-large">
+                                                        <div class="spinner" aria-hidden="true"></div>
+                                                        <div class="banner-loading-body">
+                                                            <div class="simmer" aria-hidden="true"></div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <AssistViewToolbar ItemClicked="OnToolbarItemClickedAsync">
+                                                    <AssistViewToolbarItem Type="Syncfusion.Blazor.Navigations.ItemType.Spacer"></AssistViewToolbarItem>
+                                                    <AssistViewToolbarItem Type="Syncfusion.Blazor.Navigations.ItemType.Button" IconCss="e-icons e-close" Tooltip="Close" />
+                                                </AssistViewToolbar>
+                                            </BannerTemplate>
+                                        </AssistView>
+                                    </AssistViews>
+                                </ChildContent>
+                            </SfAIAssistView>
+                        }
+                    </SfSidebar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .e-spreadsheet-protection-dialog label,
+    .e-spreadsheet-unprotect-dialog label,
+    .e-unprotectworkbook-dlg label,
+    .e-spreadsheet-name-manager-content label {
+        font-weight: normal !important;
+        margin-bottom: 0 !important;
+    }
+
+    .e-protectworkbook-dlg label {
+        font-weight: normal !important;
+    }
+
+    .ai-assist-sidebar {
+        box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+    }
+
+    .ai-assist-pane,
+    .e-aiassistview {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        display: block;
+    }
+
+    .e-aiassistview .e-footer,
+    .e-aiassistview .e-footer .e-input,
+    .e-aiassistview .e-footer textarea,
+    .e-aiassistview .e-footer .e-input-group {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .e-aiassistview .e-footer {
+        padding: 8px;
+    }
+
+    .e-aiassistview .e-footer {
+        width: 90%;
+    }
+
+    .banner-loading {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+    }
+
+    .banner-loading .spinner {
+        width: 28px;
+        height: 18px;
+        border-radius: 50%;
+        background: linear-gradient(90deg,#eee,#ddd,#eee);
+        animation: spin 1s linear infinite;
+    }
+
+    .banner-loading .simmer {
+        height: 24px;
+        width: 160px;
+        border-radius: 4px;
+        background: linear-gradient(90deg,#f2f2f2,#e9e9e9,#f2f2f2);
+        background-size: 200px 100%;
+        animation: simmer 1.2s linear infinite;
+    }
+
+    .banner-loading-large {
+        padding: 16px 18px;
+        gap: 12px;
+    }
+
+    .banner-loading-large .spinner {
+        width: 46px;
+        height: 46px;
+    }
+
+    .banner-loading-large .banner-loading-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .banner-loading-large .banner-loading-body .label {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--bs-body-color,#222);
+        margin-bottom: 6px;
+    }
+
+    .banner-loading-large .simmer {
+        height: 28px;
+        width: 220px;
+        border-radius: 6px;
+    }
+
+    .fab-hover .text-container {
+        overflow: hidden;
+        width: 0;
+        margin: 0;
+        transition: width .2s linear 0s, margin .2s linear .2s;
+    }
+
+    .fab-hover:hover .text-container {
+        width: 70px;
+        margin: 0 5px;
+        transition: width .2s linear .2s, margin .2s linear 0s;
+    }
+
+    .e-bigger .e-btn.fab-hover .e-btn-icon.e-icon-left,
+    .e-btn.fab-hover .e-btn-icon.e-icon-left {
+        margin-left: 0;
+        width: 1em;
+        padding: 0;
+    }
+
+    .e-bigger .e-fab.e-btn.fab-hover,
+    .e-fab.e-btn.fab-hover {
+        padding: 0 10px;
+    }
+
+    .e-bigger .fab-hover:hover .text-container {
+        width: 75px;
+    }
+
+    .e-fab.e-btn.e-fab-bottom {
+        bottom: 4px;
+    }
+
+    .ai-note {
+        padding: 8px 12px;
+        margin: 8px 0;
+        background-color: #e3f2fd;
+        border-left: 4px solid #2196F3;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #1976d2;
+    }
+
+    @@keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @@keyframes simmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: 200px 0; }
+    }
+</style>
