@@ -9,43 +9,43 @@
 	<ItemGroup>
 		<PackageReference Include="Markdig" Version="0.23.*" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.*" />
-		<PackageReference Include="Syncfusion.Blazor.SmartComponents" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.InteractiveChat" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Themes" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Buttons" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Cards" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.DataForm" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Spinner" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Notifications" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Popups" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.SplitButtons" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Layouts" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Inputs" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Calendars" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Navigations" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Diagram" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.DropDowns" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.SmartRichTextEditor" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.ImageEditor" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.QueryBuilder" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Schedule" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Kanban" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Maps" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Grid" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.TreeGrid" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Gantt" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.TreeMap" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.FileManager" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.PivotTable" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="33.1.44" />
-        <PackageReference Include="Syncfusion.Blazor.SfPdfViewer" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Pdf.Net.Core" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Pdf.Imaging.Net.Core" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.Blazor.Spreadsheet" Version="33.1.44" />
-		<PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="33.1.44" />
+		<PackageReference Include="Syncfusion.Blazor.SmartComponents" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.InteractiveChat" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Themes" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Buttons" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Cards" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.DataForm" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Spinner" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Notifications" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Popups" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.SplitButtons" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Layouts" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Inputs" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Calendars" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Navigations" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Diagram" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.DropDowns" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.SmartRichTextEditor" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.ImageEditor" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.QueryBuilder" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Schedule" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Kanban" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Maps" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Grid" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.TreeGrid" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Gantt" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.TreeMap" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.FileManager" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.PivotTable" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="33.2.8" />
+        <PackageReference Include="Syncfusion.Blazor.SfPdfViewer" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Pdf.Net.Core" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Pdf.Imaging.Net.Core" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.Blazor.Spreadsheet" Version="33.2.8" />
+		<PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="33.2.8" />
 		
-		<PackageReference Include="Syncfusion.Licensing" Version="33.1.44" />
+		<PackageReference Include="Syncfusion.Licensing" Version="33.2.8" />
 	</ItemGroup>
 
 	<ItemGroup>
