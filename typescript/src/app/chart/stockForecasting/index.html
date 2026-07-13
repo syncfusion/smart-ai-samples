@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Stock Forecasting</title>
+    <script src="https://cdn.syncfusion.com/ej2/25.2.3/dist/ej2.min.js"></script>
+    <link href="https://cdn.syncfusion.com/ej2/25.2.3/material.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./stockForecast.css" />
+</head>
+
+<body>
+    <div class="chart-wrapper" id="chart-wrapper">
+        <h4 style="text-align:center;">Stock Forecasting</h4>
+
+        <div class="description">
+            <p>
+                The <b>Stock Forecasting</b> sample uses Syncfusion Charts to visualize historical stock data and predict future trends using AI.
+            </p>
+        </div>
+
+        <div class="control-section">
+            <div class="sidebar">
+                <div class="stock-dropdownbar">
+                    <div id="stock-dropdown"></div>
+                    <div class="stock-info">
+                        <div>
+                            <span id="stock-close" class="price"></span> USD
+                            <br />
+                            <p id="stock-change"></p>
+                        </div>
+                    </div>
+                </div>
+                <p class="para" id="stock-text"></p>
+            </div>
+
+            <div class="control-bar">
+                <div class="range-buttons">
+                    <div class="e-btn-group">
+                        <button id="btn-3m"></button>
+                        <button id="btn-6m"></button>
+                        <button id="btn-12m"></button>
+                    </div>
+                </div>
+
+                <div class="chart-controls">
+                    <input id="series-dropdown" type="text" />
+                    <button id="aiAssistBtn" class="chart-action-button">
+                        <span class="e-icons e-ai-chat"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div id="chart-container"></div>
+            <div id="chartWrapper"></div>
+        </div>
+    </div>
+
+    <script src="./stockForecast.js"></script>
+</body>
+
+</html>

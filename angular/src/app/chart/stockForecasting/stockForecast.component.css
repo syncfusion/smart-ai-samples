@@ -1,0 +1,153 @@
+.para {
+    padding-top: 5px;
+}
+
+.stock-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    padding-right: 2px;
+}
+
+.e-dropdown {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.e-dropdown option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+[data-icon] {
+    position: relative;
+    padding-left: 25px;
+}
+
+[data-icon]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[data-icon="e-logo-msft"]::before {
+    background-image: url('../image/microsoft.png');
+}
+
+[data-icon="e-logo-goog"]::before {
+    background-image: url('../image/google.png');
+}
+
+[data-icon="e-logo-amzn"]::before {
+    background-image: url('../image/amazon.png');
+}
+
+[data-icon="e-logo-tsla"]::before {
+    background-image: url('../image/tesla.png');
+}
+
+.control-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.stock-selection {
+    padding: 5px;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.control-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.range-buttons .e-btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.chart-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-container {
+    position: relative;
+    flex-grow: 1;
+}
+
+#chartWrapper {
+    height: 100%;
+}
+
+#stock-change {
+    margin: 0;
+}
+
+.chart-action-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6f16ef;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    padding: 0;
+}
+
+.chart-action-button:hover {
+    background-color: #5811c9;
+}
+
+.chart-action-button .e-btn-icon.e-icons {
+    color: #fff;
+    font-size: 20px;
+}
+
+.chart-spinner-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.chart-spinner-overlay .e-spinner {
+    width: 20px;
+    height: 20px;
+}

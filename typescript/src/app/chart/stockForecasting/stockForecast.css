@@ -1,0 +1,173 @@
+.para {
+    padding-top: 5px;
+}
+
+.stock-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    padding-right: 2px;
+}
+
+.stock-icon {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.control-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    align-content: center;
+    flex-direction: column;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.stock-dropdownbar {
+    display: flex;
+}
+
+.stock-selection {
+    padding: 5px;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.control-bar {
+    display: flex;
+    align-items: baseline;
+    column-gap: 770px;
+}
+
+.range-buttons .e-btn-group {
+    display: flex;
+}
+
+.chart-controls {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-container {
+    position: relative;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+#chartWrapper {
+    height: 100%;
+}
+
+#stock-change {
+    margin: 0;
+}
+
+/* Syncfusion Button and Spinner Styles */
+.chart-action-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6f16ef;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    position: relative;
+    padding: 0;
+}
+
+.chart-action-button:hover {
+    background-color: #5811c9;
+}
+
+.chart-action-button .e-btn-icon.e-icons {
+    color: #fff;
+    font-size: 20px;
+}
+
+.chart-spinner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.chart-spinner-overlay .e-spinner {
+    width: 20px;
+    height: 20px;
+}
+
+/* DropDownButton Styles */
+#stock-dropdown .e-dropdown-btn {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#stock-dropdown .e-dropdown-popup .e-item {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#stock-dropdown .e-dropdown-btn .stock-icon,
+#stock-dropdown .e-dropdown-popup .e-item .stock-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.stock-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Now point directly to /image/ because served from src/public */
+.e-logo-msft {
+    background-image: url('../image/microsoft.png');
+}
+
+.e-logo-goog {
+    background-image: url('../image/google.png');
+}
+
+.e-logo-amzn {
+    background-image: url('../image/amazon.png');
+}
+
+.e-logo-tsla {
+    background-image: url('../image/tesla.png');
+}

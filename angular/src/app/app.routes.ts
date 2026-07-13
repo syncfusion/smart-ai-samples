@@ -16,6 +16,7 @@ import {imageEditorRoutes} from './image-editor';
 import { documentRoutes } from './document-editor';
 import { SmartRichTextEditor } from './rich-text-editor/smart-rich-text-editor.component';
 import { AdaptiveDataStructureComponent } from './treegrid/adaptive-data-structure/adaptive-data-structure.component';
+import { StockForecastComponent } from './chart/stockForecasting/stockForecast.component';
 export const routes: Routes = [
     {
         path: '',component: SmartTextArea
@@ -44,6 +45,9 @@ export const routes: Routes = [
 ...pivotRoutes,
 {
     path: 'smart-treegrid', component: AdaptiveDataStructureComponent
+},
+{
+    path: 'stockForecasting', component: StockForecastComponent
 },
 ...sheetRoutes,...queryRoutes,...imageEditorRoutes,...documentRoutes,
 ];

@@ -1,0 +1,55 @@
+<div class="control-section">
+    <div class="sidebar">
+        <div class="stock-selection">
+            <select id="stock-dropdown" class="e-dropdown" [(ngModel)]="selectedSymbol" (change)="onStockChange()">
+                <option *ngFor="let stock of stocks" [value]="stock.symbol" [attr.data-icon]="'e-logo-' + stock.symbol.toLowerCase()">
+                    <img [src]="stock.icon" style="width: 20px; height: 20px; margin-right: 8px;" />
+                    {{ stock.text }}
+                </option>
+            </select>
+            <p class="para" id="stock-text">{{ selectedStockInfo.text }}</p>
+        </div>
+        <div class="stock-info" id="stock-info">
+            <div>
+                <span id="stock-close" class="price">{{ selectedStockInfo.close | number:'1.2-2' }} USD</span><br />
+                <p id="stock-change" [style.color]="selectedStockInfo.change >= 0 ? 'green' : 'red'">
+                    {{ selectedStockInfo.change | number:'1.2-2' }} {{ selectedStockInfo.percentChange | number:'1.2-2' }}%
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="control-bar">
+            <div class="range-buttons">
+                <div class="e-btn-group">
+                    <button class="e-btn range-button" (click)="onRangeChange(3)">3 Month</button>
+                    <button class="e-btn range-button" (click)="onRangeChange(6)">6 Month</button>
+                    <button class="e-btn range-button" (click)="onRangeChange(12)">1 Year</button>
+                </div>
+            </div>
+            <div class="chart-controls">
+                <div>
+                    <select id="series-dropdown" class="e-dropdown" [(ngModel)]="selectedSeriesType" (change)="renderChart()">
+                        <option *ngFor="let option of seriesOptions" [value]="option">{{ option }}</option>
+                    </select>
+                </div>
+                <div>
+                    <div id="spinner" class="chart-spinner-overlay" [style.display]="isSpinnerVisible ? 'block' : 'none'">
+                        <div class="e-spinner e-spin e-icon-loading"></div>
+                    </div>
+                    <button id="aiAssistBtn" class="chart-action-button" (click)="onAIAssistClick()">
+                        <span class="e-icons e-ai-chat"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="chart-container" class="chart-container">
+            <ejs-chart #chart id="chartWrapper" [primaryXAxis]="primaryXAxis" [primaryYAxis]="primaryYAxis" [legendSettings]="legendSettings" [tooltip]="tooltip" [crosshair]="crosshair" [chartArea]="chartArea" [width]="width" [theme]="theme" (load)="onChartLoad($event)">
+                <e-series-collection>
+                    <e-series [dataSource]="chartData" xName="date" [type]="selectedSeriesType" [name]="selectedStockInfo.text" [high]="selectedSeriesType !== 'Line' ? 'high' : undefined" [low]="selectedSeriesType !== 'Line' ? 'low' : undefined" [open]="selectedSeriesType !== 'Line' ? 'open' : undefined" [close]="selectedSeriesType !== 'Line' ? 'close' : undefined" [yName]="selectedSeriesType === 'Line' ? 'close' : undefined" bearFillColor="#2ecd71" bullFillColor="#e74c3d">
+                    </e-series>
+                </e-series-collection>
+            </ejs-chart>
+        </div>
+    </div>
+</div>

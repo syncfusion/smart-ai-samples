@@ -52,6 +52,7 @@ import SentimentAnalysis from './ai-components/kanban/sentiment-analysis/sentime
 import SmartFill from './ai-components/pdfviewer/smartfill/smartfill.tsx'
 import SmartRedact from './ai-components/pdfviewer/smartredact/smartredact.tsx'
 import Summarizer from './ai-components/pdfviewer/summarizer/summarizer.tsx'
+import StockForecasting from './ai-components/chart/stock-forecasting/stock-forecasting.tsx'
 import './index.css'
 
 const routerEle = createHashRouter(
@@ -67,6 +68,8 @@ const routerEle = createHashRouter(
       <Route path="predictive-data" element={<PredictiveDataEntry />} />
       <Route path="anamoly-detection" element={<AnamolyDetection />} />
       <Route path="data-trend" element={<DataTrendAnalysis />} />
+      {/* Chart */}
+      <Route path="stock-forecasting" element={<StockForecasting />} />
       {/* ComboBox */}
       <Route path="combobox-semantic-search" element={<ComboBoxSemanticSearch />} />
       {/* Tree Grid */}

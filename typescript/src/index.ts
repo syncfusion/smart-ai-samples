@@ -74,6 +74,11 @@ let treeData: { [key: string]: Object }[] = [
     ]
   },
   {
+    id: '9', name: 'Chart', url: '', subItems: [
+      { id: '/chart/stockForecasting/index.html', name: 'Stock Forecasting' },
+    ]
+  },
+  {
     id:'99', name: ''
   }
 

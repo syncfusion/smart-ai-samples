@@ -105,6 +105,12 @@ function LeftPane() {
                 { "id": 18, "name": "Smart Risk Assessor", 'navigateUrl': '#/risk-analysis' },
                 { "id": 19, "name": "Smart Scheduling", 'navigateUrl': '#/task-schedule' }
             ]
+        },
+        {
+            "id": 50, "name": "Chart", expanded: true,
+            "child": [
+                { "id": 51, "name": "Stock Forecasting", 'navigateUrl': '#/stock-forecasting' }
+            ]
         }
     ];
     const fields: Object = {
