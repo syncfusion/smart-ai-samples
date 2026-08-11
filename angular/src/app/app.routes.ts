@@ -8,6 +8,7 @@ import {  comboboxRoutes } from './combo-box';
 import {  diagramRoutes } from './diagram';
 import { RouterModule, Routes } from '@angular/router';
 import { mapsRoutes } from './maps';
+import { chartRoutes } from './chart';
 import {SmartFileManager} from './filemanager/smart-filemanager/file-manager.component'
 import {pivotRoutes} from './pivot-table';
 import {  queryRoutes} from './query-builder';
@@ -41,6 +42,7 @@ export const routes: Routes = [
 ...schedulerRoutes,
 ...ganttRoutes,
 ...mapsRoutes,
+...chartRoutes,
 ...pivotRoutes,
 {
     path: 'smart-treegrid', component: AdaptiveDataStructureComponent
